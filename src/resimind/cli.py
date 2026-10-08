@@ -1,0 +1,82 @@
+"""Dependency-free installed-package entry point for reproducible Agent demos."""
+from __future__ import annotations
+
+import argparse
+from fractions import Fraction
+import json
+from typing import Sequence
+
+from .agent import AgentResult
+from .domains import bridge, optimization
+
+
+def _trace(result: AgentResult) -> None:
+    for event in result.run_result.trace:
+        action = event.candidate.action if event.candidate is not None else "setup"
+        change = f"{event.before.revision}->{event.after.revision}"
+        unchanged = " (no committed change)" if event.before == event.after else ""
+        print(f"  {event.step}. {event.decision.value.upper():6} {action}")
+        print(f"     {', '.join(event.reasons)} | remaining={event.residual_after.measure} | "
+              f"state_revision={change}{unchanged}")
+
+
+def _optimization_answer(result: AgentResult) -> None:
+    # Only committed certificates supply result values; never read a candidate.
+    facts = {fact.id: json.loads(fact.value) for fact in result.run_result.state.facts}
+    primal = facts[optimization.PRIMAL_FACT]
+    dual = facts[optimization.KKT_FACT]
+    proof = facts[optimization.GLOBAL_FACT]
+    print(f"Verified unique global minimizer: x = ({', '.join(primal['x'])})")
+    print(f"Verified objective: {primal['objective']}")
+    print(f"Verified multipliers: lambda = ({', '.join(dual['lambda'])}); mu = ({', '.join(dual['mu'])})")
+    print(f"Global certificate: {len(proof['weights'])} positive weighted squares + constraint terms")
+
+
+def _bridge_answer(result: AgentResult) -> None:
+    cases = bridge.verified_case_results(result)
+    summary = bridge.verified_summary(result)
+    envelope = summary["envelope"]
+    pier = envelope["pier_min"]
+    print(f"Verified load cases: {len(cases)}")
+    print(f"Governing pier moment: {float(Fraction(pier['value']) / 1000):.2f} kNm ({pier['case']})")
+    for index, peak in enumerate(envelope["positive_max"], 1):
+        print(f"Span {index} positive maximum: {float(Fraction(peak['value']) / 1000):.2f} kNm "
+              f"at x={float(Fraction(peak['x'])):.3f} m ({peak['case']})")
+    for index, peak in enumerate(envelope["midspan_abs_max"], 1):
+        print(f"Span {index} absolute MIDSPAN deflection: {float(Fraction(peak['value']) * 1000):.3f} mm "
+              f"({peak['case']})")
+    for metric, passed in summary["comparisons"].items():
+        print(f"Supplied-limit comparison: {metric} = {passed}")
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    """Return an exit code for console scripts and ``python -m resimind``."""
+    parser = argparse.ArgumentParser(prog="resimind", description="Evidence-bound Agent reasoning with independent verification.")
+    commands = parser.add_subparsers(dest="command", required=True)
+    demo = commands.add_parser("demo", help="run an OFFLINE deterministic fixture, without a model or API key")
+    demo.add_argument("--domain", choices=("optimization", "bridge"), default="optimization",
+                      help="demonstration domain (default: optimization)")
+    demo.add_argument("--json", action="store_true", help="write only the complete JSON evidence/decision audit")
+    args = parser.parse_args(argv)
+    if args.domain == "optimization":
+        result = optimization.run_demo()
+    else:
+        result = bridge.run_demo()
+    run = result.run_result
+    if args.json:
+        print(result.to_json())
+        return 0 if run.status == "solved" else 1
+    print("ResiMind | OFFLINE deterministic fixture | NOT A LIVE LLM RUN")
+    if args.domain == "optimization":
+        print("Exact constrained optimization: 3 coupled variables, equality and inequality constraints")
+    else:
+        print("Continuous bridge: synthetic 24 m + 30 m line beam; eight load cases")
+        print("Supplied factors/limits; deflections reported at MIDSPAN. No bridge safety certification.")
+    _trace(result)
+    if run.status == "solved":
+        if args.domain == "optimization":
+            _optimization_answer(result)
+        else:
+            _bridge_answer(result)
+    print(f"Status: {run.status} | remaining={run.residual.measure} | state_revision={run.state.revision}")
+    return 0 if run.status == "solved" else 1

@@ -1,16 +1,82 @@
-![ResiMind — neuro-symbolic agents that reason through what remains](docs/assets/banner.svg)
+![ResiMind — independent verification for AI agents](docs/assets/banner.svg)
 
 # ResiMind
 
-**Models propose. Verifiers decide. Residuals drive the next step.**
+**Add independent verification to your AI agent.**
 
-A lightweight **neuro-symbolic Agent architecture for mathematics, engineering, and other structured tasks**. Models suggest steps; domain verifiers check certificates and physical equations; residuals keep unfinished obligations visible.
+Your model proposes a step. Your domain verifier checks it. Only accepted facts enter the committed state; unfinished work stays visible and verifier feedback guides the next proposal.
 
-**Python 3.10+ · Zero runtime dependencies · MIT · Experimental v0.4.0**
+Use ResiMind for tasks with explicit, executable checks: mathematical certificates, engineering equations, or your own structured rules. Keep your model and supply the checks for your domain.
 
-[中文](README.zh-CN.md) · [Mathematical proof case](docs/constrained-optimization.md) · [Continuous bridge case](docs/continuous-bridge.md) · [How it is neuro-symbolic](docs/neuro-symbolic.md) · [Architecture](docs/architecture.md)
+**Python 3.10+ · Zero-dependency core · Optional DeepSeek, OpenAI & LangGraph integrations · MIT · Experimental v0.5.0**
+
+[中文](README.zh-CN.md) · [Live model](docs/live-model.md) · [LangGraph](docs/langgraph.md) · [Math proof](docs/constrained-optimization.md) · [Bridge case](docs/continuous-bridge.md) · [Architecture](docs/architecture.md)
 
 **Project creator and original publisher: [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
+
+## Try it in three minutes
+
+With Python installed:
+
+```bash
+git clone https://github.com/1105216375-alt/resimind.git
+cd resimind
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install .
+python -m resimind demo
+```
+
+On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. Installation may download build tools. The demo runs **offline, without an API key**; both `python -m resimind` and the installed `resimind` command work outside the checkout.
+
+The optimization demo rejects an infeasible candidate without changing the committed state, accepts a corrected primal/dual certificate, then verifies a global-optimality proof:
+
+![Actual offline verification trace: reject, correct, certify](docs/assets/verification-demo.gif)
+
+[Static trace image](docs/assets/verification-demo.png). This replay comes from the executable deterministic fixture, **not a live model run**. The verifier and state transitions really execute; the first mistake is deliberately scripted.
+
+```bash
+python -m resimind demo --domain bridge
+python -m resimind demo --json > audit.json
+```
+
+## Connect it to your workflow
+
+| Start with | What it adds | Run it |
+| --- | --- | --- |
+| No model credentials | Reproducible rejection and proof trace | `python -m resimind demo` |
+| DeepSeek | Real model proposals checked by the same optimizer verifier | `python -m examples.deepseek_optimization` |
+| OpenAI Responses | An alternative real model callback | `python -m examples.openai_optimization` |
+| LangGraph | A verification subgraph that routes unresolved work to `needs_review` | `python -m examples.langgraph_optimization` |
+
+The three `examples.*` commands run from this checkout. Install optional dependencies and configure a model before a live run:
+
+```bash
+python -m pip install '.[deepseek,langgraph]'
+# Set DEEPSEEK_API_KEY and DEEPSEEK_MODEL in your local environment first.
+python -m examples.deepseek_optimization
+python -m examples.langgraph_optimization --live
+```
+
+Live mode makes billable model requests. It never substitutes an offline answer when a request fails. A run may remain unresolved; it does not promise the model will produce a valid certificate. See the [live model guide](docs/live-model.md) for model selection, bounded calls and response tokens, and the [validation record](docs/validation.md) for what was actually tested. OpenAI uses `.[openai]`, `OPENAI_API_KEY`, and `OPENAI_MODEL`.
+
+**A real DeepSeek run:** `deepseek-flash` made 4 calls, corrected a rejected proposal, and supplied all three accepted certificates. LangGraph then released the verified report. An earlier `deepseek-chat` run stalled and remained in `needs_review`. [Inspect all three preparation runs, including failures →](docs/evidence/README.md) These are smoke tests on one problem, not an accuracy benchmark.
+
+Already using LangGraph? Add a verification subgraph:
+
+```python
+from resimind import Task
+from resimind.domains.optimization import DOMAIN, build_agent, demo_problem
+from resimind.integrations.langgraph import build_verification_graph
+
+# Offline proposer for this runnable example; pass complete=your_model for live proposals.
+workflow = build_verification_graph(build_agent(demo_problem()))
+outcome = workflow.invoke({"task": Task("example", "Prove the global minimum.", DOMAIN)})
+print(outcome["branch"])  # verified_report, or needs_review when unresolved
+print(outcome["report"])  # committed facts only; None when unresolved
+```
+
+[Connect this subgraph to an existing graph →](docs/langgraph.md). The verifier covers the configured domain; adding it does not turn arbitrary prose into a proved conclusion.
 
 ## Mathematics: a solution is not yet a proof
 
@@ -66,30 +132,7 @@ python -m examples.continuous_bridge --json
 
 > Both showcases execute real checks with deterministic offline proposers and deliberate first-step mistakes. Supply a model callback to use neural proposals. These runs demonstrate verification behavior, not LLM accuracy. The bridge is a synthetic equivalent line-beam example with supplied limits, not a design-code assessment; its midpoint checks are not a global deflection envelope.
 
-## Run both examples
-
-```bash
-git clone https://github.com/1105216375-alt/resimind.git
-cd resimind
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install .
-python -m examples.constrained_optimization
-python -m examples.continuous_bridge
-```
-
-On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. Examples run offline with no API key. Build tools may need downloading during installation.
-
-Both return the same `AgentResult` and preserve evidence, decisions, facts, and unfinished obligations:
-
-```python
-from resimind.domains.optimization import run_demo as optimize
-from resimind.domains.bridge import run_demo as analyze_bridge
-
-for result in (optimize(), analyze_bridge()):
-    print(result.run_result.status)
-    print(result.to_json())
-```
+## Included domain adapters
 
 | Adapter | Independent checks | Completion requires |
 | --- | --- | --- |
@@ -164,9 +207,9 @@ The [validation record](docs/validation.md) describes local checks and their sco
 
 ## Current scope
 
-ResiMind is an experimental, synchronous Agent framework. Tool evidence is collected **before** the loop. Dynamic tool scheduling, automatic multi-role planning, provider SDK integrations, CAS/SMT/prover connectors, learned memory, persistence, and distributed execution are not included.
+ResiMind is an experimental, synchronous Agent framework. Tool evidence is collected **before** the loop. Optional DeepSeek/OpenAI model callbacks and a LangGraph verification subgraph are included. Dynamic tool scheduling, automatic multi-role planning, CAS/SMT/prover connectors, learned memory, persistence, and distributed execution are not included.
 
-Domain verifiers and residual builders are trusted application code; their correctness determines what `solved` means. Evidence labels do not authenticate real-world inputs. Digests catch result mix-ups, not malicious plugins. Callers must enforce model/tool timeouts and resource limits; step budgets cannot interrupt a blocked callback. There are no enforced token or cost budgets.
+Domain verifiers and residual builders are trusted application code; their correctness determines what `solved` means. Evidence labels do not authenticate real-world inputs. Digests catch result mix-ups, not malicious plugins. Callers must enforce model/tool timeouts and resource limits; step budgets cannot interrupt a blocked callback. The optional model wrappers bound response tokens and API attempts; these are not a total-cost cap or a hard deadline for the full run.
 
 This repository contains a generic implementation and synthetic examples distilled from the Bridge Doctor application's workflow. It contains no original application records, customer data, credentials, or private model logs. Read [provenance](docs/provenance.md), [architecture and trust boundaries](docs/architecture.md), and [security](SECURITY.md).
 
@@ -176,7 +219,7 @@ ResiMind was initiated and originally published by [@1105216375-alt](https://git
 
 If you use or discuss ResiMind, please cite the project and link to the original repository. Suggested citation:
 
-> 1105216375-alt. ResiMind (version 0.4.0), 2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind (version 0.5.0), 2026. https://github.com/1105216375-alt/resimind
 
 Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is appreciated, not an additional license condition. Commercial use is permitted under the [MIT License](LICENSE), which requires retaining its copyright and permission notices in copies or substantial portions of the software.
 

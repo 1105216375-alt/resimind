@@ -28,7 +28,7 @@ The reference adapters accept a callable with this contract:
 complete(prompt: str) -> str
 ```
 
-Supply it as `build_agent(problem, complete=your_complete)`. Choose `QuadraticProgram(...)` or `ContinuousBridgeProblem(...)` for the headline examples; `LinearEquation(a, b, c)` and `AxialBarProblem(...)` are the smaller introductory adapters. Wrap your existing model client in `your_complete`, including its credentials, network timeouts, and resource limits. No model SDK is bundled.
+Supply it as `build_agent(problem, complete=your_complete)`. Choose `QuadraticProgram(...)` or `ContinuousBridgeProblem(...)` for the headline examples; `LinearEquation(a, b, c)` and `AxialBarProblem(...)` are the smaller introductory adapters. Wrap your existing model client in `your_complete`, including its credentials, network timeouts, and resource limits. The core requires no model SDK. Optional [DeepSeek/OpenAI callbacks](live-model.md) and a [LangGraph verification subgraph](langgraph.md) provide concrete integration paths.
 
 The prompt includes task instructions, allowed actions, current facts, registered input evidence, residual obligations, the candidate JSON schema, and the most recent feedback. Return **one JSON object** containing only `id`, `action`, `target`, `claim`, and `refs`, or return the JSON literal `null` when there is no candidate. The domain supplies the allowed action names and exact claim format. For example, the first step of the bundled math demo can propose:
 

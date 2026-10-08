@@ -1,5 +1,7 @@
 # 接入自己的 Agent
 
+现在可直接运行[DeepSeek／OpenAI 真实模型示例](live-model.md)，或把 ResiMind 作为[LangGraph 验证子图](langgraph.md)接入已有流程；两者均为可选集成，核心保持零依赖。
+
 先运行 `python -m examples.mathematics_agent` 或 `python -m examples.engineering_agent`，阅读 [工程与数学的领域契约](domain-contract.md)。也可阅读基础的 [Agent 示例](../examples/agent_demo.py)。它使用合成工具和假的模型响应，因此不需要 API 密钥。其他三个示例分别讲解验证循环、缺证据与路线审核。
 
 ## 任务与取证

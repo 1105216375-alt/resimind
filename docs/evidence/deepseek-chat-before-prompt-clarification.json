@@ -1,0 +1,558 @@
+{
+  "summary": {
+    "model": "deepseek-chat",
+    "status": "stalled",
+    "remaining": 3,
+    "api_calls": 4,
+    "usage": {
+      "input_tokens": 5808,
+      "output_tokens": 633,
+      "total_tokens": 6441,
+      "responses_with_usage": 4
+    },
+    "provider_error": null,
+    "decisions": [
+      {
+        "decision": "reject",
+        "reasons": [
+          "Extra data: line 1 column 69 (char 68)"
+        ]
+      },
+      {
+        "decision": "defer",
+        "reasons": [
+          "missing_verified_prerequisite"
+        ]
+      },
+      {
+        "decision": "defer",
+        "reasons": [
+          "missing_verified_prerequisite"
+        ]
+      },
+      {
+        "decision": "reject",
+        "reasons": [
+          "Expecting value: line 1 column 1 (char 0)"
+        ]
+      }
+    ]
+  },
+  "agent": {
+    "task": {
+      "id": "deepseek-live-validation",
+      "instruction": "Prove the unique global minimum of the configured QP.",
+      "domain": "constrained_optimization",
+      "context": []
+    },
+    "run_result": {
+      "state": {
+        "revision": 0,
+        "facts": []
+      },
+      "residual": {
+        "goals": [
+          "qp:global_optimality"
+        ],
+        "unknowns": [
+          "qp:primal_dual"
+        ],
+        "hard_constraints": [
+          "qp:convexity"
+        ]
+      },
+      "status": "stalled",
+      "stop_reason": "max_no_progress",
+      "trace": [
+        {
+          "step": 1,
+          "proposer": "ModelProposer",
+          "decision": "reject",
+          "reasons": [
+            "Extra data: line 1 column 69 (char 68)"
+          ],
+          "before": {
+            "revision": 0,
+            "facts": []
+          },
+          "after": {
+            "revision": 0,
+            "facts": []
+          },
+          "residual_before": {
+            "goals": [
+              "qp:global_optimality"
+            ],
+            "unknowns": [
+              "qp:primal_dual"
+            ],
+            "hard_constraints": [
+              "qp:convexity"
+            ]
+          },
+          "residual_after": {
+            "goals": [
+              "qp:global_optimality"
+            ],
+            "unknowns": [
+              "qp:primal_dual"
+            ],
+            "hard_constraints": [
+              "qp:convexity"
+            ]
+          },
+          "candidate": {
+            "id": "step-1-certify-convexity",
+            "action": "certify_convexity",
+            "target": "qp:convexity",
+            "claim": "{\"l\":[[\"2\",\"0\",\"0\"],[\"1\",\"1\",\"0\"],[\"0\",\"0\",\"1\"]],\"d\":[\"1\",\"1\",\"2\"]} proves Q = L diag(d) L^T, so the configured QP has strictly convex objective on the feasible affine set and therefore at most one global minimizer.",
+            "refs": [
+              "qp:input:q",
+              "qp:input:c",
+              "qp:input:a",
+              "qp:input:b",
+              "qp:input:g",
+              "qp:input:h"
+            ]
+          },
+          "verdict": {
+            "decision": "reject",
+            "binding": {
+              "candidate_digest": "2d41bc7bc6e76a4b4293b4c6810b3760835846a3dcb085a1248405f32664b2e0",
+              "state_revision": 0,
+              "state_digest": "62b233be15a8c6b88efea202949aeb65879ebce14334a14e8099b38dd3674783",
+              "evidence_digest": "31783a851fd045db06e1daf63252b3fe0bde98738928b26da819a5b59c953218"
+            },
+            "facts": [],
+            "reasons": [
+              "Extra data: line 1 column 69 (char 68)"
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "proposer": "ModelProposer",
+          "decision": "defer",
+          "reasons": [
+            "missing_verified_prerequisite"
+          ],
+          "before": {
+            "revision": 0,
+            "facts": []
+          },
+          "after": {
+            "revision": 0,
+            "facts": []
+          },
+          "residual_before": {
+            "goals": [
+              "qp:global_optimality"
+            ],
+            "unknowns": [
+              "qp:primal_dual"
+            ],
+            "hard_constraints": [
+              "qp:convexity"
+            ]
+          },
+          "residual_after": {
+            "goals": [
+              "qp:global_optimality"
+            ],
+            "unknowns": [
+              "qp:primal_dual"
+            ],
+            "hard_constraints": [
+              "qp:convexity"
+            ]
+          },
+          "candidate": {
+            "id": "step-2-certify-primal-dual",
+            "action": "certify_primal_dual",
+            "target": "qp:primal_dual",
+            "claim": "{\"primal\":{\"x\":[\"1\",\"1\",\"1\"],\"objective\":\"-7\",\"slack\":[\"0\",\"0\",\"1\",\"0\"]},\"dual\":{\"lambda\":[\"-3\"],\"mu\":[\"1\",\"0\",\"0\",\"0\"]}}",
+            "refs": [
+              "qp:input:q",
+              "qp:input:c",
+              "qp:input:a",
+              "qp:input:b",
+              "qp:input:g",
+              "qp:input:h"
+            ]
+          },
+          "verdict": {
+            "decision": "defer",
+            "binding": {
+              "candidate_digest": "1330abdde3e0daf9f341591b1abbf93ec0c02478599da2e07a72e7924987c3a7",
+              "state_revision": 0,
+              "state_digest": "62b233be15a8c6b88efea202949aeb65879ebce14334a14e8099b38dd3674783",
+              "evidence_digest": "31783a851fd045db06e1daf63252b3fe0bde98738928b26da819a5b59c953218"
+            },
+            "facts": [],
+            "reasons": [
+              "missing_verified_prerequisite"
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "proposer": "ModelProposer",
+          "decision": "defer",
+          "reasons": [
+            "missing_verified_prerequisite"
+          ],
+          "before": {
+            "revision": 0,
+            "facts": []
+          },
+          "after": {
+            "revision": 0,
+            "facts": []
+          },
+          "residual_before": {
+            "goals": [
+              "qp:global_optimality"
+            ],
+            "unknowns": [
+              "qp:primal_dual"
+            ],
+            "hard_constraints": [
+              "qp:convexity"
+            ]
+          },
+          "residual_after": {
+            "goals": [
+              "qp:global_optimality"
+            ],
+            "unknowns": [
+              "qp:primal_dual"
+            ],
+            "hard_constraints": [
+              "qp:convexity"
+            ]
+          },
+          "candidate": {
+            "id": "step-3-certify-primal-dual",
+            "action": "certify_primal_dual",
+            "target": "qp:primal_dual",
+            "claim": "{\"primal\":{\"x\":[\"1\",\"1\",\"1\"],\"objective\":\"-7\",\"slack\":[\"0\",\"0\",\"1\",\"0\"]},\"dual\":{\"lambda\":[\"-3\"],\"mu\":[\"1\",\"0\",\"0\",\"0\"]}}",
+            "refs": [
+              "qp:input:q",
+              "qp:input:c",
+              "qp:input:a",
+              "qp:input:b",
+              "qp:input:g",
+              "qp:input:h"
+            ]
+          },
+          "verdict": {
+            "decision": "defer",
+            "binding": {
+              "candidate_digest": "52870b65a2fe40e2a5daf0358d25a13054d62befdd421f646589494cd18c7a4d",
+              "state_revision": 0,
+              "state_digest": "62b233be15a8c6b88efea202949aeb65879ebce14334a14e8099b38dd3674783",
+              "evidence_digest": "31783a851fd045db06e1daf63252b3fe0bde98738928b26da819a5b59c953218"
+            },
+            "facts": [],
+            "reasons": [
+              "missing_verified_prerequisite"
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "proposer": "ModelProposer",
+          "decision": "reject",
+          "reasons": [
+            "Expecting value: line 1 column 1 (char 0)"
+          ],
+          "before": {
+            "revision": 0,
+            "facts": []
+          },
+          "after": {
+            "revision": 0,
+            "facts": []
+          },
+          "residual_before": {
+            "goals": [
+              "qp:global_optimality"
+            ],
+            "unknowns": [
+              "qp:primal_dual"
+            ],
+            "hard_constraints": [
+              "qp:convexity"
+            ]
+          },
+          "residual_after": {
+            "goals": [
+              "qp:global_optimality"
+            ],
+            "unknowns": [
+              "qp:primal_dual"
+            ],
+            "hard_constraints": [
+              "qp:convexity"
+            ]
+          },
+          "candidate": {
+            "id": "step-1-certify-convexity",
+            "action": "certify_convexity",
+            "target": "qp:convexity",
+            "claim": "The configured QP objective has Q = L diag(d) L^T with L unit lower triangular and d > 0, certifying strict convexity of the objective.",
+            "refs": [
+              "qp:input:q",
+              "qp:input:c",
+              "qp:input:a",
+              "qp:input:b",
+              "qp:input:g",
+              "qp:input:h"
+            ]
+          },
+          "verdict": {
+            "decision": "reject",
+            "binding": {
+              "candidate_digest": "125539bc058d0c4f8f2b7c6697877c8c95a1decdf1a7a15629044ac19e73b33d",
+              "state_revision": 0,
+              "state_digest": "62b233be15a8c6b88efea202949aeb65879ebce14334a14e8099b38dd3674783",
+              "evidence_digest": "31783a851fd045db06e1daf63252b3fe0bde98738928b26da819a5b59c953218"
+            },
+            "facts": [],
+            "reasons": [
+              "Expecting value: line 1 column 1 (char 0)"
+            ]
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "id": "qp:input:q",
+          "subject": "configured-quadratic-program",
+          "metric": "q",
+          "value": [
+            [
+              "4",
+              "1",
+              "0"
+            ],
+            [
+              "1",
+              "2",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "2"
+            ]
+          ],
+          "unit": "rational",
+          "source": "configured-quadratic-program",
+          "scope": "rational-strictly-convex-qp-v1"
+        },
+        {
+          "id": "qp:input:c",
+          "subject": "configured-quadratic-program",
+          "metric": "c",
+          "value": [
+            "-8",
+            "-3",
+            "-3"
+          ],
+          "unit": "rational",
+          "source": "configured-quadratic-program",
+          "scope": "rational-strictly-convex-qp-v1"
+        },
+        {
+          "id": "qp:input:a",
+          "subject": "configured-quadratic-program",
+          "metric": "a",
+          "value": [
+            [
+              "1",
+              "1",
+              "1"
+            ]
+          ],
+          "unit": "rational",
+          "source": "configured-quadratic-program",
+          "scope": "rational-strictly-convex-qp-v1"
+        },
+        {
+          "id": "qp:input:b",
+          "subject": "configured-quadratic-program",
+          "metric": "b",
+          "value": [
+            "3"
+          ],
+          "unit": "rational",
+          "source": "configured-quadratic-program",
+          "scope": "rational-strictly-convex-qp-v1"
+        },
+        {
+          "id": "qp:input:g",
+          "subject": "configured-quadratic-program",
+          "metric": "g",
+          "value": [
+            [
+              "-1",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "-1",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "-1"
+            ],
+            [
+              "1",
+              "0",
+              "0"
+            ]
+          ],
+          "unit": "rational",
+          "source": "configured-quadratic-program",
+          "scope": "rational-strictly-convex-qp-v1"
+        },
+        {
+          "id": "qp:input:h",
+          "subject": "configured-quadratic-program",
+          "metric": "h",
+          "value": [
+            "0",
+            "0",
+            "0",
+            "1"
+          ],
+          "unit": "rational",
+          "source": "configured-quadratic-program",
+          "scope": "rational-strictly-convex-qp-v1"
+        }
+      ]
+    },
+    "tool_events": [
+      {
+        "tool": "rational_qp_reader",
+        "status": "collected",
+        "evidence": [
+          {
+            "id": "qp:input:q",
+            "subject": "configured-quadratic-program",
+            "metric": "q",
+            "value": [
+              [
+                "4",
+                "1",
+                "0"
+              ],
+              [
+                "1",
+                "2",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "2"
+              ]
+            ],
+            "unit": "rational",
+            "source": "configured-quadratic-program",
+            "scope": "rational-strictly-convex-qp-v1"
+          },
+          {
+            "id": "qp:input:c",
+            "subject": "configured-quadratic-program",
+            "metric": "c",
+            "value": [
+              "-8",
+              "-3",
+              "-3"
+            ],
+            "unit": "rational",
+            "source": "configured-quadratic-program",
+            "scope": "rational-strictly-convex-qp-v1"
+          },
+          {
+            "id": "qp:input:a",
+            "subject": "configured-quadratic-program",
+            "metric": "a",
+            "value": [
+              [
+                "1",
+                "1",
+                "1"
+              ]
+            ],
+            "unit": "rational",
+            "source": "configured-quadratic-program",
+            "scope": "rational-strictly-convex-qp-v1"
+          },
+          {
+            "id": "qp:input:b",
+            "subject": "configured-quadratic-program",
+            "metric": "b",
+            "value": [
+              "3"
+            ],
+            "unit": "rational",
+            "source": "configured-quadratic-program",
+            "scope": "rational-strictly-convex-qp-v1"
+          },
+          {
+            "id": "qp:input:g",
+            "subject": "configured-quadratic-program",
+            "metric": "g",
+            "value": [
+              [
+                "-1",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "-1",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "-1"
+              ],
+              [
+                "1",
+                "0",
+                "0"
+              ]
+            ],
+            "unit": "rational",
+            "source": "configured-quadratic-program",
+            "scope": "rational-strictly-convex-qp-v1"
+          },
+          {
+            "id": "qp:input:h",
+            "subject": "configured-quadratic-program",
+            "metric": "h",
+            "value": [
+              "0",
+              "0",
+              "0",
+              "1"
+            ],
+            "unit": "rational",
+            "source": "configured-quadratic-program",
+            "scope": "rational-strictly-convex-qp-v1"
+          }
+        ],
+        "error": null
+      }
+    ],
+    "routes": []
+  }
+}

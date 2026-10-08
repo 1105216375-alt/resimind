@@ -422,8 +422,13 @@ def build_agent(problem: QuadraticProgram, complete: Callable[[str], str] | None
         instruction = (
             task.instruction + "\nMinimize x^T Q x/2+c^T x with Ax=b, Gx<=h. "
             "Return claim as a JSON object encoded inside the candidate claim STRING. Use rational strings. "
+            "Parsing claim with json.loads must yield ONLY the certificate object, with no explanation, "
+            "Markdown, or text before or after it. Never submit a prose assertion as a certificate. "
             f"Stages/actions/targets: {list(zip(ACTIONS, TARGETS))}. "
+            "Work on the earliest stage whose verified facts are absent from state.facts. "
+            "A rejected or deferred proposal creates no fact: fix its unmet prerequisite before advancing. "
             "1. {l:unit-lower-triangular matrix,d:positive diagonal} proves Q=L diag(d) L^T. "
+            "Every diagonal entry of l is exactly 1; this is LDL, not a Cholesky factor. "
             "2. {primal:{x:vector,objective:exact value,slack:h-Gx},dual:{lambda:vector,mu:vector}}. "
             "Both feasibility and KKT are verified before either fact commits. "
             "Equality multipliers lambda are unrestricted; inequality multipliers mu>=0. "

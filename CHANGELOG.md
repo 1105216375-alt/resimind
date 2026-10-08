@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.0 — 2026-10-08
+
+- Put independent verification, a three-minute quickstart, and an executable trace animation at the front of both home pages.
+- Add the installed `resimind demo` / `python -m resimind demo` commands, with offline optimization, bridge, and JSON audit modes.
+- Add optional DeepSeek Chat Completions and OpenAI Responses callbacks with explicit model configuration, request budgets, timeouts, usage accounting, and no offline fallback.
+- Add a LangGraph verification subgraph: completed tasks expose committed facts; unresolved tasks keep their audit and residual without a completed report.
+- Record three live DeepSeek smoke runs, including two unfinished attempts and one verified result, with an offline certificate replay tool.
+- Preserve the domain verifiers, zero-dependency core, creator attribution, and MIT license. See `docs/validation.md` for actual checks and live-run scope.
+
 ## 0.4.0 — 2026-10-08
 
 - Add an exact constrained-quadratic-optimization Agent with independently checked feasibility, KKT, and global-optimality certificates.
