@@ -15,4 +15,4 @@ __all__ = [
     "TraceEvent", "Verdict", "Verifier", "canonical_json", "content_digest",
 ]
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"

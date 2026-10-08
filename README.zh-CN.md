@@ -4,15 +4,67 @@
 
 **让模型提议，让验证器决定，让残差驱动下一步。**
 
-面向**数学、工程和其他结构化任务的轻量神经符号 Agent 架构**。模型提出候选，领域规则独立核验；错误的原因与未完成的义务，成为下一步推理的输入。
+面向**数学、工程和其他结构化任务的轻量神经符号 Agent 架构**。模型提出步骤，领域验证器检查证明证书与物理方程，残差持续记录尚未完成的义务。
 
-**Python 3.10+ · 零运行时依赖 · MIT · 实验版本 v0.3.0**
+**Python 3.10+ · 零运行时依赖 · MIT · 实验版本 v0.4.0**
 
-[English](README.md) · [神经符号实现与边界](docs/neuro-symbolic.md) · [架构](docs/architecture.md) · [领域适配](docs/domain-contract.md) · [参与贡献](CONTRIBUTING.md)
+[English](README.md) · [约束优化证明案例](docs/constrained-optimization.md) · [连续梁桥案例](docs/continuous-bridge.md) · [神经符号实现](docs/neuro-symbolic.md) · [架构](docs/architecture.md)
 
-## 先跑起来
+## 数学：算出一个解，还得证明它是全局最优
 
-克隆仓库并运行示例；已经下载仓库的，可以在仓库根目录跳过前两行：
+三变量二次优化，包含交叉项、等式约束、非负约束与上界：
+
+$$
+\min_x\;2x_1^2+x_1x_2+x_2^2+x_3^2-8x_1-3x_2-3x_3,
+\quad x_1+x_2+x_3=3,\quad x\geq0,\quad x_1\leq1.
+$$
+
+![约束优化：不可行候选与已证明的最优解](docs/assets/optimization.svg)
+
+第一次提议是只考虑等式约束的驻点 **(26/15, 1/5, 16/15)**。虽然目标函数值更低，却违反 `x1 <= 1`，因此被拒绝。读取反馈后，Agent 提出 **(1, 3/4, 5/4)**，目标值为 **−73/8**。
+
+得到这个数值还不能结束任务。验证器依次检查精确的 **LDLᵀ 正定性、原始可行性、KKT 驻点与互补条件，以及多项式形式的全局最优性证书**。运算使用有理数；离线提议器枚举活跃约束，验证器检查提交的证书，不调用这套搜索过程。
+
+```bash
+python -m examples.constrained_optimization
+python -m examples.constrained_optimization --json
+```
+
+```text
+ACCEPT certify_convexity   → positive_definiteness_verified   (2 remaining)
+REJECT certify_primal_dual → primal_inequality_violation      (2 remaining)
+ACCEPT certify_primal_dual → primal_and_kkt_verified          (1 remaining)
+ACCEPT certify_global     → global_gap_identity_verified     (0 remaining)
+```
+
+[查看完整问题、证明与拒绝案例 →](docs/constrained-optimization.md)
+
+## 桥梁：满足平衡，还不一定满足连续条件
+
+一座合成的 **24 m + 30 m 两跨连续梁桥**，两跨抗弯刚度不同。考虑恒载、左跨/右跨/双跨活载布置，以及两组给定的荷载组合，共 **八个工况**。
+
+![两跨连续梁桥：结构示意与各工况弯矩包络](docs/assets/continuous-bridge.svg)
+
+第一次提议把两跨当成独立简支梁。这样的结果可能满足力的平衡，却无法满足中墩两侧的转角连续。验证器检查梁方程和位移协调条件，拒绝错误方案，再核验修正后的连续梁解。
+
+随后，Agent 必须覆盖所有要求的工况，计算支座反力、跨内正弯矩与中墩负弯矩、形成工况包络，再比较给定的弯矩与**跨中挠度**限值。漏掉布载工况，残差就不会清空；完成核验后发现超限，也会如实保留这个结论。
+
+```bash
+python -m examples.continuous_bridge
+python -m examples.continuous_bridge --json
+```
+
+| 结果 | 数值 | 控制布载 |
+| --- | ---: | --- |
+| 中墩负弯矩 | −7,281.94 kN·m | 双跨加载 |
+| AB 跨最大正弯矩 | +3,403.57 kN·m | 仅左跨活载 |
+| BC 跨最大正弯矩 | +6,241.85 kN·m | 仅右跨活载 |
+
+[查看结构模型、方程和适用范围 →](docs/continuous-bridge.md)
+
+> 两个案例的校验真实执行，默认使用确定性的离线提议器，并故意设置错误候选来展示纠错。接入模型回调后可使用神经模型生成候选；示例没有宣称大模型准确率。桥梁案例是采用给定限值的合成线梁分析，不是规范设计鉴定；跨中挠度检查也不等于全桥最大挠度包络。
+
+## 跑起来
 
 ```bash
 git clone https://github.com/1105216375-alt/resimind.git
@@ -20,74 +72,35 @@ cd resimind
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install .
-python -m examples.mathematics_agent
-python -m examples.engineering_agent
+python -m examples.constrained_optimization
+python -m examples.continuous_bridge
 ```
 
 Windows PowerShell 使用 `.venv\Scripts\Activate.ps1` 激活环境。示例离线运行，不需要 API Key；安装时可能需要下载构建工具。
 
-数学示例求解 `(3/2)*x - 1/3 = 5/3`。用下面的代码查看真实的逐步决策：
+两个案例都返回同一种 `AgentResult`，可以查看证据、决策、事实与未完成义务：
 
 ```python
-from resimind.domains.mathematics import run_demo
+from resimind.domains.optimization import run_demo as optimize
+from resimind.domains.bridge import run_demo as analyze_bridge
 
-result = run_demo()
-for event in result.run_result.trace:
-    print(event.decision.value, event.candidate.claim, event.reasons[0])
+for result in (optimize(), analyze_bridge()):
+    print(result.run_result.status)
+    print(result.to_json())
 ```
 
-```text
-accept 3/2*x=2 normalization_verified
-reject x=7/3 solution_claim_mismatch
-accept x=4/3 solution_verified
-accept substitution:5/3=5/3 original_equation_checked
-```
-
-错解不会进入正式事实，拒绝原因会回到下一轮提议。即使已经得到 `x=4/3`，回代检查没有完成，任务就不能收口。
-
-工程示例由 **100 kN / 1,000 mm²** 算出 **100 MPa**：先拒绝故意设置的错误应力，再接受修正值，最后与输入的 **150 MPa** 限值比较。模型前提、数值和限值均为合成输入。
-
-> 默认示例使用确定性的离线提议器，其中数学示例使用假的模型回调。验证、拒绝和反馈闭环真实执行，但它们不是大模型准确率的证据。注入自己的模型回调后，才会实际调用神经模型生成候选。
-
-## 同一个 Agent，接入不同学科
-
-```python
-from resimind import Task
-from resimind.domains.mathematics import LinearEquation, build_agent
-
-agent = build_agent(LinearEquation("3/2", "-1/3", "5/3"))
-result = agent.run(Task("equation-1", "求解并回代检查方程。", "mathematics"))
-print(result.run_result.status)  # solved
-print(result.to_json())         # 事实、证据、残差与每一次决策
-```
-
-工程适配器使用相同的任务与结果接口：
-
-```python
-from resimind import Task
-from resimind.domains.engineering import AxialBarProblem, build_agent
-
-agent = build_agent(AxialBarProblem(
-    force_value=100, force_unit="kN",
-    area_value=1000, area_unit="mm2",
-    allowable_stress_value=150, allowable_stress_unit="MPa",
-    axial_static=True, is_uniform=True, no_local_effects=True,
-))
-result = agent.run(Task("bar-1", "计算名义应力并比较给定限值。", "engineering"))
-print(result.run_result.status)  # solved
-print(result.to_json())
-```
-
-| 参考适配器 | 独立验证什么 | 什么条件下完成 |
+| 适配器 | 独立检查 | 完成条件 |
 | --- | --- | --- |
-| [数学](src/resimind/domains/mathematics.py) | 精确有理数的归一化、求解、回代，以及无解和恒等情形 | 推导与原方程检查全部完成 |
-| [工程](src/resimind/domains/engineering.py) | 对象与范围、已声明的模型前提、量纲、名义应力 `F/A` 和输入限值 | 应力与限值比较全部核验完成 |
+| [约束优化](src/resimind/domains/optimization.py) | 精确分解、可行性、KKT、多项式证书 | 全局最优性证书核验完成 |
+| [连续梁桥](src/resimind/domains/bridge.py) | 平衡、曲率与协调条件、全部工况、弯矩极值 | 工况包络与给定限值比较完整 |
+| [一元方程](src/resimind/domains/mathematics.py) | 有理数归一化、求解与回代 | 原方程检查完成，包括无解/恒等情况 |
+| [轴向杆](src/resimind/domains/engineering.py) | 已声明前提、量纲、名义应力和给定限值 | 应力与比较结果核验完成 |
 
-`solved` 表示声明的验证义务已完成；核验结果可以是**“无解”**或**“超过给定限值”**。两个参考适配器各自覆盖明确的小范围问题，更广泛的数学和工程能力需要增加领域实现。
+`solved` 表示声明的验证义务已经完成，不自动代表存在可行解或工程限值满足。每个适配器都有明确范围，共享核心负责把验证过程和未完成项暴露出来。
 
 ## 这里的神经符号，具体在哪里
 
-**神经提议层。** `ModelProposer` 接受与服务商无关的 `complete(prompt: str) -> str` 回调。真实模型可以选择注册动作，提出带证据引用的候选。两个领域都支持 `build_agent(problem, complete=your_complete)`；回调接收当前状态、未完成义务、证据、允许动作以及上一步验证反馈，返回 JSON 候选或 `null`。
+**神经提议层。** `ModelProposer` 接受与服务商无关的 `complete(prompt: str) -> str` 回调。真实模型可以选择注册动作，提出带证据引用的候选。领域构建器支持 `build_agent(problem, complete=your_complete)`；回调接收当前状态、未完成义务、证据、允许动作以及上一步验证反馈，返回 JSON 候选或 `null`。
 
 **符号验证层。** 可信的领域代码检查引用、前提、作用域、精确有理数与单位，并独立复算结果。允许提交的事实由验证器产生；模型的置信度或自报 `verified` 字段不能赋予自己验证权限。
 

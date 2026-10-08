@@ -4,15 +4,67 @@
 
 **Models propose. Verifiers decide. Residuals drive the next step.**
 
-A lightweight **neuro-symbolic Agent architecture for mathematics, engineering, and other structured tasks**. Give a model room to propose. Check its work with explicit domain rules. Turn rejected claims and unfinished obligations into the next reasoning step.
+A lightweight **neuro-symbolic Agent architecture for mathematics, engineering, and other structured tasks**. Models suggest steps; domain verifiers check certificates and physical equations; residuals keep unfinished obligations visible.
 
-**Python 3.10+ · Zero runtime dependencies · MIT · Experimental v0.3.0**
+**Python 3.10+ · Zero runtime dependencies · MIT · Experimental v0.4.0**
 
-[中文](README.zh-CN.md) · [How it is neuro-symbolic](docs/neuro-symbolic.md) · [Architecture](docs/architecture.md) · [Domain adapters](docs/domain-contract.md) · [Contributing](CONTRIBUTING.md)
+[中文](README.zh-CN.md) · [Mathematical proof case](docs/constrained-optimization.md) · [Continuous bridge case](docs/continuous-bridge.md) · [How it is neuro-symbolic](docs/neuro-symbolic.md) · [Architecture](docs/architecture.md)
 
-## Try the loop
+## Mathematics: a solution is not yet a proof
 
-Clone the repository and run the included examples (or skip the first two lines if you have already downloaded it):
+Minimize a three-variable quadratic with coupled terms, an equality constraint, nonnegativity, and an upper bound:
+
+$$
+\min_x\;2x_1^2+x_1x_2+x_2^2+x_3^2-8x_1-3x_2-3x_3,
+\quad x_1+x_2+x_3=3,\quad x\geq0,\quad x_1\leq1.
+$$
+
+![Constrained optimization: infeasible proposal and certified optimum](docs/assets/optimization.svg)
+
+The initial equality-stationary proposal is **(26/15, 1/5, 16/15)**. Its objective is lower, but it violates `x1 <= 1`: the verifier rejects it. After feedback, the Agent proposes **(1, 3/4, 5/4)** with objective **−73/8**.
+
+That answer alone cannot close the task. The verifier must check exact **LDLᵀ positive-definiteness, primal feasibility, KKT stationarity and complementarity, and a polynomial global-optimality certificate**. All arithmetic uses rational numbers. The offline proposer searches active sets; the verifier checks the submitted certificate without running that search.
+
+```bash
+python -m examples.constrained_optimization
+python -m examples.constrained_optimization --json
+```
+
+```text
+ACCEPT certify_convexity   → positive_definiteness_verified   (2 remaining)
+REJECT certify_primal_dual → primal_inequality_violation      (2 remaining)
+ACCEPT certify_primal_dual → primal_and_kkt_verified          (1 remaining)
+ACCEPT certify_global     → global_gap_identity_verified     (0 remaining)
+```
+
+[Read the problem, proof, and failure cases →](docs/constrained-optimization.md)
+
+## Bridge engineering: continuity changes the answer
+
+Analyze a synthetic **24 m + 30 m two-span continuous bridge girder** with unequal flexural stiffness, dead load, left/right/both-span live loading, and two supplied load combinations: **eight cases in total**.
+
+![Continuous bridge: structure and bending-moment load-case envelope](docs/assets/continuous-bridge.svg)
+
+The first proposal treats the spans as independent simply supported beams. It can balance forces and still be wrong: the rotations at the shared pier must agree. The verifier checks the beam equations and displacement compatibility before accepting the corrected continuous-beam solution.
+
+The Agent then has to account for every required load case, calculate support reactions and positive/negative moment extrema, form the case envelope, and compare supplied moment and **midspan-deflection** limits. Omitting a pattern leaves outstanding obligations; a checked limit exceedance remains a valid completed analysis.
+
+```bash
+python -m examples.continuous_bridge
+python -m examples.continuous_bridge --json
+```
+
+| Result | Value | Governing pattern |
+| --- | ---: | --- |
+| Pier hogging moment | −7,281.94 kN·m | Both spans |
+| Span AB sagging maximum | +3,403.57 kN·m | Left span |
+| Span BC sagging maximum | +6,241.85 kN·m | Right span |
+
+[Read the structural model, equations, and limits →](docs/continuous-bridge.md)
+
+> Both showcases execute real checks with deterministic offline proposers and deliberate first-step mistakes. Supply a model callback to use neural proposals. These runs demonstrate verification behavior, not LLM accuracy. The bridge is a synthetic equivalent line-beam example with supplied limits, not a design-code assessment; its midpoint checks are not a global deflection envelope.
+
+## Run both examples
 
 ```bash
 git clone https://github.com/1105216375-alt/resimind.git
@@ -20,74 +72,35 @@ cd resimind
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install .
-python -m examples.mathematics_agent
-python -m examples.engineering_agent
+python -m examples.constrained_optimization
+python -m examples.continuous_bridge
 ```
 
-On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. The examples run offline with no API key. Build tools may need downloading during installation.
+On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. Examples run offline with no API key. Build tools may need downloading during installation.
 
-The math demo solves `(3/2)*x - 1/3 = 5/3`. This short script prints its actual decision trace:
+Both return the same `AgentResult` and preserve evidence, decisions, facts, and unfinished obligations:
 
 ```python
-from resimind.domains.mathematics import run_demo
+from resimind.domains.optimization import run_demo as optimize
+from resimind.domains.bridge import run_demo as analyze_bridge
 
-result = run_demo()
-for event in result.run_result.trace:
-    print(event.decision.value, event.candidate.claim, event.reasons[0])
+for result in (optimize(), analyze_bridge()):
+    print(result.run_result.status)
+    print(result.to_json())
 ```
 
-```text
-accept 3/2*x=2 normalization_verified
-reject x=7/3 solution_claim_mismatch
-accept x=4/3 solution_verified
-accept substitution:5/3=5/3 original_equation_checked
-```
-
-The wrong answer never enters the fact store. Its rejection reason reaches the next proposal. Even after `x=4/3` is accepted, the task stays open until substitution into the original equation is checked.
-
-The engineering demo computes **100 MPa** from **100 kN / 1,000 mm²**, rejects an intentionally wrong first proposal, and compares the verified stress with a supplied **150 MPa** limit. Its model assumptions, values, and limit are synthetic inputs.
-
-> These demonstrations use deterministic offline proposers, including a fake model callback. They exercise the real verification and feedback loop; they are not evidence of LLM accuracy. Supply your own model callback for neural proposal generation.
-
-## One Agent, different disciplines
-
-```python
-from resimind import Task
-from resimind.domains.mathematics import LinearEquation, build_agent
-
-agent = build_agent(LinearEquation("3/2", "-1/3", "5/3"))
-result = agent.run(Task("equation-1", "Solve and check the equation.", "mathematics"))
-print(result.run_result.status)  # solved
-print(result.to_json())         # facts, evidence, residuals, and every decision
-```
-
-The engineering adapter uses the same task and result contracts:
-
-```python
-from resimind import Task
-from resimind.domains.engineering import AxialBarProblem, build_agent
-
-agent = build_agent(AxialBarProblem(
-    force_value=100, force_unit="kN",
-    area_value=1000, area_unit="mm2",
-    allowable_stress_value=150, allowable_stress_unit="MPa",
-    axial_static=True, is_uniform=True, no_local_effects=True,
-))
-result = agent.run(Task("bar-1", "Calculate stress and compare the limit.", "engineering"))
-print(result.run_result.status)  # solved
-print(result.to_json())
-```
-
-| Reference adapter | Independently checked | Completion requires |
+| Adapter | Independent checks | Completion requires |
 | --- | --- | --- |
-| [Mathematics](src/resimind/domains/mathematics.py) | Exact rational normalization, solution, and substitution; no-solution and identity cases | All derivation and original-equation checks |
-| [Engineering](src/resimind/domains/engineering.py) | Input scope, declared model assumptions, dimensions, nominal stress `F/A`, and supplied limit | Verified stress and limit comparison |
+| [Constrained optimization](src/resimind/domains/optimization.py) | Exact factorization, feasibility, KKT, polynomial certificate | A verified global optimum certificate |
+| [Continuous bridge](src/resimind/domains/bridge.py) | Equilibrium, curvature and compatibility, all load cases, moment extrema | Complete case envelopes and supplied-limit comparisons |
+| [Linear equation](src/resimind/domains/mathematics.py) | Rational normalization, solving and substitution | Original-equation checks, including no-solution/identity cases |
+| [Axial bar](src/resimind/domains/engineering.py) | Declared assumptions, dimensions, nominal stress and supplied limit | Verified stress and comparison |
 
-`solved` means the declared verification obligations are complete. A verified outcome can be **“no solution”** or **“limit exceeded.”** These are narrow, runnable reference adapters; broader mathematics and engineering require additional domain implementations.
+`solved` means the declared obligations are complete. It does not automatically mean a feasible solution exists or an engineering limit is satisfied. Each adapter has a bounded scope; the shared core makes those checks explicit.
 
 ## Where the neuro-symbolic part lives
 
-**Neural proposals.** `ModelProposer` accepts a provider-neutral `complete(prompt: str) -> str` callback. A real model can choose a registered action and propose a claim with evidence references. Both domain builders accept `build_agent(problem, complete=your_complete)`. The callback receives current state, outstanding obligations, evidence, allowed actions, and the last verifier feedback; it returns a JSON candidate or `null`.
+**Neural proposals.** `ModelProposer` accepts a provider-neutral `complete(prompt: str) -> str` callback. A real model can choose a registered action and propose a claim with evidence references. The domain builders accept `build_agent(problem, complete=your_complete)`. The callback receives current state, outstanding obligations, evidence, allowed actions, and the last verifier feedback; it returns a JSON candidate or `null`.
 
 **Symbolic checks.** Trusted domain code independently recomputes results and checks references, prerequisites, scope, exact rational arithmetic, and units. The verifier creates the facts that may be committed. A model cannot grant itself verification with a confidence score or a `verified` field.
 

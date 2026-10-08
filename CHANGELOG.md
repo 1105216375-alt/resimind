@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 — 2026-10-08
+
+- Add an exact constrained-quadratic-optimization Agent with independently checked feasibility, KKT, and global-optimality certificates.
+- Add a two-span continuous bridge Agent checking beam compatibility, equilibrium, complete live-load pattern envelopes, and supplied limits.
+- Demonstrate rejection of an infeasible stationary point and an incompatible simply-supported-span approximation.
+- Lead the bilingual home pages with the two substantive cases, reproducible plots, readable traces, and optional JSON output.
+- Preserve all introductory adapters and the zero-dependency runtime.
+
 ## 0.3.0 — 2026-10-08
 
 - Launch as **ResiMind** with the Python package and import namespace `resimind`.
