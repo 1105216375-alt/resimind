@@ -1,0 +1,20 @@
+{
+  "uid": "h20241029143727719855",
+  "tag": "human",
+  "start_city": "成都",
+  "target_city": "武汉",
+  "days": 3,
+  "people_number": 2,
+  "limit_rooms": false,
+  "limits_room_type": false,
+  "hard_logic_py": [
+    "total_cost=0 \nfor activity in allactivities(plan):\n    total_cost+=activity_cost(activity)\n    total_cost += innercity_transport_cost(activity_transports(activity))\nresult=(total_cost<=3000)",
+    "attraction_name_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction': attraction_name_set.add(activity_position(activity))\nresult=({'武汉大学'}<=attraction_name_set)",
+    "restaurant_type_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['breakfast', 'lunch', 'dinner']: restaurant_type_set.add(restaurant_type(activity, target_city(plan)))\nresult=({'湖北菜'}<=restaurant_type_set)",
+    "result=(day_count(plan)==3)",
+    "result=(people_count(plan)==2)",
+    "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False"
+  ],
+  "nature_language": "[当前位置成都,目标位置武汉,旅行人数2,旅行天数3] 从两人成都到武汉旅游三天,预算3000左右，希望可以参观武汉大学等热门景区，尽可能多体验当地美食",
+  "nature_language_en": "[Current location: Chengdu, Destination: Wuhan, Number of travelers: 2, Travel days: 3] Two people traveling from Chengdu to Wuhan for three days, with a budget of around 3000. They hope to visit popular attractions such as Wuhan University and experience as much local cuisine as possible."
+}

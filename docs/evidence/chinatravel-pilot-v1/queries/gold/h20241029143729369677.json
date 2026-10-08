@@ -1,0 +1,17 @@
+{
+  "uid": "h20241029143729369677",
+  "tag": "human",
+  "start_city": "上海",
+  "target_city": "南京",
+  "days": 5,
+  "people_number": 3,
+  "limit_rooms": false,
+  "limits_room_type": false,
+  "hard_logic_py": [
+    "result=(day_count(plan)==5)",
+    "result=(people_count(plan)==3)",
+    "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False"
+  ],
+  "nature_language": "[当前位置上海,目标位置南京,旅行人数3,旅行天数5] 规划一个南京5日游",
+  "nature_language_en": "[Current location: Shanghai, Destination: Nanjing, Number of travelers: 3, Duration of trip: 5 days] Plan a 5-day trip to Nanjing."
+}

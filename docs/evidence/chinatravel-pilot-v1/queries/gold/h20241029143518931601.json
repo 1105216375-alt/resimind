@@ -1,0 +1,18 @@
+{
+  "uid": "h20241029143518931601",
+  "tag": "human",
+  "start_city": "苏州",
+  "target_city": "杭州",
+  "days": 2,
+  "people_number": 4,
+  "limit_rooms": false,
+  "limits_room_type": false,
+  "hard_logic_py": [
+    "attraction_type_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction': attraction_type_set.add(attraction_type(activity, target_city(plan)))\nresult=({'历史古迹'}<=attraction_type_set)",
+    "result=(day_count(plan)==2)",
+    "result=(people_count(plan)==4)",
+    "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False"
+  ],
+  "nature_language": "[当前位置苏州,目标位置杭州,旅行人数4,旅行天数2] 我想4个人去杭州2天进行历史文化遗址的考察顺带玩一下",
+  "nature_language_en": "[Current location: Suzhou, Destination: Hangzhou, Number of travelers: 4, Duration of travel: 2 days] I would like 4 people to go to Hangzhou for 2 days to explore historical and cultural sites and have some fun along the way."
+}

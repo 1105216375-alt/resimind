@@ -1,0 +1,20 @@
+{
+  "uid": "h20241029143659983667",
+  "tag": "human",
+  "start_city": "苏州",
+  "target_city": "杭州",
+  "days": 2,
+  "people_number": 2,
+  "limit_rooms": false,
+  "limits_room_type": false,
+  "hard_logic_py": [
+    "total_cost=0 \nfor activity in allactivities(plan):\n    total_cost+=activity_cost(activity)\n    total_cost += innercity_transport_cost(activity_transports(activity))\nresult=(total_cost<=2000)",
+    "intercity_transport_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['train', 'airplane']: intercity_transport_set.add(intercity_transport_type(activity))\nresult=({'train'}==intercity_transport_set)",
+    "attraction_name_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction': attraction_name_set.add(activity_position(activity))\nresult=({'浙江大学(玉泉校区)','西湖风景名胜区'}<=attraction_name_set or {'浙江大学(之江校区)','西湖风景名胜区'}<=attraction_name_set)",
+    "result=(day_count(plan)==2)",
+    "result=(people_count(plan)==2)",
+    "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False"
+  ],
+  "nature_language": "[当前位置苏州,目标位置杭州,旅行人数2,旅行天数2] 当前位置苏州，和同学一起去杭州旅游两天，来回高铁(G)，规划中要包括参观浙江大学，西湖等景点，预算2000",
+  "nature_language_en": "[Current location: Suzhou, Destination: Hangzhou, Number of travelers: 2, Number of travel days: 2] Currently in Suzhou, planning to travel to Hangzhou with a classmate for two days, round trip by high-speed train (G). The itinerary should include visits to Zhejiang University, West Lake, and other attractions, with a budget of 2000."
+}

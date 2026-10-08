@@ -1,0 +1,19 @@
+{
+  "uid": "h20241029143457494209",
+  "tag": "human",
+  "start_city": "南京",
+  "target_city": "杭州",
+  "days": 3,
+  "people_number": 2,
+  "limit_rooms": false,
+  "limits_room_type": false,
+  "hard_logic_py": [
+    "attraction_name_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction': attraction_name_set.add(activity_position(activity))\nresult=({'西湖风景名胜区'}<=attraction_name_set)",
+    "total_cost=0 \nfor activity in allactivities(plan):\n    total_cost+=activity_cost(activity)\n    total_cost += innercity_transport_cost(activity_transports(activity))\nresult=(total_cost<=2000)",
+    "result=(day_count(plan)==3)",
+    "result=(people_count(plan)==2)",
+    "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False"
+  ],
+  "nature_language": "[当前位置南京,目标位置杭州,旅行人数2,旅行天数3] 我们打算去杭州看西湖，预算2000，给我一个相对舒适的旅游安排。",
+  "nature_language_en": "[Current location: Nanjing, Destination: Hangzhou, Number of travelers: 2, Number of travel days: 3] We plan to visit West Lake in Hangzhou with a budget of 2000. Please provide me with a relatively comfortable travel itinerary."
+}

@@ -1,0 +1,18 @@
+{
+  "uid": "h20241029143506461809",
+  "tag": "human",
+  "start_city": "成都",
+  "target_city": "广州",
+  "days": 3,
+  "people_number": 2,
+  "limit_rooms": false,
+  "limits_room_type": false,
+  "hard_logic_py": [
+    "attraction_type_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction': attraction_type_set.add(attraction_type(activity, target_city(plan)))\nresult=({'自然风光'}<=attraction_type_set)",
+    "result=(day_count(plan)==3)",
+    "result=(people_count(plan)==2)",
+    "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False"
+  ],
+  "nature_language": "[当前位置成都,目标位置广州,旅行人数2,旅行天数3] 我和女朋友想去广州玩几天，看看自然风光，放松心情，计划不要太累，养生为主",
+  "nature_language_en": "[Current location: Chengdu, Destination: Guangzhou, Number of travelers: 2, Number of travel days: 3] My girlfriend and I want to visit Guangzhou, enjoy natural scenery, and relax. We prefer an easy-paced wellness-oriented itinerary."
+}

@@ -1,0 +1,17 @@
+{
+  "uid": "h20241029143514054328",
+  "tag": "human",
+  "start_city": "北京",
+  "target_city": "重庆",
+  "days": 5,
+  "people_number": 3,
+  "limit_rooms": false,
+  "limits_room_type": false,
+  "hard_logic_py": [
+    "result=(day_count(plan)==5)",
+    "result=(people_count(plan)==3)",
+    "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False"
+  ],
+  "nature_language": "[当前位置北京,目标位置重庆,旅行人数3,旅行天数5] 去重庆有没有什么好玩的地方",
+  "nature_language_en": "[Current location: Beijing, Destination: Chongqing, Number of travelers: 3, Number of travel days: 5] Are there any fun places to visit in Chongqing?"
+}

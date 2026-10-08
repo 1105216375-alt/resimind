@@ -1,0 +1,19 @@
+{
+  "uid": "h20241029143620980391",
+  "tag": "human",
+  "start_city": "广州",
+  "target_city": "北京",
+  "days": 4,
+  "people_number": 2,
+  "limit_rooms": false,
+  "limits_room_type": false,
+  "hard_logic_py": [
+    "intercity_transport_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity) in ['train', 'airplane']: intercity_transport_set.add(intercity_transport_type(activity))\nresult=({'airplane'}==intercity_transport_set)",
+    "attraction_type_set=set()\nfor activity in allactivities(plan):\n  if activity_type(activity)=='attraction': attraction_type_set.add(attraction_type(activity, target_city(plan)))\nresult=({'历史古迹'}<=attraction_type_set)",
+    "result=(day_count(plan)==4)",
+    "result=(people_count(plan)==2)",
+    "result=True\nfor activity in allactivities(plan):\n  if innercity_transport_type(activity_transports(activity))=='taxi'and taxi_cars(activity_transports(activity))!=1: result=False"
+  ],
+  "nature_language": "[当前位置广州,目标位置北京,旅行人数2,旅行天数4] 两个人计划从广州出发坐飞机去北京玩四天，尽可能交通便利一些，行程不要太赶，想看看历史古迹",
+  "nature_language_en": "[Current location: Guangzhou, Destination: Beijing, Number of travelers: 2, Travel days: 4] Two people are planning to fly from Guangzhou to Beijing for a four-day trip. They want the transportation to be as convenient as possible, the itinerary not to be too rushed, and they wish to see historical sites."
+}

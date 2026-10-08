@@ -1,0 +1,463 @@
+{
+  "schema_version": 1,
+  "phase": "formal",
+  "frozen_at": "2026-10-08T18:00:33.072231+00:00",
+  "settings": {
+    "model": "deepseek-flash",
+    "temperature": 0,
+    "reasoning_effort": "none",
+    "max_output_tokens": 8192,
+    "max_calls": 128,
+    "max_request_prompt_bytes": 320000,
+    "max_total_prompt_bytes": 16000000,
+    "max_total_output_tokens": 65536,
+    "request_timeout_seconds": 90,
+    "wall_seconds": 600,
+    "search_seconds": 300,
+    "max_proposals": 3,
+    "workers": 3,
+    "sdk_retries": 0,
+    "cpu_seconds": 420,
+    "max_file_bytes": 67108864
+  },
+  "selected_uids": [
+    "h20241029143620980391",
+    "h20241029143506461809",
+    "h20241029143659983667",
+    "h20241029143727719855",
+    "h20241029143546424651",
+    "h20241029143457494209",
+    "h20241029143514054328",
+    "h20241029143729369677",
+    "h20241029143518931601",
+    "h20241029143521646393",
+    "h20241029143743586105",
+    "h20241029143455115600"
+  ],
+  "excluded_development_uids": [
+    "h20241029143447759844",
+    "h20241029143450090032"
+  ],
+  "selection": "sha256('resimind-chinatravel-v1:'+uid) ascending, first 12 after dev exclusion",
+  "schedule": [
+    {
+      "uid": "h20241029143620980391",
+      "arm": "official_react"
+    },
+    {
+      "uid": "h20241029143620980391",
+      "arm": "official_nesy"
+    },
+    {
+      "uid": "h20241029143620980391",
+      "arm": "resimind_react"
+    },
+    {
+      "uid": "h20241029143506461809",
+      "arm": "official_nesy"
+    },
+    {
+      "uid": "h20241029143506461809",
+      "arm": "resimind_react"
+    },
+    {
+      "uid": "h20241029143506461809",
+      "arm": "official_react"
+    },
+    {
+      "uid": "h20241029143659983667",
+      "arm": "resimind_react"
+    },
+    {
+      "uid": "h20241029143659983667",
+      "arm": "official_react"
+    },
+    {
+      "uid": "h20241029143659983667",
+      "arm": "official_nesy"
+    },
+    {
+      "uid": "h20241029143727719855",
+      "arm": "official_react"
+    },
+    {
+      "uid": "h20241029143727719855",
+      "arm": "official_nesy"
+    },
+    {
+      "uid": "h20241029143727719855",
+      "arm": "resimind_react"
+    },
+    {
+      "uid": "h20241029143546424651",
+      "arm": "official_nesy"
+    },
+    {
+      "uid": "h20241029143546424651",
+      "arm": "resimind_react"
+    },
+    {
+      "uid": "h20241029143546424651",
+      "arm": "official_react"
+    },
+    {
+      "uid": "h20241029143457494209",
+      "arm": "resimind_react"
+    },
+    {
+      "uid": "h20241029143457494209",
+      "arm": "official_react"
+    },
+    {
+      "uid": "h20241029143457494209",
+      "arm": "official_nesy"
+    },
+    {
+      "uid": "h20241029143514054328",
+      "arm": "official_react"
+    },
+    {
+      "uid": "h20241029143514054328",
+      "arm": "official_nesy"
+    },
+    {
+      "uid": "h20241029143514054328",
+      "arm": "resimind_react"
+    },
+    {
+      "uid": "h20241029143729369677",
+      "arm": "official_nesy"
+    },
+    {
+      "uid": "h20241029143729369677",
+      "arm": "resimind_react"
+    },
+    {
+      "uid": "h20241029143729369677",
+      "arm": "official_react"
+    },
+    {
+      "uid": "h20241029143518931601",
+      "arm": "resimind_react"
+    },
+    {
+      "uid": "h20241029143518931601",
+      "arm": "official_react"
+    },
+    {
+      "uid": "h20241029143518931601",
+      "arm": "official_nesy"
+    },
+    {
+      "uid": "h20241029143521646393",
+      "arm": "official_react"
+    },
+    {
+      "uid": "h20241029143521646393",
+      "arm": "official_nesy"
+    },
+    {
+      "uid": "h20241029143521646393",
+      "arm": "resimind_react"
+    },
+    {
+      "uid": "h20241029143743586105",
+      "arm": "official_nesy"
+    },
+    {
+      "uid": "h20241029143743586105",
+      "arm": "resimind_react"
+    },
+    {
+      "uid": "h20241029143743586105",
+      "arm": "official_react"
+    },
+    {
+      "uid": "h20241029143455115600",
+      "arm": "resimind_react"
+    },
+    {
+      "uid": "h20241029143455115600",
+      "arm": "official_react"
+    },
+    {
+      "uid": "h20241029143455115600",
+      "arm": "official_nesy"
+    }
+  ],
+  "arms": [
+    "official_react",
+    "official_nesy",
+    "resimind_react"
+  ],
+  "dataset_manifest_sha256": "4c3d57c60092c5740316bb0e1850a5dc39f051037b319c63abf8be4f8ee31dbf",
+  "upstream_commit": "f445e0011f42594fcc29b8c752ece06ded9a8218",
+  "upstream_tracked_files_dirty": false,
+  "database_sha256": {
+    "accommodations/beijing/accommodations.csv": "b48f3d5576d60aac51071b3cb4435e5def18b2b00ed25a4a2b34d8543e123194",
+    "accommodations/chengdu/accommodations.csv": "c554810aa62f55df306105b1b93959ca71ca4ea9e29be7709d730664c67567cc",
+    "accommodations/chongqing/accommodations.csv": "a431fc16c2948fa84da5e741b9a62acd6b99cb317abd425f060e7b7959e21bf1",
+    "accommodations/guangzhou/accommodations.csv": "97c5c7125f97e76c16560532e2a59d30514982bcc8361bd2151b5d2635b2c0db",
+    "accommodations/hangzhou/accommodations.csv": "844e32ee235545c24d31d58eade392b40879a73a77bb983b8ca06b08dfaafc1a",
+    "accommodations/nanjing/accommodations.csv": "657951ada973394e842451ec7bb2529a66632ca63de89322a6fe4776d6ec80ab",
+    "accommodations/shanghai/accommodations.csv": "14ebeffe075efb2d0ba060837a73ddde997bf8afad7e79d9cf0ed4a9be47df6f",
+    "accommodations/shenzhen/accommodations.csv": "5e0c0e401420c6fa4711893465c8afa4f05947390e350f243de3008c963d415b",
+    "accommodations/suzhou/accommodations.csv": "e3c6a68e12e03b55737fb7b45828fe46efa6912217d3de12f71decd0b438e41d",
+    "accommodations/wuhan/accommodations.csv": "3886e45c906faf200dee25cc206b1e87f252fcdc98079ac7ef6b4a9cba0e30a5",
+    "attractions/beijing/attractions.csv": "e1f384acd54303041d386c8abf119ae16674841cda079cb248ce3aa3fdd7eddf",
+    "attractions/chengdu/attractions.csv": "9f93e7f491494c4ceb32938945b87e6fa214773ce3f0d0b9412496e900723fdb",
+    "attractions/chongqing/attractions.csv": "b2aa26f18d4cc8bec1a42ae823318d87aebc4a08f9814b7e6df245d43ed2a99e",
+    "attractions/guangzhou/attractions.csv": "00f4d6984a82eef86df818b89d47a9b6c28b50246b83985c90f7d58f569c0bb0",
+    "attractions/hangzhou/attractions.csv": "e208779f8e3b5d1fba2e9c1293c8a09c336c70b57dac90ed3c53209fc31fc0c6",
+    "attractions/nanjing/attractions.csv": "2520d8aee10e9c6b84facd3b1b2a9b11836aa66e7c4cd91cb0509f3e275df08c",
+    "attractions/shanghai/attractions.csv": "323ea61d9422edb0e935ca819c8660be017fc14d031f2c462d456b0034b61d7b",
+    "attractions/shenzhen/attractions.csv": "001aa18995b37403e63b24eb1ba38e9f7ae2ec8614c0a343809298f285d2317c",
+    "attractions/suzhou/attractions.csv": "2f6300639a75a8a3594fa1ed68597dfdcf7274c51f9799a2d2d90f1db964f079",
+    "attractions/wuhan/attractions.csv": "85a7baf41fe6f5a1ae630eb66a88c7e8c204bee57db00b8deb8b632669b5e062",
+    "intercity_transport/airplane.jsonl": "91977a5dd0999415b7a9d2f968f793c4949f6a5ba447db03a9b530b899bc0b67",
+    "intercity_transport/train/from_上海_to_北京.json": "0826221e59befdd7f9ff52c5aa3459155ce917dfa6fb8eb2504a53a15e59d0f2",
+    "intercity_transport/train/from_上海_to_南京.json": "ece7a05912ae7bc19689982d28436ec3ef291fa87d4da24b4d419375b90341b1",
+    "intercity_transport/train/from_上海_to_广州.json": "23ea381b71fd103ebde774aaf64091da63d75ae92aad6cdb8a117e043deaa375",
+    "intercity_transport/train/from_上海_to_成都.json": "6f1518ce1b9a2c3e4bfa2850a80990f5e6a9a67b4e8632fa52bb980273e7d8b8",
+    "intercity_transport/train/from_上海_to_杭州.json": "242767b3ce812146eb307638381ee32c36f20d2d435505d7ff4d02409d53a70b",
+    "intercity_transport/train/from_上海_to_武汉.json": "ae1d7666acd0443b4707b65a4b28911e28b402387d9c47b0db5530e27ba95139",
+    "intercity_transport/train/from_上海_to_深圳.json": "ce6275ccdd4e671defc3be66af7dcf6d6308455b76b0bdaa9aa16c22ffe6939b",
+    "intercity_transport/train/from_上海_to_苏州.json": "f502f939e551e3c663ed64b89416f300efc21674c6d6cf758ff56313c2ad6bc0",
+    "intercity_transport/train/from_上海_to_重庆.json": "9656473c551d0f2b52ebfd608551d8681ace5aa40b535082b8faa4e4b3a74092",
+    "intercity_transport/train/from_北京_to_上海.json": "455120e7884342de7e3b1b93bc42722560d5e6b2b441098c41af6c827099a72c",
+    "intercity_transport/train/from_北京_to_南京.json": "243c5c61238de598d5a3ecad9e308132311a890c9036e02f4c911f7699f66b0d",
+    "intercity_transport/train/from_北京_to_广州.json": "fc42f9f97e32946badf6b5c02caf105e94b7bb1fa15285bcebfbfed2ef576e65",
+    "intercity_transport/train/from_北京_to_成都.json": "550809b8b2b53758769e8225acf89fc10aba663c86a7a24b47a08a18c1d14fc2",
+    "intercity_transport/train/from_北京_to_杭州.json": "026b23423bc379be2fc881b3fd6bc383fd81f4e0856f70d0cb4ac158fe9108d9",
+    "intercity_transport/train/from_北京_to_武汉.json": "f4ce16b497ba60cb5c83fac06c1eb9c68e6b49cc91f59df1b34d3b1e4d302a4d",
+    "intercity_transport/train/from_北京_to_深圳.json": "2affb8bfe9a32827e78c47748d4400fd226a1b8927d30b006a7b1e6123be549a",
+    "intercity_transport/train/from_北京_to_苏州.json": "bef863544b864a1fecdc1cfb2135ecbe32c3d85bfb39ead3855fa9b71dc4c5d7",
+    "intercity_transport/train/from_北京_to_重庆.json": "67b396f1aa20fade82f3008cef0bc86c50a1761a96643a03d8090ee9d97e34ea",
+    "intercity_transport/train/from_南京_to_上海.json": "df7ab98203f4fa22618fd5535a09562befe83c64f33a1352d80e23ae7f705743",
+    "intercity_transport/train/from_南京_to_北京.json": "a8e770ae6de75c4cabdf4e7c4e6cf750bf409faf51309a8dd2fb1022a96d789c",
+    "intercity_transport/train/from_南京_to_广州.json": "297f947333d15dcf3658879a58462b663b767e274e4726423fde8423bae90bf9",
+    "intercity_transport/train/from_南京_to_成都.json": "10e9f62f17e95a51057a4efbd6b3a5bba26908bb605df2596994962d020609ce",
+    "intercity_transport/train/from_南京_to_杭州.json": "d85b7d5e542b2083e4a386d4272f8e4b0a1c0342eb67effbc3dd062afe6a7b0e",
+    "intercity_transport/train/from_南京_to_武汉.json": "19bc93f92e4164270e1ac698256aec886a775d327a6fd84289c17d17cfa6467f",
+    "intercity_transport/train/from_南京_to_深圳.json": "4fcd15bd7abc9ca37ab00cfd1a71a8fe7c27bab4c42937d13cc30aa042811669",
+    "intercity_transport/train/from_南京_to_苏州.json": "739e583382f367090a24cb7c3f19957458d2e6c9fd06aa819098c6796e86076b",
+    "intercity_transport/train/from_南京_to_重庆.json": "31014547210a591060c732794b63781cdefc28c1e9d7e69c218d9d7000ea898f",
+    "intercity_transport/train/from_广州_to_上海.json": "226debe7a97d3fb118b48b9e341f7dac8b4883b81554459168004b50491ec589",
+    "intercity_transport/train/from_广州_to_北京.json": "26f17ee133134075b6668281749f6ed48dbc9d5733f36f9aff6033e1e367e825",
+    "intercity_transport/train/from_广州_to_南京.json": "3a1da0cd7db981061f04513ebec797712b4ff8df0a664ebe3b62f690f526cb98",
+    "intercity_transport/train/from_广州_to_成都.json": "fb92fd355856525a1fff4d037904af25e091bdfc945fb559596a9608833bc2ed",
+    "intercity_transport/train/from_广州_to_杭州.json": "12ffcab40f3a6defd6b6cf1bf3f39dab6bf3d621996da5462d5a0fd58b93ed95",
+    "intercity_transport/train/from_广州_to_武汉.json": "ef2fbadd733a605f2614b3674fb44d50dc274ab07f1aaa742da7e9a538e4c10b",
+    "intercity_transport/train/from_广州_to_深圳.json": "781d71d6cd3add89325aa70e7f4d332c8810b2a67b41d441283a5ad94e3293f5",
+    "intercity_transport/train/from_广州_to_苏州.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "intercity_transport/train/from_广州_to_重庆.json": "ef3920f4815895694439d777a4a761e67a6de2e3f3bd2e99867fe3296866203a",
+    "intercity_transport/train/from_成都_to_上海.json": "ca58988a4e09e901c4bd9babbbe952c70ab2273b71de431e7800e2850225aba5",
+    "intercity_transport/train/from_成都_to_北京.json": "ea0e0c128a927fd6e4adebe5c98a1e465f5d97f86693b08b9954c9ae3d6d2958",
+    "intercity_transport/train/from_成都_to_南京.json": "ae23ceccab3a8320223d200ae98272b6866890819bd11323e2ed183b3173feae",
+    "intercity_transport/train/from_成都_to_广州.json": "5af4c615d096a835fb671ea1dbe7a9575ea580ee73b1a999af022e77abe9a75e",
+    "intercity_transport/train/from_成都_to_杭州.json": "f3d4c769222047f6f25bfd58b419e9e35feda5102917f7a662deb6e8100653a6",
+    "intercity_transport/train/from_成都_to_武汉.json": "380f0af031ceb39656959570b5d93d5aa683e2c4678b4755eead58b7b4f74ea9",
+    "intercity_transport/train/from_成都_to_深圳.json": "1dc77058254db6fb7176f3b3f3d1b007b31180dd72725e11b4f082ce30a18c1c",
+    "intercity_transport/train/from_成都_to_苏州.json": "abb73996b3b294646cd09220d5f83590d3504bb3cabe4cad2a0d5344592b10a8",
+    "intercity_transport/train/from_成都_to_重庆.json": "5c53450a6b23a04d55a57d507921de2cab9797932addbe93d28ef6c34fb35070",
+    "intercity_transport/train/from_杭州_to_上海.json": "6837c00e5c6bad826ef90909470283c6e846759d0538c49900de3f612ed7107f",
+    "intercity_transport/train/from_杭州_to_北京.json": "bbef0ab16a1d01a7bc413f3a1857cab1b413398f5ddf506f8030e7ada800b09e",
+    "intercity_transport/train/from_杭州_to_南京.json": "a63a00cddd1f5b83e20ce163c5e948cbf6fe8e5f009f73596f64c68b61547c27",
+    "intercity_transport/train/from_杭州_to_广州.json": "dc13aa955cedbb1f19a08666c99910778e2ddc411d3fc35da3dedc73c25f9fe6",
+    "intercity_transport/train/from_杭州_to_成都.json": "dff743d9f1a9019263c3e44a39bfae2977fa15e8a17498827bf229b1e6d16bfd",
+    "intercity_transport/train/from_杭州_to_武汉.json": "b98ef23e63552b2017abbd424e6f43b120d7c511f52e50ae1583d59f13082470",
+    "intercity_transport/train/from_杭州_to_深圳.json": "81969aceb7560886f29aff90b3b10fc9afcb2691c94328bcdbcea04db589536b",
+    "intercity_transport/train/from_杭州_to_苏州.json": "01de1bd5668cf8397c3d7ca8b4128f7051a82068a437c6c99d43548f1193eb95",
+    "intercity_transport/train/from_杭州_to_重庆.json": "caff24738fc8eba54fe6fc0749d0d4ef0f5f7c0148c1da9f0b426b08d0235701",
+    "intercity_transport/train/from_武汉_to_上海.json": "bce90abb18d2e2f757617317afc3093d8d262059b59d8c6495d969f5405af209",
+    "intercity_transport/train/from_武汉_to_北京.json": "6960349f90e64f063f96e3820c5b18f4fb0ea2c922a82d914b916a6a092b9f58",
+    "intercity_transport/train/from_武汉_to_南京.json": "2f725e4737818735940fe7f82407306e5d5216b3e2ed1706209f646103573464",
+    "intercity_transport/train/from_武汉_to_广州.json": "bf5bd657880eb1941710901e2546d9686723182958d0a73eb600816a73b9f2f3",
+    "intercity_transport/train/from_武汉_to_成都.json": "04f8f880a8db0d46b2ea045df35bab847ddd166148d4d7d79792e046378d54c7",
+    "intercity_transport/train/from_武汉_to_杭州.json": "c366e5ea4ada99c7ea14a23a56344a82ec56f02aa478ba7b043761908cedb955",
+    "intercity_transport/train/from_武汉_to_深圳.json": "67d110edaa2de030713987b2430dd09380e70d0078081fdf9dc36d77819bffaf",
+    "intercity_transport/train/from_武汉_to_苏州.json": "158d48614e273b31f27140e7eff71621977baacb804c5e43a01d66f63816fdd7",
+    "intercity_transport/train/from_武汉_to_重庆.json": "4ba8a503f9bcb051f4ae33b115209778cf41a5019c9fe5aedf94a5eda218f8c3",
+    "intercity_transport/train/from_深圳_to_上海.json": "057fde50a154d5e9229b3bc9a17977988a8e8385193faca00a1bc370eee26988",
+    "intercity_transport/train/from_深圳_to_北京.json": "c292edc96fa92a7d74795db00bcbc2fa4ed42ae8c695d6bf1693ed31978d9b6b",
+    "intercity_transport/train/from_深圳_to_南京.json": "c00df9948dbf045fb2ce29091210ccfcc1a4c2ba9a10598a6c896af8f3bb0725",
+    "intercity_transport/train/from_深圳_to_广州.json": "e05fb641af7aa391a8c2068b25f5713e3eee78037eeb3e9b000e51b4b464dcf0",
+    "intercity_transport/train/from_深圳_to_成都.json": "2ae16b223275590e655811be399ab49f835d3df4c1d663600fcb3c4765692143",
+    "intercity_transport/train/from_深圳_to_杭州.json": "26c7c45bc7051e235bd8b841cad2dfa94947ac3857f071917450dbdbe2bc3b61",
+    "intercity_transport/train/from_深圳_to_武汉.json": "7019bb8bb424768af4583a23afa09bcbd86b9cf6ba8115ca6ebb8fc0d18d68b4",
+    "intercity_transport/train/from_深圳_to_苏州.json": "952e3213f763c8ec73124e3b60e871bf4f23c8af63516c057a877dff5bae704c",
+    "intercity_transport/train/from_深圳_to_重庆.json": "1195eea978daf97dbaadb94bfea9601e892529af8a15a6e68255d6d9333b8180",
+    "intercity_transport/train/from_苏州_to_上海.json": "78536d64ed7a2f4d746ed9caa9eaa1f6c3db1a96ad7447686e6a5395aafffb18",
+    "intercity_transport/train/from_苏州_to_北京.json": "d77f8ddaa7f0c4d286335b5dd97cd1a61fc1a593b4e943bd086a181b56fc2b50",
+    "intercity_transport/train/from_苏州_to_南京.json": "8b632bb3319a3674d88eac11b798bcb3323f1b8d9d4f3eb7493427216aa943ba",
+    "intercity_transport/train/from_苏州_to_广州.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "intercity_transport/train/from_苏州_to_成都.json": "a56694c0063259433d3c2a705e391879d3a1f0c2ca85c57a91b1377c00600823",
+    "intercity_transport/train/from_苏州_to_杭州.json": "b1e3642d185ce13ff3c5415155ae5d558d23332bc77ffab6162256492da873c1",
+    "intercity_transport/train/from_苏州_to_武汉.json": "1d2a055ae63c9ff394e4f57281dc562e56bda444fb2291802003dd9e9c43381c",
+    "intercity_transport/train/from_苏州_to_深圳.json": "6d771ebd7857df3cd6d6c02f6031b602d003da820729d038b4e135ea02ab2b7a",
+    "intercity_transport/train/from_苏州_to_重庆.json": "cf5971cffce146e41c9d0ddedfb4f2ed759f634b264f81a1f67ac5c7348a589b",
+    "intercity_transport/train/from_重庆_to_上海.json": "8cbde9cdf78fc83fe12e1912368bb2919d1dc9c106df6ba7bdd8755c21628689",
+    "intercity_transport/train/from_重庆_to_北京.json": "5b7675f911af1557368c17e149d0c3eefdcfee3492412cd63fb77e35a8c580d7",
+    "intercity_transport/train/from_重庆_to_南京.json": "e228eedc7f8b775207243f6d33e51e97c08158098c0761b1c9ab9c2c810f6188",
+    "intercity_transport/train/from_重庆_to_广州.json": "7b81fffbb1a99c6002cc92fd88c3a257ee81442e960c6edb75995ed480436883",
+    "intercity_transport/train/from_重庆_to_成都.json": "9554e14d13a36b9c3543e35cfd9b140afeab38cde7b14da51de97c67465f5291",
+    "intercity_transport/train/from_重庆_to_杭州.json": "64c47bec14760dba0e4ee45df8b8dfdd67ed09576019c0f5dd5ad71420ccc82c",
+    "intercity_transport/train/from_重庆_to_武汉.json": "65f7131c06f1aaea5eb5a41a80e7f7fbc5163d08589aca2924e143ee4ac64380",
+    "intercity_transport/train/from_重庆_to_深圳.json": "82a1c5e48820c786b6641e6a57674b037a05ae8c48ca042956c93b2125adb439",
+    "intercity_transport/train/from_重庆_to_苏州.json": "6f57c4193a9197af6c590d9b833ecd4824cbe76237068bd78b6031f100d753f9",
+    "poi/beijing/poi.json": "9c530706dcac09f875b5111b011ab5a24270824bfb9d3f491fe1f9bdc6626c78",
+    "poi/chengdu/poi.json": "cc94c3394c5bf94d0ba9c4b625be93f570c936b1a293471971098aa2ad70f1cc",
+    "poi/chongqing/poi.json": "2b6171b2e2fc052bd1454a10188e3dbaf161d64c12b27e33b3418d6ab99e42a7",
+    "poi/guangzhou/poi.json": "3021df4f061877cf178003d4b8ee9cef696008e366f711f622377db2a1be97e0",
+    "poi/hangzhou/poi.json": "f636c025ccd8fd12e1c6b056bc96c8cfafb2c17f3172af369e40cbe5e0e86885",
+    "poi/nanjing/poi.json": "e985b2e74521c40052e93c2e7b9bdb5633003554a9ee45e5b87852e552773e65",
+    "poi/shanghai/poi.json": "e5dbe2bd63936bdb1af51632ae588a7feaa792cd64257065b20da66622b05321",
+    "poi/shenzhen/poi.json": "114b98fbb8b4bd844589bff2d927b3562df8a241199c6dc46ffd3ad19d95273f",
+    "poi/suzhou/poi.json": "818a3c5888202dd43c651b340017f0e5e7d012275ef326bf25dc5d0c9257ba62",
+    "poi/wuhan/poi.json": "0cc19029c3921797bc2adee8c28f7046eb348070c2bd1bc1c9680465f0002ec8",
+    "restaurants/beijing/restaurants_beijing.csv": "264be9a32348d7f98a1b9ae4fe8f309b70f8f4f08b513c7a65d2ba28d589e413",
+    "restaurants/chengdu/restaurants_chengdu.csv": "aee043d83c37cdec6937500a95c04c4d695e05c16f26df99876b5a7571df870f",
+    "restaurants/chongqing/restaurants_chongqing.csv": "f0f5cde31667a09adbd5145a8435eaedebb14410dc402f026348a4ea59d75ed3",
+    "restaurants/guangzhou/restaurants_guangzhou.csv": "b02acf3ba100404cb87cd1b35ca42587052441109bc9deedcca63a329dcc1bc9",
+    "restaurants/hangzhou/restaurants_hangzhou.csv": "0e4e6148e45c2432123457dd57cdcc0294b8af1b2522d999f06172e33848adb9",
+    "restaurants/nanjing/restaurants_nanjing.csv": "238ff75809bebbc2166bae9db6f4ecda991c5771bde77e79788e7d0da8ee5d24",
+    "restaurants/shanghai/restaurants_shanghai.csv": "a9ef7c3dcd791f9c679928f5db055cc1472ca6e7c6419f3d539768361d57cc2a",
+    "restaurants/shenzhen/restaurants_shenzhen.csv": "c1adf97293e968c20afe618406e1943b9f262f79453d4b2e19a025a48ad48038",
+    "restaurants/suzhou/restaurants_suzhou.csv": "f66071954604f1f9318f3bb6b7ac7fba051783279abf4a8c6e9d723106653ff1",
+    "restaurants/wuhan/restaurants_wuhan.csv": "0cc4388460c477f9a23265f9b60493f8dac904e43a9fee807514f6e24e83d6f4",
+    "transportation/subways.json": "c6b5dc4ec63e806bcb4fff95c4842c3478be170ab9498486f19f94de11adb468"
+  },
+  "public_query_sha256": {
+    "h20241029143620980391": "3f2a76411d9f93d2a0576c0371b0035b12c52f6ce942b95604c472db86bfad80",
+    "h20241029143506461809": "4c068cbfd9f7db1e522c59769652088796da21beffb47b3b10ed11d3d3aa7ab6",
+    "h20241029143659983667": "23def364d4b9400bfe26871ae57027c72b2a7e2796d493b90750a660b73e17f7",
+    "h20241029143727719855": "5cbe718dd1d61bcce4060679ebc50d951a337b0fc380263c217563398747e7a2",
+    "h20241029143546424651": "921a329d70573260e50e7d88fe3cae08bedfc83304520afaa9ccbee9a015f190",
+    "h20241029143457494209": "3504e2c48949f1281a8920f36c096d9335dfd58981721bef97bb5fb3ad51005a",
+    "h20241029143514054328": "b1eac4482e1832f69e307fea70a1fb3208e67bc28f3152c513cfa44fdbb8c5b1",
+    "h20241029143729369677": "891baab6515f08ce53e591524455c27d027bc9018d652db0ccfa112e98720978",
+    "h20241029143518931601": "26d230212e7ac9157b70d36702650a8f0da742845fcd84259009c163e99a72fb",
+    "h20241029143521646393": "140f68c00c41766967b0685fa757cc8b90d457feb3e2c999603fe9df4f9a9362",
+    "h20241029143743586105": "b91427db5cfa1440e18adc3b120c3ba75fbc4b8842c5ebacbd98349e16f4854a",
+    "h20241029143455115600": "fdc6d4a9d6cb12c82bbd21f982b0002df6c1ea954b97df43238f79f7527810d3"
+  },
+  "gold_query_sha256": {
+    "h20241029143620980391": "ced4535075ee8d407a8c8ebf8919a2d9e974f438309f1a3dcb97b63f75e9dfa8",
+    "h20241029143506461809": "8cf8dc3d385a75b2daf3626e9718a3557348fc173594f593cf5cff681cfdb4d4",
+    "h20241029143659983667": "191e7d28d12af0990c13ec217103bd2c38f8d929e5c3f6dd596e332e53850936",
+    "h20241029143727719855": "55897c04d1d266ff37b67c71b0928cf38d27d305cb145628388d1edaaed6111a",
+    "h20241029143546424651": "d8733239a69c168a570a4fa1056fc342fd470dce6641b5230428c1bd234fbde0",
+    "h20241029143457494209": "699fd2c4fa9c1399cdfd08cd9e46a3082915b9046d517767927326b0550b90f9",
+    "h20241029143514054328": "b49935427b54bede926f8c14308bde4bb7a5967735f0dcc72a38da61578a6352",
+    "h20241029143729369677": "ba3c32d6e8a67e95a9b7f9bc1a48679f646b4fd29b18703f64f4927c6eeec0ba",
+    "h20241029143518931601": "b3c2a472ee634f4b38e3cae9de42d9ff9cee8c57a84ccd7a6ed4cf4c460c5f53",
+    "h20241029143521646393": "df345d38fadada3721a86c27db9a6af66b371c0d8bdf86a807462822fd782a4f",
+    "h20241029143743586105": "5ac9e7a850d90e65429f9f3842e4ca6575768c4cadec44baa0260ba7d737d3c5",
+    "h20241029143455115600": "6d6dc655bfb7f1428a713871d3e771cfba8c1ef30bb9f9d6483edfef6a4a8802"
+  },
+  "source_sha256": {
+    "experiments/__init__.py": "80a7a5e6f0be33d3c4b11fb85ccb0face5db7442b722455c5f8d6544c626f74c",
+    "experiments/chinatravel/PROTOCOL.md": "a92877d4b831e8813f10d1c693fdd40a17abd8577c06d84dac455b3393cf10e7",
+    "experiments/chinatravel/__init__.py": "93268f0b9426d5e081089ecc580c6404e2214296088df4417564202ca8b774ac",
+    "experiments/chinatravel/official_scoring.py": "0e8c253801d01af810fa6db5aeae511104b3c62da04971884d6d53a00597a697",
+    "experiments/chinatravel/prepare_data.py": "1af864d34537614293384ad65e58f92d44395f8aa9c7bd3e62672d9c3763dec6",
+    "experiments/chinatravel/recording.py": "dd7405a08a291e25545d188459df3ade61ac9256770cb9f85fa9b1ad6936a4bb",
+    "experiments/chinatravel/resimind_adapter.py": "d8ade0a5b50932dc09255090709dcbe170fac5ea3efd042e75872c3d40409c0f",
+    "experiments/chinatravel/run.py": "5e7c2c2fe6fa1956379ee0146e7d1c35228c65046359089084070e0a54b26ac6",
+    "experiments/chinatravel/sandbox.py": "ed81cd146fc09a1217fb01f75160a153e566b42a8cdcfd191a9093367e0b382f",
+    "experiments/chinatravel/test_adapter.py": "a95a31d02208cd1e7e66133fc93e3c6da51b1c9dfc40ac7c5e0067f449cedce9",
+    "experiments/chinatravel/test_official_scoring.py": "57fc852f84cde02a3696199e59d681b95551084d8fb4a112928cef7b91b2860b",
+    "experiments/chinatravel/test_recording.py": "2f9055721eb80f6195995ec5e15cc2e5af68d15e5ce08960eca995d49828b241",
+    "experiments/chinatravel/test_sandbox.py": "411ca6847359c694d28c92a369a114ddf79952c3ddbb48b6764481d25979282b",
+    "experiments/chinatravel/test_worker.py": "3d609552a62a5054615e414698aac62e3c475110ca0c026b4c1264aac78f096d",
+    "experiments/chinatravel/upstream_worker.py": "57917b1ab2cedae459cca02faad4dbc4e8e7431109a257a5d2a4582211562c4c",
+    "src/resimind/__init__.py": "a5f51dbb5563ea6b674c63021614a29a80c7f144ace1b442bf255a5756d81b5d",
+    "src/resimind/__main__.py": "9e6c2aa4795391e4f7ccf270ccf478de8b7cc134151421b79a9274e99d6aeb52",
+    "src/resimind/adapters.py": "7d74acdb5301b22996c62634e8ee64d200d74f28b935958758a62a6527f66675",
+    "src/resimind/agent.py": "9e9e86a5b364cccfac13af1fb38c44a731b6241d80fa274c4ee58ff614f3e9a5",
+    "src/resimind/cli.py": "95280bcaac267b53b88820909c3c116fac2555fb1f5fea4f4bae6e6235bf48d9",
+    "src/resimind/core.py": "1cc0c2af4421dc1fc2837eb34e90bae5560426b257c614a9537b71486801840b",
+    "src/resimind/domains/__init__.py": "563ae238666384cc664f672c6b4180c145972b1bf990cb8c152de200765fb4c4",
+    "src/resimind/domains/bridge.py": "8c474d9cbc5bd210e4211641abb850b7c925aca97f84a3893c8cd208f33af3c5",
+    "src/resimind/domains/customer_support.py": "19a5c894a10c5ba15556eadc51a4e04e4c403785cfa5ef2b831b1499f8136992",
+    "src/resimind/domains/engineering.py": "d096124ff6c28e9ede67c0afa991dc42ec8d42b4bddce4fcbb037ed58f425c51",
+    "src/resimind/domains/mathematics.py": "23efa942c31f3d321377251c850f1f686f242d1d026c7cf6ddf925c50cf1707f",
+    "src/resimind/domains/optimization.py": "b13a567968cef7e5549f2b64f06e99f046239368a763e88c7de81ccbb3aa8723",
+    "src/resimind/domains/planning.py": "c5c01ac5be6d11585a14e49e4def4ec517d15a99b686f1551ce293ea9cd42f66",
+    "src/resimind/integrations/__init__.py": "4194ac6c400196952b8140ff079982b541511ee7ccf9c8c843b7b39d01e54dbb",
+    "src/resimind/integrations/deepseek.py": "8461c381a148bd36135388b4aedf443e3f60cf477102d04f8c0ec30d51885f8b",
+    "src/resimind/integrations/langgraph.py": "b917e31a6b48d9ff3d94b8a464ca86a7b5265e2a237ddfcebbc8868c4c0d3616",
+    "src/resimind/integrations/openai.py": "e41ac4b2df9fc4383e6e0e8349f7e479a14b961acc5834c75c50196862a93738",
+    "src/resimind/memory.py": "f108b4204dfc5d64fae92efa493965a219bdb64685108aedae753d953e76a89f",
+    "src/resimind/runtime.py": "e936efc8154bd4764de6f770a6b36e2a63472036c7d81b39e51120cf43a5c754",
+    "src/resimind/units.py": "7a3e43dbceaef624a931c15753ecdd695e929fd0c8f1489ee5a927bcc60de171"
+  },
+  "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 08:22:19) [Clang 14.0.6 ]",
+  "dependencies": [
+    "aiohappyeyeballs==2.7.1",
+    "aiohttp==3.14.4",
+    "aiosignal==1.4.0",
+    "annotated-types==0.8.0",
+    "anyio==4.15.1",
+    "attrs==26.1.0",
+    "certifi==2026.7.22",
+    "charset-normalizer==3.5.2",
+    "click==8.5.0",
+    "cloudpickle==3.1.2",
+    "datasets==3.3.2",
+    "dill==0.3.8",
+    "filelock==4.0.12",
+    "frozenlist==1.8.0",
+    "fsspec==2024.12.0",
+    "func_timeout==4.3.5",
+    "fuzzywuzzy==0.18.0",
+    "geographiclib==2.1",
+    "geopy==2.4.1",
+    "h11==0.16.0",
+    "hf-xet==1.7.0",
+    "httpcore2==2.13.1",
+    "httpx2==2.13.1",
+    "huggingface_hub==2.2.0",
+    "idna==3.20",
+    "iniconfig==2.3.1",
+    "jiter==0.17.0",
+    "joblib==1.6.0",
+    "json_repair==0.30.0",
+    "jsonschema==4.23.0",
+    "jsonschema-specifications==2025.9.1",
+    "multidict==6.9.1",
+    "multiprocess==0.70.16",
+    "numpy==1.26.4",
+    "openai==3.26.1",
+    "packaging==26.3",
+    "pandas==2.2.3",
+    "pluggy==1.6.0",
+    "propcache==0.5.4",
+    "pyarrow==25.0.1",
+    "pydantic==2.14.0",
+    "pydantic_core==2.50.0",
+    "Pygments==2.21.0",
+    "pytest==8.4.2",
+    "python-dateutil==2.9.0.post0",
+    "pytz==2026.5",
+    "PyYAML==6.0.3",
+    "referencing==0.37.0",
+    "requests==2.34.2",
+    "resimind==0.7.0",
+    "rpds-py==2026.9.1",
+    "scikit-learn==1.5.2",
+    "scipy==1.17.1",
+    "six==1.17.0",
+    "sniffio==1.3.1",
+    "threadpoolctl==3.7.0",
+    "tqdm==4.66.6",
+    "truststore==0.10.4",
+    "typing-inspection==0.4.4",
+    "typing_extensions==4.16.0",
+    "tzdata==2026.5",
+    "urllib3==2.8.0",
+    "xxhash==4.0.1",
+    "yarl==1.25.1"
+  ],
+  "pre_freeze_head": "e9ad1f120657bc3c6ea2dbb54185ddb8999d19c7"
+}
