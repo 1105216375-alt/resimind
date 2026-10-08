@@ -1,0 +1,175 @@
+{
+  "as_of_local_date": "2026-10-09",
+  "timezone": "Asia/Shanghai",
+  "comparison_type": "published-evidence-and-code-audit; not a head-to-head experiment",
+  "new_model_api_requests": 0,
+  "resimind_commit": "9751e6da3f33714229639ecae9d312a9e1ab95d0",
+  "pilot_files_sha256": {
+    "manifest.json": "ccf3698002053a356b13229891eaad355aa17777ded23d086453e5e85a4a3a40",
+    "scored-results.json": "d157b083ebd7bc1c8b4d51d45eaa1cca80e71b441c75a79476c85fc580221135"
+  },
+  "pilot_coverage": {
+    "case_counts": {
+      "total": 12,
+      "feasible": 8,
+      "infeasible": 2,
+      "missing_evidence": 2,
+      "negative": 4
+    },
+    "model_requested": "deepseek-flash",
+    "unique_returned_model_ids": [
+      "deepseek-flash"
+    ],
+    "initial_samples_per_case": 1,
+    "extra_repeated_runs": 0,
+    "arms": [
+      "direct",
+      "self_review",
+      "resimind"
+    ],
+    "physical_requests": 31,
+    "completed_standard_benchmarks": 0,
+    "official_baseline_replications": 0,
+    "mechanism_ablations": 0
+  },
+  "published_sources": [
+    {
+      "id": "llm_modulo",
+      "paper": "https://arxiv.org/html/2411.14484v1",
+      "version_date": "2024-11-20",
+      "code": "https://github.com/Atharva-Gundawar/LLM-Modulo-prompts",
+      "institution": "Arizona State University",
+      "location_group": "US",
+      "observations": [
+        {
+          "dataset": "TravelPlanner",
+          "split": "validation",
+          "n": 180,
+          "mode": "sole-planning",
+          "model": "GPT-4o",
+          "metric": "final_pass_rate_percent",
+          "direct": 8.33,
+          "llm_modulo": 23.89,
+          "iteration_limit": 10
+        }
+      ],
+      "local_replication": false
+    },
+    {
+      "id": "formal_travel_planner",
+      "paper": "https://arxiv.org/html/2404.11891v3",
+      "version_date": "2025-01-29",
+      "code": "https://github.com/yih301/LLM_Formal_Travel_Planner",
+      "institution": "MIT / Harvard / MIT-IBM Watson AI Lab",
+      "location_group": "US",
+      "observations": [
+        {
+          "dataset": "TravelPlanner",
+          "split": "test",
+          "n": 1000,
+          "model": "Claude-3-Opus-20240229",
+          "configuration": "original",
+          "metric": "final_pass_rate_percent",
+          "value": 93.9
+        },
+        {
+          "dataset": "TravelPlanner",
+          "split": "test",
+          "n": 1000,
+          "model": "GPT-4",
+          "configuration": "Ours+JSON",
+          "metric": "final_pass_rate_percent",
+          "value": 97.0
+        }
+      ],
+      "solver_timeout_seconds": 1800,
+      "local_replication": false
+    },
+    {
+      "id": "china_travel_nesy",
+      "paper": "https://arxiv.org/html/2412.13682v5",
+      "version_date": "2026-04-29",
+      "code": "https://github.com/LAMDA-NeSy/ChinaTravel",
+      "institution": "Nanjing University / Huawei Noah's Ark Lab",
+      "location_group": "China",
+      "observations": [
+        {
+          "dataset": "ChinaTravel",
+          "language": "zh",
+          "split": "Easy",
+          "n": 300,
+          "model": "DeepSeek-V3",
+          "configuration": "NeSy Planning; no Oracle Translation",
+          "metric": "final_pass_rate_percent",
+          "value": 52.6
+        },
+        {
+          "dataset": "ChinaTravel",
+          "language": "zh",
+          "split": "Human-Val",
+          "n": 154,
+          "model": "DeepSeek-V3",
+          "configuration": "NeSy Planning; no Oracle Translation",
+          "metric": "final_pass_rate_percent",
+          "value": 37.0
+        },
+        {
+          "dataset": "ChinaTravel",
+          "language": "zh",
+          "split": "Human-Test",
+          "n": 1000,
+          "model": "DeepSeek-V3",
+          "configuration": "NeSy Planning; no Oracle Translation",
+          "metric": "final_pass_rate_percent",
+          "value": 23.3
+        }
+      ],
+      "search_timeout_seconds_excluding_llm": 300,
+      "current_code_differs_from_paper_evaluator": true,
+      "local_replication": false
+    },
+    {
+      "id": "llmfp",
+      "paper": "https://arxiv.org/html/2410.12112v3",
+      "version_date": "2025-07-09",
+      "code": "https://github.com/yih301/LLMFP",
+      "institution": "MIT / MIT-IBM Watson AI Lab",
+      "location_group": "US",
+      "domain_case_counts": {
+        "Coffee": 266,
+        "Workforce": 231,
+        "Facility": 165,
+        "Task Allocation": 50,
+        "Warehouse": 50,
+        "Blocksworld": 602,
+        "Mystery Blocksworld": 602,
+        "Movie": 21,
+        "Gripper": 25
+      },
+      "observations": [
+        {
+          "model": "Claude 3.5 Sonnet",
+          "group": "5 multi-constraint tasks",
+          "metric": "macro_average_optimal_rate_percent",
+          "value": 80.7
+        },
+        {
+          "model": "Claude 3.5 Sonnet",
+          "group": "4 multi-step tasks",
+          "metric": "macro_average_optimal_rate_percent",
+          "value": 91.8
+        }
+      ],
+      "local_replication": false
+    }
+  ],
+  "comparability": {
+    "may_rank_against_resimind": false,
+    "reasons": [
+      "Different tasks and evaluators",
+      "Different models, inputs and budgets",
+      "No local reproduction of external systems",
+      "ResiMind has no complete adapter for these official tasks"
+    ]
+  }
+}

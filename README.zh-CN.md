@@ -12,7 +12,7 @@ ResiMind 是一套**独立运行的神经符号 Agent 架构**：模型探索方
 
 **Python 3.10+ · 独立 Agent · 核心零依赖 · MIT · 实验版本 v0.7.0**
 
-[English](README.md) · [快速上手](#三分钟跑起来) · [开放性完整案例](#开放式规划答案可以多样约束必须满足) · [量化评价](docs/evaluation-summary.zh-CN.md) · [架构](docs/architecture.md) · [可选集成](#可选集成)
+[English](README.md) · [快速上手](#三分钟跑起来) · [开放性完整案例](#开放式规划答案可以多样约束必须满足) · [量化评价](docs/evaluation-summary.zh-CN.md) · [国内外对标](docs/public-systems-comparison.zh-CN.md) · [架构](docs/architecture.md) · [可选集成](#可选集成)
 
 [**6 个可运行领域**](#内置领域适配器) · [**v0.7.0 本地通过 660 项测试**](docs/validation.md) · [**真实 DeepSeek 提议与验证记录可查**](docs/evidence/open-planning/README.md)
 

@@ -52,3 +52,5 @@
 - 本轮使用 Python 3.12.7、OpenAI SDK 2.54.0、HTTPX 0.28.1；所有 API 响应的模型标识为 `deepseek-flash`。
 
 [冻结协议](evaluation-protocol.md) · [完整统计报告](evidence/planning-pilot-v1/REPORT.zh-CN.md) · [冻结清单](evidence/planning-pilot-v1/manifest.json) · [可复现入口](evidence/planning-pilot-v1/README.md)
+
+[国内外公开方案的量化对标与比较条件](public-systems-comparison.zh-CN.md)
