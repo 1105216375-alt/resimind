@@ -1,0 +1,289 @@
+{
+  "case_id": "case-08",
+  "blind_case_id": "case-08",
+  "arms": {
+    "direct": {
+      "final_text": "{\"id\":\"candidate-1\",\"action\":\"propose_itinerary\",\"target\":\"trip:verified_plan\",\"claim\":\"{\\\"stops\\\":[{\\\"place_id\\\":\\\"museum\\\",\\\"start_minute\\\":630,\\\"end_minute\\\":690},{\\\"place_id\\\":\\\"archive\\\",\\\"start_minute\\\":700,\\\"end_minute\\\":745},{\\\"place_id\\\":\\\"atrium\\\",\\\"start_minute\\\":755,\\\"end_minute\\\":795}],\\\"legs\\\":[{\\\"route_id\\\":\\\"harbor:museum:transit\\\",\\\"depart_minute\\\":541},{\\\"route_id\\\":\\\"museum:archive:transit\\\",\\\"depart_minute\\\":691},{\\\"route_id\\\":\\\"archive:atrium:transit\\\",\\\"depart_minute\\\":746},{\\\"route_id\\\":\\\"atrium:harbor:transit\\\",\\\"depart_minute\\\":796}],\\\"total_cost_cents\\\":8600,\\\"total_walking_minutes\\\":8}\",\"refs\":[\"trip:request\",\"trip:places\",\"trip:transport\"]}",
+      "technical_error": null,
+      "request_ids": [
+        "case-08-initial"
+      ],
+      "elapsed_seconds": 16.854138
+    },
+    "resimind": {
+      "final_text": "{\"action\":\"propose_itinerary\",\"claim\":\"{\\\"stops\\\":[{\\\"place_id\\\":\\\"museum\\\",\\\"start_minute\\\":630,\\\"end_minute\\\":690},{\\\"place_id\\\":\\\"archive\\\",\\\"start_minute\\\":700,\\\"end_minute\\\":745},{\\\"place_id\\\":\\\"atrium\\\",\\\"start_minute\\\":755,\\\"end_minute\\\":795}],\\\"legs\\\":[{\\\"route_id\\\":\\\"harbor:museum:transit\\\",\\\"depart_minute\\\":541},{\\\"route_id\\\":\\\"museum:archive:transit\\\",\\\"depart_minute\\\":691},{\\\"route_id\\\":\\\"archive:atrium:transit\\\",\\\"depart_minute\\\":746},{\\\"route_id\\\":\\\"atrium:harbor:transit\\\",\\\"depart_minute\\\":796}],\\\"total_cost_cents\\\":8600,\\\"total_walking_minutes\\\":8}\",\"id\":\"candidate-1\",\"refs\":[\"trip:request\",\"trip:places\",\"trip:transport\"],\"target\":\"trip:verified_plan\"}",
+      "final_plan": {
+        "trip_id": "trip-08",
+        "stops": [
+          {
+            "end_minute": 690,
+            "place_id": "museum",
+            "start_minute": 630
+          },
+          {
+            "end_minute": 745,
+            "place_id": "archive",
+            "start_minute": 700
+          },
+          {
+            "end_minute": 795,
+            "place_id": "atrium",
+            "start_minute": 755
+          }
+        ],
+        "legs": [
+          {
+            "route_id": "harbor:museum:transit",
+            "origin": "harbor",
+            "destination": "museum",
+            "mode": "transit",
+            "depart_minute": 541,
+            "arrive_minute": 551,
+            "cost_cents": 300,
+            "walking_minutes": 2
+          },
+          {
+            "route_id": "museum:archive:transit",
+            "origin": "museum",
+            "destination": "archive",
+            "mode": "transit",
+            "depart_minute": 691,
+            "arrive_minute": 697,
+            "cost_cents": 200,
+            "walking_minutes": 2
+          },
+          {
+            "route_id": "archive:atrium:transit",
+            "origin": "archive",
+            "destination": "atrium",
+            "mode": "transit",
+            "depart_minute": 746,
+            "arrive_minute": 752,
+            "cost_cents": 200,
+            "walking_minutes": 2
+          },
+          {
+            "route_id": "atrium:harbor:transit",
+            "origin": "atrium",
+            "destination": "harbor",
+            "mode": "transit",
+            "depart_minute": 796,
+            "arrive_minute": 804,
+            "cost_cents": 300,
+            "walking_minutes": 2
+          }
+        ],
+        "total_cost_cents": 8600,
+        "total_walking_minutes": 8,
+        "return_minute": 804,
+        "currency": "CNY"
+      },
+      "agent": {
+        "task": {
+          "id": "pilot-08",
+          "instruction": "Compose a grounded feasible day plan satisfying every explicit hard requirement. Return null if you cannot supply a grounded plan.",
+          "domain": "open_planning",
+          "context": []
+        },
+        "run_result": {
+          "state": {
+            "revision": 1,
+            "facts": [
+              {
+                "id": "trip:plan_checked",
+                "subject": "trip-08",
+                "metric": "verified_itinerary",
+                "value": "{\"currency\":\"CNY\",\"legs\":[{\"arrive_minute\":551,\"cost_cents\":300,\"depart_minute\":541,\"destination\":\"museum\",\"mode\":\"transit\",\"origin\":\"harbor\",\"route_id\":\"harbor:museum:transit\",\"walking_minutes\":2},{\"arrive_minute\":697,\"cost_cents\":200,\"depart_minute\":691,\"destination\":\"archive\",\"mode\":\"transit\",\"origin\":\"museum\",\"route_id\":\"museum:archive:transit\",\"walking_minutes\":2},{\"arrive_minute\":752,\"cost_cents\":200,\"depart_minute\":746,\"destination\":\"atrium\",\"mode\":\"transit\",\"origin\":\"archive\",\"route_id\":\"archive:atrium:transit\",\"walking_minutes\":2},{\"arrive_minute\":804,\"cost_cents\":300,\"depart_minute\":796,\"destination\":\"harbor\",\"mode\":\"transit\",\"origin\":\"atrium\",\"route_id\":\"atrium:harbor:transit\",\"walking_minutes\":2}],\"return_minute\":804,\"stops\":[{\"end_minute\":690,\"place_id\":\"museum\",\"start_minute\":630},{\"end_minute\":745,\"place_id\":\"archive\",\"start_minute\":700},{\"end_minute\":795,\"place_id\":\"atrium\",\"start_minute\":755}],\"total_cost_cents\":8600,\"total_walking_minutes\":8,\"trip_id\":\"trip-08\"}",
+                "unit": "json",
+                "evidence_refs": [
+                  "trip:request",
+                  "trip:places",
+                  "trip:transport"
+                ],
+                "scope": "trip-snapshot:e07971f8495dd7b4ca3954752a108385ce30b69e4b848b70f0a583ba66ede3f0"
+              }
+            ]
+          },
+          "residual": {
+            "goals": [],
+            "unknowns": [],
+            "hard_constraints": []
+          },
+          "status": "solved",
+          "stop_reason": "residual_empty",
+          "trace": [
+            {
+              "step": 1,
+              "proposer": "ModelProposer",
+              "decision": "accept",
+              "reasons": [
+                "itinerary_constraints_verified"
+              ],
+              "before": {
+                "revision": 0,
+                "facts": []
+              },
+              "after": {
+                "revision": 1,
+                "facts": [
+                  {
+                    "id": "trip:plan_checked",
+                    "subject": "trip-08",
+                    "metric": "verified_itinerary",
+                    "value": "{\"currency\":\"CNY\",\"legs\":[{\"arrive_minute\":551,\"cost_cents\":300,\"depart_minute\":541,\"destination\":\"museum\",\"mode\":\"transit\",\"origin\":\"harbor\",\"route_id\":\"harbor:museum:transit\",\"walking_minutes\":2},{\"arrive_minute\":697,\"cost_cents\":200,\"depart_minute\":691,\"destination\":\"archive\",\"mode\":\"transit\",\"origin\":\"museum\",\"route_id\":\"museum:archive:transit\",\"walking_minutes\":2},{\"arrive_minute\":752,\"cost_cents\":200,\"depart_minute\":746,\"destination\":\"atrium\",\"mode\":\"transit\",\"origin\":\"archive\",\"route_id\":\"archive:atrium:transit\",\"walking_minutes\":2},{\"arrive_minute\":804,\"cost_cents\":300,\"depart_minute\":796,\"destination\":\"harbor\",\"mode\":\"transit\",\"origin\":\"atrium\",\"route_id\":\"atrium:harbor:transit\",\"walking_minutes\":2}],\"return_minute\":804,\"stops\":[{\"end_minute\":690,\"place_id\":\"museum\",\"start_minute\":630},{\"end_minute\":745,\"place_id\":\"archive\",\"start_minute\":700},{\"end_minute\":795,\"place_id\":\"atrium\",\"start_minute\":755}],\"total_cost_cents\":8600,\"total_walking_minutes\":8,\"trip_id\":\"trip-08\"}",
+                    "unit": "json",
+                    "evidence_refs": [
+                      "trip:request",
+                      "trip:places",
+                      "trip:transport"
+                    ],
+                    "scope": "trip-snapshot:e07971f8495dd7b4ca3954752a108385ce30b69e4b848b70f0a583ba66ede3f0"
+                  }
+                ]
+              },
+              "residual_before": {
+                "goals": [
+                  "trip:verified_plan"
+                ],
+                "unknowns": [
+                  "trip:transport_grounding"
+                ],
+                "hard_constraints": [
+                  "trip:feasibility"
+                ]
+              },
+              "residual_after": {
+                "goals": [],
+                "unknowns": [],
+                "hard_constraints": []
+              },
+              "candidate": {
+                "id": "candidate-1",
+                "action": "propose_itinerary",
+                "target": "trip:verified_plan",
+                "claim": "{\"stops\":[{\"place_id\":\"museum\",\"start_minute\":630,\"end_minute\":690},{\"place_id\":\"archive\",\"start_minute\":700,\"end_minute\":745},{\"place_id\":\"atrium\",\"start_minute\":755,\"end_minute\":795}],\"legs\":[{\"route_id\":\"harbor:museum:transit\",\"depart_minute\":541},{\"route_id\":\"museum:archive:transit\",\"depart_minute\":691},{\"route_id\":\"archive:atrium:transit\",\"depart_minute\":746},{\"route_id\":\"atrium:harbor:transit\",\"depart_minute\":796}],\"total_cost_cents\":8600,\"total_walking_minutes\":8}",
+                "refs": [
+                  "trip:request",
+                  "trip:places",
+                  "trip:transport"
+                ]
+              },
+              "verdict": {
+                "decision": "accept",
+                "binding": {
+                  "candidate_digest": "963063dea1b5ce151b199aa52d0b9b7454312924260d488df21e1033034a7aae",
+                  "state_revision": 0,
+                  "state_digest": "62b233be15a8c6b88efea202949aeb65879ebce14334a14e8099b38dd3674783",
+                  "evidence_digest": "70aa463deeaf5cc181c6e7fe2b25d327acd1a3c5998b036867ee133b86fc7b35"
+                },
+                "facts": [
+                  {
+                    "id": "trip:plan_checked",
+                    "subject": "trip-08",
+                    "metric": "verified_itinerary",
+                    "value": "{\"currency\":\"CNY\",\"legs\":[{\"arrive_minute\":551,\"cost_cents\":300,\"depart_minute\":541,\"destination\":\"museum\",\"mode\":\"transit\",\"origin\":\"harbor\",\"route_id\":\"harbor:museum:transit\",\"walking_minutes\":2},{\"arrive_minute\":697,\"cost_cents\":200,\"depart_minute\":691,\"destination\":\"archive\",\"mode\":\"transit\",\"origin\":\"museum\",\"route_id\":\"museum:archive:transit\",\"walking_minutes\":2},{\"arrive_minute\":752,\"cost_cents\":200,\"depart_minute\":746,\"destination\":\"atrium\",\"mode\":\"transit\",\"origin\":\"archive\",\"route_id\":\"archive:atrium:transit\",\"walking_minutes\":2},{\"arrive_minute\":804,\"cost_cents\":300,\"depart_minute\":796,\"destination\":\"harbor\",\"mode\":\"transit\",\"origin\":\"atrium\",\"route_id\":\"atrium:harbor:transit\",\"walking_minutes\":2}],\"return_minute\":804,\"stops\":[{\"end_minute\":690,\"place_id\":\"museum\",\"start_minute\":630},{\"end_minute\":745,\"place_id\":\"archive\",\"start_minute\":700},{\"end_minute\":795,\"place_id\":\"atrium\",\"start_minute\":755}],\"total_cost_cents\":8600,\"total_walking_minutes\":8,\"trip_id\":\"trip-08\"}",
+                    "unit": "json",
+                    "evidence_refs": [
+                      "trip:request",
+                      "trip:places",
+                      "trip:transport"
+                    ],
+                    "scope": "trip-snapshot:e07971f8495dd7b4ca3954752a108385ce30b69e4b848b70f0a583ba66ede3f0"
+                  }
+                ],
+                "reasons": [
+                  "itinerary_constraints_verified"
+                ]
+              }
+            }
+          ],
+          "evidence": [
+            {
+              "id": "trip:request",
+              "subject": "trip-08",
+              "metric": "request",
+              "value": "{\"brief\":\"Plan a pleasant day using the supplied places and explicit requirements.\",\"budget_cents\":30000,\"day_end_minute\":1080,\"day_start_minute\":540,\"max_walking_minutes\":45,\"min_stops\":3,\"origin\":\"harbor\",\"rain\":true,\"required_categories\":[\"art\",\"meal\",\"reading\",\"coffee\"],\"trip_id\":\"trip-08\"}",
+              "unit": "json",
+              "source": "fictional-declared-trip-snapshot",
+              "scope": "trip-snapshot:e07971f8495dd7b4ca3954752a108385ce30b69e4b848b70f0a583ba66ede3f0"
+            },
+            {
+              "id": "trip:places",
+              "subject": "trip-08",
+              "metric": "places",
+              "value": "[{\"categories\":[\"art\"],\"closes_minute\":930,\"cost_cents\":2700,\"id\":\"museum\",\"indoor\":true,\"min_visit_minutes\":60,\"name\":\"Museum\",\"opens_minute\":630},{\"categories\":[\"art\"],\"closes_minute\":990,\"cost_cents\":4200,\"id\":\"studio\",\"indoor\":true,\"min_visit_minutes\":90,\"name\":\"Studio\",\"opens_minute\":690},{\"categories\":[\"meal\"],\"closes_minute\":810,\"cost_cents\":3200,\"id\":\"tearoom\",\"indoor\":true,\"min_visit_minutes\":45,\"name\":\"Tearoom\",\"opens_minute\":690},{\"categories\":[\"meal\",\"coffee\"],\"closes_minute\":990,\"cost_cents\":4700,\"id\":\"atrium\",\"indoor\":true,\"min_visit_minutes\":40,\"name\":\"Atrium\",\"opens_minute\":630},{\"categories\":[\"nature\"],\"closes_minute\":990,\"cost_cents\":200,\"id\":\"promenade\",\"indoor\":false,\"min_visit_minutes\":60,\"name\":\"Promenade\",\"opens_minute\":570},{\"categories\":[\"reading\"],\"closes_minute\":990,\"cost_cents\":200,\"id\":\"archive\",\"indoor\":true,\"min_visit_minutes\":45,\"name\":\"Archive\",\"opens_minute\":600}]",
+              "unit": "json",
+              "source": "fictional-declared-trip-snapshot",
+              "scope": "trip-snapshot:e07971f8495dd7b4ca3954752a108385ce30b69e4b848b70f0a583ba66ede3f0"
+            },
+            {
+              "id": "trip:transport",
+              "subject": "trip-08",
+              "metric": "transport",
+              "value": "[{\"cost_cents\":0,\"destination\":\"museum\",\"id\":\"harbor:museum:walk\",\"minutes\":20,\"mode\":\"walk\",\"origin\":\"harbor\",\"walking_minutes\":20},{\"cost_cents\":300,\"destination\":\"museum\",\"id\":\"harbor:museum:transit\",\"minutes\":10,\"mode\":\"transit\",\"origin\":\"harbor\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"harbor\",\"id\":\"museum:harbor:walk\",\"minutes\":20,\"mode\":\"walk\",\"origin\":\"museum\",\"walking_minutes\":20},{\"cost_cents\":300,\"destination\":\"harbor\",\"id\":\"museum:harbor:transit\",\"minutes\":10,\"mode\":\"transit\",\"origin\":\"museum\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"studio\",\"id\":\"harbor:studio:walk\",\"minutes\":35,\"mode\":\"walk\",\"origin\":\"harbor\",\"walking_minutes\":35},{\"cost_cents\":300,\"destination\":\"studio\",\"id\":\"harbor:studio:transit\",\"minutes\":15,\"mode\":\"transit\",\"origin\":\"harbor\",\"walking_minutes\":4},{\"cost_cents\":0,\"destination\":\"harbor\",\"id\":\"studio:harbor:walk\",\"minutes\":35,\"mode\":\"walk\",\"origin\":\"studio\",\"walking_minutes\":35},{\"cost_cents\":300,\"destination\":\"harbor\",\"id\":\"studio:harbor:transit\",\"minutes\":15,\"mode\":\"transit\",\"origin\":\"studio\",\"walking_minutes\":4},{\"cost_cents\":0,\"destination\":\"tearoom\",\"id\":\"harbor:tearoom:walk\",\"minutes\":25,\"mode\":\"walk\",\"origin\":\"harbor\",\"walking_minutes\":25},{\"cost_cents\":300,\"destination\":\"tearoom\",\"id\":\"harbor:tearoom:transit\",\"minutes\":12,\"mode\":\"transit\",\"origin\":\"harbor\",\"walking_minutes\":3},{\"cost_cents\":0,\"destination\":\"harbor\",\"id\":\"tearoom:harbor:walk\",\"minutes\":25,\"mode\":\"walk\",\"origin\":\"tearoom\",\"walking_minutes\":25},{\"cost_cents\":300,\"destination\":\"harbor\",\"id\":\"tearoom:harbor:transit\",\"minutes\":12,\"mode\":\"transit\",\"origin\":\"tearoom\",\"walking_minutes\":3},{\"cost_cents\":0,\"destination\":\"atrium\",\"id\":\"harbor:atrium:walk\",\"minutes\":15,\"mode\":\"walk\",\"origin\":\"harbor\",\"walking_minutes\":15},{\"cost_cents\":300,\"destination\":\"atrium\",\"id\":\"harbor:atrium:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"harbor\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"harbor\",\"id\":\"atrium:harbor:walk\",\"minutes\":15,\"mode\":\"walk\",\"origin\":\"atrium\",\"walking_minutes\":15},{\"cost_cents\":300,\"destination\":\"harbor\",\"id\":\"atrium:harbor:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"atrium\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"promenade\",\"id\":\"harbor:promenade:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"harbor\",\"walking_minutes\":10},{\"cost_cents\":300,\"destination\":\"promenade\",\"id\":\"harbor:promenade:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"harbor\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"harbor\",\"id\":\"promenade:harbor:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"promenade\",\"walking_minutes\":10},{\"cost_cents\":300,\"destination\":\"harbor\",\"id\":\"promenade:harbor:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"promenade\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"archive\",\"id\":\"harbor:archive:walk\",\"minutes\":12,\"mode\":\"walk\",\"origin\":\"harbor\",\"walking_minutes\":12},{\"cost_cents\":300,\"destination\":\"archive\",\"id\":\"harbor:archive:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"harbor\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"harbor\",\"id\":\"archive:harbor:walk\",\"minutes\":12,\"mode\":\"walk\",\"origin\":\"archive\",\"walking_minutes\":12},{\"cost_cents\":300,\"destination\":\"harbor\",\"id\":\"archive:harbor:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"archive\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"tearoom\",\"id\":\"museum:tearoom:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"museum\",\"walking_minutes\":10},{\"cost_cents\":200,\"destination\":\"tearoom\",\"id\":\"museum:tearoom:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"museum\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"museum\",\"id\":\"tearoom:museum:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"tearoom\",\"walking_minutes\":10},{\"cost_cents\":200,\"destination\":\"museum\",\"id\":\"tearoom:museum:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"tearoom\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"archive\",\"id\":\"museum:archive:walk\",\"minutes\":8,\"mode\":\"walk\",\"origin\":\"museum\",\"walking_minutes\":8},{\"cost_cents\":200,\"destination\":\"archive\",\"id\":\"museum:archive:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"museum\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"museum\",\"id\":\"archive:museum:walk\",\"minutes\":8,\"mode\":\"walk\",\"origin\":\"archive\",\"walking_minutes\":8},{\"cost_cents\":200,\"destination\":\"museum\",\"id\":\"archive:museum:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"archive\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"archive\",\"id\":\"tearoom:archive:walk\",\"minutes\":8,\"mode\":\"walk\",\"origin\":\"tearoom\",\"walking_minutes\":8},{\"cost_cents\":200,\"destination\":\"archive\",\"id\":\"tearoom:archive:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"tearoom\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"tearoom\",\"id\":\"archive:tearoom:walk\",\"minutes\":8,\"mode\":\"walk\",\"origin\":\"archive\",\"walking_minutes\":8},{\"cost_cents\":200,\"destination\":\"tearoom\",\"id\":\"archive:tearoom:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"archive\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"atrium\",\"id\":\"studio:atrium:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"studio\",\"walking_minutes\":10},{\"cost_cents\":200,\"destination\":\"atrium\",\"id\":\"studio:atrium:transit\",\"minutes\":7,\"mode\":\"transit\",\"origin\":\"studio\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"studio\",\"id\":\"atrium:studio:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"atrium\",\"walking_minutes\":10},{\"cost_cents\":200,\"destination\":\"studio\",\"id\":\"atrium:studio:transit\",\"minutes\":7,\"mode\":\"transit\",\"origin\":\"atrium\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"archive\",\"id\":\"studio:archive:walk\",\"minutes\":15,\"mode\":\"walk\",\"origin\":\"studio\",\"walking_minutes\":15},{\"cost_cents\":200,\"destination\":\"archive\",\"id\":\"studio:archive:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"studio\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"studio\",\"id\":\"archive:studio:walk\",\"minutes\":15,\"mode\":\"walk\",\"origin\":\"archive\",\"walking_minutes\":15},{\"cost_cents\":200,\"destination\":\"studio\",\"id\":\"archive:studio:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"archive\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"archive\",\"id\":\"atrium:archive:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"atrium\",\"walking_minutes\":10},{\"cost_cents\":200,\"destination\":\"archive\",\"id\":\"atrium:archive:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"atrium\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"atrium\",\"id\":\"archive:atrium:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"archive\",\"walking_minutes\":10},{\"cost_cents\":200,\"destination\":\"atrium\",\"id\":\"archive:atrium:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"archive\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"atrium\",\"id\":\"promenade:atrium:walk\",\"minutes\":12,\"mode\":\"walk\",\"origin\":\"promenade\",\"walking_minutes\":12},{\"cost_cents\":200,\"destination\":\"atrium\",\"id\":\"promenade:atrium:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"promenade\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"promenade\",\"id\":\"atrium:promenade:walk\",\"minutes\":12,\"mode\":\"walk\",\"origin\":\"atrium\",\"walking_minutes\":12},{\"cost_cents\":200,\"destination\":\"promenade\",\"id\":\"atrium:promenade:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"atrium\",\"walking_minutes\":2}]",
+              "unit": "json",
+              "source": "fictional-declared-trip-snapshot",
+              "scope": "trip-snapshot:e07971f8495dd7b4ca3954752a108385ce30b69e4b848b70f0a583ba66ede3f0"
+            }
+          ]
+        },
+        "tool_events": [
+          {
+            "tool": "fictional_trip_snapshot_reader",
+            "status": "collected",
+            "evidence": [
+              {
+                "id": "trip:request",
+                "subject": "trip-08",
+                "metric": "request",
+                "value": "{\"brief\":\"Plan a pleasant day using the supplied places and explicit requirements.\",\"budget_cents\":30000,\"day_end_minute\":1080,\"day_start_minute\":540,\"max_walking_minutes\":45,\"min_stops\":3,\"origin\":\"harbor\",\"rain\":true,\"required_categories\":[\"art\",\"meal\",\"reading\",\"coffee\"],\"trip_id\":\"trip-08\"}",
+                "unit": "json",
+                "source": "fictional-declared-trip-snapshot",
+                "scope": "trip-snapshot:e07971f8495dd7b4ca3954752a108385ce30b69e4b848b70f0a583ba66ede3f0"
+              },
+              {
+                "id": "trip:places",
+                "subject": "trip-08",
+                "metric": "places",
+                "value": "[{\"categories\":[\"art\"],\"closes_minute\":930,\"cost_cents\":2700,\"id\":\"museum\",\"indoor\":true,\"min_visit_minutes\":60,\"name\":\"Museum\",\"opens_minute\":630},{\"categories\":[\"art\"],\"closes_minute\":990,\"cost_cents\":4200,\"id\":\"studio\",\"indoor\":true,\"min_visit_minutes\":90,\"name\":\"Studio\",\"opens_minute\":690},{\"categories\":[\"meal\"],\"closes_minute\":810,\"cost_cents\":3200,\"id\":\"tearoom\",\"indoor\":true,\"min_visit_minutes\":45,\"name\":\"Tearoom\",\"opens_minute\":690},{\"categories\":[\"meal\",\"coffee\"],\"closes_minute\":990,\"cost_cents\":4700,\"id\":\"atrium\",\"indoor\":true,\"min_visit_minutes\":40,\"name\":\"Atrium\",\"opens_minute\":630},{\"categories\":[\"nature\"],\"closes_minute\":990,\"cost_cents\":200,\"id\":\"promenade\",\"indoor\":false,\"min_visit_minutes\":60,\"name\":\"Promenade\",\"opens_minute\":570},{\"categories\":[\"reading\"],\"closes_minute\":990,\"cost_cents\":200,\"id\":\"archive\",\"indoor\":true,\"min_visit_minutes\":45,\"name\":\"Archive\",\"opens_minute\":600}]",
+                "unit": "json",
+                "source": "fictional-declared-trip-snapshot",
+                "scope": "trip-snapshot:e07971f8495dd7b4ca3954752a108385ce30b69e4b848b70f0a583ba66ede3f0"
+              },
+              {
+                "id": "trip:transport",
+                "subject": "trip-08",
+                "metric": "transport",
+                "value": "[{\"cost_cents\":0,\"destination\":\"museum\",\"id\":\"harbor:museum:walk\",\"minutes\":20,\"mode\":\"walk\",\"origin\":\"harbor\",\"walking_minutes\":20},{\"cost_cents\":300,\"destination\":\"museum\",\"id\":\"harbor:museum:transit\",\"minutes\":10,\"mode\":\"transit\",\"origin\":\"harbor\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"harbor\",\"id\":\"museum:harbor:walk\",\"minutes\":20,\"mode\":\"walk\",\"origin\":\"museum\",\"walking_minutes\":20},{\"cost_cents\":300,\"destination\":\"harbor\",\"id\":\"museum:harbor:transit\",\"minutes\":10,\"mode\":\"transit\",\"origin\":\"museum\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"studio\",\"id\":\"harbor:studio:walk\",\"minutes\":35,\"mode\":\"walk\",\"origin\":\"harbor\",\"walking_minutes\":35},{\"cost_cents\":300,\"destination\":\"studio\",\"id\":\"harbor:studio:transit\",\"minutes\":15,\"mode\":\"transit\",\"origin\":\"harbor\",\"walking_minutes\":4},{\"cost_cents\":0,\"destination\":\"harbor\",\"id\":\"studio:harbor:walk\",\"minutes\":35,\"mode\":\"walk\",\"origin\":\"studio\",\"walking_minutes\":35},{\"cost_cents\":300,\"destination\":\"harbor\",\"id\":\"studio:harbor:transit\",\"minutes\":15,\"mode\":\"transit\",\"origin\":\"studio\",\"walking_minutes\":4},{\"cost_cents\":0,\"destination\":\"tearoom\",\"id\":\"harbor:tearoom:walk\",\"minutes\":25,\"mode\":\"walk\",\"origin\":\"harbor\",\"walking_minutes\":25},{\"cost_cents\":300,\"destination\":\"tearoom\",\"id\":\"harbor:tearoom:transit\",\"minutes\":12,\"mode\":\"transit\",\"origin\":\"harbor\",\"walking_minutes\":3},{\"cost_cents\":0,\"destination\":\"harbor\",\"id\":\"tearoom:harbor:walk\",\"minutes\":25,\"mode\":\"walk\",\"origin\":\"tearoom\",\"walking_minutes\":25},{\"cost_cents\":300,\"destination\":\"harbor\",\"id\":\"tearoom:harbor:transit\",\"minutes\":12,\"mode\":\"transit\",\"origin\":\"tearoom\",\"walking_minutes\":3},{\"cost_cents\":0,\"destination\":\"atrium\",\"id\":\"harbor:atrium:walk\",\"minutes\":15,\"mode\":\"walk\",\"origin\":\"harbor\",\"walking_minutes\":15},{\"cost_cents\":300,\"destination\":\"atrium\",\"id\":\"harbor:atrium:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"harbor\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"harbor\",\"id\":\"atrium:harbor:walk\",\"minutes\":15,\"mode\":\"walk\",\"origin\":\"atrium\",\"walking_minutes\":15},{\"cost_cents\":300,\"destination\":\"harbor\",\"id\":\"atrium:harbor:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"atrium\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"promenade\",\"id\":\"harbor:promenade:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"harbor\",\"walking_minutes\":10},{\"cost_cents\":300,\"destination\":\"promenade\",\"id\":\"harbor:promenade:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"harbor\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"harbor\",\"id\":\"promenade:harbor:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"promenade\",\"walking_minutes\":10},{\"cost_cents\":300,\"destination\":\"harbor\",\"id\":\"promenade:harbor:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"promenade\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"archive\",\"id\":\"harbor:archive:walk\",\"minutes\":12,\"mode\":\"walk\",\"origin\":\"harbor\",\"walking_minutes\":12},{\"cost_cents\":300,\"destination\":\"archive\",\"id\":\"harbor:archive:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"harbor\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"harbor\",\"id\":\"archive:harbor:walk\",\"minutes\":12,\"mode\":\"walk\",\"origin\":\"archive\",\"walking_minutes\":12},{\"cost_cents\":300,\"destination\":\"harbor\",\"id\":\"archive:harbor:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"archive\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"tearoom\",\"id\":\"museum:tearoom:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"museum\",\"walking_minutes\":10},{\"cost_cents\":200,\"destination\":\"tearoom\",\"id\":\"museum:tearoom:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"museum\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"museum\",\"id\":\"tearoom:museum:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"tearoom\",\"walking_minutes\":10},{\"cost_cents\":200,\"destination\":\"museum\",\"id\":\"tearoom:museum:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"tearoom\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"archive\",\"id\":\"museum:archive:walk\",\"minutes\":8,\"mode\":\"walk\",\"origin\":\"museum\",\"walking_minutes\":8},{\"cost_cents\":200,\"destination\":\"archive\",\"id\":\"museum:archive:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"museum\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"museum\",\"id\":\"archive:museum:walk\",\"minutes\":8,\"mode\":\"walk\",\"origin\":\"archive\",\"walking_minutes\":8},{\"cost_cents\":200,\"destination\":\"museum\",\"id\":\"archive:museum:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"archive\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"archive\",\"id\":\"tearoom:archive:walk\",\"minutes\":8,\"mode\":\"walk\",\"origin\":\"tearoom\",\"walking_minutes\":8},{\"cost_cents\":200,\"destination\":\"archive\",\"id\":\"tearoom:archive:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"tearoom\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"tearoom\",\"id\":\"archive:tearoom:walk\",\"minutes\":8,\"mode\":\"walk\",\"origin\":\"archive\",\"walking_minutes\":8},{\"cost_cents\":200,\"destination\":\"tearoom\",\"id\":\"archive:tearoom:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"archive\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"atrium\",\"id\":\"studio:atrium:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"studio\",\"walking_minutes\":10},{\"cost_cents\":200,\"destination\":\"atrium\",\"id\":\"studio:atrium:transit\",\"minutes\":7,\"mode\":\"transit\",\"origin\":\"studio\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"studio\",\"id\":\"atrium:studio:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"atrium\",\"walking_minutes\":10},{\"cost_cents\":200,\"destination\":\"studio\",\"id\":\"atrium:studio:transit\",\"minutes\":7,\"mode\":\"transit\",\"origin\":\"atrium\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"archive\",\"id\":\"studio:archive:walk\",\"minutes\":15,\"mode\":\"walk\",\"origin\":\"studio\",\"walking_minutes\":15},{\"cost_cents\":200,\"destination\":\"archive\",\"id\":\"studio:archive:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"studio\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"studio\",\"id\":\"archive:studio:walk\",\"minutes\":15,\"mode\":\"walk\",\"origin\":\"archive\",\"walking_minutes\":15},{\"cost_cents\":200,\"destination\":\"studio\",\"id\":\"archive:studio:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"archive\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"archive\",\"id\":\"atrium:archive:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"atrium\",\"walking_minutes\":10},{\"cost_cents\":200,\"destination\":\"archive\",\"id\":\"atrium:archive:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"atrium\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"atrium\",\"id\":\"archive:atrium:walk\",\"minutes\":10,\"mode\":\"walk\",\"origin\":\"archive\",\"walking_minutes\":10},{\"cost_cents\":200,\"destination\":\"atrium\",\"id\":\"archive:atrium:transit\",\"minutes\":6,\"mode\":\"transit\",\"origin\":\"archive\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"atrium\",\"id\":\"promenade:atrium:walk\",\"minutes\":12,\"mode\":\"walk\",\"origin\":\"promenade\",\"walking_minutes\":12},{\"cost_cents\":200,\"destination\":\"atrium\",\"id\":\"promenade:atrium:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"promenade\",\"walking_minutes\":2},{\"cost_cents\":0,\"destination\":\"promenade\",\"id\":\"atrium:promenade:walk\",\"minutes\":12,\"mode\":\"walk\",\"origin\":\"atrium\",\"walking_minutes\":12},{\"cost_cents\":200,\"destination\":\"promenade\",\"id\":\"atrium:promenade:transit\",\"minutes\":8,\"mode\":\"transit\",\"origin\":\"atrium\",\"walking_minutes\":2}]",
+                "unit": "json",
+                "source": "fictional-declared-trip-snapshot",
+                "scope": "trip-snapshot:e07971f8495dd7b4ca3954752a108385ce30b69e4b848b70f0a583ba66ede3f0"
+              }
+            ],
+            "error": null
+          }
+        ],
+        "routes": []
+      },
+      "explicit_abstention": false,
+      "verifier_withheld": false,
+      "technical_error": null,
+      "request_ids": [
+        "case-08-initial"
+      ],
+      "elapsed_seconds": 16.86287583300873,
+      "cached_model_seconds": 0
+    },
+    "self_review": {
+      "final_text": "{\"id\":\"candidate-3\",\"action\":\"propose_itinerary\",\"target\":\"trip:verified_plan\",\"claim\":\"{\\\"stops\\\":[{\\\"place_id\\\":\\\"museum\\\",\\\"start_minute\\\":630,\\\"end_minute\\\":690},{\\\"place_id\\\":\\\"archive\\\",\\\"start_minute\\\":700,\\\"end_minute\\\":745},{\\\"place_id\\\":\\\"atrium\\\",\\\"start_minute\\\":755,\\\"end_minute\\\":795}],\\\"legs\\\":[{\\\"route_id\\\":\\\"harbor:museum:transit\\\",\\\"depart_minute\\\":540},{\\\"route_id\\\":\\\"museum:archive:transit\\\",\\\"depart_minute\\\":691},{\\\"route_id\\\":\\\"archive:atrium:transit\\\",\\\"depart_minute\\\":746},{\\\"route_id\\\":\\\"atrium:harbor:transit\\\",\\\"depart_minute\\\":796}],\\\"total_cost_cents\\\":8600,\\\"total_walking_minutes\\\":8}\",\"refs\":[\"trip:request\",\"trip:places\",\"trip:transport\"]}",
+      "technical_error": null,
+      "request_ids": [
+        "case-08-initial",
+        "case-08-self-1",
+        "case-08-self-2"
+      ],
+      "elapsed_seconds": 31.66265733399632,
+      "cached_model_seconds": 0
+    }
+  }
+}

@@ -12,7 +12,7 @@ Plan a day with many possible answers. Check a refund against a merchant policy.
 
 **Python 3.10+ · Standalone Agent · Zero-dependency core · MIT · Experimental v0.7.0**
 
-[中文](README.zh-CN.md) · [Quick start](#try-it-in-three-minutes) · [Open-ended case](#open-ended-planning-many-answers-explicit-constraints) · [Live evidence](docs/evidence/open-planning/README.md) · [Architecture](docs/architecture.md) · [Optional integrations](#optional-integrations)
+[中文](README.zh-CN.md) · [Quick start](#try-it-in-three-minutes) · [Open-ended case](#open-ended-planning-many-answers-explicit-constraints) · [Pilot evaluation](docs/evidence/planning-pilot-v1/README.md) · [Architecture](docs/architecture.md) · [Optional integrations](#optional-integrations)
 
 [**6 runnable domains**](#included-domain-adapters) · [**660 tests passed locally for v0.7.0**](docs/validation.md) · [**Inspect real DeepSeek proposals and decisions**](docs/evidence/open-planning/README.md)
 
