@@ -1,18 +1,36 @@
-![ResiMind — 给 AI Agent 加上独立验证](docs/assets/banner.svg)
+![ResiMind — 让 AI 放开想，让结果经得起查](docs/assets/banner.svg)
 
 # ResiMind
 
-**给你的 AI Agent 加上独立验证。**
+**让 AI 放开想，让结果经得起查。**
 
-模型提出候选，领域验证器检查。只有通过验证的事实才能提交；没完成的问题持续保留，验证反馈指导下一步提议。
+ResiMind 是一套**独立运行的神经符号 Agent 架构**：模型探索方案，独立代码检查领域规则，通过验证的事实才能提交。错误提议不会改动正式事实；尚未满足的约束和缺失证据形成**残差**，指引下一步推理。
 
-适合有明确、可执行检查的任务：开放式方案规划、客服业务规则、数学证明证书、工程方程，或你自己的结构化规则。沿用已有模型，为具体领域提供验证逻辑。
+**神经提议 → 符号验证 → 事实提交 → 残差反馈。**
+
+从没有唯一答案的出游方案，到客服退款、数学最优性证书、连续梁计算：沿用你的模型，把“什么结果可以接受”写成真正会执行的检查。
 
 **Python 3.10+ · 独立 Agent · 核心零依赖 · MIT · 实验版本 v0.7.0**
 
-[English](README.md) · [开放式规划](docs/open-planning.md) · [可选集成](#可选集成) · [日常客服](docs/customer-support.md) · [数学证明](docs/constrained-optimization.md) · [桥梁案例](docs/continuous-bridge.md) · [架构](docs/architecture.md)
+[English](README.md) · [快速上手](#三分钟跑起来) · [真实模型记录](docs/evidence/open-planning/README.md) · [架构](docs/architecture.md) · [可选集成](#可选集成)
+
+[**6 个可运行领域**](#内置领域适配器) · [**v0.7.0 本地通过 660 项测试**](docs/validation.md) · [**真实 DeepSeek 提议与验证记录可查**](docs/evidence/open-planning/README.md)
 
 **项目发起者与原始发布者：[@1105216375-alt](https://github.com/1105216375-alt)。** [原始仓库](https://github.com/1105216375-alt/resimind) · [引用信息](CITATION.cff)
+
+## 需求变了，Agent 真能把方案改对吗？
+
+一次真实 DeepSeek 调用生成了 **画廊 → 面馆 → 阅览室**，满足当时的条件。随后，我们在结构化需求中把**喝咖啡改成必选**，将这份真实旧方案重新交给 Agent：
+
+| 步骤 | 实际发生了什么 |
+| --- | --- |
+| 重检旧方案 | **拒绝：**缺少必选活动，不提交任何事实。 |
+| 把反馈交给 DeepSeek | **新增 1 次模型调用**，重新组合成画廊 → 阅览室 → 咖啡馆。 |
+| 独立核验新方案 | **通过：**73 元、步行 35 分钟、13:04 返回，满足全部给定硬约束。 |
+
+模型负责在多种方案中做选择，验证器负责守住要求。示例资料中的咖啡馆同时提供餐食与咖啡；场所与交通为合成数据，核验的是这些输入条件下的可行性。
+
+[**查看两份提议、拒绝原因和核验结果 →**](docs/evidence/open-planning/README.md)
 
 ## 三分钟跑起来
 
@@ -24,23 +42,27 @@ cd resimind
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install .
-python -m resimind demo
+python -m resimind demo --domain planning
 ```
 
 Windows PowerShell 的激活命令为 `.venv\Scripts\Activate.ps1`。安装时可能需要下载构建工具。示例**离线运行，无需 API 密钥**；安装后，`python -m resimind` 与 `resimind` 命令均可在仓库目录外使用。
 
-优化示例会拒绝不可行候选，保持正式状态不变，再接受修正后的原始／对偶证书，最后核验全局最优性证明：
+规划示例第一次安排了 **50 分钟步行**，超过 **45 分钟上限**，被 ResiMind 拒绝。下一次提议调整交通方式，把步行降到 **22 分钟**，通过核验：
 
-![真实执行的离线验证轨迹：拒绝、修正、证明](docs/assets/verification-demo.gif)
+![实际离线规划轨迹：步行超限被拒绝，修正交通后核验行程](docs/assets/planning-demo.svg)
 
-[静态轨迹图](docs/assets/verification-demo.png)。动画回放来自实际执行的确定性示例，**不是真实模型运行录像**；验证与状态更新确实执行，第一次错误为有意构造。
+这张图来自实际执行的**离线示例**，第一次错误为有意构造；验证和状态更新确实执行。上方的真实模型需求变更实验另有完整响应记录。
 
-```bash
-python -m resimind demo --domain planning
-python -m resimind demo --domain customer-support
-python -m resimind demo --domain bridge
-python -m resimind demo --json > audit.json
-```
+选一个你关心的场景，下面四条命令都能离线运行：
+
+| 场景 | 能看出什么 | 运行命令 |
+| --- | --- | --- |
+| [开放式规划](docs/open-planning.md) | 答案可以多样，预算、时间和路线必须满足约束 | `python -m resimind demo --domain planning` |
+| [日常客服](docs/customer-support.md) | 提议退 259 元，配置规则只允许计算出 249 元，金额被拦下 | `python -m resimind demo --domain customer-support` |
+| [数学证明](docs/constrained-optimization.md) | 目标函数更低也可能不可行；最后检查精确最优性证书 | `python -m resimind demo` |
+| [桥梁工程](docs/continuous-bridge.md) | 力的平衡过了，中墩两侧的转角仍可能对不上 | `python -m resimind demo --domain bridge` |
+
+追加 `--json` 查看审计记录；[接入 DeepSeek](docs/open-planning.md#let-deepseek-choose-the-plan)，让模型自行组合行程。
 
 ## 直接运行独立 Agent
 
@@ -63,8 +85,6 @@ else:
 
 ## 开放式规划：答案可以多样，约束必须满足
 
-![实际离线规划轨迹：步行超限被拒绝，修正交通后核验行程](docs/assets/planning-demo.svg)
-
 “帮我安排轻松的一天，想看艺术、吃顿饭，偏好安静和咖啡。”这类请求有很多合理方案。模型可以从给定的虚构场所资料中自由选择地点、顺序、时间和交通方式，并在提议中解释取舍。
 
 验证器独立检查预算、开放时间、停留时长、交通与返回时间、必需活动、步行上限和室内要求，允许不同的可行方案。再有说服力的理由，也不能替代交通证据或消除时间冲突。
@@ -86,7 +106,7 @@ python -m resimind demo --domain planning --scenario missing-travel
 
 [查看开放式规划的完整规则与真实模型入口 →](docs/open-planning.md)
 
-**真实需求变更记录：**先生成有效行程，再把“喝咖啡”改成必选。新约束拒绝旧方案后，DeepSeek 将“画廊 → 面馆 → 阅览室”改为“画廊 → 阅览室 → 咖啡馆”，重新通过预算与时间检查。[查看真实提议、反馈与新行程](docs/evidence/open-planning/README.md)。此前两个初始真实规划均第一次通过，未把它们包装成纠错案例。
+[真实模型记录](docs/evidence/open-planning/README.md)还保留了两个第一次提议就通过的初始规划，以及上方的需求变更实验。这些记录用于检查实际过程，不是模型准确率对比基准。
 
 ## 日常客服：先核实退款条件，再给处理建议
 
@@ -110,6 +130,10 @@ python -m resimind demo --domain customer-support --scenario expired
 [查看客服规则、完整案例与真实模型接入 →](docs/customer-support.md) · [真实 DeepSeek 记录：5 次调用、2 次拒绝、核验后给出建议](docs/evidence/customer-support/README.md)
 
 ## 数学：算出一个解，还得证明它是全局最优
+
+![真实执行的离线优化轨迹：拒绝、修正、证明](docs/assets/verification-demo.gif)
+
+[静态轨迹图](docs/assets/verification-demo.png)。这是实际执行的离线示例，不可行候选为有意构造。
 
 三变量二次优化，包含交叉项、等式约束、非负约束与上界：
 

@@ -1,18 +1,36 @@
-![ResiMind — independent verification for AI agents](docs/assets/banner.svg)
+![ResiMind — let AI explore, verify what you trust](docs/assets/banner.svg)
 
 # ResiMind
 
-**Add independent verification to your AI agent.**
+**Let AI explore. Verify what you trust.**
 
-Your model proposes a step. Your domain verifier checks it. Only accepted facts enter the committed state; unfinished work stays visible and verifier feedback guides the next proposal.
+ResiMind is a **standalone neuro-symbolic Agent architecture** for turning model proposals into checked results. The model explores possible steps. Independent code checks your domain's explicit rules. Rejected proposals leave committed facts unchanged; unfinished obligations — the **residual** — guide what happens next.
 
-Use ResiMind for tasks with explicit, executable checks: open-ended plans, customer-service policies, mathematical certificates, engineering equations, or your own structured rules. Keep your model and supply the checks for your domain.
+**Neural proposals → symbolic checks → committed facts → residual feedback.**
+
+Plan a day with many possible answers. Check a refund against a merchant policy. Verify an optimization certificate or a continuous-beam calculation. Keep your model; make the acceptance rules executable.
 
 **Python 3.10+ · Standalone Agent · Zero-dependency core · MIT · Experimental v0.7.0**
 
-[中文](README.zh-CN.md) · [Open-ended planning](docs/open-planning.md) · [Optional integrations](#optional-integrations) · [Customer support](docs/customer-support.md) · [Math proof](docs/constrained-optimization.md) · [Bridge case](docs/continuous-bridge.md) · [Architecture](docs/architecture.md)
+[中文](README.zh-CN.md) · [Quick start](#try-it-in-three-minutes) · [Live evidence](docs/evidence/open-planning/README.md) · [Architecture](docs/architecture.md) · [Optional integrations](#optional-integrations)
+
+[**6 runnable domains**](#included-domain-adapters) · [**660 tests passed locally for v0.7.0**](docs/validation.md) · [**Inspect real DeepSeek proposals and decisions**](docs/evidence/open-planning/README.md)
 
 **Project creator and original publisher: [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
+
+## Change the requirement. Watch the plan change.
+
+A real DeepSeek run proposed **gallery → noodles → reading room**. It satisfied the original constraints. We then made **coffee mandatory** in the structured requirements and resubmitted that actual plan:
+
+| Step | What happened |
+| --- | --- |
+| Recheck the old plan | **Rejected:** a required activity was missing. No facts committed. |
+| Give the feedback to DeepSeek | **One new model call** chose gallery → reading room → cafe. |
+| Independently check the revision | **Accepted:** ¥73, 35 minutes walking, return at 13:04; all supplied hard constraints passed. |
+
+The model chooses among possible plans; the verifier enforces the requirements. The cafe covers both a meal and coffee in the fictional catalog. This recorded experiment uses synthetic venue and transport data; the check establishes feasibility under those inputs.
+
+[**Inspect both proposals, the rejection, and the checked revision →**](docs/evidence/open-planning/README.md)
 
 ## Try it in three minutes
 
@@ -24,23 +42,27 @@ cd resimind
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install .
-python -m resimind demo
+python -m resimind demo --domain planning
 ```
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. Installation may download build tools. The demo runs **offline, without an API key**; both `python -m resimind` and the installed `resimind` command work outside the checkout.
 
-The optimization demo rejects an infeasible candidate without changing the committed state, accepts a corrected primal/dual certificate, then verifies a global-optimality proof:
+The planning demo proposes **50 minutes of walking** against a **45-minute limit**. ResiMind rejects it. The next proposal changes transport, bringing walking down to **22 minutes**, and passes the checks:
 
-![Actual offline verification trace: reject, correct, certify](docs/assets/verification-demo.gif)
+![Actual offline planning trace: reject an excessive walk, then verify the revised itinerary](docs/assets/planning-demo.svg)
 
-[Static trace image](docs/assets/verification-demo.png). This replay comes from the executable deterministic fixture, **not a live model run**. The verifier and state transitions really execute; the first mistake is deliberately scripted.
+This trace comes from the executable **offline fixture**, with a deliberately scripted first mistake. The checks and state transitions really execute. The live requirement-change experiment above has its own archived model responses.
 
-```bash
-python -m resimind demo --domain planning
-python -m resimind demo --domain customer-support
-python -m resimind demo --domain bridge
-python -m resimind demo --json > audit.json
-```
+Choose a different challenge. All four commands run offline:
+
+| Try | What the example makes visible | Command |
+| --- | --- | --- |
+| [Open-ended planning](docs/open-planning.md) | Many valid answers; time, budget, and route constraints still apply | `python -m resimind demo --domain planning` |
+| [Customer support](docs/customer-support.md) | A ¥259 refund proposal fails the configured ¥249 calculation | `python -m resimind demo --domain customer-support` |
+| [Mathematics](docs/constrained-optimization.md) | A lower objective is useless if the candidate violates a constraint; check an exact optimality certificate | `python -m resimind demo` |
+| [Bridge engineering](docs/continuous-bridge.md) | Balanced forces can still hide incompatible rotations at a shared pier | `python -m resimind demo --domain bridge` |
+
+Add `--json` to inspect the audit. [Connect DeepSeek](docs/open-planning.md#let-deepseek-choose-the-plan) when you want the model to compose its own plan.
 
 ## Use the standalone Agent
 
@@ -63,8 +85,6 @@ Model SDKs and external workflow connectors are [optional integrations](#optiona
 
 ## Open-ended planning: many answers, explicit constraints
 
-![Actual offline planning trace: reject an excessive walk, then verify the revised itinerary](docs/assets/planning-demo.svg)
-
 “Plan a relaxed day with art and a meal. I like quiet places and coffee.” There are many reasonable itineraries. The model chooses places, order, times, and transport from a supplied fictional catalog; it can explain its preferences in a proposal.
 
 The verifier independently checks the budget, opening windows, visit durations, travel and return timing, required activities, walking limit, and any indoor-only requirement. It accepts different feasible plans. A plausible explanation cannot override an impossible connection or an unknown travel time.
@@ -86,7 +106,7 @@ These offline scenarios demonstrate correction, indoor planning, and unresolved 
 
 [Inspect the open-ended planning contract and live entry point →](docs/open-planning.md)
 
-**Recorded live revision:** coffee became mandatory after a valid plan had been generated. The new constraint rejected that older plan; DeepSeek then changed “gallery → noodles → reading room” to “gallery → reading room → cafe,” passing the same budget and timing checks. [See the actual proposal, feedback, and revised plan](docs/evidence/open-planning/README.md). The two initial live planning requests each passed immediately; we do not label them as correction demonstrations.
+The [live audit](docs/evidence/open-planning/README.md) includes the requirement-change experiment above and two initial planning requests that each passed on the first proposal. These are inspectable examples, not a comparative accuracy benchmark.
 
 ## Customer support: check a refund before promising one
 
@@ -110,6 +130,10 @@ These are offline demonstrations using fictional merchant rules and synthetic or
 [Read the customer-support adapter and live example →](docs/customer-support.md) · [Actual DeepSeek run: 5 calls, 2 rejected proposals, verified recommendation](docs/evidence/customer-support/README.md)
 
 ## Mathematics: a solution is not yet a proof
+
+![Actual offline optimization trace: reject, correct, certify](docs/assets/verification-demo.gif)
+
+[Static trace](docs/assets/verification-demo.png). This is an executed offline fixture with a deliberately infeasible candidate.
 
 Minimize a three-variable quadratic with coupled terms, an equality constraint, nonnegativity, and an upper bound:
 
@@ -161,7 +185,7 @@ python -m examples.continuous_bridge --json
 
 [Read the structural model, equations, and limits →](docs/continuous-bridge.md)
 
-> Both showcases execute real checks with deterministic offline proposers and deliberate first-step mistakes. Supply a model callback to use neural proposals. These runs demonstrate verification behavior, not LLM accuracy. The bridge is a synthetic equivalent line-beam example with supplied limits, not a design-code assessment; its midpoint checks are not a global deflection envelope.
+> Both showcases execute real checks with deterministic offline proposers and deliberately invalid candidates. Supply a model callback to use neural proposals. These runs demonstrate verification behavior, not LLM accuracy. The bridge is a synthetic equivalent line-beam example with supplied limits, not a design-code assessment; its midpoint checks are not a global deflection envelope.
 
 ## Included domain adapters
 
