@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use ResiMind, please cite this project using the metadata below."
+type: software
+title: ResiMind
+authors:
+  - alias: "1105216375-alt"
+    website: "https://github.com/1105216375-alt"
+version: 0.4.0
+date-released: "2026-10-08"
+url: "https://github.com/1105216375-alt/resimind"
+repository-code: "https://github.com/1105216375-alt/resimind"
+license: MIT
+abstract: >-
+  A neuro-symbolic Agent architecture for mathematics, engineering, and other
+  structured tasks, using independent verification and residual-driven reasoning.

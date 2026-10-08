@@ -10,6 +10,8 @@
 
 [English](README.md) · [约束优化证明案例](docs/constrained-optimization.md) · [连续梁桥案例](docs/continuous-bridge.md) · [神经符号实现](docs/neuro-symbolic.md) · [架构](docs/architecture.md)
 
+**项目发起者与原始发布者：[@1105216375-alt](https://github.com/1105216375-alt)。** [原始仓库](https://github.com/1105216375-alt/resimind) · [引用信息](CITATION.cff)
+
 ## 数学：算出一个解，还得证明它是全局最优
 
 三变量二次优化，包含交叉项、等式约束、非负约束与上界：
@@ -168,4 +170,14 @@ ResiMind 是实验阶段的同步 Agent 框架，工具在**循环之前**取证
 
 本仓库从「桥梁医生」的实践中提炼通用实现，只包含合成示例，不包含原应用业务档案、客户数据、凭据或私有模型日志。参见[来源与范围](docs/provenance.md)、[架构与信任边界](docs/architecture.md)和[安全说明](SECURITY.md)。
 
-欢迎新的领域适配器、反例与验证失败测试，见 [CONTRIBUTING.md](CONTRIBUTING.md)。采用 [MIT License](LICENSE)。
+## 作者与引用
+
+ResiMind 由 [@1105216375-alt](https://github.com/1105216375-alt) 发起并首次发布，架构源自作者的「桥梁医生」应用。原始仓库为 [1105216375-alt/resimind](https://github.com/1105216375-alt/resimind)，[发布记录](https://github.com/1105216375-alt/resimind/releases)列出已公开的版本。提炼范围见[来源说明](docs/provenance.md)。
+
+使用或介绍 ResiMind 时，欢迎注明项目来源并链接原始仓库。建议引用：
+
+> 1105216375-alt. ResiMind（版本 0.4.0），2026. https://github.com/1105216375-alt/resimind
+
+[CITATION.cff](CITATION.cff) 提供机器可读的引用信息。引用属于倡议，不是新增的许可条件。项目采用 [MIT License](LICENSE)，允许商用；软件副本或实质部分须保留版权和许可声明。
+
+欢迎新的领域适配器、反例与验证失败测试，见 [CONTRIBUTING.md](CONTRIBUTING.md)。

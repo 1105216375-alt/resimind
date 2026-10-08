@@ -10,6 +10,8 @@ A lightweight **neuro-symbolic Agent architecture for mathematics, engineering, 
 
 [中文](README.zh-CN.md) · [Mathematical proof case](docs/constrained-optimization.md) · [Continuous bridge case](docs/continuous-bridge.md) · [How it is neuro-symbolic](docs/neuro-symbolic.md) · [Architecture](docs/architecture.md)
 
+**Project creator and original publisher: [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
+
 ## Mathematics: a solution is not yet a proof
 
 Minimize a three-variable quadratic with coupled terms, an equality constraint, nonnegativity, and an upper bound:
@@ -168,4 +170,14 @@ Domain verifiers and residual builders are trusted application code; their corre
 
 This repository contains a generic implementation and synthetic examples distilled from the Bridge Doctor application's workflow. It contains no original application records, customer data, credentials, or private model logs. Read [provenance](docs/provenance.md), [architecture and trust boundaries](docs/architecture.md), and [security](SECURITY.md).
 
-New domain adapters, counterexamples, and verifier failure tests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). Released under the [MIT License](LICENSE).
+## Authorship and citation
+
+ResiMind was initiated and originally published by [@1105216375-alt](https://github.com/1105216375-alt), drawing on the creator's Bridge Doctor application. The original repository is [1105216375-alt/resimind](https://github.com/1105216375-alt/resimind); its [releases](https://github.com/1105216375-alt/resimind/releases) record published versions. See [provenance](docs/provenance.md) for the extraction scope.
+
+If you use or discuss ResiMind, please cite the project and link to the original repository. Suggested citation:
+
+> 1105216375-alt. ResiMind (version 0.4.0), 2026. https://github.com/1105216375-alt/resimind
+
+Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is appreciated, not an additional license condition. Commercial use is permitted under the [MIT License](LICENSE), which requires retaining its copyright and permission notices in copies or substantial portions of the software.
+
+New domain adapters, counterexamples, and verifier failure tests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
