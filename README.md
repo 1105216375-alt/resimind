@@ -12,13 +12,44 @@ Plan a day with many possible answers. Check a refund against a merchant policy.
 
 **Python 3.10+ · Standalone Agent · Zero-dependency core · MIT · Experimental v0.7.0**
 
-[中文](README.zh-CN.md) · [Quick start](#try-it-in-three-minutes) · [Live evidence](docs/evidence/open-planning/README.md) · [Architecture](docs/architecture.md) · [Optional integrations](#optional-integrations)
+[中文](README.zh-CN.md) · [Quick start](#try-it-in-three-minutes) · [Open-ended case](#open-ended-planning-many-answers-explicit-constraints) · [Live evidence](docs/evidence/open-planning/README.md) · [Architecture](docs/architecture.md) · [Optional integrations](#optional-integrations)
 
 [**6 runnable domains**](#included-domain-adapters) · [**660 tests passed locally for v0.7.0**](docs/validation.md) · [**Inspect real DeepSeek proposals and decisions**](docs/evidence/open-planning/README.md)
 
 **Project creator and original publisher: [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
 
-## Change the requirement. Watch the plan change.
+## Open-ended planning: many answers, explicit constraints
+
+**The request:** “Plan a relaxed day with art and a meal. I like quiet places and coffee.”
+
+The supplied hard constraints are **09:00–18:00, ¥300 for one person, at most 45 minutes walking, at least three distinct stops, art and a meal, and a return to the starting station**. Opening windows, minimum visit durations, and every travel leg must also fit. Quietness and coffee begin as preferences; the later experiment makes coffee mandatory.
+
+### Same request, different valid answers
+
+The model can choose places, order, timing, and transport. The verifier accepts a whole plan that satisfies the constraints, without comparing it to one fixed answer. These two independently checked offline examples satisfy the same original request:
+
+| Feasible plan | Cost | Walking | Return |
+| --- | ---: | ---: | --- |
+| Gallery → noodles → reading room | ¥61 | 22 min | 13:38 |
+| Cafe → pottery workshop → reading room | ¥95 | 8 min | 13:43 |
+
+Venue and transport data are fictional. These checks establish feasibility under the supplied inputs; enjoyment and the “best day” remain subjective. [Inspect the schedules and transport choices](docs/open-planning.md#try-the-three-scenarios).
+
+### A constraint fails: inspect the feedback and revision
+
+![Actual offline planning trace: reject an excessive walk, then verify the revised itinerary](docs/assets/planning-demo.svg)
+
+| Offline scenario | What happens |
+| --- | --- |
+| Too much walking | Reject **50 minutes > 45 minutes** without changing committed facts; revised transport reduces walking to **22 minutes**, and the plan passes. |
+| Rain requires indoor venues | Reject the garden visit; a revised indoor itinerary passes. |
+| Return-route measurements are missing | Keep the transport evidence unresolved; no verified itinerary is produced. |
+
+These are executable **offline fixtures**, with deliberately flawed candidates. The checks and state transitions really execute; these mistakes are not attributed to a live model.
+
+**The neuro-symbolic interaction:** neural proposals explore the choices, symbolic checks enforce the explicit constraints, and residual feedback tells the next proposal what still needs fixing or evidence.
+
+### Change the requirement. Watch the plan change.
 
 A real DeepSeek run proposed **gallery → noodles → reading room**. It satisfied the original constraints. We then made **coffee mandatory** in the structured requirements and resubmitted that actual plan:
 
@@ -31,6 +62,8 @@ A real DeepSeek run proposed **gallery → noodles → reading room**. It satisf
 The model chooses among possible plans; the verifier enforces the requirements. The cafe covers both a meal and coffee in the fictional catalog. This recorded experiment uses synthetic venue and transport data; the check establishes feasibility under those inputs.
 
 [**Inspect both proposals, the rejection, and the checked revision →**](docs/evidence/open-planning/README.md)
+
+[**Full planning rules and all three offline scenarios**](docs/open-planning.md) · [**Runnable example**](examples/open_planning.py) · [**Real DeepSeek audits**](docs/evidence/open-planning/README.md)
 
 ## Try it in three minutes
 
@@ -47,11 +80,7 @@ python -m resimind demo --domain planning
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. Installation may download build tools. The demo runs **offline, without an API key**; both `python -m resimind` and the installed `resimind` command work outside the checkout.
 
-The planning demo proposes **50 minutes of walking** against a **45-minute limit**. ResiMind rejects it. The next proposal changes transport, bringing walking down to **22 minutes**, and passes the checks:
-
-![Actual offline planning trace: reject an excessive walk, then verify the revised itinerary](docs/assets/planning-demo.svg)
-
-This trace comes from the executable **offline fixture**, with a deliberately scripted first mistake. The checks and state transitions really execute. The live requirement-change experiment above has its own archived model responses.
+The default planning example runs the rejection-and-revision sequence [shown above](#open-ended-planning-many-answers-explicit-constraints).
 
 Choose a different challenge. All four commands run offline:
 
@@ -82,31 +111,6 @@ else:
 ```
 
 Model SDKs and external workflow connectors are [optional integrations](#optional-integrations). No LangGraph installation is needed for this Agent or the built-in domain demos.
-
-## Open-ended planning: many answers, explicit constraints
-
-“Plan a relaxed day with art and a meal. I like quiet places and coffee.” There are many reasonable itineraries. The model chooses places, order, times, and transport from a supplied fictional catalog; it can explain its preferences in a proposal.
-
-The verifier independently checks the budget, opening windows, visit durations, travel and return timing, required activities, walking limit, and any indoor-only requirement. It accepts different feasible plans. A plausible explanation cannot override an impossible connection or an unknown travel time.
-
-| Part | Responsibility |
-| --- | --- |
-| Neural proposal | Compose an itinerary and suggest trade-offs based on the brief. |
-| Symbolic verification | Recompute feasibility using the selected places, routes, and explicit constraints. |
-| Residual feedback | Explain the rejected or missing check so the next proposal can change. |
-| Checked result | A feasible plan under the supplied data; subjective appeal stays unverified. |
-
-```bash
-python -m resimind demo --domain planning
-python -m resimind demo --domain planning --scenario rain
-python -m resimind demo --domain planning --scenario missing-travel
-```
-
-These offline scenarios demonstrate correction, indoor planning, and unresolved transport evidence. The live example lets DeepSeek compose its own itinerary. Neither mode proves that a plan is the most enjoyable or globally best; the catalog is synthetic and contains no live venue or traffic data.
-
-[Inspect the open-ended planning contract and live entry point →](docs/open-planning.md)
-
-The [live audit](docs/evidence/open-planning/README.md) includes the requirement-change experiment above and two initial planning requests that each passed on the first proposal. These are inspectable examples, not a comparative accuracy benchmark.
 
 ## Customer support: check a refund before promising one
 
