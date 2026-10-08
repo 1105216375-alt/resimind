@@ -1,0 +1,625 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "itinerary": [
+      {
+        "activities": [
+          {
+            "TrainID": "G7004",
+            "cost": 110.46,
+            "end": "苏州站",
+            "end_time": "08:25",
+            "price": 55.23,
+            "start": "上海站",
+            "start_time": "08:00",
+            "tickets": 2,
+            "transports": [],
+            "type": "train"
+          },
+          {
+            "cost": 657,
+            "end_time": "09:00",
+            "position": "苏州平江华府酒店",
+            "price": 657,
+            "room_type": 2,
+            "rooms": 1,
+            "start_time": "08:40",
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.13,
+                "end": "苏州火车站-地铁站",
+                "end_time": "08:31",
+                "mode": "walk",
+                "price": 0,
+                "start": "苏州站",
+                "start_time": "08:30"
+              },
+              {
+                "cost": 4,
+                "distance": 2.57,
+                "end": "悬桥巷-地铁站",
+                "end_time": "08:36",
+                "mode": "metro",
+                "price": 2,
+                "start": "苏州火车站-地铁站",
+                "start_time": "08:31",
+                "tickets": 2
+              },
+              {
+                "cost": 0,
+                "distance": 0.34,
+                "end": "苏州平江华府酒店",
+                "end_time": "08:40",
+                "mode": "walk",
+                "price": 0,
+                "start": "悬桥巷-地铁站",
+                "start_time": "08:36"
+              }
+            ],
+            "type": "accommodation"
+          },
+          {
+            "cost": 160,
+            "end_time": "12:00",
+            "position": "拙政园",
+            "price": 80,
+            "start_time": "09:30",
+            "tickets": 2,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.34,
+                "end": "悬桥巷-地铁站",
+                "end_time": "09:04",
+                "mode": "walk",
+                "price": 0,
+                "start": "苏州平江华府酒店",
+                "start_time": "09:00"
+              },
+              {
+                "cost": 4,
+                "distance": 2.38,
+                "end": "梅巷-地铁站",
+                "end_time": "09:08",
+                "mode": "metro",
+                "price": 2,
+                "start": "悬桥巷-地铁站",
+                "start_time": "09:04",
+                "tickets": 2
+              },
+              {
+                "cost": 0,
+                "distance": 0.75,
+                "end": "拙政园",
+                "end_time": "09:16",
+                "mode": "walk",
+                "price": 0,
+                "start": "梅巷-地铁站",
+                "start_time": "09:08"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "cost": 128,
+            "end_time": "13:00",
+            "position": "抱石•中餐厅正宗苏帮菜•松鼠桂鱼(拙政园店)",
+            "price": 64,
+            "start_time": "12:10",
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.8226243703216799,
+                "end": "抱石•中餐厅正宗苏帮菜•松鼠桂鱼(拙政园店)",
+                "end_time": "12:09",
+                "mode": "walk",
+                "price": 0,
+                "start": "拙政园",
+                "start_time": "12:00"
+              }
+            ],
+            "type": "lunch"
+          },
+          {
+            "cost": 80,
+            "end_time": "14:00",
+            "position": "狮子林",
+            "price": 40,
+            "start_time": "13:10",
+            "tickets": 2,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.5150710020661904,
+                "end": "狮子林",
+                "end_time": "13:06",
+                "mode": "walk",
+                "price": 0,
+                "start": "抱石•中餐厅正宗苏帮菜•松鼠桂鱼(拙政园店)",
+                "start_time": "13:00"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "cost": 0,
+            "end_time": "16:30",
+            "position": "苏州博物馆",
+            "price": 0,
+            "start_time": "14:10",
+            "tickets": 2,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.24733207976261087,
+                "end": "苏州博物馆",
+                "end_time": "14:02",
+                "mode": "walk",
+                "price": 0,
+                "start": "狮子林",
+                "start_time": "14:00"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "cost": 0,
+            "end_time": "18:30",
+            "position": "平江路历史街区",
+            "price": 0,
+            "start_time": "16:50",
+            "tickets": 2,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 1.2124577850609874,
+                "end": "平江路历史街区",
+                "end_time": "16:44",
+                "mode": "walk",
+                "price": 0,
+                "start": "苏州博物馆",
+                "start_time": "16:30"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "cost": 86,
+            "end_time": "20:00",
+            "position": "平江桃花源记(平江1店)",
+            "price": 43,
+            "start_time": "19:00",
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.9065797900013207,
+                "end": "平江桃花源记(平江1店)",
+                "end_time": "18:40",
+                "mode": "walk",
+                "price": 0,
+                "start": "平江路历史街区",
+                "start_time": "18:30"
+              }
+            ],
+            "type": "dinner"
+          }
+        ],
+        "day": 1
+      },
+      {
+        "activities": [
+          {
+            "cost": 44,
+            "end_time": "08:30",
+            "position": "哑巴生煎(临顿路店)",
+            "price": 22,
+            "start_time": "08:10",
+            "transports": [
+              {
+                "cost": 0.0,
+                "distance": 0.5382503914112997,
+                "end": "哑巴生煎(临顿路店)",
+                "end_time": "08:06",
+                "mode": "walk",
+                "price": 0.0,
+                "start": "平江桃花源记(平江1店)",
+                "start_time": "08:00"
+              }
+            ],
+            "type": "breakfast"
+          },
+          {
+            "cost": 140,
+            "end_time": "12:00",
+            "position": "虎丘山风景名胜区",
+            "price": 70,
+            "start_time": "09:30",
+            "tickets": 2,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.13,
+                "end": "悬桥巷-地铁站",
+                "end_time": "08:31",
+                "mode": "walk",
+                "price": 0,
+                "start": "哑巴生煎(临顿路店)",
+                "start_time": "08:30"
+              },
+              {
+                "cost": 6,
+                "distance": 4.42,
+                "end": "青山桥浜-地铁站",
+                "end_time": "08:39",
+                "mode": "metro",
+                "price": 3,
+                "start": "悬桥巷-地铁站",
+                "start_time": "08:31",
+                "tickets": 2
+              },
+              {
+                "cost": 0,
+                "distance": 1.03,
+                "end": "虎丘山风景名胜区",
+                "end_time": "08:51",
+                "mode": "walk",
+                "price": 0,
+                "start": "青山桥浜-地铁站",
+                "start_time": "08:39"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "cost": 198,
+            "end_time": "13:30",
+            "position": "吴门人家(狮子林店)",
+            "price": 99,
+            "start_time": "12:30",
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 1.03,
+                "end": "青山桥浜-地铁站",
+                "end_time": "12:12",
+                "mode": "walk",
+                "price": 0,
+                "start": "虎丘山风景名胜区",
+                "start_time": "12:00"
+              },
+              {
+                "cost": 4,
+                "distance": 3.84,
+                "end": "拙政园苏博-地铁站",
+                "end_time": "12:19",
+                "mode": "metro",
+                "price": 2,
+                "start": "青山桥浜-地铁站",
+                "start_time": "12:12",
+                "tickets": 2
+              },
+              {
+                "cost": 0,
+                "distance": 0.35,
+                "end": "吴门人家(狮子林店)",
+                "end_time": "12:23",
+                "mode": "walk",
+                "price": 0,
+                "start": "拙政园苏博-地铁站",
+                "start_time": "12:19"
+              }
+            ],
+            "type": "lunch"
+          },
+          {
+            "cost": 110,
+            "end_time": "16:00",
+            "position": "留园",
+            "price": 55,
+            "start_time": "13:50",
+            "tickets": 2,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.35,
+                "end": "拙政园苏博-地铁站",
+                "end_time": "13:34",
+                "mode": "walk",
+                "price": 0,
+                "start": "吴门人家(狮子林店)",
+                "start_time": "13:30"
+              },
+              {
+                "cost": 4,
+                "distance": 2.39,
+                "end": "山塘街-地铁站",
+                "end_time": "13:38",
+                "mode": "metro",
+                "price": 2,
+                "start": "拙政园苏博-地铁站",
+                "start_time": "13:34",
+                "tickets": 2
+              },
+              {
+                "cost": 0,
+                "distance": 0.36,
+                "end": "留园",
+                "end_time": "13:42",
+                "mode": "walk",
+                "price": 0,
+                "start": "山塘街-地铁站",
+                "start_time": "13:38"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "cost": 0,
+            "end_time": "18:30",
+            "position": "山塘街",
+            "price": 0,
+            "start_time": "16:20",
+            "tickets": 2,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 1.020946038896019,
+                "end": "山塘街",
+                "end_time": "16:12",
+                "mode": "walk",
+                "price": 0,
+                "start": "留园",
+                "start_time": "16:00"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "cost": 158,
+            "end_time": "20:00",
+            "position": "旧人家食府(平江路店)",
+            "price": 79,
+            "start_time": "19:00",
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.82,
+                "end": "山塘街-地铁站",
+                "end_time": "18:39",
+                "mode": "walk",
+                "price": 0,
+                "start": "山塘街",
+                "start_time": "18:30"
+              },
+              {
+                "cost": 4,
+                "distance": 2.66,
+                "end": "悬桥巷-地铁站",
+                "end_time": "18:44",
+                "mode": "metro",
+                "price": 2,
+                "start": "山塘街-地铁站",
+                "start_time": "18:39",
+                "tickets": 2
+              },
+              {
+                "cost": 0,
+                "distance": 0.49,
+                "end": "旧人家食府(平江路店)",
+                "end_time": "18:49",
+                "mode": "walk",
+                "price": 0,
+                "start": "悬桥巷-地铁站",
+                "start_time": "18:44"
+              }
+            ],
+            "type": "dinner"
+          }
+        ],
+        "day": 2
+      },
+      {
+        "activities": [
+          {
+            "cost": 48,
+            "end_time": "08:30",
+            "position": "伟记奥面馆(白塔东路店)",
+            "price": 24,
+            "start_time": "08:10",
+            "transports": [
+              {
+                "cost": 0.0,
+                "distance": 0.4451148834949291,
+                "end": "伟记奥面馆(白塔东路店)",
+                "end_time": "08:05",
+                "mode": "walk",
+                "price": 0.0,
+                "start": "旧人家食府(平江路店)",
+                "start_time": "08:00"
+              }
+            ],
+            "type": "breakfast"
+          },
+          {
+            "cost": 80,
+            "end_time": "11:00",
+            "position": "网师园",
+            "price": 40,
+            "start_time": "09:20",
+            "tickets": 2,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.52,
+                "end": "悬桥巷-地铁站",
+                "end_time": "08:36",
+                "mode": "walk",
+                "price": 0,
+                "start": "伟记奥面馆(白塔东路店)",
+                "start_time": "08:30"
+              },
+              {
+                "cost": 4,
+                "distance": 1.42,
+                "end": "望星桥苏大-地铁站",
+                "end_time": "08:38",
+                "mode": "metro",
+                "price": 2,
+                "start": "悬桥巷-地铁站",
+                "start_time": "08:36",
+                "tickets": 2
+              },
+              {
+                "cost": 0,
+                "distance": 0.5,
+                "end": "网师园",
+                "end_time": "08:43",
+                "mode": "walk",
+                "price": 0,
+                "start": "望星桥苏大-地铁站",
+                "start_time": "08:38"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "cost": 172,
+            "end_time": "12:20",
+            "position": "阿成饭店(凤凰街店)",
+            "price": 86,
+            "start_time": "11:20",
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.8295500365230171,
+                "end": "阿成饭店(凤凰街店)",
+                "end_time": "11:09",
+                "mode": "walk",
+                "price": 0,
+                "start": "网师园",
+                "start_time": "11:00"
+              }
+            ],
+            "type": "lunch"
+          },
+          {
+            "cost": 40,
+            "end_time": "15:00",
+            "position": "沧浪亭",
+            "price": 20,
+            "start_time": "12:40",
+            "tickets": 2,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.05188854364097486,
+                "end": "沧浪亭",
+                "end_time": "12:30",
+                "mode": "walk",
+                "price": 0,
+                "start": "阿成饭店(凤凰街店)",
+                "start_time": "12:30"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "TrainID": "G7019",
+            "cost": 110.46,
+            "end": "上海站",
+            "end_time": "17:40",
+            "price": 55.23,
+            "start": "苏州站",
+            "start_time": "17:14",
+            "tickets": 2,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.37,
+                "end": "望星桥苏大-地铁站",
+                "end_time": "15:34",
+                "mode": "walk",
+                "price": 0,
+                "start": "沧浪亭",
+                "start_time": "15:30"
+              },
+              {
+                "cost": 4,
+                "distance": 3.95,
+                "end": "苏州火车站-地铁站",
+                "end_time": "15:41",
+                "mode": "metro",
+                "price": 2,
+                "start": "望星桥苏大-地铁站",
+                "start_time": "15:34",
+                "tickets": 2
+              },
+              {
+                "cost": 0,
+                "distance": 0.13,
+                "end": "苏州站",
+                "end_time": "15:42",
+                "mode": "walk",
+                "price": 0,
+                "start": "苏州火车站-地铁站",
+                "start_time": "15:41"
+              }
+            ],
+            "type": "train"
+          }
+        ],
+        "day": 3
+      }
+    ],
+    "people_number": 2,
+    "start_city": "上海",
+    "target_city": "苏州"
+  },
+  "details": {
+    "arm": "resimind_repair",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "resimind_status": "solved",
+    "resimind_stop_reason": "local_contract_passed",
+    "raw_proposals": 3,
+    "acceptance_scope": "self_translated_local_contract_only",
+    "worker_usage": {
+      "requests": 105,
+      "prompt_tokens": 3162306,
+      "completion_tokens": 21689,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 36,
+      "recorded_calls": 36,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 9986,
+      "stored_result_count": 35,
+      "stored_result_bytes": 430608,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 124.48974933400314,
+  "worker_exit_code": -15,
+  "uid": "h20241029143447759844",
+  "arm": "resimind_repair",
+  "ledger": {
+    "api_attempts": 105,
+    "prompt_bytes": 9567782,
+    "prompt_tokens": 3162306,
+    "completion_tokens": 21689,
+    "cache_hit_tokens": 3105920,
+    "cache_miss_tokens": 56386,
+    "unknown_usage_requests": 0
+  }
+}

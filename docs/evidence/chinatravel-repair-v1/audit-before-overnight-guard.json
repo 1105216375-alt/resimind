@@ -1,0 +1,1566 @@
+{
+  "audit_type": "independent_post_run_repair_audit",
+  "generated_at": "2026-10-08T19:12:13.872505+00:00",
+  "audit_script_sha256": "bb4a183835a7b00490401ce026eb72ab85a1c8301d7e81ac7a301eaf4a78d5eb",
+  "issues": [],
+  "passed": true,
+  "source_verification": [
+    {
+      "run": "resimind-repair-replay-v1",
+      "source_count": 38,
+      "mode": "archived_zip",
+      "current_tree_differences": [
+        "experiments/chinatravel_repair/binding.py",
+        "experiments/chinatravel_repair/checker.py",
+        "experiments/chinatravel_repair/live.py",
+        "experiments/chinatravel_repair/proposals.py",
+        "experiments/chinatravel_repair/replay.py"
+      ],
+      "archive_sha256": "063f8b00a5cab3c8c989f142f225ea02ab1cc926c4d2d2326fbca0b81c4c7689"
+    },
+    {
+      "run": "resimind-repair-live-development-v1",
+      "source_count": 38,
+      "mode": "archived_zip",
+      "current_tree_differences": [
+        "experiments/chinatravel_repair/binding.py",
+        "experiments/chinatravel_repair/checker.py",
+        "experiments/chinatravel_repair/live.py",
+        "experiments/chinatravel_repair/proposals.py",
+        "experiments/chinatravel_repair/replay.py"
+      ],
+      "archive_sha256": "3b3a92f670ab3b20378bcc168623adbb8ce63fdcf21b325ed5dd3340cef39a41"
+    }
+  ],
+  "replay_manifest_sha256": "f5be5ac55b558fb939a57a95fd2ebc59d5491745259853f832d99f96b02ead3b",
+  "live_manifest_sha256": "7709fbf027493fa6a3adeb6f37e3cb56f348bf04fed22a656bf0377d9ea0cf0b",
+  "replay_cases": [
+    {
+      "uid": "h20241029143620980391",
+      "attempt": 1,
+      "committed_transactions": 3,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "repaired": 3
+      },
+      "rejected_regression_checks": [],
+      "leaf_changes": 46,
+      "edited_activity_paths": [
+        "/itinerary/0/activities/0",
+        "/itinerary/0/activities/1",
+        "/itinerary/0/activities/2",
+        "/itinerary/0/activities/3",
+        "/itinerary/0/activities/4",
+        "/itinerary/0/activities/5",
+        "/itinerary/1/activities/0",
+        "/itinerary/1/activities/1",
+        "/itinerary/1/activities/4",
+        "/itinerary/2/activities/0",
+        "/itinerary/3/activities/2"
+      ],
+      "changed_fields": {
+        "cost": 14,
+        "distance": 6,
+        "end_time": 11,
+        "start": 5,
+        "start_time": 7,
+        "end": 3
+      },
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [
+        "Is_intercity_transport_correct"
+      ],
+      "unresolved_reason_types": [
+        "missing_route_mode_requires_intent",
+        "unknown_entity",
+        "unknown_route_endpoint"
+      ],
+      "status": "unfinished",
+      "stop_reason": "repair_budget"
+    },
+    {
+      "uid": "h20241029143620980391",
+      "attempt": 2,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch"
+    },
+    {
+      "uid": "h20241029143620980391",
+      "attempt": 3,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch"
+    },
+    {
+      "uid": "h20241029143506461809",
+      "attempt": 1,
+      "committed_transactions": 3,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "repaired": 3
+      },
+      "rejected_regression_checks": [],
+      "leaf_changes": 59,
+      "edited_activity_paths": [
+        "/itinerary/0/activities/0",
+        "/itinerary/0/activities/1",
+        "/itinerary/0/activities/2",
+        "/itinerary/0/activities/3",
+        "/itinerary/0/activities/4",
+        "/itinerary/0/activities/5",
+        "/itinerary/1/activities/1",
+        "/itinerary/1/activities/2",
+        "/itinerary/1/activities/3",
+        "/itinerary/1/activities/4",
+        "/itinerary/2/activities/2",
+        "/itinerary/2/activities/3"
+      ],
+      "changed_fields": {
+        "cost": 16,
+        "distance": 9,
+        "end": 6,
+        "end_time": 13,
+        "start": 7,
+        "start_time": 8
+      },
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [
+        "Is_intercity_transport_correct",
+        "Is_transport_correct"
+      ],
+      "unresolved_reason_types": [
+        "missing_route_mode_requires_intent",
+        "unknown_entity"
+      ],
+      "status": "unfinished",
+      "stop_reason": "repair_budget"
+    },
+    {
+      "uid": "h20241029143506461809",
+      "attempt": 2,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch"
+    },
+    {
+      "uid": "h20241029143506461809",
+      "attempt": 3,
+      "committed_transactions": 3,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "repaired": 3
+      },
+      "rejected_regression_checks": [],
+      "leaf_changes": 59,
+      "edited_activity_paths": [
+        "/itinerary/0/activities/0",
+        "/itinerary/0/activities/1",
+        "/itinerary/0/activities/2",
+        "/itinerary/0/activities/3",
+        "/itinerary/0/activities/4",
+        "/itinerary/0/activities/5",
+        "/itinerary/1/activities/1",
+        "/itinerary/1/activities/2",
+        "/itinerary/1/activities/3",
+        "/itinerary/1/activities/4",
+        "/itinerary/2/activities/2",
+        "/itinerary/2/activities/3"
+      ],
+      "changed_fields": {
+        "cost": 16,
+        "distance": 9,
+        "end": 6,
+        "end_time": 13,
+        "start": 7,
+        "start_time": 8
+      },
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [
+        "Is_intercity_transport_correct",
+        "Is_restaurants_correct",
+        "Is_transport_correct"
+      ],
+      "unresolved_reason_types": [
+        "missing_route_mode_requires_intent",
+        "unknown_entity"
+      ],
+      "status": "unfinished",
+      "stop_reason": "repair_budget"
+    },
+    {
+      "uid": "h20241029143659983667",
+      "attempt": 1,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "unfinished",
+      "stop_reason": "translation_needs_regeneration"
+    },
+    {
+      "uid": "h20241029143659983667",
+      "attempt": 2,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "unfinished",
+      "stop_reason": "translation_needs_regeneration"
+    },
+    {
+      "uid": "h20241029143659983667",
+      "attempt": 3,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "unfinished",
+      "stop_reason": "translation_needs_regeneration"
+    },
+    {
+      "uid": "h20241029143727719855",
+      "attempt": 1,
+      "committed_transactions": 1,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "repaired": 1
+      },
+      "rejected_regression_checks": [],
+      "leaf_changes": 1,
+      "edited_activity_paths": [
+        "/itinerary/1/activities/1"
+      ],
+      "changed_fields": {
+        "distance": 1
+      },
+      "small_numeric_changes_le_0_1": 1,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [
+        "missing_route_mode_requires_intent",
+        "no_same_day_route_window",
+        "route_does_not_fit_activity_window",
+        "unknown_entity",
+        "unknown_route_endpoint"
+      ],
+      "status": "unfinished",
+      "stop_reason": "no_verified_local_progress"
+    },
+    {
+      "uid": "h20241029143546424651",
+      "attempt": 1,
+      "committed_transactions": 1,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "repaired": 1
+      },
+      "rejected_regression_checks": [],
+      "leaf_changes": 10,
+      "edited_activity_paths": [
+        "/itinerary/0/activities/6"
+      ],
+      "changed_fields": {
+        "cost": 1,
+        "distance": 2,
+        "end": 2,
+        "end_time": 2,
+        "price": 1,
+        "start": 1,
+        "start_time": 1
+      },
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [
+        "route_does_not_fit_activity_window"
+      ],
+      "status": "unfinished",
+      "stop_reason": "no_verified_local_progress"
+    },
+    {
+      "uid": "h20241029143546424651",
+      "attempt": 2,
+      "committed_transactions": 1,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "repaired": 1
+      },
+      "rejected_regression_checks": [],
+      "leaf_changes": 9,
+      "edited_activity_paths": [
+        "/itinerary/0/activities/6"
+      ],
+      "changed_fields": {
+        "cost": 1,
+        "distance": 2,
+        "end": 1,
+        "end_time": 2,
+        "price": 1,
+        "start": 1,
+        "start_time": 1
+      },
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [
+        "Is_transport_correct"
+      ],
+      "unresolved_reason_types": [
+        "route_does_not_fit_activity_window"
+      ],
+      "status": "unfinished",
+      "stop_reason": "no_verified_local_progress"
+    },
+    {
+      "uid": "h20241029143546424651",
+      "attempt": 3,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "accepted",
+      "stop_reason": "local_contract_passed"
+    },
+    {
+      "uid": "h20241029143457494209",
+      "attempt": 1,
+      "committed_transactions": 1,
+      "rejected_transactions": 2,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "rejected": 2,
+        "repaired": 1
+      },
+      "rejected_regression_checks": [
+        "self_constraint/8"
+      ],
+      "leaf_changes": 2,
+      "edited_activity_paths": [
+        "/itinerary/0/activities/0",
+        "/itinerary/2/activities/4"
+      ],
+      "changed_fields": {
+        "cost": 2
+      },
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [
+        "Is_intercity_transport_correct"
+      ],
+      "unresolved_reason_types": [
+        "ambiguous_route_mode",
+        "missing_route_mode_requires_intent",
+        "unknown_entity",
+        "unsupported_transport_shape"
+      ],
+      "status": "unfinished",
+      "stop_reason": "no_verified_local_progress"
+    },
+    {
+      "uid": "h20241029143514054328",
+      "attempt": 1,
+      "committed_transactions": 3,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "repaired": 3
+      },
+      "rejected_regression_checks": [],
+      "leaf_changes": 29,
+      "edited_activity_paths": [
+        "/itinerary/0/activities/0",
+        "/itinerary/0/activities/1",
+        "/itinerary/0/activities/2",
+        "/itinerary/0/activities/4",
+        "/itinerary/0/activities/6",
+        "/itinerary/1/activities/0",
+        "/itinerary/1/activities/1",
+        "/itinerary/1/activities/2",
+        "/itinerary/1/activities/3",
+        "/itinerary/2/activities/0",
+        "/itinerary/2/activities/3",
+        "/itinerary/3/activities/2",
+        "/itinerary/3/activities/3",
+        "/itinerary/4/activities/0",
+        "/itinerary/4/activities/4"
+      ],
+      "changed_fields": {
+        "cost": 19,
+        "distance": 2,
+        "end": 1,
+        "end_time": 3,
+        "start": 2,
+        "start_time": 2
+      },
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [
+        "Is_hotels_correct",
+        "Is_intercity_transport_correct"
+      ],
+      "unresolved_reason_types": [
+        "missing_route_mode_requires_intent",
+        "route_does_not_fit_activity_window",
+        "taxi_car_quantity_requires_intent",
+        "unknown_entity",
+        "unknown_route_endpoint"
+      ],
+      "status": "unfinished",
+      "stop_reason": "repair_budget"
+    },
+    {
+      "uid": "h20241029143514054328",
+      "attempt": 2,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch"
+    },
+    {
+      "uid": "h20241029143729369677",
+      "attempt": 1,
+      "committed_transactions": 3,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "repaired": 3
+      },
+      "rejected_regression_checks": [],
+      "leaf_changes": 137,
+      "edited_activity_paths": [
+        "/itinerary/0/activities/0",
+        "/itinerary/0/activities/1",
+        "/itinerary/0/activities/2",
+        "/itinerary/0/activities/3",
+        "/itinerary/0/activities/4",
+        "/itinerary/0/activities/5",
+        "/itinerary/0/activities/6",
+        "/itinerary/1/activities/0",
+        "/itinerary/1/activities/1",
+        "/itinerary/1/activities/3",
+        "/itinerary/1/activities/4",
+        "/itinerary/2/activities/0",
+        "/itinerary/2/activities/1",
+        "/itinerary/2/activities/2",
+        "/itinerary/2/activities/3",
+        "/itinerary/3/activities/0",
+        "/itinerary/3/activities/1",
+        "/itinerary/3/activities/2",
+        "/itinerary/3/activities/3",
+        "/itinerary/4/activities/0",
+        "/itinerary/4/activities/1",
+        "/itinerary/4/activities/2"
+      ],
+      "changed_fields": {
+        "cost": 34,
+        "distance": 22,
+        "end_time": 34,
+        "start": 14,
+        "start_time": 19,
+        "end": 14
+      },
+      "small_numeric_changes_le_0_1": 3,
+      "major_world_checks_resolved": [
+        "Is_hotels_correct",
+        "Is_intercity_transport_correct",
+        "Is_transport_correct"
+      ],
+      "unresolved_reason_types": [
+        "missing_route_mode_requires_intent"
+      ],
+      "status": "unfinished",
+      "stop_reason": "repair_budget"
+    },
+    {
+      "uid": "h20241029143729369677",
+      "attempt": 2,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch"
+    },
+    {
+      "uid": "h20241029143518931601",
+      "attempt": 1,
+      "committed_transactions": 3,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "repaired": 3
+      },
+      "rejected_regression_checks": [],
+      "leaf_changes": 12,
+      "edited_activity_paths": [
+        "/itinerary/0/activities/0",
+        "/itinerary/0/activities/1",
+        "/itinerary/0/activities/2",
+        "/itinerary/0/activities/6",
+        "/itinerary/1/activities/0",
+        "/itinerary/1/activities/1",
+        "/itinerary/1/activities/2",
+        "/itinerary/1/activities/3",
+        "/itinerary/1/activities/4"
+      ],
+      "changed_fields": {
+        "cost": 12
+      },
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [
+        "Is_hotels_correct",
+        "Is_intercity_transport_correct"
+      ],
+      "unresolved_reason_types": [
+        "missing_route_mode_requires_intent",
+        "route_does_not_fit_activity_window",
+        "unknown_entity",
+        "unknown_route_endpoint"
+      ],
+      "status": "unfinished",
+      "stop_reason": "repair_budget"
+    },
+    {
+      "uid": "h20241029143518931601",
+      "attempt": 2,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch"
+    },
+    {
+      "uid": "h20241029143518931601",
+      "attempt": 3,
+      "committed_transactions": 1,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "repaired": 1
+      },
+      "rejected_regression_checks": [],
+      "leaf_changes": 9,
+      "edited_activity_paths": [
+        "/itinerary/0/activities/6"
+      ],
+      "changed_fields": {
+        "distance": 2,
+        "end": 1,
+        "end_time": 3,
+        "start": 1,
+        "start_time": 2
+      },
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [
+        "route_does_not_fit_activity_window"
+      ],
+      "status": "unfinished",
+      "stop_reason": "no_verified_local_progress"
+    },
+    {
+      "uid": "h20241029143521646393",
+      "attempt": 1,
+      "committed_transactions": 3,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "repaired": 3
+      },
+      "rejected_regression_checks": [],
+      "leaf_changes": 30,
+      "edited_activity_paths": [
+        "/itinerary/0/activities/0",
+        "/itinerary/0/activities/1",
+        "/itinerary/0/activities/3",
+        "/itinerary/0/activities/4",
+        "/itinerary/0/activities/5",
+        "/itinerary/0/activities/6",
+        "/itinerary/1/activities/0",
+        "/itinerary/1/activities/3",
+        "/itinerary/1/activities/4",
+        "/itinerary/2/activities/0",
+        "/itinerary/2/activities/2"
+      ],
+      "changed_fields": {
+        "cost": 11,
+        "distance": 5,
+        "end_time": 9,
+        "start_time": 5
+      },
+      "small_numeric_changes_le_0_1": 2,
+      "major_world_checks_resolved": [
+        "Is_attractions_correct",
+        "Is_intercity_transport_correct"
+      ],
+      "unresolved_reason_types": [
+        "no_same_day_route_window",
+        "unknown_entity",
+        "unknown_route_endpoint"
+      ],
+      "status": "unfinished",
+      "stop_reason": "repair_budget"
+    },
+    {
+      "uid": "h20241029143521646393",
+      "attempt": 2,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch"
+    },
+    {
+      "uid": "h20241029143521646393",
+      "attempt": 3,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch"
+    },
+    {
+      "uid": "h20241029143743586105",
+      "attempt": 1,
+      "committed_transactions": 3,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "repaired": 3
+      },
+      "rejected_regression_checks": [],
+      "leaf_changes": 39,
+      "edited_activity_paths": [
+        "/itinerary/0/activities/0",
+        "/itinerary/0/activities/1",
+        "/itinerary/0/activities/2",
+        "/itinerary/0/activities/3",
+        "/itinerary/0/activities/4",
+        "/itinerary/0/activities/5",
+        "/itinerary/0/activities/7",
+        "/itinerary/1/activities/0",
+        "/itinerary/1/activities/1",
+        "/itinerary/1/activities/4",
+        "/itinerary/1/activities/5",
+        "/itinerary/2/activities/0",
+        "/itinerary/2/activities/1",
+        "/itinerary/2/activities/2",
+        "/itinerary/2/activities/3",
+        "/itinerary/2/activities/4",
+        "/itinerary/2/activities/5",
+        "/itinerary/2/activities/6",
+        "/itinerary/3/activities/1",
+        "/itinerary/3/activities/3"
+      ],
+      "changed_fields": {
+        "cost": 23,
+        "distance": 4,
+        "end_time": 6,
+        "start": 2,
+        "start_time": 4
+      },
+      "small_numeric_changes_le_0_1": 2,
+      "major_world_checks_resolved": [
+        "Is_hotels_correct",
+        "Is_intercity_transport_correct"
+      ],
+      "unresolved_reason_types": [
+        "missing_route_mode_requires_intent",
+        "taxi_car_quantity_requires_intent",
+        "unknown_entity",
+        "unknown_route_endpoint"
+      ],
+      "status": "unfinished",
+      "stop_reason": "repair_budget"
+    },
+    {
+      "uid": "h20241029143743586105",
+      "attempt": 2,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch"
+    },
+    {
+      "uid": "h20241029143743586105",
+      "attempt": 3,
+      "committed_transactions": 0,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {},
+      "rejected_regression_checks": [],
+      "leaf_changes": 0,
+      "edited_activity_paths": [],
+      "changed_fields": {},
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [],
+      "unresolved_reason_types": [],
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch"
+    },
+    {
+      "uid": "h20241029143455115600",
+      "attempt": 1,
+      "committed_transactions": 3,
+      "rejected_transactions": 0,
+      "deferred_transactions": 0,
+      "transaction_statuses": {
+        "repaired": 3
+      },
+      "rejected_regression_checks": [],
+      "leaf_changes": 84,
+      "edited_activity_paths": [
+        "/itinerary/0/activities/0",
+        "/itinerary/0/activities/2",
+        "/itinerary/0/activities/3",
+        "/itinerary/0/activities/4",
+        "/itinerary/0/activities/6",
+        "/itinerary/1/activities/1",
+        "/itinerary/1/activities/4",
+        "/itinerary/1/activities/6",
+        "/itinerary/2/activities/1",
+        "/itinerary/2/activities/3",
+        "/itinerary/2/activities/4",
+        "/itinerary/2/activities/6",
+        "/itinerary/2/activities/7",
+        "/itinerary/3/activities/1",
+        "/itinerary/3/activities/5",
+        "/itinerary/4/activities/1",
+        "/itinerary/4/activities/4"
+      ],
+      "changed_fields": {
+        "cost": 20,
+        "end": 16,
+        "end_time": 15,
+        "start": 16,
+        "start_time": 11,
+        "price": 5,
+        "distance": 1
+      },
+      "small_numeric_changes_le_0_1": 0,
+      "major_world_checks_resolved": [
+        "Is_hotels_correct",
+        "Is_intercity_transport_correct"
+      ],
+      "unresolved_reason_types": [
+        "missing_route_mode_requires_intent",
+        "route_does_not_fit_activity_window",
+        "unknown_entity",
+        "unknown_route_endpoint"
+      ],
+      "status": "unfinished",
+      "stop_reason": "repair_budget"
+    }
+  ],
+  "live_cases": [
+    {
+      "uid": "h20241029143447759844",
+      "status": "completed",
+      "delivered": true,
+      "stop_reason": "local_contract_passed",
+      "ledger": {
+        "api_attempts": 105,
+        "prompt_bytes": 9567782,
+        "prompt_tokens": 3162306,
+        "completion_tokens": 21689,
+        "cache_hit_tokens": 3105920,
+        "cache_miss_tokens": 56386,
+        "unknown_usage_requests": 0
+      },
+      "request_statuses": {
+        "complete": 105
+      },
+      "returned_models": {
+        "deepseek-flash": 105
+      },
+      "max_request_seconds": 10.254181749995041,
+      "max_prompt_bytes": 164282,
+      "elapsed_seconds": 124.48974933400314,
+      "worker_exit_code": -15,
+      "candidates": [
+        {
+          "attempt": 1,
+          "present": true,
+          "react_step": 33,
+          "public_header_mismatch": [],
+          "raw_official": {
+            "schema": true,
+            "env": false,
+            "logical": true,
+            "final": false,
+            "diagnostics": {
+              "schema": {
+                "data_id": "h20241029143447759844",
+                "schema": 1
+              },
+              "env": {
+                "data_id": "h20241029143447759844",
+                "Invalid or ungrounded activity entity": 0,
+                "Intercity transportation events must occur": 0,
+                "Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": 0,
+                "Incorrect Information of Intercity Transport on price or duration": 0,
+                "Incorrect Cost on Intercity Transportation": 0,
+                "Unavailable attractions": 0,
+                "Visiting attraction in their closed time": 0,
+                "Repeated attraction Choices": 0,
+                "Incorrect price Information of attraction": 0,
+                "Incorrect cost Information of attraction": 0,
+                "Unavailable Accommodation": 0,
+                "Incorrect Information of Accommodation on price or room type": 0,
+                "Incorrect cost Information of Accommodation": 1,
+                "Accomondation is necessary for trips longer than one day": 0,
+                "Unavailable Restruants": 1,
+                "Visiting Restruants in their closed time": 1,
+                "Repeated Restruants Choices": 1,
+                "Incorrect price Information of Restruants": 1,
+                "Incorrect cost Information of Restruants": 1,
+                "Inappropriate Meal Times": 1,
+                "Repeated Meal Types in One Day": 1,
+                "Unavailable Inner-City Transport": 0,
+                "Incorrect Information of Inner-City Transporton on price, distance, and duration": 0,
+                "Inccorrect cost information of Inner-City Transport": 0,
+                "Invalid duration information of each activity": 0,
+                "Does not follow Chronological Order": 1,
+                "Invalid Transport information across positions": 1
+              },
+              "logical": {
+                "data_id": "h20241029143447759844",
+                "logic_py_0": 1,
+                "logic_py_1": 1,
+                "logic_py_2": 1
+              }
+            }
+          },
+          "draft_official": {
+            "schema": true,
+            "env": false,
+            "logical": true,
+            "final": false,
+            "diagnostics": {
+              "schema": {
+                "data_id": "h20241029143447759844",
+                "schema": 1
+              },
+              "env": {
+                "data_id": "h20241029143447759844",
+                "Invalid or ungrounded activity entity": 0,
+                "Intercity transportation events must occur": 0,
+                "Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": 0,
+                "Incorrect Information of Intercity Transport on price or duration": 0,
+                "Incorrect Cost on Intercity Transportation": 0,
+                "Unavailable attractions": 0,
+                "Visiting attraction in their closed time": 0,
+                "Repeated attraction Choices": 0,
+                "Incorrect price Information of attraction": 0,
+                "Incorrect cost Information of attraction": 0,
+                "Unavailable Accommodation": 0,
+                "Incorrect Information of Accommodation on price or room type": 0,
+                "Incorrect cost Information of Accommodation": 0,
+                "Accomondation is necessary for trips longer than one day": 0,
+                "Unavailable Restruants": 1,
+                "Visiting Restruants in their closed time": 1,
+                "Repeated Restruants Choices": 1,
+                "Incorrect price Information of Restruants": 1,
+                "Incorrect cost Information of Restruants": 1,
+                "Inappropriate Meal Times": 1,
+                "Repeated Meal Types in One Day": 1,
+                "Unavailable Inner-City Transport": 0,
+                "Incorrect Information of Inner-City Transporton on price, distance, and duration": 0,
+                "Inccorrect cost information of Inner-City Transport": 0,
+                "Invalid duration information of each activity": 0,
+                "Does not follow Chronological Order": 1,
+                "Invalid Transport information across positions": 1
+              },
+              "logical": {
+                "data_id": "h20241029143447759844",
+                "logic_py_0": 1,
+                "logic_py_1": 1,
+                "logic_py_2": 1
+              }
+            }
+          },
+          "committed_transactions": 2,
+          "rejected_transactions": 0,
+          "deferred_transactions": 0,
+          "transaction_statuses": {
+            "repaired": 2
+          },
+          "rejected_regression_checks": [],
+          "leaf_changes": 18,
+          "edited_activity_paths": [
+            "/itinerary/0/activities/1",
+            "/itinerary/0/activities/3",
+            "/itinerary/0/activities/7",
+            "/itinerary/1/activities/2",
+            "/itinerary/1/activities/5"
+          ],
+          "changed_fields": {
+            "cost": 1,
+            "distance": 5,
+            "end": 5,
+            "end_time": 5,
+            "start": 1,
+            "start_time": 1
+          },
+          "small_numeric_changes_le_0_1": 2,
+          "major_world_checks_resolved": [
+            "Is_hotels_correct"
+          ],
+          "unresolved_reason_types": [
+            "missing_route_mode_requires_intent",
+            "unknown_entity",
+            "unknown_route_endpoint"
+          ],
+          "status": "unfinished",
+          "stop_reason": "no_verified_local_progress"
+        },
+        {
+          "attempt": 2,
+          "present": true,
+          "react_step": 47,
+          "public_header_mismatch": [],
+          "raw_official": {
+            "schema": true,
+            "env": false,
+            "logical": true,
+            "final": false,
+            "diagnostics": {
+              "schema": {
+                "data_id": "h20241029143447759844",
+                "schema": 1
+              },
+              "env": {
+                "data_id": "h20241029143447759844",
+                "Invalid or ungrounded activity entity": 0,
+                "Intercity transportation events must occur": 0,
+                "Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": 0,
+                "Incorrect Information of Intercity Transport on price or duration": 0,
+                "Incorrect Cost on Intercity Transportation": 0,
+                "Unavailable attractions": 0,
+                "Visiting attraction in their closed time": 0,
+                "Repeated attraction Choices": 0,
+                "Incorrect price Information of attraction": 0,
+                "Incorrect cost Information of attraction": 0,
+                "Unavailable Accommodation": 0,
+                "Incorrect Information of Accommodation on price or room type": 0,
+                "Incorrect cost Information of Accommodation": 0,
+                "Accomondation is necessary for trips longer than one day": 0,
+                "Unavailable Restruants": 0,
+                "Visiting Restruants in their closed time": 0,
+                "Repeated Restruants Choices": 0,
+                "Incorrect price Information of Restruants": 0,
+                "Incorrect cost Information of Restruants": 0,
+                "Inappropriate Meal Times": 0,
+                "Repeated Meal Types in One Day": 0,
+                "Unavailable Inner-City Transport": 0,
+                "Incorrect Information of Inner-City Transporton on price, distance, and duration": 0,
+                "Inccorrect cost information of Inner-City Transport": 0,
+                "Invalid duration information of each activity": 0,
+                "Does not follow Chronological Order": 0,
+                "Invalid Transport information across positions": 1
+              },
+              "logical": {
+                "data_id": "h20241029143447759844",
+                "logic_py_0": 1,
+                "logic_py_1": 1,
+                "logic_py_2": 1
+              }
+            }
+          },
+          "draft_official": {
+            "schema": true,
+            "env": false,
+            "logical": true,
+            "final": false,
+            "diagnostics": {
+              "schema": {
+                "data_id": "h20241029143447759844",
+                "schema": 1
+              },
+              "env": {
+                "data_id": "h20241029143447759844",
+                "Invalid or ungrounded activity entity": 0,
+                "Intercity transportation events must occur": 0,
+                "Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": 0,
+                "Incorrect Information of Intercity Transport on price or duration": 0,
+                "Incorrect Cost on Intercity Transportation": 0,
+                "Unavailable attractions": 0,
+                "Visiting attraction in their closed time": 0,
+                "Repeated attraction Choices": 0,
+                "Incorrect price Information of attraction": 0,
+                "Incorrect cost Information of attraction": 0,
+                "Unavailable Accommodation": 0,
+                "Incorrect Information of Accommodation on price or room type": 0,
+                "Incorrect cost Information of Accommodation": 0,
+                "Accomondation is necessary for trips longer than one day": 0,
+                "Unavailable Restruants": 0,
+                "Visiting Restruants in their closed time": 0,
+                "Repeated Restruants Choices": 0,
+                "Incorrect price Information of Restruants": 0,
+                "Incorrect cost Information of Restruants": 0,
+                "Inappropriate Meal Times": 0,
+                "Repeated Meal Types in One Day": 0,
+                "Unavailable Inner-City Transport": 0,
+                "Incorrect Information of Inner-City Transporton on price, distance, and duration": 0,
+                "Inccorrect cost information of Inner-City Transport": 0,
+                "Invalid duration information of each activity": 0,
+                "Does not follow Chronological Order": 0,
+                "Invalid Transport information across positions": 1
+              },
+              "logical": {
+                "data_id": "h20241029143447759844",
+                "logic_py_0": 1,
+                "logic_py_1": 1,
+                "logic_py_2": 1
+              }
+            }
+          },
+          "committed_transactions": 0,
+          "rejected_transactions": 0,
+          "deferred_transactions": 0,
+          "transaction_statuses": {},
+          "rejected_regression_checks": [],
+          "leaf_changes": 0,
+          "edited_activity_paths": [],
+          "changed_fields": {},
+          "small_numeric_changes_le_0_1": 0,
+          "major_world_checks_resolved": [],
+          "unresolved_reason_types": [
+            "missing_route_mode_requires_intent"
+          ],
+          "status": "unfinished",
+          "stop_reason": "no_verified_local_progress"
+        },
+        {
+          "attempt": 3,
+          "present": true,
+          "react_step": 50,
+          "public_header_mismatch": [],
+          "raw_official": {
+            "schema": true,
+            "env": false,
+            "logical": true,
+            "final": false,
+            "diagnostics": {
+              "schema": {
+                "data_id": "h20241029143447759844",
+                "schema": 1
+              },
+              "env": {
+                "data_id": "h20241029143447759844",
+                "Invalid or ungrounded activity entity": 0,
+                "Intercity transportation events must occur": 0,
+                "Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": 0,
+                "Incorrect Information of Intercity Transport on price or duration": 0,
+                "Incorrect Cost on Intercity Transportation": 0,
+                "Unavailable attractions": 0,
+                "Visiting attraction in their closed time": 0,
+                "Repeated attraction Choices": 0,
+                "Incorrect price Information of attraction": 0,
+                "Incorrect cost Information of attraction": 0,
+                "Unavailable Accommodation": 0,
+                "Incorrect Information of Accommodation on price or room type": 0,
+                "Incorrect cost Information of Accommodation": 0,
+                "Accomondation is necessary for trips longer than one day": 0,
+                "Unavailable Restruants": 0,
+                "Visiting Restruants in their closed time": 0,
+                "Repeated Restruants Choices": 0,
+                "Incorrect price Information of Restruants": 0,
+                "Incorrect cost Information of Restruants": 0,
+                "Inappropriate Meal Times": 0,
+                "Repeated Meal Types in One Day": 0,
+                "Unavailable Inner-City Transport": 0,
+                "Incorrect Information of Inner-City Transporton on price, distance, and duration": 0,
+                "Inccorrect cost information of Inner-City Transport": 0,
+                "Invalid duration information of each activity": 0,
+                "Does not follow Chronological Order": 0,
+                "Invalid Transport information across positions": 1
+              },
+              "logical": {
+                "data_id": "h20241029143447759844",
+                "logic_py_0": 1,
+                "logic_py_1": 1,
+                "logic_py_2": 1
+              }
+            }
+          },
+          "draft_official": {
+            "schema": true,
+            "env": true,
+            "logical": true,
+            "final": true,
+            "diagnostics": {
+              "schema": {
+                "data_id": "h20241029143447759844",
+                "schema": 1
+              },
+              "env": {
+                "data_id": "h20241029143447759844",
+                "Invalid or ungrounded activity entity": 0,
+                "Intercity transportation events must occur": 0,
+                "Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": 0,
+                "Incorrect Information of Intercity Transport on price or duration": 0,
+                "Incorrect Cost on Intercity Transportation": 0,
+                "Unavailable attractions": 0,
+                "Visiting attraction in their closed time": 0,
+                "Repeated attraction Choices": 0,
+                "Incorrect price Information of attraction": 0,
+                "Incorrect cost Information of attraction": 0,
+                "Unavailable Accommodation": 0,
+                "Incorrect Information of Accommodation on price or room type": 0,
+                "Incorrect cost Information of Accommodation": 0,
+                "Accomondation is necessary for trips longer than one day": 0,
+                "Unavailable Restruants": 0,
+                "Visiting Restruants in their closed time": 0,
+                "Repeated Restruants Choices": 0,
+                "Incorrect price Information of Restruants": 0,
+                "Incorrect cost Information of Restruants": 0,
+                "Inappropriate Meal Times": 0,
+                "Repeated Meal Types in One Day": 0,
+                "Unavailable Inner-City Transport": 0,
+                "Incorrect Information of Inner-City Transporton on price, distance, and duration": 0,
+                "Inccorrect cost information of Inner-City Transport": 0,
+                "Invalid duration information of each activity": 0,
+                "Does not follow Chronological Order": 0,
+                "Invalid Transport information across positions": 0
+              },
+              "logical": {
+                "data_id": "h20241029143447759844",
+                "logic_py_0": 1,
+                "logic_py_1": 1,
+                "logic_py_2": 1
+              }
+            }
+          },
+          "committed_transactions": 1,
+          "rejected_transactions": 0,
+          "deferred_transactions": 0,
+          "transaction_statuses": {
+            "accepted": 1
+          },
+          "rejected_regression_checks": [],
+          "leaf_changes": 6,
+          "edited_activity_paths": [
+            "/itinerary/1/activities/0",
+            "/itinerary/2/activities/0"
+          ],
+          "changed_fields": {
+            "distance": 2,
+            "end_time": 2,
+            "start": 2
+          },
+          "small_numeric_changes_le_0_1": 1,
+          "major_world_checks_resolved": [
+            "Is_space_correct"
+          ],
+          "unresolved_reason_types": [],
+          "status": "accepted",
+          "stop_reason": "local_contract_passed"
+        }
+      ],
+      "delivered_official": {
+        "schema": true,
+        "env": true,
+        "logical": true,
+        "final": true
+      },
+      "historical_dev_v2_delivered": false
+    },
+    {
+      "uid": "h20241029143450090032",
+      "status": "completed",
+      "delivered": false,
+      "stop_reason": "no_candidate",
+      "ledger": {
+        "api_attempts": 104,
+        "prompt_bytes": 8737911,
+        "prompt_tokens": 2809407,
+        "completion_tokens": 9507,
+        "cache_hit_tokens": 2769152,
+        "cache_miss_tokens": 40255,
+        "unknown_usage_requests": 0
+      },
+      "request_statuses": {
+        "complete": 104
+      },
+      "returned_models": {
+        "deepseek-flash": 104
+      },
+      "max_request_seconds": 5.129999417004001,
+      "max_prompt_bytes": 132760,
+      "elapsed_seconds": 95.28291712499777,
+      "worker_exit_code": -15,
+      "candidates": [
+        {
+          "attempt": 1,
+          "present": true,
+          "react_step": 34,
+          "public_header_mismatch": [],
+          "raw_official": {
+            "schema": true,
+            "env": false,
+            "logical": false,
+            "final": false,
+            "diagnostics": {
+              "schema": {
+                "data_id": "h20241029143450090032",
+                "schema": 1
+              },
+              "env": {
+                "data_id": "h20241029143450090032",
+                "Invalid or ungrounded activity entity": 0,
+                "Intercity transportation events must occur": 0,
+                "Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": 0,
+                "Incorrect Information of Intercity Transport on price or duration": 0,
+                "Incorrect Cost on Intercity Transportation": 0,
+                "Unavailable attractions": 1,
+                "Visiting attraction in their closed time": 1,
+                "Repeated attraction Choices": 1,
+                "Incorrect price Information of attraction": 1,
+                "Incorrect cost Information of attraction": 1,
+                "Unavailable Accommodation": 0,
+                "Incorrect Information of Accommodation on price or room type": 0,
+                "Incorrect cost Information of Accommodation": 0,
+                "Accomondation is necessary for trips longer than one day": 0,
+                "Unavailable Restruants": 0,
+                "Visiting Restruants in their closed time": 0,
+                "Repeated Restruants Choices": 0,
+                "Incorrect price Information of Restruants": 0,
+                "Incorrect cost Information of Restruants": 0,
+                "Inappropriate Meal Times": 0,
+                "Repeated Meal Types in One Day": 0,
+                "Commonsense Evaluator Exception": 1
+              },
+              "logical": {
+                "data_id": "h20241029143450090032",
+                "logic_py_0": 1,
+                "logic_py_1": 1,
+                "logic_py_2": 0
+              }
+            }
+          },
+          "draft_official": {
+            "schema": true,
+            "env": false,
+            "logical": false,
+            "final": false,
+            "diagnostics": {
+              "schema": {
+                "data_id": "h20241029143450090032",
+                "schema": 1
+              },
+              "env": {
+                "data_id": "h20241029143450090032",
+                "Invalid or ungrounded activity entity": 0,
+                "Intercity transportation events must occur": 0,
+                "Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": 0,
+                "Incorrect Information of Intercity Transport on price or duration": 0,
+                "Incorrect Cost on Intercity Transportation": 0,
+                "Unavailable attractions": 1,
+                "Visiting attraction in their closed time": 1,
+                "Repeated attraction Choices": 1,
+                "Incorrect price Information of attraction": 1,
+                "Incorrect cost Information of attraction": 1,
+                "Unavailable Accommodation": 0,
+                "Incorrect Information of Accommodation on price or room type": 0,
+                "Incorrect cost Information of Accommodation": 0,
+                "Accomondation is necessary for trips longer than one day": 0,
+                "Unavailable Restruants": 0,
+                "Visiting Restruants in their closed time": 0,
+                "Repeated Restruants Choices": 0,
+                "Incorrect price Information of Restruants": 0,
+                "Incorrect cost Information of Restruants": 0,
+                "Inappropriate Meal Times": 0,
+                "Repeated Meal Types in One Day": 0,
+                "Commonsense Evaluator Exception": 1
+              },
+              "logical": {
+                "data_id": "h20241029143450090032",
+                "logic_py_0": 1,
+                "logic_py_1": 1,
+                "logic_py_2": 0
+              }
+            }
+          },
+          "committed_transactions": 1,
+          "rejected_transactions": 0,
+          "deferred_transactions": 0,
+          "transaction_statuses": {
+            "repaired": 1
+          },
+          "rejected_regression_checks": [],
+          "leaf_changes": 5,
+          "edited_activity_paths": [
+            "/itinerary/0/activities/2",
+            "/itinerary/0/activities/3",
+            "/itinerary/1/activities/0",
+            "/itinerary/1/activities/2",
+            "/itinerary/2/activities/0"
+          ],
+          "changed_fields": {
+            "tickets": 5
+          },
+          "small_numeric_changes_le_0_1": 0,
+          "major_world_checks_resolved": [],
+          "unresolved_reason_types": [
+            "missing_route_mode_requires_intent",
+            "route_does_not_fit_activity_window",
+            "taxi_car_quantity_requires_intent",
+            "unknown_entity",
+            "unknown_route_endpoint"
+          ],
+          "status": "unfinished",
+          "stop_reason": "no_verified_local_progress"
+        },
+        {
+          "attempt": 2,
+          "present": true,
+          "react_step": 41,
+          "public_header_mismatch": [],
+          "raw_official": {
+            "schema": true,
+            "env": false,
+            "logical": false,
+            "final": false,
+            "diagnostics": {
+              "schema": {
+                "data_id": "h20241029143450090032",
+                "schema": 1
+              },
+              "env": {
+                "data_id": "h20241029143450090032",
+                "Invalid or ungrounded activity entity": 0,
+                "Intercity transportation events must occur": 0,
+                "Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": 0,
+                "Incorrect Information of Intercity Transport on price or duration": 0,
+                "Incorrect Cost on Intercity Transportation": 0,
+                "Unavailable attractions": 0,
+                "Visiting attraction in their closed time": 0,
+                "Repeated attraction Choices": 0,
+                "Incorrect price Information of attraction": 0,
+                "Incorrect cost Information of attraction": 0,
+                "Unavailable Accommodation": 0,
+                "Incorrect Information of Accommodation on price or room type": 0,
+                "Incorrect cost Information of Accommodation": 0,
+                "Accomondation is necessary for trips longer than one day": 0,
+                "Unavailable Restruants": 0,
+                "Visiting Restruants in their closed time": 0,
+                "Repeated Restruants Choices": 0,
+                "Incorrect price Information of Restruants": 0,
+                "Incorrect cost Information of Restruants": 0,
+                "Inappropriate Meal Times": 0,
+                "Repeated Meal Types in One Day": 0,
+                "Unavailable Inner-City Transport": 0,
+                "Incorrect Information of Inner-City Transporton on price, distance, and duration": 1,
+                "Inccorrect cost information of Inner-City Transport": 0,
+                "Incorrect cost information of Inner-City Transport": 1,
+                "Invalid duration information of each activity": 0,
+                "Does not follow Chronological Order": 1,
+                "Invalid Transport information across positions": 1
+              },
+              "logical": {
+                "data_id": "h20241029143450090032",
+                "logic_py_0": 1,
+                "logic_py_1": 1,
+                "logic_py_2": 0
+              }
+            }
+          },
+          "draft_official": {
+            "schema": true,
+            "env": false,
+            "logical": false,
+            "final": false,
+            "diagnostics": {
+              "schema": {
+                "data_id": "h20241029143450090032",
+                "schema": 1
+              },
+              "env": {
+                "data_id": "h20241029143450090032",
+                "Invalid or ungrounded activity entity": 0,
+                "Intercity transportation events must occur": 0,
+                "Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": 0,
+                "Incorrect Information of Intercity Transport on price or duration": 0,
+                "Incorrect Cost on Intercity Transportation": 0,
+                "Unavailable attractions": 0,
+                "Visiting attraction in their closed time": 0,
+                "Repeated attraction Choices": 0,
+                "Incorrect price Information of attraction": 0,
+                "Incorrect cost Information of attraction": 0,
+                "Unavailable Accommodation": 0,
+                "Incorrect Information of Accommodation on price or room type": 0,
+                "Incorrect cost Information of Accommodation": 0,
+                "Accomondation is necessary for trips longer than one day": 0,
+                "Unavailable Restruants": 0,
+                "Visiting Restruants in their closed time": 0,
+                "Repeated Restruants Choices": 0,
+                "Incorrect price Information of Restruants": 0,
+                "Incorrect cost Information of Restruants": 0,
+                "Inappropriate Meal Times": 0,
+                "Repeated Meal Types in One Day": 0,
+                "Unavailable Inner-City Transport": 0,
+                "Incorrect Information of Inner-City Transporton on price, distance, and duration": 1,
+                "Inccorrect cost information of Inner-City Transport": 0,
+                "Incorrect cost information of Inner-City Transport": 1,
+                "Invalid duration information of each activity": 0,
+                "Does not follow Chronological Order": 1,
+                "Invalid Transport information across positions": 1
+              },
+              "logical": {
+                "data_id": "h20241029143450090032",
+                "logic_py_0": 1,
+                "logic_py_1": 1,
+                "logic_py_2": 0
+              }
+            }
+          },
+          "committed_transactions": 0,
+          "rejected_transactions": 0,
+          "deferred_transactions": 0,
+          "transaction_statuses": {},
+          "rejected_regression_checks": [],
+          "leaf_changes": 0,
+          "edited_activity_paths": [],
+          "changed_fields": {},
+          "small_numeric_changes_le_0_1": 0,
+          "major_world_checks_resolved": [],
+          "unresolved_reason_types": [
+            "missing_route_mode_requires_intent",
+            "route_does_not_fit_activity_window",
+            "taxi_car_quantity_requires_intent"
+          ],
+          "status": "unfinished",
+          "stop_reason": "no_verified_local_progress"
+        },
+        {
+          "attempt": 3,
+          "present": false,
+          "react_step": 50
+        }
+      ],
+      "delivered_official": {
+        "schema": false,
+        "env": false,
+        "logical": false,
+        "final": false
+      },
+      "historical_dev_v2_delivered": false
+    }
+  ],
+  "limitations": [
+    "Replay uses seen candidates; success unchanged is not completion-rate improvement.",
+    "Local boolean check counts and field edits are not solved tasks.",
+    "Live evaluation uses two development tasks, with no concurrent baseline or causal ablation.",
+    "Gold was used only for independent offline scoring after both live runs terminated.",
+    "Worker exit -15 occurs in supervisor cleanup after receipt of terminal result; neither run hit deadline."
+  ]
+}

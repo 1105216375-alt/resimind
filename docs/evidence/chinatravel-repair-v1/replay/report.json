@@ -1,0 +1,901 @@
+{
+  "kind": "seen_candidate_development_replay_not_held_out",
+  "model_api_calls": 0,
+  "manifest_sha256": "f5be5ac55b558fb939a57a95fd2ebc59d5491745259853f832d99f96b02ead3b",
+  "all_candidates": {
+    "n": 28,
+    "improved_local_checks": 14,
+    "regressed_local_checks": 0,
+    "accepted": 1,
+    "invalid_deliveries": 0,
+    "official": {
+      "original": {
+        "schema": 28,
+        "env": 1,
+        "logical": 13,
+        "final": 1
+      },
+      "draft": {
+        "schema": 28,
+        "env": 1,
+        "logical": 13,
+        "final": 1
+      },
+      "delivered": {
+        "schema": 1,
+        "env": 1,
+        "logical": 1,
+        "final": 1
+      }
+    }
+  },
+  "shared_first_candidates": {
+    "n": 12,
+    "improved_local_checks": 11,
+    "regressed_local_checks": 0,
+    "accepted": 0,
+    "invalid_deliveries": 0,
+    "official": {
+      "original": {
+        "schema": 12,
+        "env": 0,
+        "logical": 9,
+        "final": 0
+      },
+      "draft": {
+        "schema": 12,
+        "env": 0,
+        "logical": 9,
+        "final": 0
+      },
+      "delivered": {
+        "schema": 0,
+        "env": 0,
+        "logical": 0,
+        "final": 0
+      }
+    }
+  },
+  "cases": [
+    {
+      "uid": "h20241029143620980391",
+      "attempt": 1,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "repair_budget",
+      "resolved": 17,
+      "regressed": [],
+      "transactions": 3,
+      "committed_transactions": 3
+    },
+    {
+      "uid": "h20241029143620980391",
+      "attempt": 2,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143620980391",
+      "attempt": 3,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143506461809",
+      "attempt": 1,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "repair_budget",
+      "resolved": 21,
+      "regressed": [],
+      "transactions": 3,
+      "committed_transactions": 3
+    },
+    {
+      "uid": "h20241029143506461809",
+      "attempt": 2,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143506461809",
+      "attempt": 3,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "repair_budget",
+      "resolved": 22,
+      "regressed": [],
+      "transactions": 3,
+      "committed_transactions": 3
+    },
+    {
+      "uid": "h20241029143659983667",
+      "attempt": 1,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "translation_needs_regeneration",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143659983667",
+      "attempt": 2,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "translation_needs_regeneration",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143659983667",
+      "attempt": 3,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "translation_needs_regeneration",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143727719855",
+      "attempt": 1,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "no_verified_local_progress",
+      "resolved": 1,
+      "regressed": [],
+      "transactions": 1,
+      "committed_transactions": 1
+    },
+    {
+      "uid": "h20241029143546424651",
+      "attempt": 1,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "no_verified_local_progress",
+      "resolved": 1,
+      "regressed": [],
+      "transactions": 1,
+      "committed_transactions": 1
+    },
+    {
+      "uid": "h20241029143546424651",
+      "attempt": 2,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "no_verified_local_progress",
+      "resolved": 4,
+      "regressed": [],
+      "transactions": 1,
+      "committed_transactions": 1
+    },
+    {
+      "uid": "h20241029143546424651",
+      "attempt": 3,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": true,
+          "logical": true,
+          "final": true
+        },
+        "draft": {
+          "schema": true,
+          "env": true,
+          "logical": true,
+          "final": true
+        },
+        "delivered": {
+          "schema": true,
+          "env": true,
+          "logical": true,
+          "final": true
+        }
+      },
+      "status": "accepted",
+      "stop_reason": "local_contract_passed",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143457494209",
+      "attempt": 1,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "no_verified_local_progress",
+      "resolved": 4,
+      "regressed": [],
+      "transactions": 3,
+      "committed_transactions": 1
+    },
+    {
+      "uid": "h20241029143514054328",
+      "attempt": 1,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "repair_budget",
+      "resolved": 24,
+      "regressed": [],
+      "transactions": 3,
+      "committed_transactions": 3
+    },
+    {
+      "uid": "h20241029143514054328",
+      "attempt": 2,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143729369677",
+      "attempt": 1,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "repair_budget",
+      "resolved": 42,
+      "regressed": [],
+      "transactions": 3,
+      "committed_transactions": 3
+    },
+    {
+      "uid": "h20241029143729369677",
+      "attempt": 2,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143518931601",
+      "attempt": 1,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "repair_budget",
+      "resolved": 16,
+      "regressed": [],
+      "transactions": 3,
+      "committed_transactions": 3
+    },
+    {
+      "uid": "h20241029143518931601",
+      "attempt": 2,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143518931601",
+      "attempt": 3,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "no_verified_local_progress",
+      "resolved": 1,
+      "regressed": [],
+      "transactions": 1,
+      "committed_transactions": 1
+    },
+    {
+      "uid": "h20241029143521646393",
+      "attempt": 1,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "repair_budget",
+      "resolved": 18,
+      "regressed": [],
+      "transactions": 3,
+      "committed_transactions": 3
+    },
+    {
+      "uid": "h20241029143521646393",
+      "attempt": 2,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143521646393",
+      "attempt": 3,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143743586105",
+      "attempt": 1,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "repair_budget",
+      "resolved": 29,
+      "regressed": [],
+      "transactions": 3,
+      "committed_transactions": 3
+    },
+    {
+      "uid": "h20241029143743586105",
+      "attempt": 2,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143743586105",
+      "attempt": 3,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": false,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "task_envelope_mismatch",
+      "resolved": 0,
+      "regressed": [],
+      "transactions": 0,
+      "committed_transactions": 0
+    },
+    {
+      "uid": "h20241029143455115600",
+      "attempt": 1,
+      "score": {
+        "original": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "draft": {
+          "schema": true,
+          "env": false,
+          "logical": true,
+          "final": false
+        },
+        "delivered": {
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false
+        }
+      },
+      "status": "unfinished",
+      "stop_reason": "repair_budget",
+      "resolved": 24,
+      "regressed": [],
+      "transactions": 3,
+      "committed_transactions": 3
+    }
+  ]
+}

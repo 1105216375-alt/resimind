@@ -1,0 +1,163 @@
+{
+  "manifest_sha256": "7709fbf027493fa6a3adeb6f37e3cb56f348bf04fed22a656bf0377d9ea0cf0b",
+  "phase": "development",
+  "summary": {
+    "resimind_repair": {
+      "n": 2,
+      "success": 1,
+      "delivered": 1,
+      "invalid_deliveries": 0,
+      "completed_without_plan": 1,
+      "technical_failures": 0,
+      "budget_exhausted": 0,
+      "api_attempts": 209,
+      "prompt_tokens": 5971713,
+      "completion_tokens": 31196,
+      "unknown_usage_requests": 0,
+      "mean_seconds": 109.88633322950045,
+      "median_seconds": 109.88633322950045,
+      "official_metrics": {
+        "schema_pass_rate": 50.0,
+        "commonsense_macro": 50.0,
+        "commonsense_micro": 50.0,
+        "logical_macro": 50.0,
+        "logical_micro": 50.0,
+        "conditional_logical_macro": 50.0,
+        "conditional_logical_micro": 50.0,
+        "final_pass_rate": 50.0
+      }
+    }
+  },
+  "cases": {
+    "h20241029143447759844": {
+      "resimind_repair": {
+        "status": "completed",
+        "delivered": true,
+        "score": {
+          "uid": "h20241029143447759844",
+          "schema": true,
+          "env": true,
+          "logical": true,
+          "final": true,
+          "diagnostics": {
+            "schema": {
+              "data_id": "h20241029143447759844",
+              "schema": 1
+            },
+            "env": {
+              "data_id": "h20241029143447759844",
+              "Invalid or ungrounded activity entity": 0,
+              "Intercity transportation events must occur": 0,
+              "Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": 0,
+              "Incorrect Information of Intercity Transport on price or duration": 0,
+              "Incorrect Cost on Intercity Transportation": 0,
+              "Unavailable attractions": 0,
+              "Visiting attraction in their closed time": 0,
+              "Repeated attraction Choices": 0,
+              "Incorrect price Information of attraction": 0,
+              "Incorrect cost Information of attraction": 0,
+              "Unavailable Accommodation": 0,
+              "Incorrect Information of Accommodation on price or room type": 0,
+              "Incorrect cost Information of Accommodation": 0,
+              "Accomondation is necessary for trips longer than one day": 0,
+              "Unavailable Restruants": 0,
+              "Visiting Restruants in their closed time": 0,
+              "Repeated Restruants Choices": 0,
+              "Incorrect price Information of Restruants": 0,
+              "Incorrect cost Information of Restruants": 0,
+              "Inappropriate Meal Times": 0,
+              "Repeated Meal Types in One Day": 0,
+              "Unavailable Inner-City Transport": 0,
+              "Incorrect Information of Inner-City Transporton on price, distance, and duration": 0,
+              "Inccorrect cost information of Inner-City Transport": 0,
+              "Invalid duration information of each activity": 0,
+              "Does not follow Chronological Order": 0,
+              "Invalid Transport information across positions": 0
+            },
+            "logical": {
+              "data_id": "h20241029143447759844",
+              "logic_py_0": 1,
+              "logic_py_1": 1,
+              "logic_py_2": 1
+            }
+          }
+        },
+        "ledger": {
+          "api_attempts": 105,
+          "prompt_bytes": 9567782,
+          "prompt_tokens": 3162306,
+          "completion_tokens": 21689,
+          "cache_hit_tokens": 3105920,
+          "cache_miss_tokens": 56386,
+          "unknown_usage_requests": 0
+        },
+        "elapsed_seconds": 124.48974933400314
+      }
+    },
+    "h20241029143450090032": {
+      "resimind_repair": {
+        "status": "completed",
+        "delivered": false,
+        "score": {
+          "uid": "h20241029143450090032",
+          "schema": false,
+          "env": false,
+          "logical": false,
+          "final": false,
+          "diagnostics": {
+            "schema": {
+              "data_id": "h20241029143450090032",
+              "schema": 0
+            },
+            "env": {
+              "data_id": "h20241029143450090032",
+              "Invalid or ungrounded activity entity": 1,
+              "Intercity transportation events must occur": 1,
+              "Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": 1,
+              "Incorrect Information of Intercity Transport on price or duration": 1,
+              "Incorrect Cost on Intercity Transportation": 1,
+              "Unavailable attractions": 1,
+              "Visiting attraction in their closed time": 1,
+              "Repeated attraction Choices": 1,
+              "Incorrect price Information of attraction": 1,
+              "Incorrect cost Information of attraction": 1,
+              "Unavailable Accommodation": 1,
+              "Incorrect Information of Accommodation on price or room type": 1,
+              "Incorrect cost Information of Accommodation": 1,
+              "Accomondation is necessary for trips longer than one day": 1,
+              "Unavailable Restruants": 1,
+              "Visiting Restruants in their closed time": 1,
+              "Repeated Restruants Choices": 1,
+              "Incorrect price Information of Restruants": 1,
+              "Incorrect cost Information of Restruants": 1,
+              "Inappropriate Meal Times": 1,
+              "Repeated Meal Types in One Day": 1,
+              "Unavailable Inner-City Transport": 1,
+              "Incorrect Information of Inner-City Transporton on price, distance, and duration": 1,
+              "Inccorrect cost information of Inner-City Transport": 1,
+              "Invalid duration information of each activity": 1,
+              "Does not follow Chronological Order": 1,
+              "Invalid Transport information across positions": 1
+            },
+            "logical": {
+              "data_id": "h20241029143450090032",
+              "logic_py_0": 0,
+              "logic_py_1": 0,
+              "logic_py_2": 0
+            }
+          }
+        },
+        "ledger": {
+          "api_attempts": 104,
+          "prompt_bytes": 8737911,
+          "prompt_tokens": 2809407,
+          "completion_tokens": 9507,
+          "cache_hit_tokens": 2769152,
+          "cache_miss_tokens": 40255,
+          "unknown_usage_requests": 0
+        },
+        "elapsed_seconds": 95.28291712499777
+      }
+    }
+  }
+}

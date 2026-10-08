@@ -2,6 +2,8 @@
 
 这个框架把 Agent 的任务执行组织成六个层次。`Agent` 是任务入口，`Engine` 是内部执行循环。
 
+新增可选的 [`resimind.repair` 局部修复事务](local-repair.md)：在候选草稿上应用带证据引用的有限修改，重新检查整个计划，只有检查严格改善且已通过项不退化才保留修改。中间草稿不会自动成为 `State` 中的事实，最终交付仍需领域验收。
+
 ```mermaid
 flowchart LR
     T[Task 任务与上下文] --> A[Agent 编排]

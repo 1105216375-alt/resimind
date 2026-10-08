@@ -1,0 +1,1876 @@
+{
+  "kind": "posthoc_overnight_regression_check",
+  "previously_official_passed": true,
+  "current_result": {
+    "scope": "self_translated_local_contract_only",
+    "initial_sha256": "daff25298938f80265ddbfce8c0e847ad14865b8c9011aa873ae18db626cb1f1",
+    "draft_sha256": "daff25298938f80265ddbfce8c0e847ad14865b8c9011aa873ae18db626cb1f1",
+    "status": "unfinished",
+    "stop_reason": "no_verified_local_progress",
+    "plan": null,
+    "draft": {
+      "itinerary": [
+        {
+          "activities": [
+            {
+              "TrainID": "G7004",
+              "cost": 110.46,
+              "end": "苏州站",
+              "end_time": "08:25",
+              "price": 55.23,
+              "start": "上海站",
+              "start_time": "08:00",
+              "tickets": 2,
+              "transports": [],
+              "type": "train"
+            },
+            {
+              "cost": 657,
+              "end_time": "09:00",
+              "position": "苏州平江华府酒店",
+              "price": 657,
+              "room_type": 2,
+              "rooms": 1,
+              "start_time": "08:40",
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 0.13,
+                  "end": "苏州火车站-地铁站",
+                  "end_time": "08:31",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "苏州站",
+                  "start_time": "08:30"
+                },
+                {
+                  "cost": 4,
+                  "distance": 2.57,
+                  "end": "悬桥巷-地铁站",
+                  "end_time": "08:36",
+                  "mode": "metro",
+                  "price": 2,
+                  "start": "苏州火车站-地铁站",
+                  "start_time": "08:31",
+                  "tickets": 2
+                },
+                {
+                  "cost": 0,
+                  "distance": 0.34,
+                  "end": "苏州平江华府酒店",
+                  "end_time": "08:40",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "悬桥巷-地铁站",
+                  "start_time": "08:36"
+                }
+              ],
+              "type": "accommodation"
+            },
+            {
+              "cost": 160,
+              "end_time": "12:00",
+              "position": "拙政园",
+              "price": 80,
+              "start_time": "09:30",
+              "tickets": 2,
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 0.34,
+                  "end": "悬桥巷-地铁站",
+                  "end_time": "09:04",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "苏州平江华府酒店",
+                  "start_time": "09:00"
+                },
+                {
+                  "cost": 4,
+                  "distance": 2.38,
+                  "end": "梅巷-地铁站",
+                  "end_time": "09:08",
+                  "mode": "metro",
+                  "price": 2,
+                  "start": "悬桥巷-地铁站",
+                  "start_time": "09:04",
+                  "tickets": 2
+                },
+                {
+                  "cost": 0,
+                  "distance": 0.75,
+                  "end": "拙政园",
+                  "end_time": "09:16",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "梅巷-地铁站",
+                  "start_time": "09:08"
+                }
+              ],
+              "type": "attraction"
+            },
+            {
+              "cost": 128,
+              "end_time": "13:00",
+              "position": "抱石•中餐厅正宗苏帮菜•松鼠桂鱼(拙政园店)",
+              "price": 64,
+              "start_time": "12:10",
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 0.8226243703216799,
+                  "end": "抱石•中餐厅正宗苏帮菜•松鼠桂鱼(拙政园店)",
+                  "end_time": "12:09",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "拙政园",
+                  "start_time": "12:00"
+                }
+              ],
+              "type": "lunch"
+            },
+            {
+              "cost": 80,
+              "end_time": "14:00",
+              "position": "狮子林",
+              "price": 40,
+              "start_time": "13:10",
+              "tickets": 2,
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 0.5150710020661904,
+                  "end": "狮子林",
+                  "end_time": "13:06",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "抱石•中餐厅正宗苏帮菜•松鼠桂鱼(拙政园店)",
+                  "start_time": "13:00"
+                }
+              ],
+              "type": "attraction"
+            },
+            {
+              "cost": 0,
+              "end_time": "16:30",
+              "position": "苏州博物馆",
+              "price": 0,
+              "start_time": "14:10",
+              "tickets": 2,
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 0.24733207976261087,
+                  "end": "苏州博物馆",
+                  "end_time": "14:02",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "狮子林",
+                  "start_time": "14:00"
+                }
+              ],
+              "type": "attraction"
+            },
+            {
+              "cost": 0,
+              "end_time": "18:30",
+              "position": "平江路历史街区",
+              "price": 0,
+              "start_time": "16:50",
+              "tickets": 2,
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 1.2124577850609874,
+                  "end": "平江路历史街区",
+                  "end_time": "16:44",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "苏州博物馆",
+                  "start_time": "16:30"
+                }
+              ],
+              "type": "attraction"
+            },
+            {
+              "cost": 86,
+              "end_time": "20:00",
+              "position": "平江桃花源记(平江1店)",
+              "price": 43,
+              "start_time": "19:00",
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 0.9065797900013207,
+                  "end": "平江桃花源记(平江1店)",
+                  "end_time": "18:40",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "平江路历史街区",
+                  "start_time": "18:30"
+                }
+              ],
+              "type": "dinner"
+            }
+          ],
+          "day": 1
+        },
+        {
+          "activities": [
+            {
+              "cost": 44,
+              "end_time": "08:30",
+              "position": "哑巴生煎(临顿路店)",
+              "price": 22,
+              "start_time": "08:10",
+              "transports": [
+                {
+                  "cost": 0.0,
+                  "distance": 0.5382503914112997,
+                  "end": "哑巴生煎(临顿路店)",
+                  "end_time": "08:06",
+                  "mode": "walk",
+                  "price": 0.0,
+                  "start": "平江桃花源记(平江1店)",
+                  "start_time": "08:00"
+                }
+              ],
+              "type": "breakfast"
+            },
+            {
+              "cost": 140,
+              "end_time": "12:00",
+              "position": "虎丘山风景名胜区",
+              "price": 70,
+              "start_time": "09:30",
+              "tickets": 2,
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 0.13,
+                  "end": "悬桥巷-地铁站",
+                  "end_time": "08:31",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "哑巴生煎(临顿路店)",
+                  "start_time": "08:30"
+                },
+                {
+                  "cost": 6,
+                  "distance": 4.42,
+                  "end": "青山桥浜-地铁站",
+                  "end_time": "08:39",
+                  "mode": "metro",
+                  "price": 3,
+                  "start": "悬桥巷-地铁站",
+                  "start_time": "08:31",
+                  "tickets": 2
+                },
+                {
+                  "cost": 0,
+                  "distance": 1.03,
+                  "end": "虎丘山风景名胜区",
+                  "end_time": "08:51",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "青山桥浜-地铁站",
+                  "start_time": "08:39"
+                }
+              ],
+              "type": "attraction"
+            },
+            {
+              "cost": 198,
+              "end_time": "13:30",
+              "position": "吴门人家(狮子林店)",
+              "price": 99,
+              "start_time": "12:30",
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 1.03,
+                  "end": "青山桥浜-地铁站",
+                  "end_time": "12:12",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "虎丘山风景名胜区",
+                  "start_time": "12:00"
+                },
+                {
+                  "cost": 4,
+                  "distance": 3.84,
+                  "end": "拙政园苏博-地铁站",
+                  "end_time": "12:19",
+                  "mode": "metro",
+                  "price": 2,
+                  "start": "青山桥浜-地铁站",
+                  "start_time": "12:12",
+                  "tickets": 2
+                },
+                {
+                  "cost": 0,
+                  "distance": 0.35,
+                  "end": "吴门人家(狮子林店)",
+                  "end_time": "12:23",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "拙政园苏博-地铁站",
+                  "start_time": "12:19"
+                }
+              ],
+              "type": "lunch"
+            },
+            {
+              "cost": 110,
+              "end_time": "16:00",
+              "position": "留园",
+              "price": 55,
+              "start_time": "13:50",
+              "tickets": 2,
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 0.35,
+                  "end": "拙政园苏博-地铁站",
+                  "end_time": "13:34",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "吴门人家(狮子林店)",
+                  "start_time": "13:30"
+                },
+                {
+                  "cost": 4,
+                  "distance": 2.39,
+                  "end": "山塘街-地铁站",
+                  "end_time": "13:38",
+                  "mode": "metro",
+                  "price": 2,
+                  "start": "拙政园苏博-地铁站",
+                  "start_time": "13:34",
+                  "tickets": 2
+                },
+                {
+                  "cost": 0,
+                  "distance": 0.36,
+                  "end": "留园",
+                  "end_time": "13:42",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "山塘街-地铁站",
+                  "start_time": "13:38"
+                }
+              ],
+              "type": "attraction"
+            },
+            {
+              "cost": 0,
+              "end_time": "18:30",
+              "position": "山塘街",
+              "price": 0,
+              "start_time": "16:20",
+              "tickets": 2,
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 1.020946038896019,
+                  "end": "山塘街",
+                  "end_time": "16:12",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "留园",
+                  "start_time": "16:00"
+                }
+              ],
+              "type": "attraction"
+            },
+            {
+              "cost": 158,
+              "end_time": "20:00",
+              "position": "旧人家食府(平江路店)",
+              "price": 79,
+              "start_time": "19:00",
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 0.82,
+                  "end": "山塘街-地铁站",
+                  "end_time": "18:39",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "山塘街",
+                  "start_time": "18:30"
+                },
+                {
+                  "cost": 4,
+                  "distance": 2.66,
+                  "end": "悬桥巷-地铁站",
+                  "end_time": "18:44",
+                  "mode": "metro",
+                  "price": 2,
+                  "start": "山塘街-地铁站",
+                  "start_time": "18:39",
+                  "tickets": 2
+                },
+                {
+                  "cost": 0,
+                  "distance": 0.49,
+                  "end": "旧人家食府(平江路店)",
+                  "end_time": "18:49",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "悬桥巷-地铁站",
+                  "start_time": "18:44"
+                }
+              ],
+              "type": "dinner"
+            }
+          ],
+          "day": 2
+        },
+        {
+          "activities": [
+            {
+              "cost": 48,
+              "end_time": "08:30",
+              "position": "伟记奥面馆(白塔东路店)",
+              "price": 24,
+              "start_time": "08:10",
+              "transports": [
+                {
+                  "cost": 0.0,
+                  "distance": 0.4451148834949291,
+                  "end": "伟记奥面馆(白塔东路店)",
+                  "end_time": "08:05",
+                  "mode": "walk",
+                  "price": 0.0,
+                  "start": "旧人家食府(平江路店)",
+                  "start_time": "08:00"
+                }
+              ],
+              "type": "breakfast"
+            },
+            {
+              "cost": 80,
+              "end_time": "11:00",
+              "position": "网师园",
+              "price": 40,
+              "start_time": "09:20",
+              "tickets": 2,
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 0.52,
+                  "end": "悬桥巷-地铁站",
+                  "end_time": "08:36",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "伟记奥面馆(白塔东路店)",
+                  "start_time": "08:30"
+                },
+                {
+                  "cost": 4,
+                  "distance": 1.42,
+                  "end": "望星桥苏大-地铁站",
+                  "end_time": "08:38",
+                  "mode": "metro",
+                  "price": 2,
+                  "start": "悬桥巷-地铁站",
+                  "start_time": "08:36",
+                  "tickets": 2
+                },
+                {
+                  "cost": 0,
+                  "distance": 0.5,
+                  "end": "网师园",
+                  "end_time": "08:43",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "望星桥苏大-地铁站",
+                  "start_time": "08:38"
+                }
+              ],
+              "type": "attraction"
+            },
+            {
+              "cost": 172,
+              "end_time": "12:20",
+              "position": "阿成饭店(凤凰街店)",
+              "price": 86,
+              "start_time": "11:20",
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 0.8295500365230171,
+                  "end": "阿成饭店(凤凰街店)",
+                  "end_time": "11:09",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "网师园",
+                  "start_time": "11:00"
+                }
+              ],
+              "type": "lunch"
+            },
+            {
+              "cost": 40,
+              "end_time": "15:00",
+              "position": "沧浪亭",
+              "price": 20,
+              "start_time": "12:40",
+              "tickets": 2,
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 0.05188854364097486,
+                  "end": "沧浪亭",
+                  "end_time": "12:30",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "阿成饭店(凤凰街店)",
+                  "start_time": "12:30"
+                }
+              ],
+              "type": "attraction"
+            },
+            {
+              "TrainID": "G7019",
+              "cost": 110.46,
+              "end": "上海站",
+              "end_time": "17:40",
+              "price": 55.23,
+              "start": "苏州站",
+              "start_time": "17:14",
+              "tickets": 2,
+              "transports": [
+                {
+                  "cost": 0,
+                  "distance": 0.37,
+                  "end": "望星桥苏大-地铁站",
+                  "end_time": "15:34",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "沧浪亭",
+                  "start_time": "15:30"
+                },
+                {
+                  "cost": 4,
+                  "distance": 3.95,
+                  "end": "苏州火车站-地铁站",
+                  "end_time": "15:41",
+                  "mode": "metro",
+                  "price": 2,
+                  "start": "望星桥苏大-地铁站",
+                  "start_time": "15:34",
+                  "tickets": 2
+                },
+                {
+                  "cost": 0,
+                  "distance": 0.13,
+                  "end": "苏州站",
+                  "end_time": "15:42",
+                  "mode": "walk",
+                  "price": 0,
+                  "start": "苏州火车站-地铁站",
+                  "start_time": "15:41"
+                }
+              ],
+              "type": "train"
+            }
+          ],
+          "day": 3
+        }
+      ],
+      "people_number": 2,
+      "start_city": "上海",
+      "target_city": "苏州"
+    },
+    "initial_checks": {
+      "translation_valid": true,
+      "schema": true,
+      "task/start_city": true,
+      "task/target_city": true,
+      "task/people_number": true,
+      "task/days": true,
+      "Is_activity_grounded/Invalid or ungrounded activity entity": true,
+      "Is_activity_grounded": true,
+      "Is_intercity_transport_correct/Intercity transportation events must occur": true,
+      "Is_intercity_transport_correct/Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": true,
+      "Is_intercity_transport_correct/Incorrect Information of Intercity Transport on price or duration": true,
+      "Is_intercity_transport_correct/Incorrect Cost on Intercity Transportation": true,
+      "Is_intercity_transport_correct": true,
+      "Is_attractions_correct/Unavailable attractions": true,
+      "Is_attractions_correct/Visiting attraction in their closed time": true,
+      "Is_attractions_correct/Repeated attraction Choices": true,
+      "Is_attractions_correct/Incorrect price Information of attraction": true,
+      "Is_attractions_correct/Incorrect cost Information of attraction": true,
+      "Is_attractions_correct": true,
+      "Is_hotels_correct/Unavailable Accommodation": true,
+      "Is_hotels_correct/Incorrect Information of Accommodation on price or room type": true,
+      "Is_hotels_correct/Incorrect cost Information of Accommodation": true,
+      "Is_hotels_correct/Accomondation is necessary for trips longer than one day": true,
+      "Is_hotels_correct": true,
+      "Is_restaurants_correct/Unavailable Restruants": true,
+      "Is_restaurants_correct/Visiting Restruants in their closed time": true,
+      "Is_restaurants_correct/Repeated Restruants Choices": true,
+      "Is_restaurants_correct/Incorrect price Information of Restruants": true,
+      "Is_restaurants_correct/Incorrect cost Information of Restruants": true,
+      "Is_restaurants_correct/Inappropriate Meal Times": true,
+      "Is_restaurants_correct/Repeated Meal Types in One Day": true,
+      "Is_restaurants_correct": true,
+      "Is_transport_correct/Unavailable Inner-City Transport": true,
+      "Is_transport_correct/Incorrect Information of Inner-City Transporton on price, distance, and duration": true,
+      "Is_transport_correct/Inccorrect cost information of Inner-City Transport": true,
+      "Is_transport_correct/Incorrect cost information of Inner-City Transport": true,
+      "Is_transport_correct": true,
+      "Is_time_correct/Invalid duration information of each activity": true,
+      "Is_time_correct/Does not follow Chronological Order": true,
+      "Is_time_correct": true,
+      "Is_space_correct/Invalid Transport information across positions": true,
+      "Is_space_correct": true,
+      "self_constraint/0": true,
+      "self_constraint/1": true,
+      "self_constraint/2": true,
+      "self_constraint/3": true,
+      "self_constraint/4": true,
+      "self_constraint/5": true,
+      "self_constraint/6": true,
+      "coverage/0/0/activity": true,
+      "coverage/0/0/route": true,
+      "coverage/0/1/activity": true,
+      "coverage/0/1/route": true,
+      "coverage/0/2/activity": true,
+      "coverage/0/2/route": true,
+      "coverage/0/3/activity": true,
+      "coverage/0/3/route": true,
+      "coverage/0/4/activity": true,
+      "coverage/0/4/route": true,
+      "coverage/0/5/activity": true,
+      "coverage/0/5/route": true,
+      "coverage/0/6/activity": true,
+      "coverage/0/6/route": true,
+      "coverage/0/7/activity": true,
+      "coverage/0/7/route": true,
+      "coverage/1/0/activity": true,
+      "coverage/1/0/route": true,
+      "coverage/1/1/activity": true,
+      "coverage/1/1/route": true,
+      "coverage/1/2/activity": true,
+      "coverage/1/2/route": true,
+      "coverage/1/3/activity": true,
+      "coverage/1/3/route": true,
+      "coverage/1/4/activity": true,
+      "coverage/1/4/route": true,
+      "coverage/1/5/activity": true,
+      "coverage/1/5/route": true,
+      "coverage/2/0/activity": true,
+      "coverage/2/0/route": true,
+      "coverage/2/1/activity": true,
+      "coverage/2/1/route": true,
+      "coverage/2/2/activity": true,
+      "coverage/2/2/route": true,
+      "coverage/2/3/activity": true,
+      "coverage/2/3/route": true,
+      "coverage/2/4/activity": true,
+      "coverage/2/4/route": true,
+      "binding/binding:metadata": true,
+      "binding/binding:topology": true,
+      "binding/binding:data:/itinerary/0/activities/0": true,
+      "binding/binding:route:/itinerary/0/activities/0": true,
+      "binding/binding:data:/itinerary/0/activities/1": true,
+      "binding/binding:route:/itinerary/0/activities/1": true,
+      "binding/binding:data:/itinerary/0/activities/2": true,
+      "binding/binding:route:/itinerary/0/activities/2": true,
+      "binding/binding:data:/itinerary/0/activities/3": true,
+      "binding/binding:route:/itinerary/0/activities/3": true,
+      "binding/binding:data:/itinerary/0/activities/4": true,
+      "binding/binding:route:/itinerary/0/activities/4": true,
+      "binding/binding:data:/itinerary/0/activities/5": true,
+      "binding/binding:route:/itinerary/0/activities/5": true,
+      "binding/binding:data:/itinerary/0/activities/6": true,
+      "binding/binding:route:/itinerary/0/activities/6": true,
+      "binding/binding:data:/itinerary/0/activities/7": true,
+      "binding/binding:route:/itinerary/0/activities/7": true,
+      "binding/binding:data:/itinerary/1/activities/0": true,
+      "binding/binding:route:/itinerary/1/activities/0": null,
+      "binding/binding:data:/itinerary/1/activities/1": true,
+      "binding/binding:route:/itinerary/1/activities/1": true,
+      "binding/binding:data:/itinerary/1/activities/2": true,
+      "binding/binding:route:/itinerary/1/activities/2": true,
+      "binding/binding:data:/itinerary/1/activities/3": true,
+      "binding/binding:route:/itinerary/1/activities/3": true,
+      "binding/binding:data:/itinerary/1/activities/4": true,
+      "binding/binding:route:/itinerary/1/activities/4": true,
+      "binding/binding:data:/itinerary/1/activities/5": true,
+      "binding/binding:route:/itinerary/1/activities/5": true,
+      "binding/binding:data:/itinerary/2/activities/0": true,
+      "binding/binding:route:/itinerary/2/activities/0": null,
+      "binding/binding:data:/itinerary/2/activities/1": true,
+      "binding/binding:route:/itinerary/2/activities/1": true,
+      "binding/binding:data:/itinerary/2/activities/2": true,
+      "binding/binding:route:/itinerary/2/activities/2": true,
+      "binding/binding:data:/itinerary/2/activities/3": true,
+      "binding/binding:route:/itinerary/2/activities/3": true,
+      "binding/binding:data:/itinerary/2/activities/4": true,
+      "binding/binding:route:/itinerary/2/activities/4": true
+    },
+    "final_checks": {
+      "translation_valid": true,
+      "schema": true,
+      "task/start_city": true,
+      "task/target_city": true,
+      "task/people_number": true,
+      "task/days": true,
+      "Is_activity_grounded/Invalid or ungrounded activity entity": true,
+      "Is_activity_grounded": true,
+      "Is_intercity_transport_correct/Intercity transportation events must occur": true,
+      "Is_intercity_transport_correct/Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": true,
+      "Is_intercity_transport_correct/Incorrect Information of Intercity Transport on price or duration": true,
+      "Is_intercity_transport_correct/Incorrect Cost on Intercity Transportation": true,
+      "Is_intercity_transport_correct": true,
+      "Is_attractions_correct/Unavailable attractions": true,
+      "Is_attractions_correct/Visiting attraction in their closed time": true,
+      "Is_attractions_correct/Repeated attraction Choices": true,
+      "Is_attractions_correct/Incorrect price Information of attraction": true,
+      "Is_attractions_correct/Incorrect cost Information of attraction": true,
+      "Is_attractions_correct": true,
+      "Is_hotels_correct/Unavailable Accommodation": true,
+      "Is_hotels_correct/Incorrect Information of Accommodation on price or room type": true,
+      "Is_hotels_correct/Incorrect cost Information of Accommodation": true,
+      "Is_hotels_correct/Accomondation is necessary for trips longer than one day": true,
+      "Is_hotels_correct": true,
+      "Is_restaurants_correct/Unavailable Restruants": true,
+      "Is_restaurants_correct/Visiting Restruants in their closed time": true,
+      "Is_restaurants_correct/Repeated Restruants Choices": true,
+      "Is_restaurants_correct/Incorrect price Information of Restruants": true,
+      "Is_restaurants_correct/Incorrect cost Information of Restruants": true,
+      "Is_restaurants_correct/Inappropriate Meal Times": true,
+      "Is_restaurants_correct/Repeated Meal Types in One Day": true,
+      "Is_restaurants_correct": true,
+      "Is_transport_correct/Unavailable Inner-City Transport": true,
+      "Is_transport_correct/Incorrect Information of Inner-City Transporton on price, distance, and duration": true,
+      "Is_transport_correct/Inccorrect cost information of Inner-City Transport": true,
+      "Is_transport_correct/Incorrect cost information of Inner-City Transport": true,
+      "Is_transport_correct": true,
+      "Is_time_correct/Invalid duration information of each activity": true,
+      "Is_time_correct/Does not follow Chronological Order": true,
+      "Is_time_correct": true,
+      "Is_space_correct/Invalid Transport information across positions": true,
+      "Is_space_correct": true,
+      "self_constraint/0": true,
+      "self_constraint/1": true,
+      "self_constraint/2": true,
+      "self_constraint/3": true,
+      "self_constraint/4": true,
+      "self_constraint/5": true,
+      "self_constraint/6": true,
+      "coverage/0/0/activity": true,
+      "coverage/0/0/route": true,
+      "coverage/0/1/activity": true,
+      "coverage/0/1/route": true,
+      "coverage/0/2/activity": true,
+      "coverage/0/2/route": true,
+      "coverage/0/3/activity": true,
+      "coverage/0/3/route": true,
+      "coverage/0/4/activity": true,
+      "coverage/0/4/route": true,
+      "coverage/0/5/activity": true,
+      "coverage/0/5/route": true,
+      "coverage/0/6/activity": true,
+      "coverage/0/6/route": true,
+      "coverage/0/7/activity": true,
+      "coverage/0/7/route": true,
+      "coverage/1/0/activity": true,
+      "coverage/1/0/route": true,
+      "coverage/1/1/activity": true,
+      "coverage/1/1/route": true,
+      "coverage/1/2/activity": true,
+      "coverage/1/2/route": true,
+      "coverage/1/3/activity": true,
+      "coverage/1/3/route": true,
+      "coverage/1/4/activity": true,
+      "coverage/1/4/route": true,
+      "coverage/1/5/activity": true,
+      "coverage/1/5/route": true,
+      "coverage/2/0/activity": true,
+      "coverage/2/0/route": true,
+      "coverage/2/1/activity": true,
+      "coverage/2/1/route": true,
+      "coverage/2/2/activity": true,
+      "coverage/2/2/route": true,
+      "coverage/2/3/activity": true,
+      "coverage/2/3/route": true,
+      "coverage/2/4/activity": true,
+      "coverage/2/4/route": true,
+      "binding/binding:metadata": true,
+      "binding/binding:topology": true,
+      "binding/binding:data:/itinerary/0/activities/0": true,
+      "binding/binding:route:/itinerary/0/activities/0": true,
+      "binding/binding:data:/itinerary/0/activities/1": true,
+      "binding/binding:route:/itinerary/0/activities/1": true,
+      "binding/binding:data:/itinerary/0/activities/2": true,
+      "binding/binding:route:/itinerary/0/activities/2": true,
+      "binding/binding:data:/itinerary/0/activities/3": true,
+      "binding/binding:route:/itinerary/0/activities/3": true,
+      "binding/binding:data:/itinerary/0/activities/4": true,
+      "binding/binding:route:/itinerary/0/activities/4": true,
+      "binding/binding:data:/itinerary/0/activities/5": true,
+      "binding/binding:route:/itinerary/0/activities/5": true,
+      "binding/binding:data:/itinerary/0/activities/6": true,
+      "binding/binding:route:/itinerary/0/activities/6": true,
+      "binding/binding:data:/itinerary/0/activities/7": true,
+      "binding/binding:route:/itinerary/0/activities/7": true,
+      "binding/binding:data:/itinerary/1/activities/0": true,
+      "binding/binding:route:/itinerary/1/activities/0": null,
+      "binding/binding:data:/itinerary/1/activities/1": true,
+      "binding/binding:route:/itinerary/1/activities/1": true,
+      "binding/binding:data:/itinerary/1/activities/2": true,
+      "binding/binding:route:/itinerary/1/activities/2": true,
+      "binding/binding:data:/itinerary/1/activities/3": true,
+      "binding/binding:route:/itinerary/1/activities/3": true,
+      "binding/binding:data:/itinerary/1/activities/4": true,
+      "binding/binding:route:/itinerary/1/activities/4": true,
+      "binding/binding:data:/itinerary/1/activities/5": true,
+      "binding/binding:route:/itinerary/1/activities/5": true,
+      "binding/binding:data:/itinerary/2/activities/0": true,
+      "binding/binding:route:/itinerary/2/activities/0": null,
+      "binding/binding:data:/itinerary/2/activities/1": true,
+      "binding/binding:route:/itinerary/2/activities/1": true,
+      "binding/binding:data:/itinerary/2/activities/2": true,
+      "binding/binding:route:/itinerary/2/activities/2": true,
+      "binding/binding:data:/itinerary/2/activities/3": true,
+      "binding/binding:route:/itinerary/2/activities/3": true,
+      "binding/binding:data:/itinerary/2/activities/4": true,
+      "binding/binding:route:/itinerary/2/activities/4": true
+    },
+    "resolved": [],
+    "regressed": [],
+    "transactions": [],
+    "evidence": {
+      "binding_8cef7aa4b339140cd909d1ab70e71910f65874000c9986588b06cc08abab463a": {
+        "source": "caller_self_translated_contract",
+        "operation": "metadata",
+        "arguments": {},
+        "result": {
+          "people_number": 2,
+          "start_city": "上海",
+          "target_city": "苏州"
+        }
+      },
+      "binding_7a58250f9bb5ade481082f53e685b9c38a10711f2e103ef0623d96dfe2a23aa6": {
+        "source": "official_sandbox_tool",
+        "operation": "intercity",
+        "arguments": {
+          "start_city": "上海",
+          "end_city": "苏州",
+          "kind": "train",
+          "identifier": "G7004"
+        },
+        "result": [
+          {
+            "TrainID": "G7004",
+            "TrainType": "高铁",
+            "From": "上海站",
+            "To": "苏州站",
+            "BeginTime": "08:00",
+            "EndTime": "08:25",
+            "Duration": 0.42,
+            "Cost": 55.23
+          }
+        ]
+      },
+      "binding_32e99eca61be84a9730e391334a60dc33edb32c718962774327fb1ed34008d69": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "accommodation",
+          "city": "苏州",
+          "name": "苏州平江华府酒店"
+        },
+        "result": [
+          {
+            "id": 4,
+            "name": "苏州平江华府酒店",
+            "hotelname_en": "Hovle Mansion Club & Hotel",
+            "featurehoteltype": "管家服务",
+            "lat": 31.315502,
+            "lon": 120.632191,
+            "price": 657,
+            "numbed": 2
+          }
+        ]
+      },
+      "binding_41f7ebdfe9b83b80ce5cab16c250f52fec54751eeda5b2c07d2ae5b3cd0bd45a": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "苏州站",
+          "end": "苏州平江华府酒店",
+          "start_time": "08:30",
+          "mode": "metro"
+        },
+        "result": [
+          {
+            "start": "苏州站",
+            "end": "苏州火车站-地铁站",
+            "mode": "walk",
+            "start_time": "08:30",
+            "end_time": "08:31",
+            "cost": 0,
+            "distance": 0.13
+          },
+          {
+            "start": "苏州火车站-地铁站",
+            "end": "悬桥巷-地铁站",
+            "mode": "metro",
+            "start_time": "08:31",
+            "end_time": "08:36",
+            "cost": 2,
+            "distance": 2.57
+          },
+          {
+            "start": "悬桥巷-地铁站",
+            "end": "苏州平江华府酒店",
+            "mode": "walk",
+            "start_time": "08:36",
+            "end_time": "08:40",
+            "cost": 0,
+            "distance": 0.34
+          }
+        ]
+      },
+      "binding_f511234e811d86440e86f2ba521514fc664c1fc57ff5c785939371d038abec20": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "attraction",
+          "city": "苏州",
+          "name": "拙政园"
+        },
+        "result": [
+          {
+            "id": 0,
+            "name": "拙政园",
+            "type": "园林",
+            "lat": 31.330247,
+            "lon": 120.63571,
+            "opentime": "07:30",
+            "endtime": "17:30",
+            "price": 80.0,
+            "recommendmintime": 1.5,
+            "recommendmaxtime": 3.0
+          }
+        ]
+      },
+      "binding_20a1e4c397561b19053ef24f3216fde5603e6bc2c52380678ccab05199eaddc9": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "苏州平江华府酒店",
+          "end": "拙政园",
+          "start_time": "09:00",
+          "mode": "metro"
+        },
+        "result": [
+          {
+            "start": "苏州平江华府酒店",
+            "end": "悬桥巷-地铁站",
+            "mode": "walk",
+            "start_time": "09:00",
+            "end_time": "09:04",
+            "cost": 0,
+            "distance": 0.34
+          },
+          {
+            "start": "悬桥巷-地铁站",
+            "end": "梅巷-地铁站",
+            "mode": "metro",
+            "start_time": "09:04",
+            "end_time": "09:08",
+            "cost": 2,
+            "distance": 2.38
+          },
+          {
+            "start": "梅巷-地铁站",
+            "end": "拙政园",
+            "mode": "walk",
+            "start_time": "09:08",
+            "end_time": "09:16",
+            "cost": 0,
+            "distance": 0.75
+          }
+        ]
+      },
+      "binding_59631da076da580e759eb4fa886bb2a7f3fd25e1fbdbd2d5aba690bdab7baa95": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "restaurant",
+          "city": "苏州",
+          "name": "抱石•中餐厅正宗苏帮菜•松鼠桂鱼(拙政园店)"
+        },
+        "result": [
+          {
+            "id": 127,
+            "name": "抱石•中餐厅正宗苏帮菜•松鼠桂鱼(拙政园店)",
+            "lat": 31.3234051,
+            "lon": 120.6323669,
+            "price": 64.0,
+            "cuisine": "江浙菜",
+            "opentime": "09:30",
+            "endtime": "20:30",
+            "recommendedfood": " "
+          }
+        ]
+      },
+      "binding_ba500df29e979cee2498a2640eba661be5fd4a60ab21a7937ad27335e9bd7a0b": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "拙政园",
+          "end": "抱石•中餐厅正宗苏帮菜•松鼠桂鱼(拙政园店)",
+          "start_time": "12:00",
+          "mode": "walk"
+        },
+        "result": [
+          {
+            "start": "拙政园",
+            "end": "抱石•中餐厅正宗苏帮菜•松鼠桂鱼(拙政园店)",
+            "mode": "walk",
+            "start_time": "12:00",
+            "end_time": "12:09",
+            "cost": 0.0,
+            "distance": 0.8226243703216799
+          }
+        ]
+      },
+      "binding_b447d0b77c4c57e973feff8bed30850088722394f2d1b398df4873b265371ece": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "attraction",
+          "city": "苏州",
+          "name": "狮子林"
+        },
+        "result": [
+          {
+            "id": 4,
+            "name": "狮子林",
+            "type": "园林",
+            "lat": 31.327124,
+            "lon": 120.63561,
+            "opentime": "07:30",
+            "endtime": "17:30",
+            "price": 40.0,
+            "recommendmintime": 0.5,
+            "recommendmaxtime": 1.0
+          }
+        ]
+      },
+      "binding_b7dfd8b3a30db95fb2ce2719d20a7c3d0d1b72499d5e2ba0bb2578acb63c3a89": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "抱石•中餐厅正宗苏帮菜•松鼠桂鱼(拙政园店)",
+          "end": "狮子林",
+          "start_time": "13:00",
+          "mode": "walk"
+        },
+        "result": [
+          {
+            "start": "抱石•中餐厅正宗苏帮菜•松鼠桂鱼(拙政园店)",
+            "end": "狮子林",
+            "mode": "walk",
+            "start_time": "13:00",
+            "end_time": "13:06",
+            "cost": 0.0,
+            "distance": 0.5150710020661904
+          }
+        ]
+      },
+      "binding_782751aca34f939257c77eee397b0fd9bd671aaa239077d64e61658e8b325be6": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "attraction",
+          "city": "苏州",
+          "name": "苏州博物馆"
+        },
+        "result": [
+          {
+            "id": 7,
+            "name": "苏州博物馆",
+            "type": "博物馆/纪念馆",
+            "lat": 31.329059,
+            "lon": 120.634317,
+            "opentime": "09:00",
+            "endtime": "17:00",
+            "price": 0.0,
+            "recommendmintime": 1.5,
+            "recommendmaxtime": 3.0
+          }
+        ]
+      },
+      "binding_ee9734699297cdfa74c0710d202caa576fe4c8f0f93d82c4e673acbb494c0043": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "狮子林",
+          "end": "苏州博物馆",
+          "start_time": "14:00",
+          "mode": "walk"
+        },
+        "result": [
+          {
+            "start": "狮子林",
+            "end": "苏州博物馆",
+            "mode": "walk",
+            "start_time": "14:00",
+            "end_time": "14:02",
+            "cost": 0.0,
+            "distance": 0.24733207976261087
+          }
+        ]
+      },
+      "binding_603359d4e537e10195f10dbb19854c93a294a993550d9d88679cbf1210ece05a": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "attraction",
+          "city": "苏州",
+          "name": "平江路历史街区"
+        },
+        "result": [
+          {
+            "id": 10,
+            "name": "平江路历史街区",
+            "type": "历史古迹",
+            "lat": 31.319908,
+            "lon": 120.641291,
+            "opentime": "00:00",
+            "endtime": "24:00",
+            "price": 0.0,
+            "recommendmintime": 1.5,
+            "recommendmaxtime": 3.0
+          }
+        ]
+      },
+      "binding_c4b1830a9f332cd9ee801d841ed546587e670afeda25d0a4ba9815cfe892f720": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "苏州博物馆",
+          "end": "平江路历史街区",
+          "start_time": "16:30",
+          "mode": "walk"
+        },
+        "result": [
+          {
+            "start": "苏州博物馆",
+            "end": "平江路历史街区",
+            "mode": "walk",
+            "start_time": "16:30",
+            "end_time": "16:44",
+            "cost": 0.0,
+            "distance": 1.2124577850609874
+          }
+        ]
+      },
+      "binding_1784874baaee253147f75a76fd03bc028043d3ff3bca04c2d6a69dbc61e8117e": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "restaurant",
+          "city": "苏州",
+          "name": "平江桃花源记(平江1店)"
+        },
+        "result": [
+          {
+            "id": 30,
+            "name": "平江桃花源记(平江1店)",
+            "lat": 31.3145852,
+            "lon": 120.6340612,
+            "price": 43.0,
+            "cuisine": "江浙菜",
+            "opentime": "10:00",
+            "endtime": "21:00",
+            "recommendedfood": "赤豆糊糖粥,面拖大排骨,溏心鸡头米,八仙鸡汤馄饨,手抓酱猪手,老平江熟醉蟹"
+          }
+        ]
+      },
+      "binding_fd4fab9eb88669ff43f6bcd8c22d80cc3a2c59122750f1a62c840028f31d068a": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "平江路历史街区",
+          "end": "平江桃花源记(平江1店)",
+          "start_time": "18:30",
+          "mode": "walk"
+        },
+        "result": [
+          {
+            "start": "平江路历史街区",
+            "end": "平江桃花源记(平江1店)",
+            "mode": "walk",
+            "start_time": "18:30",
+            "end_time": "18:40",
+            "cost": 0.0,
+            "distance": 0.9065797900013207
+          }
+        ]
+      },
+      "binding_8eb218fb7bb39c4bff9107ae061bec057b27a40bbe660fcba166ad026ae18349": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "restaurant",
+          "city": "苏州",
+          "name": "哑巴生煎(临顿路店)"
+        },
+        "result": [
+          {
+            "id": 15,
+            "name": "哑巴生煎(临顿路店)",
+            "lat": 31.3150866,
+            "lon": 120.6284369,
+            "price": 22.0,
+            "cuisine": "小吃",
+            "opentime": "07:00",
+            "endtime": "19:00",
+            "recommendedfood": "素馅生煎,豆腐花,肉粽子,泡泡小馄饨,茉莉头汤,牛肉粉丝汤"
+          }
+        ]
+      },
+      "binding_dadb2d72bce5aeb99cc5463c78a0f28a0d50cceae7cd669c36ea743a0ca14ced": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "attraction",
+          "city": "苏州",
+          "name": "虎丘山风景名胜区"
+        },
+        "result": [
+          {
+            "id": 5,
+            "name": "虎丘山风景名胜区",
+            "type": "自然风光",
+            "lat": 31.341612,
+            "lon": 120.587391,
+            "opentime": "07:30",
+            "endtime": "18:00",
+            "price": 70.0,
+            "recommendmintime": 2.0,
+            "recommendmaxtime": 3.0
+          }
+        ]
+      },
+      "binding_e1918555645f03832d907319603a54b8a78f5d46aff997b4a393c2a1a0aebed1": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "哑巴生煎(临顿路店)",
+          "end": "虎丘山风景名胜区",
+          "start_time": "08:30",
+          "mode": "metro"
+        },
+        "result": [
+          {
+            "start": "哑巴生煎(临顿路店)",
+            "end": "悬桥巷-地铁站",
+            "mode": "walk",
+            "start_time": "08:30",
+            "end_time": "08:31",
+            "cost": 0,
+            "distance": 0.13
+          },
+          {
+            "start": "悬桥巷-地铁站",
+            "end": "青山桥浜-地铁站",
+            "mode": "metro",
+            "start_time": "08:31",
+            "end_time": "08:39",
+            "cost": 3,
+            "distance": 4.42
+          },
+          {
+            "start": "青山桥浜-地铁站",
+            "end": "虎丘山风景名胜区",
+            "mode": "walk",
+            "start_time": "08:39",
+            "end_time": "08:51",
+            "cost": 0,
+            "distance": 1.03
+          }
+        ]
+      },
+      "binding_af77a8621f2b38f9395b490916bcca23edd721ee5aa1aab21dd9deb9ba8c936b": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "restaurant",
+          "city": "苏州",
+          "name": "吴门人家(狮子林店)"
+        },
+        "result": [
+          {
+            "id": 90,
+            "name": "吴门人家(狮子林店)",
+            "lat": 31.3217071,
+            "lon": 120.6298162,
+            "price": 99.0,
+            "cuisine": "江浙菜",
+            "opentime": "11:00",
+            "endtime": "20:00",
+            "recommendedfood": "樱桃肉,响油鳝糊,糟溜鱼片,本帮香酥鸭,松鼠桂鱼,手剥虾仁"
+          }
+        ]
+      },
+      "binding_43da029b55fdc287b070188183acf8353c6421a5729f0b58848fed4c06d85e40": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "虎丘山风景名胜区",
+          "end": "吴门人家(狮子林店)",
+          "start_time": "12:00",
+          "mode": "metro"
+        },
+        "result": [
+          {
+            "start": "虎丘山风景名胜区",
+            "end": "青山桥浜-地铁站",
+            "mode": "walk",
+            "start_time": "12:00",
+            "end_time": "12:12",
+            "cost": 0,
+            "distance": 1.03
+          },
+          {
+            "start": "青山桥浜-地铁站",
+            "end": "拙政园苏博-地铁站",
+            "mode": "metro",
+            "start_time": "12:12",
+            "end_time": "12:19",
+            "cost": 2,
+            "distance": 3.84
+          },
+          {
+            "start": "拙政园苏博-地铁站",
+            "end": "吴门人家(狮子林店)",
+            "mode": "walk",
+            "start_time": "12:19",
+            "end_time": "12:23",
+            "cost": 0,
+            "distance": 0.35
+          }
+        ]
+      },
+      "binding_5f428e26df4f89956ddbfe027e49d3d232a691557fda8ea75ab0eadd93a5a162": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "attraction",
+          "city": "苏州",
+          "name": "留园"
+        },
+        "result": [
+          {
+            "id": 6,
+            "name": "留园",
+            "type": "园林",
+            "lat": 31.321729,
+            "lon": 120.598973,
+            "opentime": "07:30",
+            "endtime": "17:30",
+            "price": 55.0,
+            "recommendmintime": 3.0,
+            "recommendmaxtime": 4.0
+          }
+        ]
+      },
+      "binding_15dded578f555691e3a953f425909ab31b578a3c0b877db307511497085b05b4": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "吴门人家(狮子林店)",
+          "end": "留园",
+          "start_time": "13:30",
+          "mode": "metro"
+        },
+        "result": [
+          {
+            "start": "吴门人家(狮子林店)",
+            "end": "拙政园苏博-地铁站",
+            "mode": "walk",
+            "start_time": "13:30",
+            "end_time": "13:34",
+            "cost": 0,
+            "distance": 0.35
+          },
+          {
+            "start": "拙政园苏博-地铁站",
+            "end": "山塘街-地铁站",
+            "mode": "metro",
+            "start_time": "13:34",
+            "end_time": "13:38",
+            "cost": 2,
+            "distance": 2.39
+          },
+          {
+            "start": "山塘街-地铁站",
+            "end": "留园",
+            "mode": "walk",
+            "start_time": "13:38",
+            "end_time": "13:42",
+            "cost": 0,
+            "distance": 0.36
+          }
+        ]
+      },
+      "binding_32fc30251bb9f775c2ae59c717594c6a4076a295754b2e79ed84024731ab23d7": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "attraction",
+          "city": "苏州",
+          "name": "山塘街"
+        },
+        "result": [
+          {
+            "id": 9,
+            "name": "山塘街",
+            "type": "商业街区",
+            "lat": 31.32316,
+            "lon": 120.609569,
+            "opentime": "00:00",
+            "endtime": "24:00",
+            "price": 0.0,
+            "recommendmintime": 0.5,
+            "recommendmaxtime": 1.0
+          }
+        ]
+      },
+      "binding_2909c7a14fb4a0377ef490952b8acc30f0c55e40be797379af1c50ec911ee4e4": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "留园",
+          "end": "山塘街",
+          "start_time": "16:00",
+          "mode": "walk"
+        },
+        "result": [
+          {
+            "start": "留园",
+            "end": "山塘街",
+            "mode": "walk",
+            "start_time": "16:00",
+            "end_time": "16:12",
+            "cost": 0.0,
+            "distance": 1.020946038896019
+          }
+        ]
+      },
+      "binding_48ad5409ee957e747146de579813c56dd6258ad22beb1303435dfc9aa49d3068": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "restaurant",
+          "city": "苏州",
+          "name": "旧人家食府(平江路店)"
+        },
+        "result": [
+          {
+            "id": 352,
+            "name": "旧人家食府(平江路店)",
+            "lat": 31.3159771,
+            "lon": 120.633702,
+            "price": 79.0,
+            "cuisine": "江浙菜",
+            "opentime": "11:00",
+            "endtime": "20:30",
+            "recommendedfood": " "
+          }
+        ]
+      },
+      "binding_3109114d6fcdf7b0c565765056eddea2b4378ba2abef8a2cc0945ef3dfabd461": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "山塘街",
+          "end": "旧人家食府(平江路店)",
+          "start_time": "18:30",
+          "mode": "metro"
+        },
+        "result": [
+          {
+            "start": "山塘街",
+            "end": "山塘街-地铁站",
+            "mode": "walk",
+            "start_time": "18:30",
+            "end_time": "18:39",
+            "cost": 0,
+            "distance": 0.82
+          },
+          {
+            "start": "山塘街-地铁站",
+            "end": "悬桥巷-地铁站",
+            "mode": "metro",
+            "start_time": "18:39",
+            "end_time": "18:44",
+            "cost": 2,
+            "distance": 2.66
+          },
+          {
+            "start": "悬桥巷-地铁站",
+            "end": "旧人家食府(平江路店)",
+            "mode": "walk",
+            "start_time": "18:44",
+            "end_time": "18:49",
+            "cost": 0,
+            "distance": 0.49
+          }
+        ]
+      },
+      "binding_1e526ab639032604c8492e492e457ed515d2482646d68c3c00ba9f375bc60f81": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "restaurant",
+          "city": "苏州",
+          "name": "伟记奥面馆(白塔东路店)"
+        },
+        "result": [
+          {
+            "id": 39,
+            "name": "伟记奥面馆(白塔东路店)",
+            "lat": 31.3185739,
+            "lon": 120.6301358,
+            "price": 24.0,
+            "cuisine": "小吃",
+            "opentime": "06:00",
+            "endtime": "19:00",
+            "recommendedfood": "牛肉香菇面,大排香菇面,面筋面,爆鱼焖肉面,特色卤鸭面,奥香爆鳝面"
+          }
+        ]
+      },
+      "binding_a0f38b26964f1e35a1e7b14f855688871edb7cee11697a8f9d7d6a48a9c75ebe": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "attraction",
+          "city": "苏州",
+          "name": "网师园"
+        },
+        "result": [
+          {
+            "id": 12,
+            "name": "网师园",
+            "type": "园林",
+            "lat": 31.304178,
+            "lon": 120.640219,
+            "opentime": "07:30",
+            "endtime": "17:30",
+            "price": 40.0,
+            "recommendmintime": 1.0,
+            "recommendmaxtime": 1.5
+          }
+        ]
+      },
+      "binding_c1759295d7669707408f1835e3b64b36340109b9ce677c72f3ff99728b9fd9d5": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "伟记奥面馆(白塔东路店)",
+          "end": "网师园",
+          "start_time": "08:30",
+          "mode": "metro"
+        },
+        "result": [
+          {
+            "start": "伟记奥面馆(白塔东路店)",
+            "end": "悬桥巷-地铁站",
+            "mode": "walk",
+            "start_time": "08:30",
+            "end_time": "08:36",
+            "cost": 0,
+            "distance": 0.52
+          },
+          {
+            "start": "悬桥巷-地铁站",
+            "end": "望星桥苏大-地铁站",
+            "mode": "metro",
+            "start_time": "08:36",
+            "end_time": "08:38",
+            "cost": 2,
+            "distance": 1.42
+          },
+          {
+            "start": "望星桥苏大-地铁站",
+            "end": "网师园",
+            "mode": "walk",
+            "start_time": "08:38",
+            "end_time": "08:43",
+            "cost": 0,
+            "distance": 0.5
+          }
+        ]
+      },
+      "binding_0c37a1b0fe0fa04b8e557de5d35ad2f63ec0dfffa586bcf637051820b87d1c0a": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "restaurant",
+          "city": "苏州",
+          "name": "阿成饭店(凤凰街店)"
+        },
+        "result": [
+          {
+            "id": 53,
+            "name": "阿成饭店(凤凰街店)",
+            "lat": 31.3005325,
+            "lon": 120.6326097,
+            "price": 86.0,
+            "cuisine": "江浙菜",
+            "opentime": "10:30",
+            "endtime": "21:00",
+            "recommendedfood": "酱油虾,响油鳝糊,外婆红烧肉,沸腾鱼,糖醋排骨,清炒虾仁"
+          }
+        ]
+      },
+      "binding_7c37561f65b53e8f1562bcfc005b8a57c57f12035057ec26aac32de819dadcdc": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "网师园",
+          "end": "阿成饭店(凤凰街店)",
+          "start_time": "11:00",
+          "mode": "walk"
+        },
+        "result": [
+          {
+            "start": "网师园",
+            "end": "阿成饭店(凤凰街店)",
+            "mode": "walk",
+            "start_time": "11:00",
+            "end_time": "11:09",
+            "cost": 0.0,
+            "distance": 0.8295500365230171
+          }
+        ]
+      },
+      "binding_ce101884d0ba93c46a5918558e2244903a0b29be25a687b82fad1b2af822186f": {
+        "source": "official_sandbox_tool",
+        "operation": "lookup",
+        "arguments": {
+          "kind": "attraction",
+          "city": "苏州",
+          "name": "沧浪亭"
+        },
+        "result": [
+          {
+            "id": 13,
+            "name": "沧浪亭",
+            "type": "历史古迹",
+            "lat": 31.300614,
+            "lon": 120.632073,
+            "opentime": "07:30",
+            "endtime": "17:30",
+            "price": 20.0,
+            "recommendmintime": 2.0,
+            "recommendmaxtime": 3.0
+          }
+        ]
+      },
+      "binding_a4bba1e044568a8d5deb03112d2f3fc34254cee95c23d397557d7b025cf039ce": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "阿成饭店(凤凰街店)",
+          "end": "沧浪亭",
+          "start_time": "12:30",
+          "mode": "walk"
+        },
+        "result": [
+          {
+            "start": "阿成饭店(凤凰街店)",
+            "end": "沧浪亭",
+            "mode": "walk",
+            "start_time": "12:30",
+            "end_time": "12:30",
+            "cost": 0.0,
+            "distance": 0.05188854364097486
+          }
+        ]
+      },
+      "binding_eb59edbdc1d0cd2242a4042dd0df2963bd87486a076055c629cca28e40ccaba0": {
+        "source": "official_sandbox_tool",
+        "operation": "intercity",
+        "arguments": {
+          "start_city": "苏州",
+          "end_city": "上海",
+          "kind": "train",
+          "identifier": "G7019"
+        },
+        "result": [
+          {
+            "TrainID": "G7019",
+            "TrainType": "高铁",
+            "From": "苏州站",
+            "To": "上海站",
+            "BeginTime": "17:14",
+            "EndTime": "17:40",
+            "Duration": 0.47000000000000003,
+            "Cost": 55.23
+          }
+        ]
+      },
+      "binding_9993b526e2289fdb4413911ca4c16322e458f8b4fe3346d96c22fb8562e5435a": {
+        "source": "official_sandbox_tool",
+        "operation": "route",
+        "arguments": {
+          "city": "苏州",
+          "start": "沧浪亭",
+          "end": "苏州站",
+          "start_time": "15:30",
+          "mode": "metro"
+        },
+        "result": [
+          {
+            "start": "沧浪亭",
+            "end": "望星桥苏大-地铁站",
+            "mode": "walk",
+            "start_time": "15:30",
+            "end_time": "15:34",
+            "cost": 0,
+            "distance": 0.37
+          },
+          {
+            "start": "望星桥苏大-地铁站",
+            "end": "苏州火车站-地铁站",
+            "mode": "metro",
+            "start_time": "15:34",
+            "end_time": "15:41",
+            "cost": 2,
+            "distance": 3.95
+          },
+          {
+            "start": "苏州火车站-地铁站",
+            "end": "苏州站",
+            "mode": "walk",
+            "start_time": "15:41",
+            "end_time": "15:42",
+            "cost": 0,
+            "distance": 0.13
+          }
+        ]
+      }
+    },
+    "unresolved": [
+      {
+        "path": "/itinerary/1/activities/0/transports",
+        "reason": "overnight_position_unverified",
+        "exception": "ValueError"
+      },
+      {
+        "path": "/itinerary/2/activities/0/transports",
+        "reason": "overnight_position_unverified",
+        "exception": "ValueError"
+      }
+    ],
+    "diagnostics": {
+      "translation_errors": [],
+      "environment": {
+        "Is_activity_grounded": {
+          "passed": true,
+          "counts": {
+            "Invalid or ungrounded activity entity": 0
+          },
+          "details": []
+        },
+        "Is_intercity_transport_correct": {
+          "passed": true,
+          "counts": {
+            "Intercity transportation events must occur": 0,
+            "Invalid Trains or Airplanes, given TrainID/FlightID, origin and destination": 0,
+            "Incorrect Information of Intercity Transport on price or duration": 0,
+            "Incorrect Cost on Intercity Transportation": 0
+          },
+          "details": []
+        },
+        "Is_attractions_correct": {
+          "passed": true,
+          "counts": {
+            "Unavailable attractions": 0,
+            "Visiting attraction in their closed time": 0,
+            "Repeated attraction Choices": 0,
+            "Incorrect price Information of attraction": 0,
+            "Incorrect cost Information of attraction": 0
+          },
+          "details": []
+        },
+        "Is_hotels_correct": {
+          "passed": true,
+          "counts": {
+            "Unavailable Accommodation": 0,
+            "Incorrect Information of Accommodation on price or room type": 0,
+            "Incorrect cost Information of Accommodation": 0,
+            "Accomondation is necessary for trips longer than one day": 0
+          },
+          "details": []
+        },
+        "Is_restaurants_correct": {
+          "passed": true,
+          "counts": {
+            "Unavailable Restruants": 0,
+            "Visiting Restruants in their closed time": 0,
+            "Repeated Restruants Choices": 0,
+            "Incorrect price Information of Restruants": 0,
+            "Incorrect cost Information of Restruants": 0,
+            "Inappropriate Meal Times": 0,
+            "Repeated Meal Types in One Day": 0
+          },
+          "details": []
+        },
+        "Is_transport_correct": {
+          "passed": true,
+          "counts": {
+            "Unavailable Inner-City Transport": 0,
+            "Incorrect Information of Inner-City Transporton on price, distance, and duration": 0,
+            "Inccorrect cost information of Inner-City Transport": 0
+          },
+          "details": []
+        },
+        "Is_time_correct": {
+          "passed": true,
+          "counts": {
+            "Invalid duration information of each activity": 0,
+            "Does not follow Chronological Order": 0
+          },
+          "details": []
+        },
+        "Is_space_correct": {
+          "passed": true,
+          "counts": {
+            "Invalid Transport information across positions": 0
+          },
+          "details": []
+        }
+      },
+      "schema": []
+    }
+  }
+}

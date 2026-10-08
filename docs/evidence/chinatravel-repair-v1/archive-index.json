@@ -1,0 +1,22 @@
+{
+  "guarded-live-development.tar.xz": {
+    "sha256": "74851f961899d4400a2df221c63d4f3b376bcea4fd91d28e1358306345ae3491",
+    "bytes": 310512
+  },
+  "guarded-replay.tar.xz": {
+    "sha256": "f7e4ed01f0f712057a02f3fe49357483af50c26665b09faa4e2f7ee1ecc75d52",
+    "bytes": 224456
+  },
+  "live-development.tar.xz": {
+    "sha256": "9425f0e74bcba87a5db63aa7fbead995daa9338ee2fd3918eece65d13aa293e2",
+    "bytes": 317380
+  },
+  "replay.tar.xz": {
+    "sha256": "b32de0a57a85ddf53a2b058734cfed966f5c1b8ef3e5b78e24595b8a65fb534e",
+    "bytes": 224676
+  },
+  "schema-refinement.tar.xz": {
+    "sha256": "6e2c3d9cca561faef76f22e60cded36f7ee498e2251ee2b910b2238ae05ceebd",
+    "bytes": 152452
+  }
+}

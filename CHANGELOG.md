@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-10-09
+
+- Add the zero-dependency `resimind.repair` API for evidence-referenced JSON edits, stale-write protection, atomic revalidation, and strict progress without checked-constraint regressions.
+- Add a separate ChinaTravel development integration with exact tool-data binding, conservative route repairs, task-anchored prompts, corrected total-cost instructions and traveller-coverage checks.
+- Add an explicit overnight-state guard after a first live development round exposed a gap in the official scorer. Keep both two-task live rounds and both full 28-candidate replays: 14 drafts improve, but full replay completions stay unchanged and the guarded live round finishes neither task. These are development diagnostics, not held-out or component-level superiority claims.
+- Keep adapter check names stable during schema repair and return actionable missing-field feedback. A final offline replay repairs schema for 3 of all 5 recorded candidates, with no new model calls or full completions.
+
 ## 0.7.0 — 2026-10-08
 
 - Add open-ended day planning: freely compose venues, order, times and transport, then independently check complete route feasibility, budget, walking, opening windows, category coverage, and indoor requirements.
