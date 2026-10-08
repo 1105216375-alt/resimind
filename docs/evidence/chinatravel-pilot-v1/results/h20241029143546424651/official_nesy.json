@@ -1,0 +1,258 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 1,
+    "start_city": "深圳",
+    "target_city": "南京",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "start_time": "06:33",
+            "end_time": "14:27",
+            "start": "深圳站",
+            "end": "南京南站",
+            "price": 751.94,
+            "cost": 751.94,
+            "tickets": 1,
+            "transports": [],
+            "TrainID": "G2787",
+            "type": "train"
+          },
+          {
+            "position": "紫金山",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "15:24",
+            "end_time": "16:54",
+            "transports": [
+              {
+                "start": "南京南站",
+                "end": "南京南站-地铁站",
+                "mode": "walk",
+                "start_time": "14:27",
+                "end_time": "14:30",
+                "cost": 0,
+                "distance": 0.29,
+                "price": 0
+              },
+              {
+                "start": "南京南站-地铁站",
+                "end": "聚宝山-地铁站",
+                "mode": "metro",
+                "start_time": "14:30",
+                "end_time": "15:00",
+                "cost": 5,
+                "distance": 15.04,
+                "price": 5,
+                "tickets": 1
+              },
+              {
+                "start": "聚宝山-地铁站",
+                "end": "紫金山",
+                "mode": "walk",
+                "start_time": "15:00",
+                "end_time": "15:24",
+                "cost": 0,
+                "distance": 2.01,
+                "price": 0
+              }
+            ],
+            "tickets": 1
+          },
+          {
+            "position": "南京大牌档(夫子庙平江府店)",
+            "type": "dinner",
+            "price": 74,
+            "cost": 74,
+            "start_time": "17:42",
+            "end_time": "18:42",
+            "transports": [
+              {
+                "start": "紫金山",
+                "end": "聚宝山-地铁站",
+                "mode": "walk",
+                "start_time": "16:54",
+                "end_time": "17:18",
+                "cost": 0,
+                "distance": 2.01,
+                "price": 0
+              },
+              {
+                "start": "聚宝山-地铁站",
+                "end": "夫子庙-地铁站",
+                "mode": "metro",
+                "start_time": "17:18",
+                "end_time": "17:38",
+                "cost": 4,
+                "distance": 10.38,
+                "price": 4,
+                "tickets": 1
+              },
+              {
+                "start": "夫子庙-地铁站",
+                "end": "南京大牌档(夫子庙平江府店)",
+                "mode": "walk",
+                "start_time": "17:38",
+                "end_time": "17:42",
+                "cost": 0,
+                "distance": 0.39,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "南京城市名人酒店",
+            "type": "accommodation",
+            "price": 431,
+            "cost": 431,
+            "start_time": "18:59",
+            "end_time": "24:00",
+            "transports": [
+              {
+                "start": "南京大牌档(夫子庙平江府店)",
+                "end": "夫子庙-地铁站",
+                "mode": "walk",
+                "start_time": "18:42",
+                "end_time": "18:46",
+                "cost": 0,
+                "distance": 0.39,
+                "price": 0
+              },
+              {
+                "start": "夫子庙-地铁站",
+                "end": "鼓楼-地铁站",
+                "mode": "metro",
+                "start_time": "18:46",
+                "end_time": "18:53",
+                "cost": 2,
+                "distance": 3.92,
+                "price": 2,
+                "tickets": 1
+              },
+              {
+                "start": "鼓楼-地铁站",
+                "end": "南京城市名人酒店",
+                "mode": "walk",
+                "start_time": "18:53",
+                "end_time": "18:59",
+                "cost": 0,
+                "distance": 0.51,
+                "price": 0
+              }
+            ],
+            "room_type": 1,
+            "rooms": 1
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "start_time": "09:07",
+            "end_time": "17:00",
+            "start": "南京南站",
+            "end": "深圳北站",
+            "price": 751.94,
+            "cost": 751.94,
+            "tickets": 1,
+            "transports": [
+              {
+                "start": "南京城市名人酒店",
+                "end": "鼓楼-地铁站",
+                "mode": "walk",
+                "start_time": "00:00",
+                "end_time": "00:06",
+                "cost": 0,
+                "distance": 0.51,
+                "price": 0
+              },
+              {
+                "start": "鼓楼-地铁站",
+                "end": "南京南站-地铁站",
+                "mode": "metro",
+                "start_time": "00:06",
+                "end_time": "00:25",
+                "cost": 4,
+                "distance": 9.83,
+                "price": 4,
+                "tickets": 1
+              },
+              {
+                "start": "南京南站-地铁站",
+                "end": "南京南站",
+                "mode": "walk",
+                "start_time": "00:25",
+                "end_time": "00:28",
+                "cost": 0,
+                "distance": 0.29,
+                "price": 0
+              }
+            ],
+            "TrainID": "G2784",
+            "type": "train"
+          }
+        ]
+      }
+    ],
+    "search_time_sec": 26.465933084487915,
+    "llm_inference_time_sec": 22.223848581314087,
+    "input_token_count": 15489,
+    "output_token_count": 3249,
+    "input_token_maxx": 2966,
+    "llm_rec_count": 14,
+    "llm_rec_format_error_count": 1,
+    "search_nodes": 2724,
+    "backtrack_count": 1411,
+    "constraints_validation_count": 4,
+    "commonsense_pass_count": 4,
+    "logical_pass_count": 1,
+    "all_constraints_pass": 1
+  },
+  "details": {
+    "arm": "official_nesy",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "native_success": true,
+    "worker_usage": {
+      "requests": 18,
+      "prompt_tokens": 15489,
+      "completion_tokens": 3249,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 4091,
+      "recorded_calls": 4091,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 1165599,
+      "stored_result_count": 3112,
+      "stored_result_bytes": 12410355,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 30.31092516699573,
+  "worker_exit_code": -15,
+  "uid": "h20241029143546424651",
+  "arm": "official_nesy",
+  "ledger": {
+    "api_attempts": 18,
+    "prompt_bytes": 61860,
+    "prompt_tokens": 15489,
+    "completion_tokens": 3249,
+    "cache_hit_tokens": 7168,
+    "cache_miss_tokens": 8321,
+    "unknown_usage_requests": 0
+  }
+}

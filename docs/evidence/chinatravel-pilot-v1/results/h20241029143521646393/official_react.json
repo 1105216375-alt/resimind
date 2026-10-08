@@ -1,0 +1,502 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 2,
+    "start_city": "苏州",
+    "target_city": "北京",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "type": "train",
+            "start_time": "20:47",
+            "end_time": "09:52",
+            "start": "苏州站",
+            "end": "北京丰台站",
+            "TrainID": "Z283",
+            "price": 514.19,
+            "cost": 514.19,
+            "tickets": 2,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "position": "北京长白山国际酒店",
+            "start_time": "10:53",
+            "end_time": "24:00",
+            "room_type": 2,
+            "rooms": 1,
+            "price": 503,
+            "cost": 503,
+            "transports": [
+              {
+                "start": "北京丰台站",
+                "end": "丰台东大街-地铁站",
+                "mode": "walk",
+                "start_time": "10:00",
+                "end_time": "10:05",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.3
+              },
+              {
+                "start": "丰台东大街-地铁站",
+                "end": "惠新西街北口-地铁站",
+                "mode": "metro",
+                "start_time": "10:05",
+                "end_time": "10:53",
+                "price": 5,
+                "cost": 5,
+                "distance": 20,
+                "tickets": 2
+              },
+              {
+                "start": "惠新西街北口-地铁站",
+                "end": "北京长白山国际酒店",
+                "mode": "walk",
+                "start_time": "10:53",
+                "end_time": "10:58",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.4
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "type": "attraction",
+            "position": "故宫博物院",
+            "start_time": "13:00",
+            "end_time": "14:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "北京长白山国际酒店",
+                "end": "惠新西街北口-地铁站",
+                "mode": "walk",
+                "start_time": "11:30",
+                "end_time": "11:35",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.4
+              },
+              {
+                "start": "惠新西街北口-地铁站",
+                "end": "中国美术馆-地铁站",
+                "mode": "metro",
+                "start_time": "11:35",
+                "end_time": "11:58",
+                "price": 3,
+                "cost": 3,
+                "distance": 8,
+                "tickets": 2
+              },
+              {
+                "start": "中国美术馆-地铁站",
+                "end": "故宫博物院",
+                "mode": "walk",
+                "start_time": "11:58",
+                "end_time": "12:00",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.2
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "position": "悦宾饭馆(翠花胡同店)",
+            "start_time": "12:00",
+            "end_time": "13:00",
+            "price": 93,
+            "cost": 93,
+            "transports": [
+              {
+                "start": "故宫博物院",
+                "end": "悦宾饭馆(翠花胡同店)",
+                "mode": "walk",
+                "start_time": "12:00",
+                "end_time": "12:05",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.3
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "天安门城楼",
+            "start_time": "14:15",
+            "end_time": "15:30",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "悦宾饭馆(翠花胡同店)",
+                "end": "中国美术馆-地铁站",
+                "mode": "walk",
+                "start_time": "14:00",
+                "end_time": "14:05",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.3
+              },
+              {
+                "start": "中国美术馆-地铁站",
+                "end": "金鱼胡同-地铁站",
+                "mode": "metro",
+                "start_time": "14:05",
+                "end_time": "14:15",
+                "price": 2,
+                "cost": 2,
+                "distance": 2,
+                "tickets": 2
+              },
+              {
+                "start": "金鱼胡同-地铁站",
+                "end": "天安门城楼",
+                "mode": "walk",
+                "start_time": "14:15",
+                "end_time": "14:20",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.4
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "圆明园",
+            "start_time": "16:34",
+            "end_time": "18:40",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "天安门城楼",
+                "end": "金鱼胡同-地铁站",
+                "mode": "walk",
+                "start_time": "15:40",
+                "end_time": "15:45",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.4
+              },
+              {
+                "start": "金鱼胡同-地铁站",
+                "end": "圆明园-地铁站",
+                "mode": "metro",
+                "start_time": "15:45",
+                "end_time": "16:34",
+                "price": 4,
+                "cost": 4,
+                "distance": 15,
+                "tickets": 2
+              },
+              {
+                "start": "圆明园-地铁站",
+                "end": "圆明园",
+                "mode": "walk",
+                "start_time": "16:34",
+                "end_time": "16:40",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.5
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "position": "北京长白山国际酒店",
+            "start_time": "19:27",
+            "end_time": "24:00",
+            "room_type": 2,
+            "rooms": 1,
+            "price": 503,
+            "cost": 503,
+            "transports": [
+              {
+                "start": "圆明园",
+                "end": "圆明园-地铁站",
+                "mode": "walk",
+                "start_time": "18:40",
+                "end_time": "18:45",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.5
+              },
+              {
+                "start": "圆明园-地铁站",
+                "end": "惠新西街北口-地铁站",
+                "mode": "metro",
+                "start_time": "18:45",
+                "end_time": "19:27",
+                "price": 4,
+                "cost": 4,
+                "distance": 12,
+                "tickets": 2
+              },
+              {
+                "start": "惠新西街北口-地铁站",
+                "end": "北京长白山国际酒店",
+                "mode": "walk",
+                "start_time": "19:27",
+                "end_time": "19:32",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.4
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "activities": [
+          {
+            "type": "attraction",
+            "position": "天坛",
+            "start_time": "08:32",
+            "end_time": "11:30",
+            "price": 34,
+            "cost": 34,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "北京长白山国际酒店",
+                "end": "惠新西街北口-地铁站",
+                "mode": "walk",
+                "start_time": "08:00",
+                "end_time": "08:05",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.4
+              },
+              {
+                "start": "惠新西街北口-地铁站",
+                "end": "磁器口-地铁站",
+                "mode": "metro",
+                "start_time": "08:05",
+                "end_time": "08:32",
+                "price": 4,
+                "cost": 4,
+                "distance": 10,
+                "tickets": 2
+              },
+              {
+                "start": "磁器口-地铁站",
+                "end": "天坛",
+                "mode": "walk",
+                "start_time": "08:32",
+                "end_time": "08:40",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.6
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "position": "汇兴居·老北京小吃(体育馆西路店)",
+            "start_time": "11:30",
+            "end_time": "12:30",
+            "price": 34,
+            "cost": 34,
+            "transports": [
+              {
+                "start": "天坛",
+                "end": "汇兴居·老北京小吃(体育馆西路店)",
+                "mode": "walk",
+                "start_time": "11:30",
+                "end_time": "11:35",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.3
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "恭王府",
+            "start_time": "12:54",
+            "end_time": "15:00",
+            "price": 40,
+            "cost": 40,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "汇兴居·老北京小吃(体育馆西路店)",
+                "end": "磁器口-地铁站",
+                "mode": "walk",
+                "start_time": "12:30",
+                "end_time": "12:35",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.3
+              },
+              {
+                "start": "磁器口-地铁站",
+                "end": "鼓楼大街-地铁站",
+                "mode": "metro",
+                "start_time": "12:35",
+                "end_time": "12:54",
+                "price": 3,
+                "cost": 3,
+                "distance": 6,
+                "tickets": 2
+              },
+              {
+                "start": "鼓楼大街-地铁站",
+                "end": "恭王府",
+                "mode": "walk",
+                "start_time": "12:54",
+                "end_time": "13:00",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.5
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "position": "北京长白山国际酒店",
+            "start_time": "15:23",
+            "end_time": "16:00",
+            "room_type": 2,
+            "rooms": 1,
+            "price": 0,
+            "cost": 0,
+            "transports": [
+              {
+                "start": "恭王府",
+                "end": "鼓楼大街-地铁站",
+                "mode": "walk",
+                "start_time": "15:00",
+                "end_time": "15:05",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.5
+              },
+              {
+                "start": "鼓楼大街-地铁站",
+                "end": "惠新西街北口-地铁站",
+                "mode": "metro",
+                "start_time": "15:05",
+                "end_time": "15:23",
+                "price": 3,
+                "cost": 3,
+                "distance": 5,
+                "tickets": 2
+              },
+              {
+                "start": "惠新西街北口-地铁站",
+                "end": "北京长白山国际酒店",
+                "mode": "walk",
+                "start_time": "15:23",
+                "end_time": "15:28",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.4
+              }
+            ]
+          },
+          {
+            "type": "train",
+            "start_time": "19:21",
+            "end_time": "07:03",
+            "start": "北京丰台站",
+            "end": "苏州站",
+            "TrainID": "Z284",
+            "price": 514.19,
+            "cost": 514.19,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "北京长白山国际酒店",
+                "end": "惠新西街北口-地铁站",
+                "mode": "walk",
+                "start_time": "16:00",
+                "end_time": "16:05",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.4
+              },
+              {
+                "start": "惠新西街北口-地铁站",
+                "end": "丰台东大街-地铁站",
+                "mode": "metro",
+                "start_time": "16:05",
+                "end_time": "16:53",
+                "price": 5,
+                "cost": 5,
+                "distance": 20,
+                "tickets": 2
+              },
+              {
+                "start": "丰台东大街-地铁站",
+                "end": "北京丰台站",
+                "mode": "walk",
+                "start_time": "16:53",
+                "end_time": "16:58",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.3
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "details": {
+    "arm": "official_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "worker_usage": {
+      "requests": 53,
+      "prompt_tokens": 1208795,
+      "completion_tokens": 6038,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 20,
+      "recorded_calls": 20,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 5360,
+      "stored_result_count": 20,
+      "stored_result_bytes": 122352,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 49.872682708002685,
+  "worker_exit_code": -15,
+  "uid": "h20241029143521646393",
+  "arm": "official_react",
+  "ledger": {
+    "api_attempts": 53,
+    "prompt_bytes": 3661387,
+    "prompt_tokens": 1208795,
+    "completion_tokens": 6038,
+    "cache_hit_tokens": 1193728,
+    "cache_miss_tokens": 15067,
+    "unknown_usage_requests": 0
+  }
+}

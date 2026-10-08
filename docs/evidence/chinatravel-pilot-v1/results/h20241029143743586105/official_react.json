@@ -1,0 +1,541 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 3,
+    "start_city": "广州",
+    "target_city": "武汉",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "type": "airplane",
+            "start_time": "05:46",
+            "end_time": "06:49",
+            "start": "广州白云国际机场",
+            "end": "武汉天河国际机场",
+            "price": 387.88,
+            "cost": 387.88,
+            "tickets": 3,
+            "FlightID": "FL301",
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "07:30",
+            "end_time": "08:35",
+            "position": "武汉黄鹤楼首义广场漫心酒店",
+            "price": 396,
+            "cost": 396,
+            "room_type": 2,
+            "rooms": 2,
+            "transports": [
+              {
+                "start": "武汉天河国际机场",
+                "end": "天河机场-地铁站",
+                "mode": "walk",
+                "start_time": "07:30",
+                "end_time": "07:36",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.55
+              },
+              {
+                "start": "天河机场-地铁站",
+                "end": "彭刘杨-地铁站",
+                "mode": "metro",
+                "start_time": "07:36",
+                "end_time": "08:29",
+                "price": 6,
+                "cost": 6,
+                "distance": 26.72,
+                "tickets": 3
+              },
+              {
+                "start": "彭刘杨-地铁站",
+                "end": "武汉黄鹤楼首义广场漫心酒店",
+                "mode": "walk",
+                "start_time": "08:29",
+                "end_time": "08:35",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.56
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "09:30",
+            "end_time": "11:00",
+            "position": "黄鹤楼",
+            "price": 65,
+            "cost": 65,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "武汉黄鹤楼首义广场漫心酒店",
+                "end": "彭刘杨-地铁站",
+                "mode": "walk",
+                "start_time": "09:00",
+                "end_time": "09:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.56
+              },
+              {
+                "start": "彭刘杨-地铁站",
+                "end": "昙华林武胜门-地铁站",
+                "mode": "metro",
+                "start_time": "09:06",
+                "end_time": "09:09",
+                "price": 2,
+                "cost": 2,
+                "distance": 1.51,
+                "tickets": 3
+              },
+              {
+                "start": "昙华林武胜门-地铁站",
+                "end": "黄鹤楼",
+                "mode": "walk",
+                "start_time": "09:09",
+                "end_time": "09:15",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.56
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "11:30",
+            "end_time": "12:30",
+            "position": "方掌柜武昌鱼(黄鹤楼店)",
+            "price": 69,
+            "cost": 69,
+            "transports": [
+              {
+                "start": "黄鹤楼",
+                "end": "户部巷",
+                "mode": "walk",
+                "start_time": "11:00",
+                "end_time": "11:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.51
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "13:00",
+            "end_time": "16:00",
+            "position": "户部巷",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "16:30",
+            "end_time": "24:00",
+            "position": "武汉黄鹤楼首义广场漫心酒店",
+            "price": 396,
+            "cost": 396,
+            "room_type": 2,
+            "rooms": 2,
+            "transports": [
+              {
+                "start": "户部巷",
+                "end": "武汉黄鹤楼首义广场漫心酒店",
+                "mode": "walk",
+                "start_time": "16:30",
+                "end_time": "16:36",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.51
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "type": "breakfast",
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "position": "武汉黄鹤楼首义广场漫心酒店",
+            "price": 0,
+            "cost": 0,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "09:30",
+            "end_time": "12:00",
+            "position": "湖北省博物馆",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "武汉黄鹤楼首义广场漫心酒店",
+                "end": "彭刘杨-地铁站",
+                "mode": "walk",
+                "start_time": "09:00",
+                "end_time": "09:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.56
+              },
+              {
+                "start": "彭刘杨-地铁站",
+                "end": "省博湖北日报-地铁站",
+                "mode": "metro",
+                "start_time": "09:06",
+                "end_time": "09:19",
+                "price": 3,
+                "cost": 3,
+                "distance": 6.68,
+                "tickets": 3
+              },
+              {
+                "start": "省博湖北日报-地铁站",
+                "end": "湖北省博物馆",
+                "mode": "walk",
+                "start_time": "09:19",
+                "end_time": "09:27",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.71
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:00",
+            "end_time": "12:30",
+            "position": "亢龙太子酒轩(东湖店)",
+            "price": 115,
+            "cost": 115,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "13:00",
+            "end_time": "15:00",
+            "position": "东湖",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "15:30",
+            "end_time": "24:00",
+            "position": "武汉黄鹤楼首义广场漫心酒店",
+            "price": 396,
+            "cost": 396,
+            "room_type": 2,
+            "rooms": 2,
+            "transports": [
+              {
+                "start": "东湖",
+                "end": "武汉黄鹤楼首义广场漫心酒店",
+                "mode": "taxi",
+                "start_time": "15:30",
+                "end_time": "15:50",
+                "price": 30,
+                "cost": 30,
+                "distance": 8.0,
+                "tickets": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "activities": [
+          {
+            "type": "breakfast",
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "position": "武汉黄鹤楼首义广场漫心酒店",
+            "price": 0,
+            "cost": 0,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "10:00",
+            "end_time": "12:30",
+            "position": "武汉大学",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "武汉黄鹤楼首义广场漫心酒店",
+                "end": "彭刘杨-地铁站",
+                "mode": "walk",
+                "start_time": "09:00",
+                "end_time": "09:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.56
+              },
+              {
+                "start": "彭刘杨-地铁站",
+                "end": "中南医院-地铁站",
+                "mode": "metro",
+                "start_time": "09:06",
+                "end_time": "09:15",
+                "price": 3,
+                "cost": 3,
+                "distance": 4.98,
+                "tickets": 3
+              },
+              {
+                "start": "中南医院-地铁站",
+                "end": "武汉大学",
+                "mode": "walk",
+                "start_time": "09:15",
+                "end_time": "09:39",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.01
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:30",
+            "end_time": "13:30",
+            "position": "江南小观园餐厅(武大店)",
+            "price": 79,
+            "cost": 79,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "15:00",
+            "end_time": "18:00",
+            "position": "江汉路步行街",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "武汉大学",
+                "end": "中南医院-地铁站",
+                "mode": "walk",
+                "start_time": "14:00",
+                "end_time": "14:24",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.01
+              },
+              {
+                "start": "中南医院-地铁站",
+                "end": "大智路-地铁站",
+                "mode": "metro",
+                "start_time": "14:24",
+                "end_time": "14:35",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.75,
+                "tickets": 3
+              },
+              {
+                "start": "大智路-地铁站",
+                "end": "江汉路步行街",
+                "mode": "walk",
+                "start_time": "14:35",
+                "end_time": "14:39",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.39
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "start_time": "18:00",
+            "end_time": "19:00",
+            "position": "汉小城·湖北菜老汉口藕汤(吉庆街店)",
+            "price": 86,
+            "cost": 86,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "20:00",
+            "end_time": "24:00",
+            "position": "武汉黄鹤楼首义广场漫心酒店",
+            "price": 396,
+            "cost": 396,
+            "room_type": 2,
+            "rooms": 2,
+            "transports": [
+              {
+                "start": "江汉路步行街",
+                "end": "大智路-地铁站",
+                "mode": "walk",
+                "start_time": "20:00",
+                "end_time": "20:04",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.39
+              },
+              {
+                "start": "大智路-地铁站",
+                "end": "彭刘杨-地铁站",
+                "mode": "metro",
+                "start_time": "20:04",
+                "end_time": "20:15",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.75,
+                "tickets": 3
+              },
+              {
+                "start": "彭刘杨-地铁站",
+                "end": "武汉黄鹤楼首义广场漫心酒店",
+                "mode": "walk",
+                "start_time": "20:15",
+                "end_time": "20:21",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.56
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "activities": [
+          {
+            "type": "breakfast",
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "position": "武汉黄鹤楼首义广场漫心酒店",
+            "price": 0,
+            "cost": 0,
+            "transports": []
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:00",
+            "end_time": "13:00",
+            "position": "方掌柜武昌鱼(黄鹤楼店)",
+            "price": 69,
+            "cost": 69,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "13:30",
+            "end_time": "15:30",
+            "position": "武汉黄鹤楼首义广场漫心酒店",
+            "price": 0,
+            "cost": 0,
+            "room_type": 2,
+            "rooms": 2,
+            "transports": []
+          },
+          {
+            "type": "airplane",
+            "start_time": "19:10",
+            "end_time": "20:13",
+            "start": "武汉天河国际机场",
+            "end": "广州白云国际机场",
+            "price": 449.77,
+            "cost": 449.77,
+            "tickets": 3,
+            "FlightID": "FL593",
+            "transports": [
+              {
+                "start": "武汉黄鹤楼首义广场漫心酒店",
+                "end": "彭刘杨-地铁站",
+                "mode": "walk",
+                "start_time": "17:00",
+                "end_time": "17:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.56
+              },
+              {
+                "start": "彭刘杨-地铁站",
+                "end": "天河机场-地铁站",
+                "mode": "metro",
+                "start_time": "17:06",
+                "end_time": "17:59",
+                "price": 6,
+                "cost": 6,
+                "distance": 26.72,
+                "tickets": 3
+              },
+              {
+                "start": "天河机场-地铁站",
+                "end": "武汉天河国际机场",
+                "mode": "walk",
+                "start_time": "17:59",
+                "end_time": "18:05",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.55
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "details": {
+    "arm": "official_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "worker_usage": {
+      "requests": 81,
+      "prompt_tokens": 2010752,
+      "completion_tokens": 8470,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 30,
+      "recorded_calls": 30,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 8305,
+      "stored_result_count": 30,
+      "stored_result_bytes": 101582,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 75.93867379100266,
+  "worker_exit_code": -15,
+  "uid": "h20241029143743586105",
+  "arm": "official_react",
+  "ledger": {
+    "api_attempts": 81,
+    "prompt_bytes": 6113571,
+    "prompt_tokens": 2010752,
+    "completion_tokens": 8470,
+    "cache_hit_tokens": 1987968,
+    "cache_miss_tokens": 22784,
+    "unknown_usage_requests": 0
+  }
+}

@@ -1,0 +1,625 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 2,
+    "start_city": "成都",
+    "target_city": "广州",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "type": "airplane",
+            "start_time": "08:01",
+            "end_time": "09:33",
+            "start": "成都天府国际机场",
+            "end": "广州白云国际机场",
+            "price": 611.06,
+            "cost": 611.06,
+            "tickets": 2,
+            "FlightID": "FL435",
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "10:00",
+            "end_time": "10:56",
+            "position": "广州建国酒店",
+            "price": 502,
+            "cost": 502,
+            "room_type": 1,
+            "rooms": 1,
+            "transports": [
+              {
+                "start": "广州白云国际机场",
+                "end": "机场南(1号航站楼)-地铁站",
+                "mode": "walk",
+                "start_time": "10:00",
+                "end_time": "10:00",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.05
+              },
+              {
+                "start": "机场南(1号航站楼)-地铁站",
+                "end": "广州东站-地铁站",
+                "mode": "metro",
+                "start_time": "10:00",
+                "end_time": "10:52",
+                "price": 6,
+                "cost": 6,
+                "distance": 26.19,
+                "tickets": 2
+              },
+              {
+                "start": "广州东站-地铁站",
+                "end": "广州建国酒店",
+                "mode": "walk",
+                "start_time": "10:52",
+                "end_time": "10:56",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.37
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:12",
+            "end_time": "13:30",
+            "position": "悦湖公馆",
+            "price": 164,
+            "cost": 164,
+            "transports": [
+              {
+                "start": "广州建国酒店",
+                "end": "广州东站-地铁站",
+                "mode": "walk",
+                "start_time": "11:30",
+                "end_time": "11:34",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.37
+              },
+              {
+                "start": "广州东站-地铁站",
+                "end": "永泰-地铁站",
+                "mode": "metro",
+                "start_time": "11:34",
+                "end_time": "11:49",
+                "price": 3,
+                "cost": 3,
+                "distance": 7.9,
+                "tickets": 2
+              },
+              {
+                "start": "永泰-地铁站",
+                "end": "悦湖公馆",
+                "mode": "walk",
+                "start_time": "11:49",
+                "end_time": "12:12",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.99
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "14:26",
+            "end_time": "17:00",
+            "position": "白云山",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "悦湖公馆",
+                "end": "永泰-地铁站",
+                "mode": "walk",
+                "start_time": "13:30",
+                "end_time": "13:53",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.99
+              },
+              {
+                "start": "永泰-地铁站",
+                "end": "京溪南方医院-地铁站",
+                "mode": "metro",
+                "start_time": "13:53",
+                "end_time": "14:01",
+                "price": 3,
+                "cost": 3,
+                "distance": 4.38,
+                "tickets": 2
+              },
+              {
+                "start": "京溪南方医院-地铁站",
+                "end": "白云山",
+                "mode": "walk",
+                "start_time": "14:01",
+                "end_time": "14:26",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.09
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "start_time": "17:28",
+            "end_time": "18:30",
+            "position": "有福气猪肚鸡(梅花园店)",
+            "price": 80,
+            "cost": 80,
+            "transports": [
+              {
+                "start": "白云山",
+                "end": "京溪南方医院-地铁站",
+                "mode": "walk",
+                "start_time": "17:00",
+                "end_time": "17:25",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.09
+              },
+              {
+                "start": "京溪南方医院-地铁站",
+                "end": "梅花园-地铁站",
+                "mode": "metro",
+                "start_time": "17:25",
+                "end_time": "17:27",
+                "price": 2,
+                "cost": 2,
+                "distance": 1.25,
+                "tickets": 2
+              },
+              {
+                "start": "梅花园-地铁站",
+                "end": "有福气猪肚鸡(梅花园店)",
+                "mode": "walk",
+                "start_time": "17:27",
+                "end_time": "17:28",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.13
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "start_time": "18:40",
+            "end_time": "24:00",
+            "position": "广州建国酒店",
+            "price": 502,
+            "cost": 502,
+            "room_type": 1,
+            "rooms": 1,
+            "transports": [
+              {
+                "start": "有福气猪肚鸡(梅花园店)",
+                "end": "梅花园-地铁站",
+                "mode": "walk",
+                "start_time": "18:30",
+                "end_time": "18:31",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.13
+              },
+              {
+                "start": "梅花园-地铁站",
+                "end": "广州东站-地铁站",
+                "mode": "metro",
+                "start_time": "18:31",
+                "end_time": "18:36",
+                "price": 2,
+                "cost": 2,
+                "distance": 2.72,
+                "tickets": 2
+              },
+              {
+                "start": "广州东站-地铁站",
+                "end": "广州建国酒店",
+                "mode": "walk",
+                "start_time": "18:36",
+                "end_time": "18:40",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.37
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "type": "attraction",
+            "start_time": "09:01",
+            "end_time": "12:00",
+            "position": "海珠国家湿地公园",
+            "price": 18,
+            "cost": 18,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "广州建国酒店",
+                "end": "广州东站-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:34",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.37
+              },
+              {
+                "start": "广州东站-地铁站",
+                "end": "龙潭-地铁站",
+                "mode": "metro",
+                "start_time": "08:34",
+                "end_time": "08:49",
+                "price": 3,
+                "cost": 3,
+                "distance": 7.85,
+                "tickets": 2
+              },
+              {
+                "start": "龙潭-地铁站",
+                "end": "海珠国家湿地公园",
+                "mode": "walk",
+                "start_time": "08:49",
+                "end_time": "09:01",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.06
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:10",
+            "end_time": "13:30",
+            "position": "金成潮菜博物馆(新滘店)",
+            "price": 251,
+            "cost": 251,
+            "transports": [
+              {
+                "start": "海珠国家湿地公园",
+                "end": "金成潮菜博物馆(新滘店)",
+                "mode": "walk",
+                "start_time": "12:00",
+                "end_time": "12:10",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.8617262931765309
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "14:07",
+            "end_time": "17:00",
+            "position": "越秀公园",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "金成潮菜博物馆(新滘店)",
+                "end": "龙潭-地铁站",
+                "mode": "walk",
+                "start_time": "13:30",
+                "end_time": "13:39",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.76
+              },
+              {
+                "start": "龙潭-地铁站",
+                "end": "小北-地铁站",
+                "mode": "metro",
+                "start_time": "13:39",
+                "end_time": "13:57",
+                "price": 4,
+                "cost": 4,
+                "distance": 9.18,
+                "tickets": 2
+              },
+              {
+                "start": "小北-地铁站",
+                "end": "越秀公园",
+                "mode": "walk",
+                "start_time": "13:57",
+                "end_time": "14:07",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.88
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "start_time": "17:12",
+            "end_time": "18:30",
+            "position": "北园酒家(小北路店)",
+            "price": 144,
+            "cost": 144,
+            "transports": [
+              {
+                "start": "越秀公园",
+                "end": "北园酒家(小北路店)",
+                "mode": "walk",
+                "start_time": "17:00",
+                "end_time": "17:12",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.062382634600427
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "start_time": "18:50",
+            "end_time": "24:00",
+            "position": "广州建国酒店",
+            "price": 502,
+            "cost": 502,
+            "room_type": 1,
+            "rooms": 1,
+            "transports": [
+              {
+                "start": "北园酒家(小北路店)",
+                "end": "小北-地铁站",
+                "mode": "walk",
+                "start_time": "18:30",
+                "end_time": "18:36",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.56
+              },
+              {
+                "start": "小北-地铁站",
+                "end": "广州东站-地铁站",
+                "mode": "metro",
+                "start_time": "18:36",
+                "end_time": "18:46",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.07,
+                "tickets": 2
+              },
+              {
+                "start": "广州东站-地铁站",
+                "end": "广州建国酒店",
+                "mode": "walk",
+                "start_time": "18:46",
+                "end_time": "18:50",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.37
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "activities": [
+          {
+            "type": "attraction",
+            "start_time": "09:01",
+            "end_time": "11:30",
+            "position": "云台花园",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "广州建国酒店",
+                "end": "广州东站-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:34",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.37
+              },
+              {
+                "start": "广州东站-地铁站",
+                "end": "沙河顶-地铁站",
+                "mode": "metro",
+                "start_time": "08:34",
+                "end_time": "08:37",
+                "price": 2,
+                "cost": 2,
+                "distance": 1.88,
+                "tickets": 2
+              },
+              {
+                "start": "沙河顶-地铁站",
+                "end": "云台花园",
+                "mode": "walk",
+                "start_time": "08:37",
+                "end_time": "09:01",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.04
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:05",
+            "end_time": "13:30",
+            "position": "迈姨·潮州菜(麓湖公园店)",
+            "price": 96,
+            "cost": 96,
+            "transports": [
+              {
+                "start": "云台花园",
+                "end": "沙河顶-地铁站",
+                "mode": "walk",
+                "start_time": "11:30",
+                "end_time": "11:54",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.04
+              },
+              {
+                "start": "沙河顶-地铁站",
+                "end": "小北-地铁站",
+                "mode": "metro",
+                "start_time": "11:54",
+                "end_time": "12:00",
+                "price": 2,
+                "cost": 2,
+                "distance": 3.2,
+                "tickets": 2
+              },
+              {
+                "start": "小北-地铁站",
+                "end": "迈姨·潮州菜(麓湖公园店)",
+                "mode": "walk",
+                "start_time": "12:00",
+                "end_time": "12:05",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.43
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "13:52",
+            "end_time": "16:00",
+            "position": "荔湾湖公园",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "迈姨·潮州菜(麓湖公园店)",
+                "end": "小北-地铁站",
+                "mode": "walk",
+                "start_time": "13:30",
+                "end_time": "13:35",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.43
+              },
+              {
+                "start": "小北-地铁站",
+                "end": "中山八-地铁站",
+                "mode": "metro",
+                "start_time": "13:35",
+                "end_time": "13:44",
+                "price": 3,
+                "cost": 3,
+                "distance": 4.76,
+                "tickets": 2
+              },
+              {
+                "start": "中山八-地铁站",
+                "end": "荔湾湖公园",
+                "mode": "walk",
+                "start_time": "13:44",
+                "end_time": "13:52",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.69
+              }
+            ]
+          },
+          {
+            "type": "airplane",
+            "start_time": "20:23",
+            "end_time": "21:55",
+            "start": "广州白云国际机场",
+            "end": "成都双流国际机场",
+            "price": 585.06,
+            "cost": 585.06,
+            "tickets": 2,
+            "FlightID": "FL287",
+            "transports": [
+              {
+                "start": "荔湾湖公园",
+                "end": "中山八-地铁站",
+                "mode": "walk",
+                "start_time": "16:00",
+                "end_time": "16:08",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.69
+              },
+              {
+                "start": "中山八-地铁站",
+                "end": "机场南(1号航站楼)-地铁站",
+                "mode": "metro",
+                "start_time": "16:08",
+                "end_time": "17:07",
+                "price": 7,
+                "cost": 7,
+                "distance": 29.74,
+                "tickets": 2
+              },
+              {
+                "start": "机场南(1号航站楼)-地铁站",
+                "end": "广州白云国际机场",
+                "mode": "walk",
+                "start_time": "17:07",
+                "end_time": "17:07",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.05
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "details": {
+    "arm": "official_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "worker_usage": {
+      "requests": 77,
+      "prompt_tokens": 1897550,
+      "completion_tokens": 9355,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 32,
+      "recorded_calls": 32,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 8995,
+      "stored_result_count": 31,
+      "stored_result_bytes": 135231,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 71.63428045900218,
+  "worker_exit_code": -15,
+  "uid": "h20241029143506461809",
+  "arm": "official_react",
+  "ledger": {
+    "api_attempts": 77,
+    "prompt_bytes": 5782409,
+    "prompt_tokens": 1897550,
+    "completion_tokens": 9355,
+    "cache_hit_tokens": 1875200,
+    "cache_miss_tokens": 22350,
+    "unknown_usage_requests": 0
+  }
+}

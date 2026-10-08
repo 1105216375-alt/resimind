@@ -1,0 +1,431 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 2,
+    "start_city": "南京",
+    "target_city": "杭州",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "type": "train",
+            "start_time": "07:02",
+            "end_time": "08:31",
+            "start": "南京南站",
+            "end": "杭州东站",
+            "TrainID": "G1667",
+            "price": 154.02,
+            "cost": 154.02,
+            "tickets": 2,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "position": "杭州西湖中维香溢大酒店",
+            "start_time": "09:30",
+            "end_time": "10:00",
+            "room_type": 2,
+            "rooms": 1,
+            "price": 409,
+            "cost": 409,
+            "transports": [
+              {
+                "start": "杭州东站",
+                "end": "火车东站(东广场)-地铁站",
+                "mode": "walk",
+                "start_time": "08:40",
+                "end_time": "08:45",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              },
+              {
+                "start": "火车东站(东广场)-地铁站",
+                "end": "万安桥-地铁站",
+                "mode": "metro",
+                "start_time": "08:45",
+                "end_time": "08:56",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.59,
+                "tickets": 2
+              },
+              {
+                "start": "万安桥-地铁站",
+                "end": "杭州西湖中维香溢大酒店",
+                "mode": "walk",
+                "start_time": "08:56",
+                "end_time": "09:03",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.64
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "西湖风景名胜区",
+            "start_time": "10:10",
+            "end_time": "12:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "杭州西湖中维香溢大酒店",
+                "end": "西湖风景名胜区",
+                "mode": "taxi",
+                "start_time": "10:00",
+                "end_time": "10:02",
+                "price": 22.69,
+                "cost": 22.69,
+                "distance": 5.14
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "position": "绿茶餐厅(龙井路店)",
+            "start_time": "12:30",
+            "end_time": "13:30",
+            "price": 104,
+            "cost": 208,
+            "transports": [
+              {
+                "start": "西湖风景名胜区",
+                "end": "绿茶餐厅(龙井路店)",
+                "mode": "taxi",
+                "start_time": "12:00",
+                "end_time": "12:00",
+                "price": 11,
+                "cost": 11,
+                "distance": 0.52
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "灵隐寺",
+            "start_time": "14:00",
+            "end_time": "16:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "绿茶餐厅(龙井路店)",
+                "end": "灵隐寺",
+                "mode": "taxi",
+                "start_time": "13:30",
+                "end_time": "13:33",
+                "price": 12.6,
+                "cost": 12.6,
+                "distance": 2.26
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "雷峰塔",
+            "start_time": "16:30",
+            "end_time": "18:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "灵隐寺",
+                "end": "雷峰塔",
+                "mode": "taxi",
+                "start_time": "16:00",
+                "end_time": "16:07",
+                "price": 21.18,
+                "cost": 21.18,
+                "distance": 4.71
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "position": "酒店附近简餐",
+            "start_time": "18:30",
+            "end_time": "19:30",
+            "price": 30,
+            "cost": 60,
+            "transports": [
+              {
+                "start": "雷峰塔",
+                "end": "杭州西湖中维香溢大酒店",
+                "mode": "taxi",
+                "start_time": "18:00",
+                "end_time": "18:03",
+                "price": 13.27,
+                "cost": 13.27,
+                "distance": 2.45
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "type": "breakfast",
+            "position": "杭州西湖中维香溢大酒店",
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "price": 0,
+            "cost": 0,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "position": "雷峰塔",
+            "start_time": "09:30",
+            "end_time": "11:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "杭州西湖中维香溢大酒店",
+                "end": "雷峰塔",
+                "mode": "taxi",
+                "start_time": "09:00",
+                "end_time": "09:03",
+                "price": 13.27,
+                "cost": 13.27,
+                "distance": 2.45
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "西湖风景名胜区",
+            "start_time": "11:30",
+            "end_time": "13:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "雷峰塔",
+                "end": "西湖风景名胜区",
+                "mode": "taxi",
+                "start_time": "11:00",
+                "end_time": "11:04",
+                "price": 14.45,
+                "cost": 14.45,
+                "distance": 2.79
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "position": "西湖附近简餐",
+            "start_time": "13:00",
+            "end_time": "13:30",
+            "price": 30,
+            "cost": 60,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "position": "灵隐寺",
+            "start_time": "14:30",
+            "end_time": "16:30",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "西湖风景名胜区",
+                "end": "灵隐寺",
+                "mode": "taxi",
+                "start_time": "14:00",
+                "end_time": "14:04",
+                "price": 14.42,
+                "cost": 14.42,
+                "distance": 2.78
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "position": "酒店附近简餐",
+            "start_time": "18:30",
+            "end_time": "19:30",
+            "price": 30,
+            "cost": 60,
+            "transports": [
+              {
+                "start": "灵隐寺",
+                "end": "杭州西湖中维香溢大酒店",
+                "mode": "taxi",
+                "start_time": "16:30",
+                "end_time": "16:39",
+                "price": 27.31,
+                "cost": 27.31,
+                "distance": 6.46
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "activities": [
+          {
+            "type": "breakfast",
+            "position": "杭州西湖中维香溢大酒店",
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "price": 0,
+            "cost": 0,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "position": "西湖风景名胜区",
+            "start_time": "09:30",
+            "end_time": "11:30",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "杭州西湖中维香溢大酒店",
+                "end": "西湖风景名胜区",
+                "mode": "taxi",
+                "start_time": "09:00",
+                "end_time": "09:03",
+                "price": 22.69,
+                "cost": 22.69,
+                "distance": 5.14
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "position": "西湖附近简餐",
+            "start_time": "11:30",
+            "end_time": "12:00",
+            "price": 30,
+            "cost": 60,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "position": "杭州西湖中维香溢大酒店",
+            "start_time": "13:00",
+            "end_time": "14:00",
+            "room_type": 2,
+            "rooms": 1,
+            "price": 409,
+            "cost": 409,
+            "transports": [
+              {
+                "start": "西湖风景名胜区",
+                "end": "杭州西湖中维香溢大酒店",
+                "mode": "taxi",
+                "start_time": "12:00",
+                "end_time": "12:03",
+                "price": 22.69,
+                "cost": 22.69,
+                "distance": 5.14
+              }
+            ]
+          },
+          {
+            "type": "train",
+            "start_time": "16:18",
+            "end_time": "17:33",
+            "start": "杭州东站",
+            "end": "南京南站",
+            "TrainID": "G1484",
+            "price": 154.02,
+            "cost": 154.02,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "杭州西湖中维香溢大酒店",
+                "end": "万安桥-地铁站",
+                "mode": "walk",
+                "start_time": "14:30",
+                "end_time": "14:37",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.64
+              },
+              {
+                "start": "万安桥-地铁站",
+                "end": "火车东站(东广场)-地铁站",
+                "mode": "metro",
+                "start_time": "14:37",
+                "end_time": "14:48",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.59,
+                "tickets": 2
+              },
+              {
+                "start": "火车东站(东广场)-地铁站",
+                "end": "杭州东站",
+                "mode": "walk",
+                "start_time": "14:48",
+                "end_time": "14:53",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "details": {
+    "arm": "official_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "worker_usage": {
+      "requests": 93,
+      "prompt_tokens": 2365613,
+      "completion_tokens": 8966,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 32,
+      "recorded_calls": 32,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 9305,
+      "stored_result_count": 31,
+      "stored_result_bytes": 225733,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 87.89843920799467,
+  "worker_exit_code": -15,
+  "uid": "h20241029143457494209",
+  "arm": "official_react",
+  "ledger": {
+    "api_attempts": 93,
+    "prompt_bytes": 7253377,
+    "prompt_tokens": 2365613,
+    "completion_tokens": 8966,
+    "cache_hit_tokens": 2340352,
+    "cache_miss_tokens": 25261,
+    "unknown_usage_requests": 0
+  }
+}

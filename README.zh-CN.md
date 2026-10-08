@@ -16,6 +16,8 @@ ResiMind 是一套**独立运行的神经符号 Agent 架构**：模型探索方
 
 [**6 个可运行领域**](#内置领域适配器) · [**v0.7.0 本地通过 660 项测试**](docs/validation.md) · [**真实 DeepSeek 提议与验证记录可查**](docs/evidence/open-planning/README.md)
 
+**已做官方原题实测：**同一 DeepSeek 模型和资源上限下，ChinaTravel 12 题试点中，官方 ReAct **0/12**、官方 NeSy **5/12**、ReAct + ResiMind **1/12**。ResiMind 这组没有错误交付，但还有 11 题未完成。[查看结果、差距与全部原始记录 →](docs/chinatravel-evaluation.zh-CN.md)
+
 **项目发起者与原始发布者：[@1105216375-alt](https://github.com/1105216375-alt)。** [原始仓库](https://github.com/1105216375-alt/resimind) · [引用信息](CITATION.cff)
 
 ## 开放式规划：答案可以多样，约束必须满足

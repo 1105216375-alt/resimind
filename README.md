@@ -16,6 +16,8 @@ Plan a day with many possible answers. Check a refund against a merchant policy.
 
 [**6 runnable domains**](#included-domain-adapters) · [**660 tests passed locally for v0.7.0**](docs/validation.md) · [**Inspect real DeepSeek proposals and decisions**](docs/evidence/open-planning/README.md)
 
+**Measured on original ChinaTravel tasks:** in a frozen 12-task pilot with the same DeepSeek model and resource ceilings, official ReAct passed **0/12**, official NeSy **5/12**, and ReAct + ResiMind **1/12**. ResiMind delivered no invalid plan but left 11 tasks unfinished. [Results, raw records, and limits →](docs/evidence/chinatravel-pilot-v1/README.md)
+
 **Project creator and original publisher: [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
 
 ## Open-ended planning: many answers, explicit constraints

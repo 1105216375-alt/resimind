@@ -1,0 +1,747 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 2,
+    "start_city": "广州",
+    "target_city": "北京",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "start_time": "07:50",
+            "end_time": "10:11",
+            "start": "广州白云国际机场",
+            "end": "北京首都国际机场",
+            "price": 899.16,
+            "cost": 1798.32,
+            "tickets": 2,
+            "transports": [],
+            "FlightID": "FL257",
+            "type": "airplane"
+          },
+          {
+            "position": "南门涮肉(天坛店)",
+            "type": "lunch",
+            "price": 101,
+            "cost": 202,
+            "start_time": "11:28",
+            "end_time": "12:28",
+            "transports": [
+              {
+                "start": "北京首都国际机场",
+                "end": "2号航站楼-地铁站",
+                "mode": "walk",
+                "start_time": "10:11",
+                "end_time": "10:21",
+                "cost": 0,
+                "distance": 0.88,
+                "price": 0
+              },
+              {
+                "start": "2号航站楼-地铁站",
+                "end": "景泰-地铁站",
+                "mode": "metro",
+                "start_time": "10:21",
+                "end_time": "11:17",
+                "cost": 14,
+                "distance": 28.39,
+                "price": 7,
+                "tickets": 2
+              },
+              {
+                "start": "景泰-地铁站",
+                "end": "南门涮肉(天坛店)",
+                "mode": "walk",
+                "start_time": "11:17",
+                "end_time": "11:28",
+                "cost": 0,
+                "distance": 0.97,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "故宫博物院",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "12:58",
+            "end_time": "14:28",
+            "transports": [
+              {
+                "start": "南门涮肉(天坛店)",
+                "end": "景泰-地铁站",
+                "mode": "walk",
+                "start_time": "12:28",
+                "end_time": "12:39",
+                "cost": 0,
+                "distance": 0.97,
+                "price": 0
+              },
+              {
+                "start": "景泰-地铁站",
+                "end": "中国美术馆-地铁站",
+                "mode": "metro",
+                "start_time": "12:39",
+                "end_time": "12:51",
+                "cost": 6,
+                "distance": 6.49,
+                "price": 3,
+                "tickets": 2
+              },
+              {
+                "start": "中国美术馆-地铁站",
+                "end": "故宫博物院",
+                "mode": "walk",
+                "start_time": "12:51",
+                "end_time": "12:58",
+                "cost": 0,
+                "distance": 0.63,
+                "price": 0
+              }
+            ],
+            "tickets": 2
+          },
+          {
+            "position": "中国国家博物馆",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "14:43",
+            "end_time": "16:13",
+            "transports": [
+              {
+                "start": "故宫博物院",
+                "end": "中国美术馆-地铁站",
+                "mode": "walk",
+                "start_time": "14:28",
+                "end_time": "14:35",
+                "cost": 0,
+                "distance": 0.63,
+                "price": 0
+              },
+              {
+                "start": "中国美术馆-地铁站",
+                "end": "王府井-地铁站",
+                "mode": "metro",
+                "start_time": "14:35",
+                "end_time": "14:38",
+                "cost": 4,
+                "distance": 1.74,
+                "price": 2,
+                "tickets": 2
+              },
+              {
+                "start": "王府井-地铁站",
+                "end": "中国国家博物馆",
+                "mode": "walk",
+                "start_time": "14:38",
+                "end_time": "14:43",
+                "cost": 0,
+                "distance": 0.48,
+                "price": 0
+              }
+            ],
+            "tickets": 2
+          },
+          {
+            "position": "提督·TIDU(北京坊店)",
+            "type": "dinner",
+            "price": 337,
+            "cost": 674,
+            "start_time": "17:00",
+            "end_time": "18:00",
+            "transports": [
+              {
+                "start": "中国国家博物馆",
+                "end": "王府井-地铁站",
+                "mode": "walk",
+                "start_time": "16:13",
+                "end_time": "16:18",
+                "cost": 0,
+                "distance": 0.48,
+                "price": 0
+              },
+              {
+                "start": "王府井-地铁站",
+                "end": "前门-地铁站",
+                "mode": "metro",
+                "start_time": "16:18",
+                "end_time": "16:20",
+                "cost": 4,
+                "distance": 1.46,
+                "price": 2,
+                "tickets": 2
+              },
+              {
+                "start": "前门-地铁站",
+                "end": "提督·TIDU(北京坊店)",
+                "mode": "walk",
+                "start_time": "16:20",
+                "end_time": "16:24",
+                "cost": 0,
+                "distance": 0.39,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "北京京都信苑饭店",
+            "type": "accommodation",
+            "price": 637,
+            "cost": 637,
+            "start_time": "18:19",
+            "end_time": "24:00",
+            "transports": [
+              {
+                "start": "提督·TIDU(北京坊店)",
+                "end": "前门-地铁站",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:04",
+                "cost": 0,
+                "distance": 0.39,
+                "price": 0
+              },
+              {
+                "start": "前门-地铁站",
+                "end": "莲花桥-地铁站",
+                "mode": "metro",
+                "start_time": "18:04",
+                "end_time": "18:18",
+                "cost": 6,
+                "distance": 7.5,
+                "price": 3,
+                "tickets": 2
+              },
+              {
+                "start": "莲花桥-地铁站",
+                "end": "北京京都信苑饭店",
+                "mode": "walk",
+                "start_time": "18:18",
+                "end_time": "18:19",
+                "cost": 0,
+                "distance": 0.16,
+                "price": 0
+              }
+            ],
+            "room_type": 2,
+            "rooms": 1
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "position": "北京京都信苑饭店",
+            "type": "breakfast",
+            "price": 0,
+            "cost": 0,
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "transports": []
+          },
+          {
+            "position": "八达岭长城",
+            "type": "attraction",
+            "price": 40,
+            "cost": 80,
+            "start_time": "09:55",
+            "end_time": "11:25",
+            "transports": [
+              {
+                "start": "北京京都信苑饭店",
+                "end": "八达岭长城",
+                "mode": "taxi",
+                "start_time": "08:30",
+                "end_time": "09:55",
+                "cost": 251.78,
+                "distance": 57.13,
+                "price": 251.78,
+                "cars": 1
+              }
+            ],
+            "tickets": 2
+          },
+          {
+            "position": "京味斋·北京牡丹烤鸭(新源街店)",
+            "type": "lunch",
+            "price": 125,
+            "cost": 250,
+            "start_time": "12:52",
+            "end_time": "13:52",
+            "transports": [
+              {
+                "start": "八达岭长城",
+                "end": "京味斋·北京牡丹烤鸭(新源街店)",
+                "mode": "taxi",
+                "start_time": "11:25",
+                "end_time": "12:52",
+                "cost": 257.92,
+                "distance": 58.49,
+                "price": 257.92,
+                "cars": 1
+              }
+            ]
+          },
+          {
+            "position": "颐和园",
+            "type": "attraction",
+            "price": 30,
+            "cost": 60,
+            "start_time": "14:41",
+            "end_time": "16:11",
+            "transports": [
+              {
+                "start": "京味斋·北京牡丹烤鸭(新源街店)",
+                "end": "亮马桥-地铁站",
+                "mode": "walk",
+                "start_time": "13:52",
+                "end_time": "14:00",
+                "cost": 0,
+                "distance": 0.72,
+                "price": 0
+              },
+              {
+                "start": "亮马桥-地铁站",
+                "end": "北宫门-地铁站",
+                "mode": "metro",
+                "start_time": "14:00",
+                "end_time": "14:33",
+                "cost": 10,
+                "distance": 16.79,
+                "price": 5,
+                "tickets": 2
+              },
+              {
+                "start": "北宫门-地铁站",
+                "end": "颐和园",
+                "mode": "walk",
+                "start_time": "14:33",
+                "end_time": "14:41",
+                "cost": 0,
+                "distance": 0.75,
+                "price": 0
+              }
+            ],
+            "tickets": 2
+          },
+          {
+            "position": "老回回小吃(百万庄店)",
+            "type": "dinner",
+            "price": 35,
+            "cost": 70,
+            "start_time": "17:00",
+            "end_time": "18:00",
+            "transports": [
+              {
+                "start": "颐和园",
+                "end": "北宫门-地铁站",
+                "mode": "walk",
+                "start_time": "16:11",
+                "end_time": "16:19",
+                "cost": 0,
+                "distance": 0.75,
+                "price": 0
+              },
+              {
+                "start": "北宫门-地铁站",
+                "end": "车公庄西-地铁站",
+                "mode": "metro",
+                "start_time": "16:19",
+                "end_time": "16:38",
+                "cost": 8,
+                "distance": 9.62,
+                "price": 4,
+                "tickets": 2
+              },
+              {
+                "start": "车公庄西-地铁站",
+                "end": "老回回小吃(百万庄店)",
+                "mode": "walk",
+                "start_time": "16:38",
+                "end_time": "16:44",
+                "cost": 0,
+                "distance": 0.51,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "北京京都信苑饭店",
+            "type": "accommodation",
+            "price": 637,
+            "cost": 637,
+            "start_time": "18:16",
+            "end_time": "24:00",
+            "transports": [
+              {
+                "start": "老回回小吃(百万庄店)",
+                "end": "车公庄西-地铁站",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:06",
+                "cost": 0,
+                "distance": 0.51,
+                "price": 0
+              },
+              {
+                "start": "车公庄西-地铁站",
+                "end": "莲花桥-地铁站",
+                "mode": "metro",
+                "start_time": "18:06",
+                "end_time": "18:15",
+                "cost": 6,
+                "distance": 4.8,
+                "price": 3,
+                "tickets": 2
+              },
+              {
+                "start": "莲花桥-地铁站",
+                "end": "北京京都信苑饭店",
+                "mode": "walk",
+                "start_time": "18:15",
+                "end_time": "18:16",
+                "cost": 0,
+                "distance": 0.16,
+                "price": 0
+              }
+            ],
+            "room_type": 2,
+            "rooms": 1
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "activities": [
+          {
+            "position": "北京京都信苑饭店",
+            "type": "breakfast",
+            "price": 0,
+            "cost": 0,
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "transports": []
+          },
+          {
+            "position": "天安门广场",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "08:50",
+            "end_time": "10:20",
+            "transports": [
+              {
+                "start": "北京京都信苑饭店",
+                "end": "莲花桥-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:31",
+                "cost": 0,
+                "distance": 0.16,
+                "price": 0
+              },
+              {
+                "start": "莲花桥-地铁站",
+                "end": "天安门东-地铁站",
+                "mode": "metro",
+                "start_time": "08:31",
+                "end_time": "08:46",
+                "cost": 6,
+                "distance": 7.85,
+                "price": 3,
+                "tickets": 2
+              },
+              {
+                "start": "天安门东-地铁站",
+                "end": "天安门广场",
+                "mode": "walk",
+                "start_time": "08:46",
+                "end_time": "08:50",
+                "cost": 0,
+                "distance": 0.36,
+                "price": 0
+              }
+            ],
+            "tickets": 2
+          },
+          {
+            "position": "珍宝海鲜JUMBO Seafood(北京SKP店)",
+            "type": "lunch",
+            "price": 401,
+            "cost": 802,
+            "start_time": "11:30",
+            "end_time": "12:30",
+            "transports": [
+              {
+                "start": "天安门广场",
+                "end": "天安门东-地铁站",
+                "mode": "walk",
+                "start_time": "10:20",
+                "end_time": "10:24",
+                "cost": 0,
+                "distance": 0.36,
+                "price": 0
+              },
+              {
+                "start": "天安门东-地铁站",
+                "end": "大望路-地铁站",
+                "mode": "metro",
+                "start_time": "10:24",
+                "end_time": "10:36",
+                "cost": 6,
+                "distance": 6.38,
+                "price": 3,
+                "tickets": 2
+              },
+              {
+                "start": "大望路-地铁站",
+                "end": "珍宝海鲜JUMBO Seafood(北京SKP店)",
+                "mode": "walk",
+                "start_time": "10:36",
+                "end_time": "10:40",
+                "cost": 0,
+                "distance": 0.34,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "恭王府",
+            "type": "attraction",
+            "price": 40,
+            "cost": 80,
+            "start_time": "12:57",
+            "end_time": "14:27",
+            "transports": [
+              {
+                "start": "珍宝海鲜JUMBO Seafood(北京SKP店)",
+                "end": "大望路-地铁站",
+                "mode": "walk",
+                "start_time": "12:30",
+                "end_time": "12:34",
+                "cost": 0,
+                "distance": 0.34,
+                "price": 0
+              },
+              {
+                "start": "大望路-地铁站",
+                "end": "鼓楼大街-地铁站",
+                "mode": "metro",
+                "start_time": "12:34",
+                "end_time": "12:50",
+                "cost": 6,
+                "distance": 8.34,
+                "price": 3,
+                "tickets": 2
+              },
+              {
+                "start": "鼓楼大街-地铁站",
+                "end": "恭王府",
+                "mode": "walk",
+                "start_time": "12:50",
+                "end_time": "12:57",
+                "cost": 0,
+                "distance": 0.63,
+                "price": 0
+              }
+            ],
+            "tickets": 2
+          },
+          {
+            "position": "沃夫冈牛排馆Wolfgang’s Steakhouse(三里屯店)",
+            "type": "dinner",
+            "price": 1100,
+            "cost": 2200,
+            "start_time": "17:00",
+            "end_time": "18:00",
+            "transports": [
+              {
+                "start": "恭王府",
+                "end": "鼓楼大街-地铁站",
+                "mode": "walk",
+                "start_time": "14:27",
+                "end_time": "14:34",
+                "cost": 0,
+                "distance": 0.63,
+                "price": 0
+              },
+              {
+                "start": "鼓楼大街-地铁站",
+                "end": "团结湖-地铁站",
+                "mode": "metro",
+                "start_time": "14:34",
+                "end_time": "14:46",
+                "cost": 6,
+                "distance": 6.06,
+                "price": 3,
+                "tickets": 2
+              },
+              {
+                "start": "团结湖-地铁站",
+                "end": "沃夫冈牛排馆Wolfgang’s Steakhouse(三里屯店)",
+                "mode": "walk",
+                "start_time": "14:46",
+                "end_time": "14:50",
+                "cost": 0,
+                "distance": 0.34,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "北京京都信苑饭店",
+            "type": "accommodation",
+            "price": 637,
+            "cost": 637,
+            "start_time": "18:32",
+            "end_time": "24:00",
+            "transports": [
+              {
+                "start": "沃夫冈牛排馆Wolfgang’s Steakhouse(三里屯店)",
+                "end": "团结湖-地铁站",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:04",
+                "cost": 0,
+                "distance": 0.34,
+                "price": 0
+              },
+              {
+                "start": "团结湖-地铁站",
+                "end": "莲花桥-地铁站",
+                "mode": "metro",
+                "start_time": "18:04",
+                "end_time": "18:31",
+                "cost": 8,
+                "distance": 13.55,
+                "price": 4,
+                "tickets": 2
+              },
+              {
+                "start": "莲花桥-地铁站",
+                "end": "北京京都信苑饭店",
+                "mode": "walk",
+                "start_time": "18:31",
+                "end_time": "18:32",
+                "cost": 0,
+                "distance": 0.16,
+                "price": 0
+              }
+            ],
+            "room_type": 2,
+            "rooms": 1
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "activities": [
+          {
+            "start_time": "11:51",
+            "end_time": "14:12",
+            "start": "北京大兴国际机场",
+            "end": "广州白云国际机场",
+            "price": 901.89,
+            "cost": 1803.78,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "北京京都信苑饭店",
+                "end": "莲花桥-地铁站",
+                "mode": "walk",
+                "start_time": "00:00",
+                "end_time": "00:01",
+                "cost": 0,
+                "distance": 0.16,
+                "price": 0
+              },
+              {
+                "start": "莲花桥-地铁站",
+                "end": "大兴机场-地铁站",
+                "mode": "metro",
+                "start_time": "00:01",
+                "end_time": "01:28",
+                "cost": 16,
+                "distance": 43.87,
+                "price": 8,
+                "tickets": 2
+              },
+              {
+                "start": "大兴机场-地铁站",
+                "end": "北京大兴国际机场",
+                "mode": "walk",
+                "start_time": "01:28",
+                "end_time": "01:39",
+                "cost": 0,
+                "distance": 0.93,
+                "price": 0
+              }
+            ],
+            "FlightID": "FL108",
+            "type": "airplane"
+          }
+        ]
+      }
+    ],
+    "search_time_sec": 38.37961292266846,
+    "llm_inference_time_sec": 29.81405544281006,
+    "input_token_count": 20094,
+    "output_token_count": 3900,
+    "input_token_maxx": 2990,
+    "llm_rec_count": 22,
+    "llm_rec_format_error_count": 1,
+    "search_nodes": 4963,
+    "backtrack_count": 8,
+    "constraints_validation_count": 1,
+    "commonsense_pass_count": 1,
+    "logical_pass_count": 1,
+    "all_constraints_pass": 1
+  },
+  "details": {
+    "arm": "official_nesy",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "native_success": true,
+    "worker_usage": {
+      "requests": 26,
+      "prompt_tokens": 20094,
+      "completion_tokens": 3900,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 9865,
+      "recorded_calls": 9865,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 2714168,
+      "stored_result_count": 9187,
+      "stored_result_bytes": 16238441,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 43.259119624999585,
+  "worker_exit_code": -15,
+  "uid": "h20241029143620980391",
+  "arm": "official_nesy",
+  "ledger": {
+    "api_attempts": 26,
+    "prompt_bytes": 81004,
+    "prompt_tokens": 20094,
+    "completion_tokens": 3900,
+    "cache_hit_tokens": 8960,
+    "cache_miss_tokens": 11134,
+    "unknown_usage_requests": 0
+  }
+}

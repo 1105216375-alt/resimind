@@ -1,0 +1,1401 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 3,
+    "start_city": "北京",
+    "target_city": "重庆",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "start_time": "09:43",
+            "end_time": "11:32",
+            "start": "北京首都国际机场",
+            "end": "重庆江北国际机场",
+            "price": 692.46,
+            "cost": 2077.38,
+            "tickets": 3,
+            "transports": [],
+            "FlightID": "FL113",
+            "type": "airplane"
+          },
+          {
+            "position": "杨记隆府(解放碑总店)",
+            "type": "lunch",
+            "price": 96,
+            "cost": 288,
+            "start_time": "12:27",
+            "end_time": "13:27",
+            "transports": [
+              {
+                "start": "重庆江北国际机场",
+                "end": "江北机场T3航站楼-地铁站",
+                "mode": "walk",
+                "start_time": "11:32",
+                "end_time": "11:46",
+                "cost": 0,
+                "distance": 1.21,
+                "price": 0
+              },
+              {
+                "start": "江北机场T3航站楼-地铁站",
+                "end": "临江门-地铁站",
+                "mode": "metro",
+                "start_time": "11:46",
+                "end_time": "12:22",
+                "cost": 15,
+                "distance": 18.4,
+                "price": 5,
+                "tickets": 3
+              },
+              {
+                "start": "临江门-地铁站",
+                "end": "杨记隆府(解放碑总店)",
+                "mode": "walk",
+                "start_time": "12:22",
+                "end_time": "12:27",
+                "cost": 0,
+                "distance": 0.49,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "洪崖洞",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "13:38",
+            "end_time": "15:08",
+            "transports": [
+              {
+                "start": "杨记隆府(解放碑总店)",
+                "end": "临江门-地铁站",
+                "mode": "walk",
+                "start_time": "13:27",
+                "end_time": "13:32",
+                "cost": 0,
+                "distance": 0.49,
+                "price": 0
+              },
+              {
+                "start": "临江门-地铁站",
+                "end": "朝天门-地铁站",
+                "mode": "metro",
+                "start_time": "13:32",
+                "end_time": "13:35",
+                "cost": 6,
+                "distance": 1.55,
+                "price": 2,
+                "tickets": 3
+              },
+              {
+                "start": "朝天门-地铁站",
+                "end": "洪崖洞",
+                "mode": "walk",
+                "start_time": "13:35",
+                "end_time": "13:38",
+                "cost": 0,
+                "distance": 0.32,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "滟设火锅料理(南滨路店)",
+            "type": "dinner",
+            "price": 488,
+            "cost": 1464,
+            "start_time": "17:00",
+            "end_time": "18:00",
+            "transports": [
+              {
+                "start": "洪崖洞",
+                "end": "滟设火锅料理(南滨路店)",
+                "mode": "taxi",
+                "start_time": "15:08",
+                "end_time": "15:09",
+                "cost": 11.0,
+                "distance": 0.83,
+                "price": 11.0,
+                "cars": 1
+              }
+            ]
+          },
+          {
+            "position": "长江索道",
+            "type": "attraction",
+            "price": 20,
+            "cost": 60,
+            "start_time": "18:01",
+            "end_time": "19:31",
+            "transports": [
+              {
+                "start": "滟设火锅料理(南滨路店)",
+                "end": "长江索道",
+                "mode": "taxi",
+                "start_time": "18:00",
+                "end_time": "18:01",
+                "cost": 11.0,
+                "distance": 1.09,
+                "price": 11.0,
+                "cars": 1
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "重庆两江游",
+            "type": "attraction",
+            "price": 138,
+            "cost": 414,
+            "start_time": "19:32",
+            "end_time": "21:02",
+            "transports": [
+              {
+                "start": "长江索道",
+                "end": "重庆两江游",
+                "mode": "taxi",
+                "start_time": "19:31",
+                "end_time": "19:32",
+                "cost": 11.0,
+                "distance": 0.8,
+                "price": 11.0,
+                "cars": 1
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "重庆美利亚酒店",
+            "type": "accommodation",
+            "price": 566,
+            "cost": 1132,
+            "start_time": "21:49",
+            "end_time": "24:00",
+            "transports": [
+              {
+                "start": "重庆两江游",
+                "end": "朝天门-地铁站",
+                "mode": "walk",
+                "start_time": "21:02",
+                "end_time": "21:07",
+                "cost": 0,
+                "distance": 0.49,
+                "price": 0
+              },
+              {
+                "start": "朝天门-地铁站",
+                "end": "铁山坪-地铁站",
+                "mode": "metro",
+                "start_time": "21:07",
+                "end_time": "21:26",
+                "cost": 12,
+                "distance": 9.55,
+                "price": 4,
+                "tickets": 3
+              },
+              {
+                "start": "铁山坪-地铁站",
+                "end": "重庆美利亚酒店",
+                "mode": "walk",
+                "start_time": "21:26",
+                "end_time": "21:49",
+                "cost": 0,
+                "distance": 1.93,
+                "price": 0
+              }
+            ],
+            "room_type": 2,
+            "rooms": 2
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "position": "重庆美利亚酒店",
+            "type": "breakfast",
+            "price": 0,
+            "cost": 0,
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "transports": []
+          },
+          {
+            "position": "磁器口古镇",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "09:50",
+            "end_time": "11:20",
+            "transports": [
+              {
+                "start": "重庆美利亚酒店",
+                "end": "铁山坪-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:53",
+                "cost": 0,
+                "distance": 1.93,
+                "price": 0
+              },
+              {
+                "start": "铁山坪-地铁站",
+                "end": "石井坡-地铁站",
+                "mode": "metro",
+                "start_time": "08:53",
+                "end_time": "09:36",
+                "cost": 18,
+                "distance": 21.99,
+                "price": 6,
+                "tickets": 3
+              },
+              {
+                "start": "石井坡-地铁站",
+                "end": "磁器口古镇",
+                "mode": "walk",
+                "start_time": "09:36",
+                "end_time": "09:50",
+                "cost": 0,
+                "distance": 1.19,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "叁步梯老火锅·地道重庆味",
+            "type": "lunch",
+            "price": 93,
+            "cost": 279,
+            "start_time": "11:57",
+            "end_time": "12:57",
+            "transports": [
+              {
+                "start": "磁器口古镇",
+                "end": "石井坡-地铁站",
+                "mode": "walk",
+                "start_time": "11:20",
+                "end_time": "11:34",
+                "cost": 0,
+                "distance": 1.19,
+                "price": 0
+              },
+              {
+                "start": "石井坡-地铁站",
+                "end": "红旗河沟-地铁站",
+                "mode": "metro",
+                "start_time": "11:34",
+                "end_time": "11:49",
+                "cost": 9,
+                "distance": 7.95,
+                "price": 3,
+                "tickets": 3
+              },
+              {
+                "start": "红旗河沟-地铁站",
+                "end": "叁步梯老火锅·地道重庆味",
+                "mode": "walk",
+                "start_time": "11:49",
+                "end_time": "11:57",
+                "cost": 0,
+                "distance": 0.7,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "重庆动物园",
+            "type": "attraction",
+            "price": 24,
+            "cost": 72,
+            "start_time": "13:26",
+            "end_time": "14:56",
+            "transports": [
+              {
+                "start": "叁步梯老火锅·地道重庆味",
+                "end": "红旗河沟-地铁站",
+                "mode": "walk",
+                "start_time": "12:57",
+                "end_time": "13:05",
+                "cost": 0,
+                "distance": 0.7,
+                "price": 0
+              },
+              {
+                "start": "红旗河沟-地铁站",
+                "end": "杨家坪-地铁站",
+                "mode": "metro",
+                "start_time": "13:05",
+                "end_time": "13:22",
+                "cost": 9,
+                "distance": 8.65,
+                "price": 3,
+                "tickets": 3
+              },
+              {
+                "start": "杨家坪-地铁站",
+                "end": "重庆动物园",
+                "mode": "walk",
+                "start_time": "13:22",
+                "end_time": "13:26",
+                "cost": 0,
+                "distance": 0.35,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "一郎烧肉·日式料理(解放碑店)",
+            "type": "dinner",
+            "price": 92,
+            "cost": 276,
+            "start_time": "17:00",
+            "end_time": "18:00",
+            "transports": [
+              {
+                "start": "重庆动物园",
+                "end": "杨家坪-地铁站",
+                "mode": "walk",
+                "start_time": "14:56",
+                "end_time": "15:00",
+                "cost": 0,
+                "distance": 0.35,
+                "price": 0
+              },
+              {
+                "start": "杨家坪-地铁站",
+                "end": "小什字-地铁站",
+                "mode": "metro",
+                "start_time": "15:00",
+                "end_time": "15:17",
+                "cost": 9,
+                "distance": 8.74,
+                "price": 3,
+                "tickets": 3
+              },
+              {
+                "start": "小什字-地铁站",
+                "end": "一郎烧肉·日式料理(解放碑店)",
+                "mode": "walk",
+                "start_time": "15:17",
+                "end_time": "15:20",
+                "cost": 0,
+                "distance": 0.29,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "融汇西流沱小镇",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "18:15",
+            "end_time": "19:45",
+            "transports": [
+              {
+                "start": "一郎烧肉·日式料理(解放碑店)",
+                "end": "融汇西流沱小镇",
+                "mode": "taxi",
+                "start_time": "18:00",
+                "end_time": "18:15",
+                "cost": 41.77,
+                "distance": 10.46,
+                "price": 41.77,
+                "cars": 1
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "重庆美利亚酒店",
+            "type": "accommodation",
+            "price": 566,
+            "cost": 1132,
+            "start_time": "21:10",
+            "end_time": "24:00",
+            "transports": [
+              {
+                "start": "融汇西流沱小镇",
+                "end": "李家沱大桥-地铁站",
+                "mode": "walk",
+                "start_time": "19:45",
+                "end_time": "20:05",
+                "cost": 0,
+                "distance": 1.74,
+                "price": 0
+              },
+              {
+                "start": "李家沱大桥-地铁站",
+                "end": "铁山坪-地铁站",
+                "mode": "metro",
+                "start_time": "20:05",
+                "end_time": "20:47",
+                "cost": 18,
+                "distance": 21.15,
+                "price": 6,
+                "tickets": 3
+              },
+              {
+                "start": "铁山坪-地铁站",
+                "end": "重庆美利亚酒店",
+                "mode": "walk",
+                "start_time": "20:47",
+                "end_time": "21:10",
+                "cost": 0,
+                "distance": 1.93,
+                "price": 0
+              }
+            ],
+            "room_type": 2,
+            "rooms": 2
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "activities": [
+          {
+            "position": "重庆美利亚酒店",
+            "type": "breakfast",
+            "price": 0,
+            "cost": 0,
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "transports": []
+          },
+          {
+            "position": "秀湖公园",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "10:50",
+            "end_time": "12:20",
+            "transports": [
+              {
+                "start": "重庆美利亚酒店",
+                "end": "铁山坪-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:53",
+                "cost": 0,
+                "distance": 1.93,
+                "price": 0
+              },
+              {
+                "start": "铁山坪-地铁站",
+                "end": "璧山-地铁站",
+                "mode": "metro",
+                "start_time": "08:53",
+                "end_time": "10:17",
+                "cost": 24,
+                "distance": 42.32,
+                "price": 8,
+                "tickets": 3
+              },
+              {
+                "start": "璧山-地铁站",
+                "end": "秀湖公园",
+                "mode": "walk",
+                "start_time": "10:17",
+                "end_time": "10:50",
+                "cost": 0,
+                "distance": 2.81,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "红九格老火锅(三峡广场店)",
+            "type": "lunch",
+            "price": 82,
+            "cost": 246,
+            "start_time": "12:55",
+            "end_time": "13:55",
+            "transports": [
+              {
+                "start": "秀湖公园",
+                "end": "红九格老火锅(三峡广场店)",
+                "mode": "taxi",
+                "start_time": "12:20",
+                "end_time": "12:55",
+                "cost": 99.88,
+                "distance": 23.37,
+                "price": 99.88,
+                "cars": 1
+              }
+            ]
+          },
+          {
+            "position": "三毛故居(区级文物)",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "14:39",
+            "end_time": "16:09",
+            "transports": [
+              {
+                "start": "红九格老火锅(三峡广场店)",
+                "end": "沙坪坝-地铁站",
+                "mode": "walk",
+                "start_time": "13:55",
+                "end_time": "13:57",
+                "cost": 0,
+                "distance": 0.23,
+                "price": 0
+              },
+              {
+                "start": "沙坪坝-地铁站",
+                "end": "上浩-地铁站",
+                "mode": "metro",
+                "start_time": "13:57",
+                "end_time": "14:22",
+                "cost": 12,
+                "distance": 12.97,
+                "price": 4,
+                "tickets": 3
+              },
+              {
+                "start": "上浩-地铁站",
+                "end": "三毛故居(区级文物)",
+                "mode": "walk",
+                "start_time": "14:22",
+                "end_time": "14:39",
+                "cost": 0,
+                "distance": 1.44,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "重庆国贸格兰维大酒店·山城映像中餐厅",
+            "type": "dinner",
+            "price": 210,
+            "cost": 630,
+            "start_time": "17:00",
+            "end_time": "18:00",
+            "transports": [
+              {
+                "start": "三毛故居(区级文物)",
+                "end": "上浩-地铁站",
+                "mode": "walk",
+                "start_time": "16:09",
+                "end_time": "16:26",
+                "cost": 0,
+                "distance": 1.44,
+                "price": 0
+              },
+              {
+                "start": "上浩-地铁站",
+                "end": "临江门-地铁站",
+                "mode": "metro",
+                "start_time": "16:26",
+                "end_time": "16:30",
+                "cost": 6,
+                "distance": 2.3,
+                "price": 2,
+                "tickets": 3
+              },
+              {
+                "start": "临江门-地铁站",
+                "end": "重庆国贸格兰维大酒店·山城映像中餐厅",
+                "mode": "walk",
+                "start_time": "16:30",
+                "end_time": "16:32",
+                "cost": 0,
+                "distance": 0.24,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "李子坝轻轨站",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "18:10",
+            "end_time": "19:40",
+            "transports": [
+              {
+                "start": "重庆国贸格兰维大酒店·山城映像中餐厅",
+                "end": "临江门-地铁站",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:02",
+                "cost": 0,
+                "distance": 0.24,
+                "price": 0
+              },
+              {
+                "start": "临江门-地铁站",
+                "end": "牛角沱-地铁站",
+                "mode": "metro",
+                "start_time": "18:02",
+                "end_time": "18:08",
+                "cost": 6,
+                "distance": 3.08,
+                "price": 2,
+                "tickets": 3
+              },
+              {
+                "start": "牛角沱-地铁站",
+                "end": "李子坝轻轨站",
+                "mode": "walk",
+                "start_time": "18:08",
+                "end_time": "18:10",
+                "cost": 0,
+                "distance": 0.24,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "重庆美利亚酒店",
+            "type": "accommodation",
+            "price": 566,
+            "cost": 1132,
+            "start_time": "20:32",
+            "end_time": "24:00",
+            "transports": [
+              {
+                "start": "李子坝轻轨站",
+                "end": "牛角沱-地铁站",
+                "mode": "walk",
+                "start_time": "19:40",
+                "end_time": "19:42",
+                "cost": 0,
+                "distance": 0.24,
+                "price": 0
+              },
+              {
+                "start": "牛角沱-地铁站",
+                "end": "铁山坪-地铁站",
+                "mode": "metro",
+                "start_time": "19:42",
+                "end_time": "20:09",
+                "cost": 12,
+                "distance": 13.64,
+                "price": 4,
+                "tickets": 3
+              },
+              {
+                "start": "铁山坪-地铁站",
+                "end": "重庆美利亚酒店",
+                "mode": "walk",
+                "start_time": "20:09",
+                "end_time": "20:32",
+                "cost": 0,
+                "distance": 1.93,
+                "price": 0
+              }
+            ],
+            "room_type": 2,
+            "rooms": 2
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "activities": [
+          {
+            "position": "重庆美利亚酒店",
+            "type": "breakfast",
+            "price": 0,
+            "cost": 0,
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "transports": []
+          },
+          {
+            "position": "朝天门广场",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "09:15",
+            "end_time": "10:45",
+            "transports": [
+              {
+                "start": "重庆美利亚酒店",
+                "end": "铁山坪-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:53",
+                "cost": 0,
+                "distance": 1.93,
+                "price": 0
+              },
+              {
+                "start": "铁山坪-地铁站",
+                "end": "涂山-地铁站",
+                "mode": "metro",
+                "start_time": "08:53",
+                "end_time": "09:08",
+                "cost": 9,
+                "distance": 7.89,
+                "price": 3,
+                "tickets": 3
+              },
+              {
+                "start": "涂山-地铁站",
+                "end": "朝天门广场",
+                "mode": "walk",
+                "start_time": "09:08",
+                "end_time": "09:15",
+                "cost": 0,
+                "distance": 0.67,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "龙门浩老街",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "10:57",
+            "end_time": "12:27",
+            "transports": [
+              {
+                "start": "朝天门广场",
+                "end": "涂山-地铁站",
+                "mode": "walk",
+                "start_time": "10:45",
+                "end_time": "10:52",
+                "cost": 0,
+                "distance": 0.67,
+                "price": 0
+              },
+              {
+                "start": "涂山-地铁站",
+                "end": "仁济-地铁站",
+                "mode": "metro",
+                "start_time": "10:52",
+                "end_time": "10:54",
+                "cost": 6,
+                "distance": 1.26,
+                "price": 2,
+                "tickets": 3
+              },
+              {
+                "start": "仁济-地铁站",
+                "end": "龙门浩老街",
+                "mode": "walk",
+                "start_time": "10:54",
+                "end_time": "10:57",
+                "cost": 0,
+                "distance": 0.29,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "重庆丽晶酒店·丽晶轩 - 三楼",
+            "type": "lunch",
+            "price": 312,
+            "cost": 936,
+            "start_time": "12:42",
+            "end_time": "13:42",
+            "transports": [
+              {
+                "start": "龙门浩老街",
+                "end": "仁济-地铁站",
+                "mode": "walk",
+                "start_time": "12:27",
+                "end_time": "12:30",
+                "cost": 0,
+                "distance": 0.29,
+                "price": 0
+              },
+              {
+                "start": "仁济-地铁站",
+                "end": "江北城-地铁站",
+                "mode": "metro",
+                "start_time": "12:30",
+                "end_time": "12:36",
+                "cost": 6,
+                "distance": 3.07,
+                "price": 2,
+                "tickets": 3
+              },
+              {
+                "start": "江北城-地铁站",
+                "end": "重庆丽晶酒店·丽晶轩 - 三楼",
+                "mode": "walk",
+                "start_time": "12:36",
+                "end_time": "12:42",
+                "cost": 0,
+                "distance": 0.52,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "山城步道",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "13:53",
+            "end_time": "15:23",
+            "transports": [
+              {
+                "start": "重庆丽晶酒店·丽晶轩 - 三楼",
+                "end": "江北城-地铁站",
+                "mode": "walk",
+                "start_time": "13:42",
+                "end_time": "13:48",
+                "cost": 0,
+                "distance": 0.52,
+                "price": 0
+              },
+              {
+                "start": "江北城-地铁站",
+                "end": "临江门-地铁站",
+                "mode": "metro",
+                "start_time": "13:48",
+                "end_time": "13:51",
+                "cost": 6,
+                "distance": 1.96,
+                "price": 2,
+                "tickets": 3
+              },
+              {
+                "start": "临江门-地铁站",
+                "end": "山城步道",
+                "mode": "walk",
+                "start_time": "13:51",
+                "end_time": "13:53",
+                "cost": 0,
+                "distance": 0.24,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "重庆丽晶酒店·罗宾斯牛排馆",
+            "type": "dinner",
+            "price": 665,
+            "cost": 1995,
+            "start_time": "17:00",
+            "end_time": "18:00",
+            "transports": [
+              {
+                "start": "山城步道",
+                "end": "临江门-地铁站",
+                "mode": "walk",
+                "start_time": "15:23",
+                "end_time": "15:25",
+                "cost": 0,
+                "distance": 0.24,
+                "price": 0
+              },
+              {
+                "start": "临江门-地铁站",
+                "end": "江北城-地铁站",
+                "mode": "metro",
+                "start_time": "15:25",
+                "end_time": "15:28",
+                "cost": 6,
+                "distance": 1.96,
+                "price": 2,
+                "tickets": 3
+              },
+              {
+                "start": "江北城-地铁站",
+                "end": "重庆丽晶酒店·罗宾斯牛排馆",
+                "mode": "walk",
+                "start_time": "15:28",
+                "end_time": "15:34",
+                "cost": 0,
+                "distance": 0.52,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "观音桥步行街",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "18:23",
+            "end_time": "19:53",
+            "transports": [
+              {
+                "start": "重庆丽晶酒店·罗宾斯牛排馆",
+                "end": "江北城-地铁站",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:06",
+                "cost": 0,
+                "distance": 0.52,
+                "price": 0
+              },
+              {
+                "start": "江北城-地铁站",
+                "end": "黄泥塝-地铁站",
+                "mode": "metro",
+                "start_time": "18:06",
+                "end_time": "18:13",
+                "cost": 6,
+                "distance": 3.58,
+                "price": 2,
+                "tickets": 3
+              },
+              {
+                "start": "黄泥塝-地铁站",
+                "end": "观音桥步行街",
+                "mode": "walk",
+                "start_time": "18:13",
+                "end_time": "18:23",
+                "cost": 0,
+                "distance": 0.85,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "南滨路",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "20:19",
+            "end_time": "21:49",
+            "transports": [
+              {
+                "start": "观音桥步行街",
+                "end": "黄泥塝-地铁站",
+                "mode": "walk",
+                "start_time": "19:53",
+                "end_time": "20:03",
+                "cost": 0,
+                "distance": 0.85,
+                "price": 0
+              },
+              {
+                "start": "黄泥塝-地铁站",
+                "end": "涂山-地铁站",
+                "mode": "metro",
+                "start_time": "20:03",
+                "end_time": "20:15",
+                "cost": 9,
+                "distance": 6.22,
+                "price": 3,
+                "tickets": 3
+              },
+              {
+                "start": "涂山-地铁站",
+                "end": "南滨路",
+                "mode": "walk",
+                "start_time": "20:15",
+                "end_time": "20:19",
+                "cost": 0,
+                "distance": 0.35,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "重庆美利亚酒店",
+            "type": "accommodation",
+            "price": 566,
+            "cost": 1132,
+            "start_time": "22:31",
+            "end_time": "24:00",
+            "transports": [
+              {
+                "start": "南滨路",
+                "end": "涂山-地铁站",
+                "mode": "walk",
+                "start_time": "21:49",
+                "end_time": "21:53",
+                "cost": 0,
+                "distance": 0.35,
+                "price": 0
+              },
+              {
+                "start": "涂山-地铁站",
+                "end": "铁山坪-地铁站",
+                "mode": "metro",
+                "start_time": "21:53",
+                "end_time": "22:08",
+                "cost": 9,
+                "distance": 7.89,
+                "price": 3,
+                "tickets": 3
+              },
+              {
+                "start": "铁山坪-地铁站",
+                "end": "重庆美利亚酒店",
+                "mode": "walk",
+                "start_time": "22:08",
+                "end_time": "22:31",
+                "cost": 0,
+                "distance": 1.93,
+                "price": 0
+              }
+            ],
+            "room_type": 2,
+            "rooms": 2
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "activities": [
+          {
+            "position": "重庆美利亚酒店",
+            "type": "breakfast",
+            "price": 0,
+            "cost": 0,
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "transports": []
+          },
+          {
+            "position": "人民大礼堂",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "09:19",
+            "end_time": "10:49",
+            "transports": [
+              {
+                "start": "重庆美利亚酒店",
+                "end": "铁山坪-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:53",
+                "cost": 0,
+                "distance": 1.93,
+                "price": 0
+              },
+              {
+                "start": "铁山坪-地铁站",
+                "end": "大溪沟-地铁站",
+                "mode": "metro",
+                "start_time": "08:53",
+                "end_time": "09:16",
+                "cost": 12,
+                "distance": 12.0,
+                "price": 4,
+                "tickets": 3
+              },
+              {
+                "start": "大溪沟-地铁站",
+                "end": "人民大礼堂",
+                "mode": "walk",
+                "start_time": "09:16",
+                "end_time": "09:19",
+                "cost": 0,
+                "distance": 0.29,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "千穗法式怀石·铁板料理",
+            "type": "lunch",
+            "price": 1222,
+            "cost": 3666,
+            "start_time": "11:30",
+            "end_time": "12:30",
+            "transports": [
+              {
+                "start": "人民大礼堂",
+                "end": "大溪沟-地铁站",
+                "mode": "walk",
+                "start_time": "10:49",
+                "end_time": "10:52",
+                "cost": 0,
+                "distance": 0.29,
+                "price": 0
+              },
+              {
+                "start": "大溪沟-地铁站",
+                "end": "江北城-地铁站",
+                "mode": "metro",
+                "start_time": "10:52",
+                "end_time": "10:55",
+                "cost": 6,
+                "distance": 1.7,
+                "price": 2,
+                "tickets": 3
+              },
+              {
+                "start": "江北城-地铁站",
+                "end": "千穗法式怀石·铁板料理",
+                "mode": "walk",
+                "start_time": "10:55",
+                "end_time": "11:00",
+                "cost": 0,
+                "distance": 0.47,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "北仓文创街区",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "12:46",
+            "end_time": "14:16",
+            "transports": [
+              {
+                "start": "千穗法式怀石·铁板料理",
+                "end": "江北城-地铁站",
+                "mode": "walk",
+                "start_time": "12:30",
+                "end_time": "12:35",
+                "cost": 0,
+                "distance": 0.47,
+                "price": 0
+              },
+              {
+                "start": "江北城-地铁站",
+                "end": "红土地-地铁站",
+                "mode": "metro",
+                "start_time": "12:35",
+                "end_time": "12:39",
+                "cost": 6,
+                "distance": 2.22,
+                "price": 2,
+                "tickets": 3
+              },
+              {
+                "start": "红土地-地铁站",
+                "end": "北仓文创街区",
+                "mode": "walk",
+                "start_time": "12:39",
+                "end_time": "12:46",
+                "cost": 0,
+                "distance": 0.62,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "周师兄重庆火锅(洪崖洞旗舰店)",
+            "type": "dinner",
+            "price": 116,
+            "cost": 348,
+            "start_time": "17:00",
+            "end_time": "18:00",
+            "transports": [
+              {
+                "start": "北仓文创街区",
+                "end": "红土地-地铁站",
+                "mode": "walk",
+                "start_time": "14:16",
+                "end_time": "14:23",
+                "cost": 0,
+                "distance": 0.62,
+                "price": 0
+              },
+              {
+                "start": "红土地-地铁站",
+                "end": "临江门-地铁站",
+                "mode": "metro",
+                "start_time": "14:23",
+                "end_time": "14:30",
+                "cost": 6,
+                "distance": 3.62,
+                "price": 2,
+                "tickets": 3
+              },
+              {
+                "start": "临江门-地铁站",
+                "end": "周师兄重庆火锅(洪崖洞旗舰店)",
+                "mode": "walk",
+                "start_time": "14:30",
+                "end_time": "14:34",
+                "cost": 0,
+                "distance": 0.41,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "碧津公园",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "18:43",
+            "end_time": "20:13",
+            "transports": [
+              {
+                "start": "周师兄重庆火锅(洪崖洞旗舰店)",
+                "end": "临江门-地铁站",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:04",
+                "cost": 0,
+                "distance": 0.41,
+                "price": 0
+              },
+              {
+                "start": "临江门-地铁站",
+                "end": "江北机场T2航站楼-地铁站",
+                "mode": "metro",
+                "start_time": "18:04",
+                "end_time": "18:41",
+                "cost": 15,
+                "distance": 18.83,
+                "price": 5,
+                "tickets": 3
+              },
+              {
+                "start": "江北机场T2航站楼-地铁站",
+                "end": "碧津公园",
+                "mode": "walk",
+                "start_time": "18:41",
+                "end_time": "18:43",
+                "cost": 0,
+                "distance": 0.18,
+                "price": 0
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "position": "圣名欢乐水世界",
+            "type": "attraction",
+            "price": 29,
+            "cost": 87,
+            "start_time": "20:22",
+            "end_time": "21:52",
+            "transports": [
+              {
+                "start": "碧津公园",
+                "end": "圣名欢乐水世界",
+                "mode": "taxi",
+                "start_time": "20:13",
+                "end_time": "20:22",
+                "cost": 26.78,
+                "distance": 6.31,
+                "price": 26.78,
+                "cars": 1
+              }
+            ],
+            "tickets": 3
+          },
+          {
+            "start_time": "23:16",
+            "end_time": "01:05",
+            "start": "重庆江北国际机场",
+            "end": "北京首都国际机场",
+            "price": 687.46,
+            "cost": 2062.38,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "圣名欢乐水世界",
+                "end": "环山公园-地铁站",
+                "mode": "walk",
+                "start_time": "21:52",
+                "end_time": "21:58",
+                "cost": 0,
+                "distance": 0.55,
+                "price": 0
+              },
+              {
+                "start": "环山公园-地铁站",
+                "end": "江北机场T3航站楼-地铁站",
+                "mode": "metro",
+                "start_time": "21:58",
+                "end_time": "22:10",
+                "cost": 9,
+                "distance": 6.36,
+                "price": 3,
+                "tickets": 3
+              },
+              {
+                "start": "江北机场T3航站楼-地铁站",
+                "end": "重庆江北国际机场",
+                "mode": "walk",
+                "start_time": "22:10",
+                "end_time": "22:24",
+                "cost": 0,
+                "distance": 1.21,
+                "price": 0
+              }
+            ],
+            "FlightID": "FL337",
+            "type": "airplane"
+          }
+        ]
+      }
+    ],
+    "search_time_sec": 57.85725021362305,
+    "llm_inference_time_sec": 42.76345658302307,
+    "input_token_count": 23897,
+    "output_token_count": 4545,
+    "input_token_maxx": 2962,
+    "llm_rec_count": 38,
+    "llm_rec_format_error_count": 1,
+    "search_nodes": 14722,
+    "backtrack_count": 2225,
+    "constraints_validation_count": 1,
+    "commonsense_pass_count": 1,
+    "logical_pass_count": 1,
+    "all_constraints_pass": 1
+  },
+  "details": {
+    "arm": "official_nesy",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "native_success": true,
+    "worker_usage": {
+      "requests": 42,
+      "prompt_tokens": 23897,
+      "completion_tokens": 4545,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 25141,
+      "recorded_calls": 10000,
+      "omitted_calls": 15141,
+      "omitted_results": 0,
+      "truncated": true,
+      "trace_bytes": 2737226,
+      "stored_result_count": 8865,
+      "stored_result_bytes": 15041209,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 61.740427208002075,
+  "worker_exit_code": -15,
+  "uid": "h20241029143514054328",
+  "arm": "official_nesy",
+  "ledger": {
+    "api_attempts": 42,
+    "prompt_bytes": 97255,
+    "prompt_tokens": 23897,
+    "completion_tokens": 4545,
+    "cache_hit_tokens": 10496,
+    "cache_miss_tokens": 13401,
+    "unknown_usage_requests": 0
+  }
+}

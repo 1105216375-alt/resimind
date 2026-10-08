@@ -1,0 +1,377 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 2,
+    "start_city": "苏州",
+    "target_city": "杭州",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "type": "train",
+            "start_time": "07:15",
+            "end_time": "08:56",
+            "start": "苏州站",
+            "end": "杭州东站",
+            "TrainID": "G7503",
+            "price": 78.65,
+            "cost": 78.65,
+            "tickets": 2,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "position": "杭州西湖中维香溢大酒店",
+            "start_time": "09:00",
+            "end_time": "09:23",
+            "room_type": 2,
+            "rooms": 1,
+            "price": 409,
+            "cost": 409,
+            "transports": [
+              {
+                "start": "杭州东站",
+                "end": "火车东站(东广场)-地铁站",
+                "mode": "walk",
+                "start_time": "09:00",
+                "end_time": "09:05",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              },
+              {
+                "start": "火车东站(东广场)-地铁站",
+                "end": "万安桥-地铁站",
+                "mode": "metro",
+                "start_time": "09:05",
+                "end_time": "09:16",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.59,
+                "tickets": 2
+              },
+              {
+                "start": "万安桥-地铁站",
+                "end": "杭州西湖中维香溢大酒店",
+                "mode": "walk",
+                "start_time": "09:16",
+                "end_time": "09:23",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.64
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "西湖风景名胜区",
+            "start_time": "11:30",
+            "end_time": "12:30",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "杭州西湖中维香溢大酒店",
+                "end": "万安桥-地铁站",
+                "mode": "walk",
+                "start_time": "10:00",
+                "end_time": "10:07",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.64
+              },
+              {
+                "start": "万安桥-地铁站",
+                "end": "水澄桥-地铁站",
+                "mode": "metro",
+                "start_time": "10:07",
+                "end_time": "10:19",
+                "price": 3,
+                "cost": 3,
+                "distance": 6.19,
+                "tickets": 2
+              },
+              {
+                "start": "水澄桥-地铁站",
+                "end": "西湖风景名胜区",
+                "mode": "walk",
+                "start_time": "10:19",
+                "end_time": "11:02",
+                "price": 0,
+                "cost": 0,
+                "distance": 3.6
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "position": "绿茶餐厅(龙井路店)",
+            "start_time": "11:30",
+            "end_time": "12:30",
+            "price": 104,
+            "cost": 104,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "position": "西湖风景名胜区",
+            "start_time": "13:00",
+            "end_time": "16:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "position": "浙江大学(玉泉校区)",
+            "start_time": "17:00",
+            "end_time": "19:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "西湖风景名胜区",
+                "end": "水澄桥-地铁站",
+                "mode": "walk",
+                "start_time": "14:00",
+                "end_time": "14:43",
+                "price": 0,
+                "cost": 0,
+                "distance": 3.6
+              },
+              {
+                "start": "水澄桥-地铁站",
+                "end": "黄龙体育中心-地铁站",
+                "mode": "metro",
+                "start_time": "14:43",
+                "end_time": "14:57",
+                "price": 3,
+                "cost": 3,
+                "distance": 7.42,
+                "tickets": 2
+              },
+              {
+                "start": "黄龙体育中心-地铁站",
+                "end": "浙江大学(玉泉校区)",
+                "mode": "walk",
+                "start_time": "14:57",
+                "end_time": "14:59",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.23
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "position": "意式披萨店",
+            "start_time": "19:00",
+            "end_time": "20:00",
+            "price": 49,
+            "cost": 49,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "position": "杭州西湖中维香溢大酒店",
+            "start_time": "20:19",
+            "end_time": "24:00",
+            "room_type": 2,
+            "rooms": 1,
+            "price": 409,
+            "cost": 409,
+            "transports": [
+              {
+                "start": "浙江大学(玉泉校区)",
+                "end": "黄龙体育中心-地铁站",
+                "mode": "walk",
+                "start_time": "20:00",
+                "end_time": "20:02",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.23
+              },
+              {
+                "start": "黄龙体育中心-地铁站",
+                "end": "万安桥-地铁站",
+                "mode": "metro",
+                "start_time": "20:02",
+                "end_time": "20:12",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.12,
+                "tickets": 2
+              },
+              {
+                "start": "万安桥-地铁站",
+                "end": "杭州西湖中维香溢大酒店",
+                "mode": "walk",
+                "start_time": "20:12",
+                "end_time": "20:19",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.64
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "type": "attraction",
+            "position": "灵隐寺",
+            "start_time": "09:00",
+            "end_time": "12:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "杭州西湖中维香溢大酒店",
+                "end": "万安桥-地铁站",
+                "mode": "walk",
+                "start_time": "08:00",
+                "end_time": "08:07",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.64
+              },
+              {
+                "start": "万安桥-地铁站",
+                "end": "古墩路-地铁站",
+                "mode": "metro",
+                "start_time": "08:07",
+                "end_time": "08:22",
+                "price": 3,
+                "cost": 3,
+                "distance": 7.67,
+                "tickets": 2
+              },
+              {
+                "start": "古墩路-地铁站",
+                "end": "灵隐寺",
+                "mode": "walk",
+                "start_time": "08:22",
+                "end_time": "08:47",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.12
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "position": "知竹(天竺路店)",
+            "start_time": "12:00",
+            "end_time": "13:00",
+            "price": 58,
+            "cost": 58,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "position": "灵隐寺及周边",
+            "start_time": "13:00",
+            "end_time": "15:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": []
+          },
+          {
+            "type": "train",
+            "start_time": "18:28",
+            "end_time": "19:53",
+            "start": "杭州东站",
+            "end": "苏州北站",
+            "TrainID": "G1378",
+            "price": 78.65,
+            "cost": 78.65,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "灵隐寺",
+                "end": "古墩路-地铁站",
+                "mode": "walk",
+                "start_time": "15:00",
+                "end_time": "15:25",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.12
+              },
+              {
+                "start": "古墩路-地铁站",
+                "end": "火车东站(东广场)-地铁站",
+                "mode": "metro",
+                "start_time": "15:25",
+                "end_time": "15:47",
+                "price": 4,
+                "cost": 4,
+                "distance": 11.41,
+                "tickets": 2
+              },
+              {
+                "start": "火车东站(东广场)-地铁站",
+                "end": "杭州东站",
+                "mode": "walk",
+                "start_time": "15:47",
+                "end_time": "15:52",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "details": {
+    "arm": "official_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "worker_usage": {
+      "requests": 49,
+      "prompt_tokens": 1134614,
+      "completion_tokens": 5457,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 19,
+      "recorded_calls": 19,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 5191,
+      "stored_result_count": 19,
+      "stored_result_bytes": 133835,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 44.72474879200308,
+  "worker_exit_code": -15,
+  "uid": "h20241029143659983667",
+  "arm": "official_react",
+  "ledger": {
+    "api_attempts": 49,
+    "prompt_bytes": 3383604,
+    "prompt_tokens": 1134614,
+    "completion_tokens": 5457,
+    "cache_hit_tokens": 1118208,
+    "cache_miss_tokens": 16406,
+    "unknown_usage_requests": 0
+  }
+}

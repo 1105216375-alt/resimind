@@ -1,0 +1,914 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 3,
+    "start_city": "上海",
+    "target_city": "南京",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "type": "train",
+            "start_time": "06:00",
+            "end_time": "07:29",
+            "start": "上海虹桥站",
+            "end": "南京南站",
+            "TrainID": "G1786",
+            "price": 175.28,
+            "cost": 175.28,
+            "tickets": 3,
+            "transports": []
+          },
+          {
+            "type": "breakfast",
+            "start_time": "08:30",
+            "end_time": "09:00",
+            "position": "刘长兴(逸仙桥店)",
+            "price": 24,
+            "cost": 24,
+            "transports": [
+              {
+                "start": "南京南站",
+                "end": "南京南站-地铁站",
+                "mode": "walk",
+                "start_time": "07:40",
+                "end_time": "07:43",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.29
+              },
+              {
+                "start": "南京南站-地铁站",
+                "end": "西安门-地铁站",
+                "mode": "metro",
+                "start_time": "07:43",
+                "end_time": "07:58",
+                "cost": 3,
+                "price": 3,
+                "distance": 7.71,
+                "tickets": 3
+              },
+              {
+                "start": "西安门-地铁站",
+                "end": "南京钟山宾馆(江苏省会议中心)",
+                "mode": "walk",
+                "start_time": "07:58",
+                "end_time": "08:04",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.56
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "09:30",
+            "end_time": "11:30",
+            "position": "夫子庙",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "南京钟山宾馆(江苏省会议中心)",
+                "end": "西安门-地铁站",
+                "mode": "walk",
+                "start_time": "09:00",
+                "end_time": "09:06",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.56
+              },
+              {
+                "start": "西安门-地铁站",
+                "end": "夫子庙-地铁站",
+                "mode": "metro",
+                "start_time": "09:06",
+                "end_time": "09:10",
+                "cost": 2,
+                "price": 2,
+                "distance": 2.26,
+                "tickets": 3
+              },
+              {
+                "start": "夫子庙-地铁站",
+                "end": "夫子庙",
+                "mode": "walk",
+                "start_time": "09:10",
+                "end_time": "09:16",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.52
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "11:30",
+            "end_time": "12:00",
+            "position": "南京大牌档(夫子庙平江府店)",
+            "price": 74,
+            "cost": 74,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "12:30",
+            "end_time": "16:00",
+            "position": "南京总统府",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "夫子庙",
+                "end": "夫子庙-地铁站",
+                "mode": "walk",
+                "start_time": "12:00",
+                "end_time": "12:06",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.52
+              },
+              {
+                "start": "夫子庙-地铁站",
+                "end": "浮桥-地铁站",
+                "mode": "metro",
+                "start_time": "12:06",
+                "end_time": "12:11",
+                "cost": 2,
+                "price": 2,
+                "distance": 2.77,
+                "tickets": 3
+              },
+              {
+                "start": "浮桥-地铁站",
+                "end": "南京总统府",
+                "mode": "walk",
+                "start_time": "12:11",
+                "end_time": "12:20",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.76
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "16:30",
+            "end_time": "18:00",
+            "position": "南京博物院",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "南京总统府",
+                "end": "浮桥-地铁站",
+                "mode": "walk",
+                "start_time": "16:00",
+                "end_time": "16:09",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.76
+              },
+              {
+                "start": "浮桥-地铁站",
+                "end": "苜蓿园-地铁站",
+                "mode": "metro",
+                "start_time": "16:09",
+                "end_time": "16:16",
+                "cost": 2,
+                "price": 2,
+                "distance": 3.82,
+                "tickets": 3
+              },
+              {
+                "start": "苜蓿园-地铁站",
+                "end": "南京博物院",
+                "mode": "walk",
+                "start_time": "16:16",
+                "end_time": "16:25",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.81
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "start_time": "18:30",
+            "end_time": "19:30",
+            "position": "许记大碗皮肚面馆",
+            "price": 26,
+            "cost": 26,
+            "transports": [
+              {
+                "start": "南京博物院",
+                "end": "苜蓿园-地铁站",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:09",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.81
+              },
+              {
+                "start": "苜蓿园-地铁站",
+                "end": "西安门-地铁站",
+                "mode": "metro",
+                "start_time": "18:09",
+                "end_time": "18:14",
+                "cost": 2,
+                "price": 2,
+                "distance": 2.79,
+                "tickets": 3
+              },
+              {
+                "start": "西安门-地铁站",
+                "end": "南京钟山宾馆(江苏省会议中心)",
+                "mode": "walk",
+                "start_time": "18:14",
+                "end_time": "18:20",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.56
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "start_time": "19:30",
+            "end_time": "24:00",
+            "position": "南京钟山宾馆(江苏省会议中心)",
+            "room_type": 2,
+            "rooms": 2,
+            "price": 369,
+            "cost": 369,
+            "transports": []
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "type": "breakfast",
+            "start_time": "08:30",
+            "end_time": "09:00",
+            "position": "刘长兴(逸仙桥店)",
+            "price": 24,
+            "cost": 24,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "09:00",
+            "end_time": "11:30",
+            "position": "中山陵景区",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "南京钟山宾馆(江苏省会议中心)",
+                "end": "西安门-地铁站",
+                "mode": "walk",
+                "start_time": "08:00",
+                "end_time": "08:06",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.56
+              },
+              {
+                "start": "西安门-地铁站",
+                "end": "钟灵街-地铁站",
+                "mode": "metro",
+                "start_time": "08:06",
+                "end_time": "08:18",
+                "cost": 3,
+                "price": 3,
+                "distance": 6.01,
+                "tickets": 3
+              },
+              {
+                "start": "钟灵街-地铁站",
+                "end": "中山陵景区",
+                "mode": "walk",
+                "start_time": "08:18",
+                "end_time": "08:47",
+                "cost": 0,
+                "price": 0,
+                "distance": 2.47
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "12:30",
+            "end_time": "16:00",
+            "position": "明孝陵",
+            "price": 65,
+            "cost": 65,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "中山陵景区",
+                "end": "钟灵街-地铁站",
+                "mode": "walk",
+                "start_time": "11:30",
+                "end_time": "11:59",
+                "cost": 0,
+                "price": 0,
+                "distance": 2.47
+              },
+              {
+                "start": "钟灵街-地铁站",
+                "end": "苜蓿园-地铁站",
+                "mode": "metro",
+                "start_time": "11:59",
+                "end_time": "12:05",
+                "cost": 2,
+                "price": 2,
+                "distance": 3.22,
+                "tickets": 3
+              },
+              {
+                "start": "苜蓿园-地铁站",
+                "end": "明孝陵",
+                "mode": "walk",
+                "start_time": "12:05",
+                "end_time": "12:22",
+                "cost": 0,
+                "price": 0,
+                "distance": 1.48
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:30",
+            "end_time": "13:30",
+            "position": "南京大牌档(中山陵店)",
+            "price": 70,
+            "cost": 70,
+            "transports": []
+          },
+          {
+            "type": "dinner",
+            "start_time": "18:00",
+            "end_time": "19:00",
+            "position": "刘长兴(逸仙桥店)",
+            "price": 24,
+            "cost": 24,
+            "transports": [
+              {
+                "start": "明孝陵",
+                "end": "苜蓿园-地铁站",
+                "mode": "walk",
+                "start_time": "16:00",
+                "end_time": "16:17",
+                "cost": 0,
+                "price": 0,
+                "distance": 1.48
+              },
+              {
+                "start": "苜蓿园-地铁站",
+                "end": "西安门-地铁站",
+                "mode": "metro",
+                "start_time": "16:17",
+                "end_time": "16:22",
+                "cost": 2,
+                "price": 2,
+                "distance": 2.79,
+                "tickets": 3
+              },
+              {
+                "start": "西安门-地铁站",
+                "end": "南京钟山宾馆(江苏省会议中心)",
+                "mode": "walk",
+                "start_time": "16:22",
+                "end_time": "16:28",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.56
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "start_time": "19:00",
+            "end_time": "24:00",
+            "position": "南京钟山宾馆(江苏省会议中心)",
+            "room_type": 2,
+            "rooms": 2,
+            "price": 369,
+            "cost": 369,
+            "transports": []
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "activities": [
+          {
+            "type": "breakfast",
+            "start_time": "08:30",
+            "end_time": "09:00",
+            "position": "刘长兴(逸仙桥店)",
+            "price": 24,
+            "cost": 24,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "09:30",
+            "end_time": "12:00",
+            "position": "玄武湖景区",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "南京钟山宾馆(江苏省会议中心)",
+                "end": "西安门-地铁站",
+                "mode": "walk",
+                "start_time": "09:00",
+                "end_time": "09:06",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.56
+              },
+              {
+                "start": "西安门-地铁站",
+                "end": "南京林业大学·新庄-地铁站",
+                "mode": "metro",
+                "start_time": "09:06",
+                "end_time": "09:14",
+                "cost": 3,
+                "price": 3,
+                "distance": 4.05,
+                "tickets": 3
+              },
+              {
+                "start": "南京林业大学·新庄-地铁站",
+                "end": "玄武湖景区",
+                "mode": "walk",
+                "start_time": "09:14",
+                "end_time": "09:22",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.71
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "13:30",
+            "end_time": "16:00",
+            "position": "南京城墙",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "玄武湖景区",
+                "end": "南京城墙",
+                "mode": "walk",
+                "start_time": "12:00",
+                "end_time": "12:14",
+                "cost": 0,
+                "price": 0,
+                "distance": 1.1827607682223638
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:30",
+            "end_time": "13:30",
+            "position": "三品堂精致淮扬菜",
+            "price": 266,
+            "cost": 266,
+            "transports": []
+          },
+          {
+            "type": "dinner",
+            "start_time": "18:00",
+            "end_time": "19:00",
+            "position": "许记大碗皮肚面馆",
+            "price": 26,
+            "cost": 26,
+            "transports": [
+              {
+                "start": "南京城墙",
+                "end": "南京林业大学·新庄-地铁站",
+                "mode": "walk",
+                "start_time": "16:00",
+                "end_time": "16:13",
+                "cost": 0,
+                "price": 0,
+                "distance": 1.09
+              },
+              {
+                "start": "南京林业大学·新庄-地铁站",
+                "end": "西安门-地铁站",
+                "mode": "metro",
+                "start_time": "16:13",
+                "end_time": "16:21",
+                "cost": 3,
+                "price": 3,
+                "distance": 4.05,
+                "tickets": 3
+              },
+              {
+                "start": "西安门-地铁站",
+                "end": "南京钟山宾馆(江苏省会议中心)",
+                "mode": "walk",
+                "start_time": "16:21",
+                "end_time": "16:27",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.56
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "start_time": "19:00",
+            "end_time": "24:00",
+            "position": "南京钟山宾馆(江苏省会议中心)",
+            "room_type": 2,
+            "rooms": 2,
+            "price": 369,
+            "cost": 369,
+            "transports": []
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "activities": [
+          {
+            "type": "breakfast",
+            "start_time": "08:30",
+            "end_time": "09:00",
+            "position": "刘长兴(逸仙桥店)",
+            "price": 24,
+            "cost": 24,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "09:30",
+            "end_time": "12:00",
+            "position": "南京博物院",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "南京钟山宾馆(江苏省会议中心)",
+                "end": "西安门-地铁站",
+                "mode": "walk",
+                "start_time": "09:00",
+                "end_time": "09:06",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.56
+              },
+              {
+                "start": "西安门-地铁站",
+                "end": "苜蓿园-地铁站",
+                "mode": "metro",
+                "start_time": "09:06",
+                "end_time": "09:11",
+                "cost": 2,
+                "price": 2,
+                "distance": 2.79,
+                "tickets": 3
+              },
+              {
+                "start": "苜蓿园-地铁站",
+                "end": "南京博物院",
+                "mode": "walk",
+                "start_time": "09:11",
+                "end_time": "09:20",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.81
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "13:30",
+            "end_time": "15:00",
+            "position": "南京总统府",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "南京博物院",
+                "end": "苜蓿园-地铁站",
+                "mode": "walk",
+                "start_time": "12:00",
+                "end_time": "12:09",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.81
+              },
+              {
+                "start": "苜蓿园-地铁站",
+                "end": "浮桥-地铁站",
+                "mode": "metro",
+                "start_time": "12:09",
+                "end_time": "12:16",
+                "cost": 2,
+                "price": 2,
+                "distance": 3.82,
+                "tickets": 3
+              },
+              {
+                "start": "浮桥-地铁站",
+                "end": "南京总统府",
+                "mode": "walk",
+                "start_time": "12:16",
+                "end_time": "12:25",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.76
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:30",
+            "end_time": "13:30",
+            "position": "同庆楼(珠江路店)",
+            "price": 129,
+            "cost": 129,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "15:30",
+            "end_time": "18:00",
+            "position": "六朝博物馆",
+            "price": 27,
+            "cost": 27,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "南京总统府",
+                "end": "浮桥-地铁站",
+                "mode": "walk",
+                "start_time": "15:00",
+                "end_time": "15:09",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.76
+              },
+              {
+                "start": "浮桥-地铁站",
+                "end": "九华山-地铁站",
+                "mode": "metro",
+                "start_time": "15:09",
+                "end_time": "15:11",
+                "cost": 2,
+                "price": 2,
+                "distance": 1.34,
+                "tickets": 3
+              },
+              {
+                "start": "九华山-地铁站",
+                "end": "六朝博物馆",
+                "mode": "walk",
+                "start_time": "15:11",
+                "end_time": "15:21",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.88
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "start_time": "18:30",
+            "end_time": "19:30",
+            "position": "刘长兴(逸仙桥店)",
+            "price": 24,
+            "cost": 24,
+            "transports": [
+              {
+                "start": "六朝博物馆",
+                "end": "九华山-地铁站",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:10",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.88
+              },
+              {
+                "start": "九华山-地铁站",
+                "end": "西安门-地铁站",
+                "mode": "metro",
+                "start_time": "18:10",
+                "end_time": "18:13",
+                "cost": 2,
+                "price": 2,
+                "distance": 1.91,
+                "tickets": 3
+              },
+              {
+                "start": "西安门-地铁站",
+                "end": "南京钟山宾馆(江苏省会议中心)",
+                "mode": "walk",
+                "start_time": "18:13",
+                "end_time": "18:19",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.56
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "start_time": "19:30",
+            "end_time": "24:00",
+            "position": "南京钟山宾馆(江苏省会议中心)",
+            "room_type": 2,
+            "rooms": 2,
+            "price": 369,
+            "cost": 369,
+            "transports": []
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "activities": [
+          {
+            "type": "breakfast",
+            "start_time": "08:30",
+            "end_time": "09:00",
+            "position": "刘长兴(逸仙桥店)",
+            "price": 24,
+            "cost": 24,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "09:30",
+            "end_time": "12:00",
+            "position": "牛首山文化旅游区",
+            "price": 145,
+            "cost": 145,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "南京钟山宾馆(江苏省会议中心)",
+                "end": "西安门-地铁站",
+                "mode": "walk",
+                "start_time": "08:00",
+                "end_time": "08:06",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.56
+              },
+              {
+                "start": "西安门-地铁站",
+                "end": "河海大学·佛城西路-地铁站",
+                "mode": "metro",
+                "start_time": "08:06",
+                "end_time": "08:34",
+                "cost": 5,
+                "price": 5,
+                "distance": 14.04,
+                "tickets": 3
+              },
+              {
+                "start": "河海大学·佛城西路-地铁站",
+                "end": "牛首山文化旅游区",
+                "mode": "walk",
+                "start_time": "08:34",
+                "end_time": "09:15",
+                "cost": 0,
+                "price": 0,
+                "distance": 3.49
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:00",
+            "end_time": "13:00",
+            "position": "刘佬大香蛙馆",
+            "price": 75,
+            "cost": 75,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "13:00",
+            "end_time": "15:00",
+            "position": "牛首山文化旅游区",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": []
+          },
+          {
+            "type": "train",
+            "start_time": "17:24",
+            "end_time": "18:33",
+            "start": "南京南站",
+            "end": "上海虹桥站",
+            "TrainID": "G15",
+            "price": 175.28,
+            "cost": 175.28,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "牛首山文化旅游区",
+                "end": "河海大学·佛城西路-地铁站",
+                "mode": "walk",
+                "start_time": "15:00",
+                "end_time": "15:41",
+                "cost": 0,
+                "price": 0,
+                "distance": 3.49
+              },
+              {
+                "start": "河海大学·佛城西路-地铁站",
+                "end": "南京南站-地铁站",
+                "mode": "metro",
+                "start_time": "15:41",
+                "end_time": "15:53",
+                "cost": 3,
+                "price": 3,
+                "distance": 6.33,
+                "tickets": 3
+              },
+              {
+                "start": "南京南站-地铁站",
+                "end": "南京南站",
+                "mode": "walk",
+                "start_time": "15:53",
+                "end_time": "15:56",
+                "cost": 0,
+                "price": 0,
+                "distance": 0.29
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "details": {
+    "arm": "official_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "worker_usage": {
+      "requests": 91,
+      "prompt_tokens": 2417823,
+      "completion_tokens": 15717,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 33,
+      "recorded_calls": 33,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 9455,
+      "stored_result_count": 32,
+      "stored_result_bytes": 294222,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 98.21396645800269,
+  "worker_exit_code": -15,
+  "uid": "h20241029143729369677",
+  "arm": "official_react",
+  "ledger": {
+    "api_attempts": 91,
+    "prompt_bytes": 7310733,
+    "prompt_tokens": 2417823,
+    "completion_tokens": 15717,
+    "cache_hit_tokens": 2387452,
+    "cache_miss_tokens": 30371,
+    "unknown_usage_requests": 0
+  }
+}

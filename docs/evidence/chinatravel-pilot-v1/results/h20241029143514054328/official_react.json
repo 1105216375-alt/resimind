@@ -1,0 +1,709 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 3,
+    "start_city": "北京",
+    "target_city": "重庆",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "type": "airplane",
+            "start_time": "10:10",
+            "end_time": "11:59",
+            "start": "北京首都国际机场",
+            "end": "重庆江北国际机场",
+            "FlightID": "FL116",
+            "price": 686.67,
+            "cost": 686.67,
+            "tickets": 3,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "13:30",
+            "end_time": "14:00",
+            "position": "重庆洪崖洞江景亚朵酒店",
+            "room_type": 2,
+            "rooms": 2,
+            "price": 394,
+            "cost": 394,
+            "transports": [
+              {
+                "start": "重庆江北国际机场",
+                "end": "江北机场T3航站楼-地铁站",
+                "mode": "walk",
+                "start_time": "12:30",
+                "end_time": "12:44",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.21
+              },
+              {
+                "start": "江北机场T3航站楼-地铁站",
+                "end": "临江门-地铁站",
+                "mode": "metro",
+                "start_time": "12:44",
+                "end_time": "13:20",
+                "price": 5,
+                "cost": 5,
+                "distance": 18.4,
+                "tickets": 3
+              },
+              {
+                "start": "临江门-地铁站",
+                "end": "重庆洪崖洞江景亚朵酒店",
+                "mode": "walk",
+                "start_time": "13:20",
+                "end_time": "13:26",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.52
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "14:15",
+            "end_time": "17:00",
+            "position": "洪崖洞",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "重庆洪崖洞江景亚朵酒店",
+                "end": "洪崖洞",
+                "mode": "walk",
+                "start_time": "14:00",
+                "end_time": "14:11",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.9
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "17:10",
+            "end_time": "18:00",
+            "position": "解放碑步行街",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "洪崖洞",
+                "end": "解放碑步行街",
+                "mode": "walk",
+                "start_time": "17:00",
+                "end_time": "17:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.5
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "start_time": "18:00",
+            "end_time": "19:30",
+            "position": "沧龙老火锅(洪崖洞店)",
+            "price": 77,
+            "cost": 77,
+            "transports": [
+              {
+                "start": "解放碑步行街",
+                "end": "沧龙老火锅(洪崖洞店)",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.5
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "start_time": "19:41",
+            "end_time": "24:00",
+            "position": "重庆洪崖洞江景亚朵酒店",
+            "room_type": 2,
+            "rooms": 2,
+            "price": 394,
+            "cost": 394,
+            "transports": [
+              {
+                "start": "沧龙老火锅(洪崖洞店)",
+                "end": "重庆洪崖洞江景亚朵酒店",
+                "mode": "walk",
+                "start_time": "19:30",
+                "end_time": "19:41",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.9
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "type": "breakfast",
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "position": "重庆洪崖洞江景亚朵酒店",
+            "price": 0,
+            "cost": 0,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "10:00",
+            "end_time": "13:00",
+            "position": "磁器口古镇",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "重庆洪崖洞江景亚朵酒店",
+                "end": "临江门-地铁站",
+                "mode": "walk",
+                "start_time": "09:00",
+                "end_time": "09:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.52
+              },
+              {
+                "start": "临江门-地铁站",
+                "end": "石井坡-地铁站",
+                "mode": "metro",
+                "start_time": "09:06",
+                "end_time": "09:32",
+                "price": 4,
+                "cost": 4,
+                "distance": 13.06,
+                "tickets": 3
+              },
+              {
+                "start": "石井坡-地铁站",
+                "end": "磁器口古镇",
+                "mode": "walk",
+                "start_time": "09:32",
+                "end_time": "09:46",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.19
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "13:00",
+            "end_time": "14:00",
+            "position": "周师兄重庆火锅(磁器口直营店)",
+            "price": 101,
+            "cost": 101,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "15:00",
+            "end_time": "16:00",
+            "position": "长江索道",
+            "price": 20,
+            "cost": 20,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "磁器口古镇",
+                "end": "石井坡-地铁站",
+                "mode": "walk",
+                "start_time": "14:00",
+                "end_time": "14:14",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.19
+              },
+              {
+                "start": "石井坡-地铁站",
+                "end": "朝天门-地铁站",
+                "mode": "metro",
+                "start_time": "14:14",
+                "end_time": "14:42",
+                "price": 5,
+                "cost": 5,
+                "distance": 14.1,
+                "tickets": 3
+              },
+              {
+                "start": "朝天门-地铁站",
+                "end": "长江索道",
+                "mode": "walk",
+                "start_time": "14:42",
+                "end_time": "14:45",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.33
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "16:15",
+            "end_time": "17:15",
+            "position": "朝天门广场",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "长江索道",
+                "end": "朝天门广场",
+                "mode": "walk",
+                "start_time": "16:00",
+                "end_time": "16:13",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.0
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "start_time": "18:00",
+            "end_time": "19:30",
+            "position": "小崖洞街坊老火锅(洪崖洞店)",
+            "price": 76,
+            "cost": 76,
+            "transports": [
+              {
+                "start": "朝天门广场",
+                "end": "重庆洪崖洞江景亚朵酒店",
+                "mode": "walk",
+                "start_time": "17:15",
+                "end_time": "17:39",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.0
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "start_time": "19:30",
+            "end_time": "24:00",
+            "position": "重庆洪崖洞江景亚朵酒店",
+            "room_type": 2,
+            "rooms": 2,
+            "price": 394,
+            "cost": 394,
+            "transports": []
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "activities": [
+          {
+            "type": "breakfast",
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "position": "重庆洪崖洞江景亚朵酒店",
+            "price": 0,
+            "cost": 0,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "10:00",
+            "end_time": "12:00",
+            "position": "南山风景区",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "重庆洪崖洞江景亚朵酒店",
+                "end": "临江门-地铁站",
+                "mode": "walk",
+                "start_time": "09:00",
+                "end_time": "09:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.52
+              },
+              {
+                "start": "临江门-地铁站",
+                "end": "仁济-地铁站",
+                "mode": "metro",
+                "start_time": "09:06",
+                "end_time": "09:11",
+                "price": 2,
+                "cost": 2,
+                "distance": 2.7,
+                "tickets": 3
+              },
+              {
+                "start": "仁济-地铁站",
+                "end": "南山风景区",
+                "mode": "walk",
+                "start_time": "09:11",
+                "end_time": "09:43",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.71
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:00",
+            "end_time": "13:00",
+            "position": "南山附近用餐",
+            "price": 50,
+            "cost": 50,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "15:00",
+            "end_time": "18:00",
+            "position": "鹅岭公园",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "南山风景区",
+                "end": "仁济-地铁站",
+                "mode": "walk",
+                "start_time": "14:00",
+                "end_time": "14:32",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.71
+              },
+              {
+                "start": "仁济-地铁站",
+                "end": "牛角沱-地铁站",
+                "mode": "metro",
+                "start_time": "14:32",
+                "end_time": "14:43",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.68,
+                "tickets": 3
+              },
+              {
+                "start": "牛角沱-地铁站",
+                "end": "鹅岭公园",
+                "mode": "walk",
+                "start_time": "14:43",
+                "end_time": "14:49",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.57
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "start_time": "18:30",
+            "end_time": "20:00",
+            "position": "杨记隆府(解放碑总店)",
+            "price": 96,
+            "cost": 96,
+            "transports": [
+              {
+                "start": "鹅岭公园",
+                "end": "牛角沱-地铁站",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.57
+              },
+              {
+                "start": "牛角沱-地铁站",
+                "end": "临江门-地铁站",
+                "mode": "metro",
+                "start_time": "18:06",
+                "end_time": "18:12",
+                "price": 2,
+                "cost": 2,
+                "distance": 3.08,
+                "tickets": 3
+              },
+              {
+                "start": "临江门-地铁站",
+                "end": "重庆洪崖洞江景亚朵酒店",
+                "mode": "walk",
+                "start_time": "18:12",
+                "end_time": "18:18",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.52
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "start_time": "20:00",
+            "end_time": "24:00",
+            "position": "重庆洪崖洞江景亚朵酒店",
+            "room_type": 2,
+            "rooms": 2,
+            "price": 394,
+            "cost": 394,
+            "transports": []
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "activities": [
+          {
+            "type": "breakfast",
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "position": "重庆洪崖洞江景亚朵酒店",
+            "price": 0,
+            "cost": 0,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "09:30",
+            "end_time": "11:30",
+            "position": "三峡博物馆",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "重庆洪崖洞江景亚朵酒店",
+                "end": "三峡博物馆",
+                "mode": "metro",
+                "start_time": "09:00",
+                "end_time": "09:30",
+                "price": 2,
+                "cost": 2,
+                "distance": 3.0,
+                "tickets": 3
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "11:30",
+            "end_time": "12:30",
+            "position": "附近用餐",
+            "price": 50,
+            "cost": 50,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "13:00",
+            "end_time": "16:00",
+            "position": "自由活动或购物",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": []
+          },
+          {
+            "type": "dinner",
+            "start_time": "17:30",
+            "end_time": "19:00",
+            "position": "土货老火锅(洪崖洞店)",
+            "price": 91,
+            "cost": 91,
+            "transports": [
+              {
+                "start": "自由活动或购物",
+                "end": "土货老火锅(洪崖洞店)",
+                "mode": "walk",
+                "start_time": "17:00",
+                "end_time": "17:30",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.0
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "19:00",
+            "end_time": "21:00",
+            "position": "洪崖洞夜景",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "土货老火锅(洪崖洞店)",
+                "end": "洪崖洞",
+                "mode": "walk",
+                "start_time": "19:00",
+                "end_time": "19:10",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.5
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "start_time": "21:00",
+            "end_time": "24:00",
+            "position": "重庆洪崖洞江景亚朵酒店",
+            "room_type": 2,
+            "rooms": 2,
+            "price": 394,
+            "cost": 394,
+            "transports": []
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "activities": [
+          {
+            "type": "breakfast",
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "position": "重庆洪崖洞江景亚朵酒店",
+            "price": 0,
+            "cost": 0,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "09:00",
+            "end_time": "12:00",
+            "position": "自由活动",
+            "price": 0,
+            "cost": 0,
+            "tickets": 3,
+            "transports": []
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:00",
+            "end_time": "13:00",
+            "position": "超级李板凳·面(总店)",
+            "price": 19,
+            "cost": 19,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "13:00",
+            "end_time": "14:00",
+            "position": "重庆洪崖洞江景亚朵酒店",
+            "room_type": 2,
+            "rooms": 2,
+            "price": 0,
+            "cost": 0,
+            "transports": []
+          },
+          {
+            "type": "airplane",
+            "start_time": "17:35",
+            "end_time": "19:24",
+            "start": "重庆江北国际机场",
+            "end": "北京首都国际机场",
+            "FlightID": "FL333",
+            "price": 725.29,
+            "cost": 725.29,
+            "tickets": 3,
+            "transports": [
+              {
+                "start": "重庆洪崖洞江景亚朵酒店",
+                "end": "临江门-地铁站",
+                "mode": "walk",
+                "start_time": "15:00",
+                "end_time": "15:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.52
+              },
+              {
+                "start": "临江门-地铁站",
+                "end": "江北机场T3航站楼-地铁站",
+                "mode": "metro",
+                "start_time": "15:06",
+                "end_time": "15:42",
+                "price": 5,
+                "cost": 5,
+                "distance": 18.4,
+                "tickets": 3
+              },
+              {
+                "start": "江北机场T3航站楼-地铁站",
+                "end": "重庆江北国际机场",
+                "mode": "walk",
+                "start_time": "15:42",
+                "end_time": "15:56",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.21
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "details": {
+    "arm": "official_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "worker_usage": {
+      "requests": 87,
+      "prompt_tokens": 2165839,
+      "completion_tokens": 11371,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 31,
+      "recorded_calls": 31,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 8478,
+      "stored_result_count": 31,
+      "stored_result_bytes": 108468,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 87.49674312500429,
+  "worker_exit_code": -15,
+  "uid": "h20241029143514054328",
+  "arm": "official_react",
+  "ledger": {
+    "api_attempts": 87,
+    "prompt_bytes": 6669035,
+    "prompt_tokens": 2165839,
+    "completion_tokens": 11371,
+    "cache_hit_tokens": 2141056,
+    "cache_miss_tokens": 24783,
+    "unknown_usage_requests": 0
+  }
+}

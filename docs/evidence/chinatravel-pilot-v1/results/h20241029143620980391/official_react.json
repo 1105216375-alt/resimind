@@ -1,0 +1,531 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 2,
+    "start_city": "广州",
+    "target_city": "北京",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "type": "airplane",
+            "start_time": "07:50",
+            "end_time": "10:11",
+            "start": "广州白云国际机场",
+            "end": "北京首都国际机场",
+            "price": 899.16,
+            "cost": 899.16,
+            "tickets": 2,
+            "FlightID": "FL257",
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "11:30",
+            "end_time": "12:30",
+            "position": "北京新侨饭店",
+            "price": 580,
+            "cost": 580,
+            "room_type": 2,
+            "rooms": 1,
+            "transports": [
+              {
+                "start": "北京首都国际机场",
+                "end": "2号航站楼-地铁站",
+                "mode": "walk",
+                "start_time": "10:30",
+                "end_time": "10:40",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.88
+              },
+              {
+                "start": "2号航站楼-地铁站",
+                "end": "崇文门-地铁站",
+                "mode": "metro",
+                "start_time": "10:40",
+                "end_time": "11:29",
+                "price": 6,
+                "cost": 6,
+                "distance": 24.84,
+                "tickets": 2
+              },
+              {
+                "start": "崇文门-地铁站",
+                "end": "北京新侨饭店",
+                "mode": "walk",
+                "start_time": "11:29",
+                "end_time": "11:29",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.07
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:30",
+            "end_time": "13:00",
+            "position": "酒店附近",
+            "price": 50,
+            "cost": 50,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "13:30",
+            "end_time": "14:30",
+            "position": "故宫博物院",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "北京新侨饭店",
+                "end": "崇文门-地铁站",
+                "mode": "walk",
+                "start_time": "13:00",
+                "end_time": "13:00",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.07
+              },
+              {
+                "start": "崇文门-地铁站",
+                "end": "中国美术馆-地铁站",
+                "mode": "metro",
+                "start_time": "13:00",
+                "end_time": "13:05",
+                "price": 2,
+                "cost": 2,
+                "distance": 2.57,
+                "tickets": 2
+              },
+              {
+                "start": "中国美术馆-地铁站",
+                "end": "故宫博物院",
+                "mode": "walk",
+                "start_time": "13:05",
+                "end_time": "13:12",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.63
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "15:30",
+            "end_time": "17:30",
+            "position": "天坛",
+            "price": 34,
+            "cost": 34,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "故宫博物院",
+                "end": "中国美术馆-地铁站",
+                "mode": "walk",
+                "start_time": "15:00",
+                "end_time": "15:07",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.63
+              },
+              {
+                "start": "中国美术馆-地铁站",
+                "end": "磁器口-地铁站",
+                "mode": "metro",
+                "start_time": "15:07",
+                "end_time": "15:13",
+                "price": 2,
+                "cost": 2,
+                "distance": 3.48,
+                "tickets": 2
+              },
+              {
+                "start": "磁器口-地铁站",
+                "end": "天坛",
+                "mode": "walk",
+                "start_time": "15:13",
+                "end_time": "15:17",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.37
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "start_time": "18:00",
+            "end_time": "19:00",
+            "position": "天坛附近汇兴居·老北京小吃",
+            "price": 34,
+            "cost": 34,
+            "transports": []
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "type": "attraction",
+            "start_time": "09:00",
+            "end_time": "10:30",
+            "position": "天安门城楼",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "北京新侨饭店",
+                "end": "崇文门-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:30",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.07
+              },
+              {
+                "start": "崇文门-地铁站",
+                "end": "金鱼胡同-地铁站",
+                "mode": "metro",
+                "start_time": "08:30",
+                "end_time": "08:33",
+                "price": 2,
+                "cost": 2,
+                "distance": 1.67,
+                "tickets": 2
+              },
+              {
+                "start": "金鱼胡同-地铁站",
+                "end": "天安门城楼",
+                "mode": "walk",
+                "start_time": "08:33",
+                "end_time": "08:40",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.63
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "13:00",
+            "end_time": "15:30",
+            "position": "圆明园",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "天安门城楼",
+                "end": "金鱼胡同-地铁站",
+                "mode": "walk",
+                "start_time": "11:00",
+                "end_time": "11:07",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.63
+              },
+              {
+                "start": "金鱼胡同-地铁站",
+                "end": "圆明园-地铁站",
+                "mode": "metro",
+                "start_time": "11:07",
+                "end_time": "11:32",
+                "price": 4,
+                "cost": 4,
+                "distance": 12.73,
+                "tickets": 2
+              },
+              {
+                "start": "圆明园-地铁站",
+                "end": "圆明园",
+                "mode": "walk",
+                "start_time": "11:32",
+                "end_time": "11:54",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.84
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:00",
+            "end_time": "13:00",
+            "position": "圆明园附近",
+            "price": 50,
+            "cost": 50,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "17:30",
+            "end_time": "24:00",
+            "position": "北京新侨饭店",
+            "price": 580,
+            "cost": 580,
+            "room_type": 2,
+            "rooms": 1,
+            "transports": [
+              {
+                "start": "圆明园",
+                "end": "圆明园-地铁站",
+                "mode": "walk",
+                "start_time": "16:00",
+                "end_time": "16:22",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.84
+              },
+              {
+                "start": "圆明园-地铁站",
+                "end": "崇文门-地铁站",
+                "mode": "metro",
+                "start_time": "16:22",
+                "end_time": "16:50",
+                "price": 5,
+                "cost": 5,
+                "distance": 14.26,
+                "tickets": 2
+              },
+              {
+                "start": "崇文门-地铁站",
+                "end": "北京新侨饭店",
+                "mode": "walk",
+                "start_time": "16:50",
+                "end_time": "16:50",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.07
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "start_time": "18:00",
+            "end_time": "19:00",
+            "position": "酒店附近",
+            "price": 50,
+            "cost": 50,
+            "transports": []
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "activities": [
+          {
+            "type": "attraction",
+            "start_time": "09:30",
+            "end_time": "11:30",
+            "position": "恭王府",
+            "price": 40,
+            "cost": 40,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "北京新侨饭店",
+                "end": "崇文门-地铁站",
+                "mode": "walk",
+                "start_time": "09:00",
+                "end_time": "09:00",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.07
+              },
+              {
+                "start": "崇文门-地铁站",
+                "end": "鼓楼大街-地铁站",
+                "mode": "metro",
+                "start_time": "09:00",
+                "end_time": "09:17",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.68,
+                "tickets": 2
+              },
+              {
+                "start": "鼓楼大街-地铁站",
+                "end": "恭王府",
+                "mode": "walk",
+                "start_time": "09:17",
+                "end_time": "09:24",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.63
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:00",
+            "end_time": "13:00",
+            "position": "恭王府附近姚记炒肝店",
+            "price": 33,
+            "cost": 33,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "13:00",
+            "end_time": "16:00",
+            "position": "什刹海、南锣鼓巷一带",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "17:30",
+            "end_time": "24:00",
+            "position": "北京新侨饭店",
+            "price": 580,
+            "cost": 580,
+            "room_type": 2,
+            "rooms": 1,
+            "transports": [
+              {
+                "start": "恭王府",
+                "end": "鼓楼大街-地铁站",
+                "mode": "walk",
+                "start_time": "17:00",
+                "end_time": "17:07",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.63
+              },
+              {
+                "start": "鼓楼大街-地铁站",
+                "end": "崇文门-地铁站",
+                "mode": "metro",
+                "start_time": "17:07",
+                "end_time": "17:18",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.68,
+                "tickets": 2
+              },
+              {
+                "start": "崇文门-地铁站",
+                "end": "北京新侨饭店",
+                "mode": "walk",
+                "start_time": "17:18",
+                "end_time": "17:18",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.07
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "start_time": "18:00",
+            "end_time": "19:00",
+            "position": "酒店附近",
+            "price": 50,
+            "cost": 50,
+            "transports": []
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "activities": [
+          {
+            "type": "airplane",
+            "start_time": "19:17",
+            "end_time": "21:38",
+            "start": "北京首都国际机场",
+            "end": "广州白云国际机场",
+            "price": 916.9,
+            "cost": 916.9,
+            "tickets": 2,
+            "FlightID": "FL102",
+            "transports": [
+              {
+                "start": "北京新侨饭店",
+                "end": "崇文门-地铁站",
+                "mode": "walk",
+                "start_time": "16:30",
+                "end_time": "16:30",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.07
+              },
+              {
+                "start": "崇文门-地铁站",
+                "end": "2号航站楼-地铁站",
+                "mode": "metro",
+                "start_time": "16:30",
+                "end_time": "17:19",
+                "price": 6,
+                "cost": 6,
+                "distance": 24.84,
+                "tickets": 2
+              },
+              {
+                "start": "2号航站楼-地铁站",
+                "end": "北京首都国际机场",
+                "mode": "walk",
+                "start_time": "17:19",
+                "end_time": "17:29",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.88
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "details": {
+    "arm": "official_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "worker_usage": {
+      "requests": 57,
+      "prompt_tokens": 1360975,
+      "completion_tokens": 9363,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 19,
+      "recorded_calls": 19,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 5263,
+      "stored_result_count": 19,
+      "stored_result_bytes": 88608,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 63.15295233300276,
+  "worker_exit_code": -15,
+  "uid": "h20241029143620980391",
+  "arm": "official_react",
+  "ledger": {
+    "api_attempts": 57,
+    "prompt_bytes": 4113840,
+    "prompt_tokens": 1360975,
+    "completion_tokens": 9363,
+    "cache_hit_tokens": 1342080,
+    "cache_miss_tokens": 18895,
+    "unknown_usage_requests": 0
+  }
+}

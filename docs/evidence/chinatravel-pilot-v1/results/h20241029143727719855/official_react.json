@@ -1,0 +1,503 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 2,
+    "start_city": "成都",
+    "target_city": "武汉",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "type": "airplane",
+            "start_time": "11:21",
+            "end_time": "12:34",
+            "start": "成都双流国际机场",
+            "end": "武汉天河国际机场",
+            "price": 447.52,
+            "cost": 447.52,
+            "tickets": 2,
+            "FlightID": "FL469",
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "position": "武汉大学",
+            "start_time": "14:30",
+            "end_time": "17:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "武汉天河国际机场",
+                "end": "天河机场-地铁站",
+                "mode": "walk",
+                "start_time": "13:00",
+                "end_time": "13:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.55
+              },
+              {
+                "start": "天河机场-地铁站",
+                "end": "中南医院-地铁站",
+                "mode": "metro",
+                "start_time": "13:06",
+                "end_time": "14:00",
+                "price": 6,
+                "cost": 6,
+                "distance": 27.26,
+                "tickets": 2
+              },
+              {
+                "start": "中南医院-地铁站",
+                "end": "武汉大学",
+                "mode": "walk",
+                "start_time": "14:00",
+                "end_time": "14:24",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.01
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "position": "户部巷",
+            "start_time": "17:50",
+            "end_time": "19:30",
+            "price": 40,
+            "cost": 40,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "武汉大学",
+                "end": "中南医院-地铁站",
+                "mode": "walk",
+                "start_time": "17:10",
+                "end_time": "17:34",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.01
+              },
+              {
+                "start": "中南医院-地铁站",
+                "end": "昙华林武胜门-地铁站",
+                "mode": "metro",
+                "start_time": "17:34",
+                "end_time": "17:43",
+                "price": 3,
+                "cost": 3,
+                "distance": 4.98,
+                "tickets": 2
+              },
+              {
+                "start": "昙华林武胜门-地铁站",
+                "end": "户部巷",
+                "mode": "walk",
+                "start_time": "17:43",
+                "end_time": "17:44",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.15
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "position": "武汉东方建国大酒店",
+            "start_time": "19:50",
+            "end_time": "24:00",
+            "price": 298,
+            "cost": 298,
+            "room_type": 2,
+            "rooms": 1,
+            "transports": [
+              {
+                "start": "户部巷",
+                "end": "昙华林武胜门-地铁站",
+                "mode": "walk",
+                "start_time": "19:30",
+                "end_time": "19:31",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.15
+              },
+              {
+                "start": "昙华林武胜门-地铁站",
+                "end": "汉口火车站-地铁站",
+                "mode": "metro",
+                "start_time": "19:31",
+                "end_time": "19:47",
+                "price": 3,
+                "cost": 3,
+                "distance": 8.33,
+                "tickets": 2
+              },
+              {
+                "start": "汉口火车站-地铁站",
+                "end": "武汉东方建国大酒店",
+                "mode": "walk",
+                "start_time": "19:47",
+                "end_time": "19:50",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.31
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "type": "attraction",
+            "position": "湖北省博物馆",
+            "start_time": "09:00",
+            "end_time": "12:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "武汉东方建国大酒店",
+                "end": "汉口火车站-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:33",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.31
+              },
+              {
+                "start": "汉口火车站-地铁站",
+                "end": "省博湖北日报-地铁站",
+                "mode": "metro",
+                "start_time": "08:33",
+                "end_time": "08:56",
+                "price": 4,
+                "cost": 4,
+                "distance": 11.98,
+                "tickets": 2
+              },
+              {
+                "start": "省博湖北日报-地铁站",
+                "end": "湖北省博物馆",
+                "mode": "walk",
+                "start_time": "08:56",
+                "end_time": "09:04",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.71
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "position": "亢龙太子酒轩(东湖店)",
+            "start_time": "12:00",
+            "end_time": "13:30",
+            "price": 115,
+            "cost": 115,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "湖北省博物馆",
+                "end": "亢龙太子酒轩(东湖店)",
+                "mode": "walk",
+                "start_time": "12:00",
+                "end_time": "13:30",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.75
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "东湖",
+            "start_time": "14:45",
+            "end_time": "17:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "湖北省博物馆",
+                "end": "省博湖北日报-地铁站",
+                "mode": "walk",
+                "start_time": "13:30",
+                "end_time": "13:38",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.71
+              },
+              {
+                "start": "省博湖北日报-地铁站",
+                "end": "武东-地铁站",
+                "mode": "metro",
+                "start_time": "13:38",
+                "end_time": "13:55",
+                "price": 3,
+                "cost": 3,
+                "distance": 8.94,
+                "tickets": 2
+              },
+              {
+                "start": "武东-地铁站",
+                "end": "东湖",
+                "mode": "walk",
+                "start_time": "13:55",
+                "end_time": "14:45",
+                "price": 0,
+                "cost": 0,
+                "distance": 4.23
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "position": "江汉路步行街",
+            "start_time": "18:30",
+            "end_time": "21:00",
+            "price": 50,
+            "cost": 50,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "东湖",
+                "end": "武东-地铁站",
+                "mode": "walk",
+                "start_time": "17:00",
+                "end_time": "17:50",
+                "price": 0,
+                "cost": 0,
+                "distance": 4.23
+              },
+              {
+                "start": "武东-地铁站",
+                "end": "大智路-地铁站",
+                "mode": "metro",
+                "start_time": "17:50",
+                "end_time": "18:21",
+                "price": 5,
+                "cost": 5,
+                "distance": 15.63,
+                "tickets": 2
+              },
+              {
+                "start": "大智路-地铁站",
+                "end": "江汉路步行街",
+                "mode": "walk",
+                "start_time": "18:21",
+                "end_time": "18:25",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.39
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "position": "武汉东方建国大酒店",
+            "start_time": "21:16",
+            "end_time": "24:00",
+            "price": 298,
+            "cost": 298,
+            "room_type": 2,
+            "rooms": 1,
+            "transports": [
+              {
+                "start": "江汉路步行街",
+                "end": "大智路-地铁站",
+                "mode": "walk",
+                "start_time": "21:00",
+                "end_time": "21:04",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.39
+              },
+              {
+                "start": "大智路-地铁站",
+                "end": "汉口火车站-地铁站",
+                "mode": "metro",
+                "start_time": "21:04",
+                "end_time": "21:13",
+                "price": 3,
+                "cost": 3,
+                "distance": 4.61,
+                "tickets": 2
+              },
+              {
+                "start": "汉口火车站-地铁站",
+                "end": "武汉东方建国大酒店",
+                "mode": "walk",
+                "start_time": "21:13",
+                "end_time": "21:16",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.31
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "activities": [
+          {
+            "type": "attraction",
+            "position": "黄鹤楼",
+            "start_time": "09:00",
+            "end_time": "10:30",
+            "price": 65,
+            "cost": 65,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "武汉东方建国大酒店",
+                "end": "汉口火车站-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:33",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.31
+              },
+              {
+                "start": "汉口火车站-地铁站",
+                "end": "昙华林武胜门-地铁站",
+                "mode": "metro",
+                "start_time": "08:33",
+                "end_time": "08:49",
+                "price": 3,
+                "cost": 3,
+                "distance": 8.33,
+                "tickets": 2
+              },
+              {
+                "start": "昙华林武胜门-地铁站",
+                "end": "黄鹤楼",
+                "mode": "walk",
+                "start_time": "08:49",
+                "end_time": "08:55",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.56
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "position": "户部巷",
+            "start_time": "11:00",
+            "end_time": "17:30",
+            "price": 60,
+            "cost": 60,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "黄鹤楼",
+                "end": "户部巷",
+                "mode": "walk",
+                "start_time": "10:30",
+                "end_time": "11:00",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.0
+              }
+            ]
+          },
+          {
+            "type": "airplane",
+            "start_time": "23:02",
+            "end_time": "00:15",
+            "start": "武汉天河国际机场",
+            "end": "成都天府国际机场",
+            "price": 442.14,
+            "cost": 442.14,
+            "tickets": 2,
+            "FlightID": "FL617",
+            "transports": [
+              {
+                "start": "户部巷",
+                "end": "昙华林武胜门-地铁站",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:01",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.15
+              },
+              {
+                "start": "昙华林武胜门-地铁站",
+                "end": "天河机场-地铁站",
+                "mode": "metro",
+                "start_time": "18:01",
+                "end_time": "18:51",
+                "price": 6,
+                "cost": 6,
+                "distance": 25.45,
+                "tickets": 2
+              },
+              {
+                "start": "天河机场-地铁站",
+                "end": "武汉天河国际机场",
+                "mode": "walk",
+                "start_time": "18:51",
+                "end_time": "18:57",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.55
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "details": {
+    "arm": "official_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "worker_usage": {
+      "requests": 75,
+      "prompt_tokens": 1899091,
+      "completion_tokens": 7921,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 31,
+      "recorded_calls": 31,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 8363,
+      "stored_result_count": 30,
+      "stored_result_bytes": 144991,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 71.67881274999672,
+  "worker_exit_code": -15,
+  "uid": "h20241029143727719855",
+  "arm": "official_react",
+  "ledger": {
+    "api_attempts": 75,
+    "prompt_bytes": 5754736,
+    "prompt_tokens": 1899091,
+    "completion_tokens": 7921,
+    "cache_hit_tokens": 1876864,
+    "cache_miss_tokens": 22227,
+    "unknown_usage_requests": 0
+  }
+}

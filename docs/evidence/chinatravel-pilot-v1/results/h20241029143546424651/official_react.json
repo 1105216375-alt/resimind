@@ -1,0 +1,48 @@
+{
+  "type": "result",
+  "status": "technical_failure",
+  "plan": null,
+  "details": {
+    "arm": "official_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "code": "broker_request_failed",
+    "exception_class": "WorkerStopped",
+    "worker_usage": {
+      "requests": 65,
+      "prompt_tokens": 1511984,
+      "completion_tokens": 3414,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 29,
+      "recorded_calls": 29,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 8063,
+      "stored_result_count": 26,
+      "stored_result_bytes": 109101,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 69.07798591600294,
+  "worker_exit_code": -15,
+  "uid": "h20241029143546424651",
+  "arm": "official_react",
+  "ledger": {
+    "api_attempts": 65,
+    "prompt_bytes": 4704295,
+    "prompt_tokens": 1540581,
+    "completion_tokens": 11606,
+    "cache_hit_tokens": 1524224,
+    "cache_miss_tokens": 16357,
+    "unknown_usage_requests": 0
+  }
+}

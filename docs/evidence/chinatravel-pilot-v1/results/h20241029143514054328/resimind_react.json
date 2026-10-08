@@ -1,0 +1,48 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": null,
+  "details": {
+    "arm": "resimind_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "resimind_status": "deferred",
+    "resimind_stop_reason": "no_candidate",
+    "worker_usage": {
+      "requests": 104,
+      "prompt_tokens": 3070382,
+      "completion_tokens": 17334,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 40,
+      "recorded_calls": 40,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 10887,
+      "stored_result_count": 40,
+      "stored_result_bytes": 420791,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 114.82409337499848,
+  "worker_exit_code": -15,
+  "uid": "h20241029143514054328",
+  "arm": "resimind_react",
+  "ledger": {
+    "api_attempts": 104,
+    "prompt_bytes": 9293602,
+    "prompt_tokens": 3070382,
+    "completion_tokens": 17334,
+    "cache_hit_tokens": 3011200,
+    "cache_miss_tokens": 59182,
+    "unknown_usage_requests": 0
+  }
+}

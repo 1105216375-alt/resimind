@@ -1,0 +1,897 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 2,
+    "start_city": "北京",
+    "target_city": "重庆",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "type": "airplane",
+            "start_time": "09:43",
+            "end_time": "11:32",
+            "start": "北京首都国际机场",
+            "end": "重庆江北国际机场",
+            "price": 686.67,
+            "cost": 686.67,
+            "tickets": 2,
+            "FlightID": "FL116",
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "12:40",
+            "end_time": "13:30",
+            "position": "重庆北站亚朵酒店",
+            "price": 332,
+            "cost": 332,
+            "room_type": 2,
+            "rooms": 1,
+            "transports": [
+              {
+                "start": "重庆江北国际机场",
+                "end": "江北机场T3航站楼-地铁站",
+                "mode": "walk",
+                "start_time": "11:50",
+                "end_time": "12:04",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.21
+              },
+              {
+                "start": "江北机场T3航站楼-地铁站",
+                "end": "狮子坪-地铁站",
+                "mode": "metro",
+                "start_time": "12:04",
+                "end_time": "12:35",
+                "price": 5,
+                "cost": 5,
+                "distance": 15.7,
+                "tickets": 2
+              },
+              {
+                "start": "狮子坪-地铁站",
+                "end": "重庆北站亚朵酒店",
+                "mode": "walk",
+                "start_time": "12:35",
+                "end_time": "12:40",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "14:00",
+            "end_time": "17:00",
+            "position": "洪崖洞",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "重庆北站亚朵酒店",
+                "end": "狮子坪-地铁站",
+                "mode": "walk",
+                "start_time": "13:30",
+                "end_time": "13:35",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              },
+              {
+                "start": "狮子坪-地铁站",
+                "end": "朝天门-地铁站",
+                "mode": "metro",
+                "start_time": "13:35",
+                "end_time": "13:45",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.36,
+                "tickets": 2
+              },
+              {
+                "start": "朝天门-地铁站",
+                "end": "洪崖洞",
+                "mode": "walk",
+                "start_time": "13:45",
+                "end_time": "13:48",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.32
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "start_time": "18:00",
+            "end_time": "19:00",
+            "position": "沧龙老火锅(洪崖洞店)",
+            "price": 77,
+            "cost": 77,
+            "transports": [
+              {
+                "start": "洪崖洞",
+                "end": "朝天门-地铁站",
+                "mode": "walk",
+                "start_time": "17:30",
+                "end_time": "17:33",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.32
+              },
+              {
+                "start": "朝天门-地铁站",
+                "end": "小什字-地铁站",
+                "mode": "metro",
+                "start_time": "17:33",
+                "end_time": "17:34",
+                "price": 2,
+                "cost": 2,
+                "distance": 0.79,
+                "tickets": 2
+              },
+              {
+                "start": "小什字-地铁站",
+                "end": "解放碑步行街",
+                "mode": "walk",
+                "start_time": "17:34",
+                "end_time": "17:38",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.39
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "19:00",
+            "end_time": "20:30",
+            "position": "解放碑步行街",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "20:50",
+            "end_time": "24:00",
+            "position": "重庆北站亚朵酒店",
+            "price": 332,
+            "cost": 332,
+            "room_type": 2,
+            "rooms": 1,
+            "transports": [
+              {
+                "start": "解放碑步行街",
+                "end": "小什字-地铁站",
+                "mode": "walk",
+                "start_time": "20:30",
+                "end_time": "20:34",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.39
+              },
+              {
+                "start": "小什字-地铁站",
+                "end": "狮子坪-地铁站",
+                "mode": "metro",
+                "start_time": "20:34",
+                "end_time": "20:45",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.66,
+                "tickets": 2
+              },
+              {
+                "start": "狮子坪-地铁站",
+                "end": "重庆北站亚朵酒店",
+                "mode": "walk",
+                "start_time": "20:45",
+                "end_time": "20:50",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "type": "attraction",
+            "start_time": "09:30",
+            "end_time": "12:30",
+            "position": "磁器口古镇",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "重庆北站亚朵酒店",
+                "end": "狮子坪-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:35",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              },
+              {
+                "start": "狮子坪-地铁站",
+                "end": "石井坡-地铁站",
+                "mode": "metro",
+                "start_time": "08:35",
+                "end_time": "08:55",
+                "price": 4,
+                "cost": 4,
+                "distance": 10.25,
+                "tickets": 2
+              },
+              {
+                "start": "石井坡-地铁站",
+                "end": "磁器口古镇",
+                "mode": "walk",
+                "start_time": "08:55",
+                "end_time": "09:09",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.19
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:30",
+            "end_time": "13:00",
+            "position": "周师兄重庆火锅(磁器口直营店)",
+            "price": 101,
+            "cost": 101,
+            "transports": []
+          },
+          {
+            "type": "attraction",
+            "start_time": "14:00",
+            "end_time": "15:30",
+            "position": "三峡博物馆",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "磁器口古镇",
+                "end": "石井坡-地铁站",
+                "mode": "walk",
+                "start_time": "13:00",
+                "end_time": "13:14",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.19
+              },
+              {
+                "start": "石井坡-地铁站",
+                "end": "大溪沟-地铁站",
+                "mode": "metro",
+                "start_time": "13:14",
+                "end_time": "13:36",
+                "price": 4,
+                "cost": 4,
+                "distance": 11.35,
+                "tickets": 2
+              },
+              {
+                "start": "大溪沟-地铁站",
+                "end": "三峡博物馆",
+                "mode": "walk",
+                "start_time": "13:36",
+                "end_time": "13:39",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.29
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "15:40",
+            "end_time": "17:30",
+            "position": "李子坝轻轨站",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "三峡博物馆",
+                "end": "大溪沟-地铁站",
+                "mode": "walk",
+                "start_time": "15:30",
+                "end_time": "15:33",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.29
+              },
+              {
+                "start": "大溪沟-地铁站",
+                "end": "牛角沱-地铁站",
+                "mode": "metro",
+                "start_time": "15:33",
+                "end_time": "15:36",
+                "price": 2,
+                "cost": 2,
+                "distance": 1.65,
+                "tickets": 2
+              },
+              {
+                "start": "牛角沱-地铁站",
+                "end": "李子坝轻轨站",
+                "mode": "walk",
+                "start_time": "15:36",
+                "end_time": "15:38",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.24
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "start_time": "17:46",
+            "end_time": "18:00",
+            "position": "重庆北站亚朵酒店",
+            "price": 332,
+            "cost": 332,
+            "room_type": 2,
+            "rooms": 1,
+            "transports": [
+              {
+                "start": "李子坝轻轨站",
+                "end": "牛角沱-地铁站",
+                "mode": "walk",
+                "start_time": "17:30",
+                "end_time": "17:32",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.24
+              },
+              {
+                "start": "牛角沱-地铁站",
+                "end": "狮子坪-地铁站",
+                "mode": "metro",
+                "start_time": "17:32",
+                "end_time": "17:41",
+                "price": 3,
+                "cost": 3,
+                "distance": 4.55,
+                "tickets": 2
+              },
+              {
+                "start": "狮子坪-地铁站",
+                "end": "重庆北站亚朵酒店",
+                "mode": "walk",
+                "start_time": "17:41",
+                "end_time": "17:46",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "start_time": "18:30",
+            "end_time": "19:30",
+            "position": "莱忆八零·来凤鱼璧山兔(鲁能星城店)",
+            "price": 75,
+            "cost": 75,
+            "transports": [
+              {
+                "start": "重庆北站亚朵酒店",
+                "end": "狮子坪-地铁站",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:05",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              },
+              {
+                "start": "狮子坪-地铁站",
+                "end": "渝鲁-地铁站",
+                "mode": "metro",
+                "start_time": "18:05",
+                "end_time": "18:07",
+                "price": 2,
+                "cost": 2,
+                "distance": 1.16,
+                "tickets": 2
+              },
+              {
+                "start": "渝鲁-地铁站",
+                "end": "莱忆八零·来凤鱼璧山兔(鲁能星城店)",
+                "mode": "walk",
+                "start_time": "18:07",
+                "end_time": "18:13",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.58
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "start_time": "19:30",
+            "end_time": "24:00",
+            "position": "重庆北站亚朵酒店",
+            "price": 332,
+            "cost": 332,
+            "room_type": 2,
+            "rooms": 1,
+            "transports": []
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "activities": [
+          {
+            "type": "attraction",
+            "start_time": "09:00",
+            "end_time": "10:00",
+            "position": "长江索道",
+            "price": 20,
+            "cost": 20,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "重庆北站亚朵酒店",
+                "end": "狮子坪-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:35",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              },
+              {
+                "start": "狮子坪-地铁站",
+                "end": "朝天门-地铁站",
+                "mode": "metro",
+                "start_time": "08:35",
+                "end_time": "08:45",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.36,
+                "tickets": 2
+              },
+              {
+                "start": "朝天门-地铁站",
+                "end": "长江索道",
+                "mode": "walk",
+                "start_time": "08:45",
+                "end_time": "08:48",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.33
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "10:00",
+            "end_time": "11:00",
+            "position": "重庆云端之眼观景台",
+            "price": 68,
+            "cost": 68,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "长江索道",
+                "end": "重庆云端之眼观景台",
+                "mode": "walk",
+                "start_time": "10:00",
+                "end_time": "10:00",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.078
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:00",
+            "end_time": "13:00",
+            "position": "超级李板凳·面(总店)",
+            "price": 19,
+            "cost": 19,
+            "transports": [
+              {
+                "start": "重庆云端之眼观景台",
+                "end": "重庆两江游",
+                "mode": "walk",
+                "start_time": "11:30",
+                "end_time": "11:39",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.79
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "13:30",
+            "end_time": "15:00",
+            "position": "重庆两江游",
+            "price": 138,
+            "cost": 138,
+            "tickets": 2,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "15:50",
+            "end_time": "24:00",
+            "position": "重庆北站亚朵酒店",
+            "price": 332,
+            "cost": 332,
+            "room_type": 2,
+            "rooms": 1,
+            "transports": [
+              {
+                "start": "重庆两江游",
+                "end": "朝天门-地铁站",
+                "mode": "walk",
+                "start_time": "15:30",
+                "end_time": "15:35",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.49
+              },
+              {
+                "start": "朝天门-地铁站",
+                "end": "狮子坪-地铁站",
+                "mode": "metro",
+                "start_time": "15:35",
+                "end_time": "15:45",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.36,
+                "tickets": 2
+              },
+              {
+                "start": "狮子坪-地铁站",
+                "end": "重庆北站亚朵酒店",
+                "mode": "walk",
+                "start_time": "15:45",
+                "end_time": "15:50",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "activities": [
+          {
+            "type": "attraction",
+            "start_time": "09:00",
+            "end_time": "11:00",
+            "position": "重庆动物园",
+            "price": 24.5,
+            "cost": 24.5,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "重庆北站亚朵酒店",
+                "end": "狮子坪-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:35",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              },
+              {
+                "start": "狮子坪-地铁站",
+                "end": "杨家坪-地铁站",
+                "mode": "metro",
+                "start_time": "08:35",
+                "end_time": "08:56",
+                "price": 4,
+                "cost": 4,
+                "distance": 10.85,
+                "tickets": 2
+              },
+              {
+                "start": "杨家坪-地铁站",
+                "end": "重庆动物园",
+                "mode": "walk",
+                "start_time": "08:56",
+                "end_time": "09:00",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.35
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:30",
+            "end_time": "13:30",
+            "position": "花匠民宿·花匠餐厅",
+            "price": 51,
+            "cost": 51,
+            "transports": [
+              {
+                "start": "重庆动物园",
+                "end": "杨家坪-地铁站",
+                "mode": "walk",
+                "start_time": "11:30",
+                "end_time": "11:34",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.35
+              },
+              {
+                "start": "杨家坪-地铁站",
+                "end": "仁济-地铁站",
+                "mode": "metro",
+                "start_time": "11:34",
+                "end_time": "11:54",
+                "price": 4,
+                "cost": 4,
+                "distance": 10.38,
+                "tickets": 2
+              },
+              {
+                "start": "仁济-地铁站",
+                "end": "南山风景区",
+                "mode": "walk",
+                "start_time": "11:54",
+                "end_time": "12:26",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.71
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "start_time": "14:00",
+            "end_time": "15:00",
+            "position": "南山风景区",
+            "price": 0,
+            "cost": 0,
+            "tickets": 2,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "start_time": "16:19",
+            "end_time": "24:00",
+            "position": "重庆北站亚朵酒店",
+            "price": 332,
+            "cost": 332,
+            "room_type": 2,
+            "rooms": 1,
+            "transports": [
+              {
+                "start": "南山风景区",
+                "end": "仁济-地铁站",
+                "mode": "walk",
+                "start_time": "15:30",
+                "end_time": "16:02",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.71
+              },
+              {
+                "start": "仁济-地铁站",
+                "end": "狮子坪-地铁站",
+                "mode": "metro",
+                "start_time": "16:02",
+                "end_time": "16:14",
+                "price": 3,
+                "cost": 3,
+                "distance": 6.47,
+                "tickets": 2
+              },
+              {
+                "start": "狮子坪-地铁站",
+                "end": "重庆北站亚朵酒店",
+                "mode": "walk",
+                "start_time": "16:14",
+                "end_time": "16:19",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "activities": [
+          {
+            "type": "attraction",
+            "start_time": "09:30",
+            "end_time": "11:00",
+            "position": "重庆湖广会馆",
+            "price": 25,
+            "cost": 25,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "重庆北站亚朵酒店",
+                "end": "狮子坪-地铁站",
+                "mode": "walk",
+                "start_time": "09:00",
+                "end_time": "09:05",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              },
+              {
+                "start": "狮子坪-地铁站",
+                "end": "朝天门-地铁站",
+                "mode": "metro",
+                "start_time": "09:05",
+                "end_time": "09:15",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.36,
+                "tickets": 2
+              },
+              {
+                "start": "朝天门-地铁站",
+                "end": "重庆湖广会馆",
+                "mode": "walk",
+                "start_time": "09:15",
+                "end_time": "09:22",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.63
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "start_time": "12:00",
+            "end_time": "13:00",
+            "position": "莱忆八零·来凤鱼璧山兔(鲁能星城店)",
+            "price": 75,
+            "cost": 75,
+            "transports": [
+              {
+                "start": "重庆湖广会馆",
+                "end": "朝天门-地铁站",
+                "mode": "walk",
+                "start_time": "11:30",
+                "end_time": "11:37",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.63
+              },
+              {
+                "start": "朝天门-地铁站",
+                "end": "狮子坪-地铁站",
+                "mode": "metro",
+                "start_time": "11:37",
+                "end_time": "11:47",
+                "price": 3,
+                "cost": 3,
+                "distance": 5.36,
+                "tickets": 2
+              },
+              {
+                "start": "狮子坪-地铁站",
+                "end": "重庆北站亚朵酒店",
+                "mode": "walk",
+                "start_time": "11:47",
+                "end_time": "11:52",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              }
+            ]
+          },
+          {
+            "type": "airplane",
+            "start_time": "17:35",
+            "end_time": "19:24",
+            "start": "重庆江北国际机场",
+            "end": "北京首都国际机场",
+            "price": 725.29,
+            "cost": 725.29,
+            "tickets": 2,
+            "FlightID": "FL333",
+            "transports": [
+              {
+                "start": "重庆北站亚朵酒店",
+                "end": "狮子坪-地铁站",
+                "mode": "walk",
+                "start_time": "14:30",
+                "end_time": "14:35",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              },
+              {
+                "start": "狮子坪-地铁站",
+                "end": "江北机场T3航站楼-地铁站",
+                "mode": "metro",
+                "start_time": "14:35",
+                "end_time": "15:06",
+                "price": 5,
+                "cost": 5,
+                "distance": 15.7,
+                "tickets": 2
+              },
+              {
+                "start": "江北机场T3航站楼-地铁站",
+                "end": "重庆江北国际机场",
+                "mode": "walk",
+                "start_time": "15:06",
+                "end_time": "15:20",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.21
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "details": {
+    "arm": "official_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "worker_usage": {
+      "requests": 91,
+      "prompt_tokens": 2419513,
+      "completion_tokens": 12793,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 37,
+      "recorded_calls": 37,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 10392,
+      "stored_result_count": 36,
+      "stored_result_bytes": 330322,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 97.48461945899908,
+  "worker_exit_code": -15,
+  "uid": "h20241029143455115600",
+  "arm": "official_react",
+  "ledger": {
+    "api_attempts": 91,
+    "prompt_bytes": 7343842,
+    "prompt_tokens": 2419513,
+    "completion_tokens": 12793,
+    "cache_hit_tokens": 2392704,
+    "cache_miss_tokens": 26809,
+    "unknown_usage_requests": 0
+  }
+}

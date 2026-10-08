@@ -1,0 +1,435 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "itinerary": [
+      {
+        "activities": [
+          {
+            "FlightID": "FL240",
+            "cost": 596.3,
+            "end": "南京禄口国际机场",
+            "end_time": "09:26",
+            "price": 596.3,
+            "start": "深圳宝安国际机场",
+            "start_time": "07:59",
+            "tickets": 1,
+            "transports": [],
+            "type": "airplane"
+          },
+          {
+            "cost": 202,
+            "end_time": "11:10",
+            "position": "清沐铂金酒店(南京理工大学孝陵卫地铁站店)",
+            "price": 202,
+            "room_type": 1,
+            "rooms": 1,
+            "start_time": "10:52",
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.27,
+                "end": "禄口机场-地铁站",
+                "end_time": "09:43",
+                "mode": "walk",
+                "price": 0,
+                "start": "南京禄口国际机场",
+                "start_time": "09:40"
+              },
+              {
+                "cost": 7,
+                "distance": 33.87,
+                "end": "孝陵卫-地铁站",
+                "end_time": "10:50",
+                "mode": "metro",
+                "price": 7,
+                "start": "禄口机场-地铁站",
+                "start_time": "09:43",
+                "tickets": 1
+              },
+              {
+                "cost": 0,
+                "distance": 0.2,
+                "end": "清沐铂金酒店(南京理工大学孝陵卫地铁站店)",
+                "end_time": "10:52",
+                "mode": "walk",
+                "price": 0,
+                "start": "孝陵卫-地铁站",
+                "start_time": "10:50"
+              }
+            ],
+            "type": "accommodation"
+          },
+          {
+            "cost": 0,
+            "end_time": "12:00",
+            "position": "钟山风景名胜区",
+            "price": 0,
+            "start_time": "11:55",
+            "tickets": 1,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.2,
+                "end": "孝陵卫-地铁站",
+                "end_time": "11:12",
+                "mode": "walk",
+                "price": 0,
+                "start": "清沐铂金酒店(南京理工大学孝陵卫地铁站店)",
+                "start_time": "11:10"
+              },
+              {
+                "cost": 3,
+                "distance": 5.84,
+                "end": "王家湾-地铁站",
+                "end_time": "11:23",
+                "mode": "metro",
+                "price": 3,
+                "start": "孝陵卫-地铁站",
+                "start_time": "11:12",
+                "tickets": 1
+              },
+              {
+                "cost": 0,
+                "distance": 2.69,
+                "end": "钟山风景名胜区",
+                "end_time": "11:55",
+                "mode": "walk",
+                "price": 0,
+                "start": "王家湾-地铁站",
+                "start_time": "11:23"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "cost": 0,
+            "end_time": "13:00",
+            "position": "紫金山",
+            "price": 0,
+            "start_time": "12:10",
+            "tickets": 1,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.7567564043764791,
+                "end": "紫金山",
+                "end_time": "12:09",
+                "mode": "walk",
+                "price": 0,
+                "start": "钟山风景名胜区",
+                "start_time": "12:00"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "cost": 0,
+            "end_time": "15:00",
+            "position": "梅花山",
+            "price": 0,
+            "start_time": "13:30",
+            "tickets": 1,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 2.5280378808610227,
+                "end": "梅花山",
+                "end_time": "13:30",
+                "mode": "walk",
+                "price": 0,
+                "start": "紫金山",
+                "start_time": "13:00"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "cost": 32,
+            "end_time": "17:30",
+            "position": "灵谷景区",
+            "price": 32,
+            "start_time": "15:32",
+            "tickets": 1,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 2.7030300459567638,
+                "end": "灵谷景区",
+                "end_time": "15:32",
+                "mode": "walk",
+                "price": 0,
+                "start": "梅花山",
+                "start_time": "15:00"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "cost": 225,
+            "end_time": "19:40",
+            "position": "南京东郊国宾馆·晶丽海鲜自助餐厅",
+            "price": 225,
+            "start_time": "18:40",
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 2.38,
+                "end": "马群-地铁站",
+                "end_time": "17:58",
+                "mode": "walk",
+                "price": 0,
+                "start": "灵谷景区",
+                "start_time": "17:30"
+              },
+              {
+                "cost": 3,
+                "distance": 5.71,
+                "end": "苜蓿园-地铁站",
+                "end_time": "18:09",
+                "mode": "metro",
+                "price": 3,
+                "start": "马群-地铁站",
+                "start_time": "17:58",
+                "tickets": 1
+              },
+              {
+                "cost": 0,
+                "distance": 2.3,
+                "end": "南京东郊国宾馆·晶丽海鲜自助餐厅",
+                "end_time": "18:36",
+                "mode": "walk",
+                "price": 0,
+                "start": "苜蓿园-地铁站",
+                "start_time": "18:09"
+              }
+            ],
+            "type": "dinner"
+          },
+          {
+            "cost": 202,
+            "end_time": "24:00",
+            "position": "清沐铂金酒店(南京理工大学孝陵卫地铁站店)",
+            "price": 202,
+            "room_type": 1,
+            "rooms": 1,
+            "start_time": "20:13",
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 2.3,
+                "end": "苜蓿园-地铁站",
+                "end_time": "20:07",
+                "mode": "walk",
+                "price": 0,
+                "start": "南京东郊国宾馆·晶丽海鲜自助餐厅",
+                "start_time": "19:40"
+              },
+              {
+                "cost": 2,
+                "distance": 2.21,
+                "end": "孝陵卫-地铁站",
+                "end_time": "20:11",
+                "mode": "metro",
+                "price": 2,
+                "start": "苜蓿园-地铁站",
+                "start_time": "20:07",
+                "tickets": 1
+              },
+              {
+                "cost": 0,
+                "distance": 0.2,
+                "end": "清沐铂金酒店(南京理工大学孝陵卫地铁站店)",
+                "end_time": "20:13",
+                "mode": "walk",
+                "price": 0,
+                "start": "孝陵卫-地铁站",
+                "start_time": "20:11"
+              }
+            ],
+            "type": "accommodation"
+          }
+        ],
+        "day": 1
+      },
+      {
+        "activities": [
+          {
+            "cost": 0,
+            "end_time": "11:30",
+            "position": "方山风景旅游度假区",
+            "price": 0,
+            "start_time": "09:30",
+            "tickets": 1,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.2,
+                "end": "孝陵卫-地铁站",
+                "end_time": "08:32",
+                "mode": "walk",
+                "price": 0,
+                "start": "清沐铂金酒店(南京理工大学孝陵卫地铁站店)",
+                "start_time": "08:30"
+              },
+              {
+                "cost": 5,
+                "distance": 14.29,
+                "end": "南京交院-地铁站",
+                "end_time": "09:00",
+                "mode": "metro",
+                "price": 5,
+                "start": "孝陵卫-地铁站",
+                "start_time": "08:32",
+                "tickets": 1
+              },
+              {
+                "cost": 0,
+                "distance": 2.47,
+                "end": "方山风景旅游度假区",
+                "end_time": "09:29",
+                "mode": "walk",
+                "price": 0,
+                "start": "南京交院-地铁站",
+                "start_time": "09:00"
+              }
+            ],
+            "type": "attraction"
+          },
+          {
+            "cost": 70,
+            "end_time": "14:00",
+            "position": "南京大牌档(中山陵店)",
+            "price": 70,
+            "start_time": "13:10",
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 2.47,
+                "end": "南京交院-地铁站",
+                "end_time": "12:29",
+                "mode": "walk",
+                "price": 0,
+                "start": "方山风景旅游度假区",
+                "start_time": "12:00"
+              },
+              {
+                "cost": 5,
+                "distance": 15.58,
+                "end": "苜蓿园-地铁站",
+                "end_time": "13:00",
+                "mode": "metro",
+                "price": 5,
+                "start": "南京交院-地铁站",
+                "start_time": "12:29",
+                "tickets": 1
+              },
+              {
+                "cost": 0,
+                "distance": 0.09,
+                "end": "南京大牌档(中山陵店)",
+                "end_time": "13:01",
+                "mode": "walk",
+                "price": 0,
+                "start": "苜蓿园-地铁站",
+                "start_time": "13:00"
+              }
+            ],
+            "type": "lunch"
+          },
+          {
+            "FlightID": "FL670",
+            "cost": 570.83,
+            "end": "深圳宝安国际机场",
+            "end_time": "20:02",
+            "price": 570.83,
+            "start": "南京禄口国际机场",
+            "start_time": "18:35",
+            "tickets": 1,
+            "transports": [
+              {
+                "cost": 0,
+                "distance": 0.09,
+                "end": "苜蓿园-地铁站",
+                "end_time": "14:01",
+                "mode": "walk",
+                "price": 0,
+                "start": "南京大牌档(中山陵店)",
+                "start_time": "14:00"
+              },
+              {
+                "cost": 7,
+                "distance": 34.56,
+                "end": "禄口机场-地铁站",
+                "end_time": "15:10",
+                "mode": "metro",
+                "price": 7,
+                "start": "苜蓿园-地铁站",
+                "start_time": "14:01",
+                "tickets": 1
+              },
+              {
+                "cost": 0,
+                "distance": 0.27,
+                "end": "南京禄口国际机场",
+                "end_time": "15:13",
+                "mode": "walk",
+                "price": 0,
+                "start": "禄口机场-地铁站",
+                "start_time": "15:10"
+              }
+            ],
+            "type": "airplane"
+          }
+        ],
+        "day": 2
+      }
+    ],
+    "people_number": 1,
+    "start_city": "深圳",
+    "target_city": "南京"
+  },
+  "details": {
+    "arm": "resimind_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "resimind_status": "solved",
+    "resimind_stop_reason": "residual_empty",
+    "worker_usage": {
+      "requests": 75,
+      "prompt_tokens": 1869076,
+      "completion_tokens": 15353,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 26,
+      "recorded_calls": 26,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 7699,
+      "stored_result_count": 26,
+      "stored_result_bytes": 79729,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 89.35037845899933,
+  "worker_exit_code": -15,
+  "uid": "h20241029143546424651",
+  "arm": "resimind_react",
+  "ledger": {
+    "api_attempts": 75,
+    "prompt_bytes": 5728461,
+    "prompt_tokens": 1869076,
+    "completion_tokens": 15353,
+    "cache_hit_tokens": 1822592,
+    "cache_miss_tokens": 46484,
+    "unknown_usage_requests": 0
+  }
+}

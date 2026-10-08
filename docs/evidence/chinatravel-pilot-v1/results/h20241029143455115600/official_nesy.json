@@ -1,0 +1,48 @@
+{
+  "type": "result",
+  "status": "budget_exhausted",
+  "plan": null,
+  "details": {
+    "arm": "official_nesy",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "code": "broker_budget_stop",
+    "exception_class": "WorkerStopped",
+    "worker_usage": {
+      "requests": 129,
+      "prompt_tokens": 54598,
+      "completion_tokens": 12618,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 32845,
+      "recorded_calls": 10000,
+      "omitted_calls": 22845,
+      "omitted_results": 0,
+      "truncated": true,
+      "trace_bytes": 2851011,
+      "stored_result_count": 8588,
+      "stored_result_bytes": 14826646,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 155.88312016700365,
+  "worker_exit_code": -15,
+  "uid": "h20241029143455115600",
+  "arm": "official_nesy",
+  "ledger": {
+    "api_attempts": 128,
+    "prompt_bytes": 226878,
+    "prompt_tokens": 54598,
+    "completion_tokens": 12618,
+    "cache_hit_tokens": 21248,
+    "cache_miss_tokens": 33350,
+    "unknown_usage_requests": 0
+  }
+}

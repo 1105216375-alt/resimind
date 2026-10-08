@@ -1,0 +1,475 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 4,
+    "start_city": "苏州",
+    "target_city": "杭州",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "start_time": "07:15",
+            "end_time": "08:56",
+            "start": "苏州站",
+            "end": "杭州东站",
+            "price": 78.65,
+            "cost": 314.6,
+            "tickets": 4,
+            "transports": [],
+            "TrainID": "G7503",
+            "type": "train"
+          },
+          {
+            "position": "灵隐寺",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "09:48",
+            "end_time": "11:18",
+            "transports": [
+              {
+                "start": "杭州东站",
+                "end": "火车东站(东广场)-地铁站",
+                "mode": "walk",
+                "start_time": "08:56",
+                "end_time": "09:01",
+                "cost": 0,
+                "distance": 0.48,
+                "price": 0
+              },
+              {
+                "start": "火车东站(东广场)-地铁站",
+                "end": "古墩路-地铁站",
+                "mode": "metro",
+                "start_time": "09:01",
+                "end_time": "09:23",
+                "cost": 16,
+                "distance": 11.41,
+                "price": 4,
+                "tickets": 4
+              },
+              {
+                "start": "古墩路-地铁站",
+                "end": "灵隐寺",
+                "mode": "walk",
+                "start_time": "09:23",
+                "end_time": "09:48",
+                "cost": 0,
+                "distance": 2.12,
+                "price": 0
+              }
+            ],
+            "tickets": 4
+          },
+          {
+            "position": "杭州西湖国宾馆·西湖第一名园·紫薇厅",
+            "type": "lunch",
+            "price": 468,
+            "cost": 1872,
+            "start_time": "12:31",
+            "end_time": "13:31",
+            "transports": [
+              {
+                "start": "灵隐寺",
+                "end": "古墩路-地铁站",
+                "mode": "walk",
+                "start_time": "11:18",
+                "end_time": "11:43",
+                "cost": 0,
+                "distance": 2.12,
+                "price": 0
+              },
+              {
+                "start": "古墩路-地铁站",
+                "end": "吴山广场-地铁站",
+                "mode": "metro",
+                "start_time": "11:43",
+                "end_time": "11:56",
+                "cost": 12,
+                "distance": 6.54,
+                "price": 3,
+                "tickets": 4
+              },
+              {
+                "start": "吴山广场-地铁站",
+                "end": "杭州西湖国宾馆·西湖第一名园·紫薇厅",
+                "mode": "walk",
+                "start_time": "11:56",
+                "end_time": "12:31",
+                "cost": 0,
+                "distance": 2.95,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "飞来峰造像",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "14:46",
+            "end_time": "16:16",
+            "transports": [
+              {
+                "start": "杭州西湖国宾馆·西湖第一名园·紫薇厅",
+                "end": "吴山广场-地铁站",
+                "mode": "walk",
+                "start_time": "13:31",
+                "end_time": "14:06",
+                "cost": 0,
+                "distance": 2.95,
+                "price": 0
+              },
+              {
+                "start": "吴山广场-地铁站",
+                "end": "古墩路-地铁站",
+                "mode": "metro",
+                "start_time": "14:06",
+                "end_time": "14:19",
+                "cost": 12,
+                "distance": 6.54,
+                "price": 3,
+                "tickets": 4
+              },
+              {
+                "start": "古墩路-地铁站",
+                "end": "飞来峰造像",
+                "mode": "walk",
+                "start_time": "14:19",
+                "end_time": "14:46",
+                "cost": 0,
+                "distance": 2.29,
+                "price": 0
+              }
+            ],
+            "tickets": 4
+          },
+          {
+            "position": "杭州西子湖四季酒店·金沙厅",
+            "type": "dinner",
+            "price": 873,
+            "cost": 3492,
+            "start_time": "17:09",
+            "end_time": "18:09",
+            "transports": [
+              {
+                "start": "飞来峰造像",
+                "end": "古墩路-地铁站",
+                "mode": "walk",
+                "start_time": "16:16",
+                "end_time": "16:43",
+                "cost": 0,
+                "distance": 2.29,
+                "price": 0
+              },
+              {
+                "start": "古墩路-地铁站",
+                "end": "黄龙体育中心-地铁站",
+                "mode": "metro",
+                "start_time": "16:43",
+                "end_time": "16:48",
+                "cost": 8,
+                "distance": 2.71,
+                "price": 2,
+                "tickets": 4
+              },
+              {
+                "start": "黄龙体育中心-地铁站",
+                "end": "杭州西子湖四季酒店·金沙厅",
+                "mode": "walk",
+                "start_time": "16:48",
+                "end_time": "17:09",
+                "cost": 0,
+                "distance": 1.81,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "西湖风景名胜区",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "19:27",
+            "end_time": "20:57",
+            "transports": [
+              {
+                "start": "杭州西子湖四季酒店·金沙厅",
+                "end": "黄龙体育中心-地铁站",
+                "mode": "walk",
+                "start_time": "18:09",
+                "end_time": "18:30",
+                "cost": 0,
+                "distance": 1.81,
+                "price": 0
+              },
+              {
+                "start": "黄龙体育中心-地铁站",
+                "end": "水澄桥-地铁站",
+                "mode": "metro",
+                "start_time": "18:30",
+                "end_time": "18:44",
+                "cost": 12,
+                "distance": 7.42,
+                "price": 3,
+                "tickets": 4
+              },
+              {
+                "start": "水澄桥-地铁站",
+                "end": "西湖风景名胜区",
+                "mode": "walk",
+                "start_time": "18:44",
+                "end_time": "19:27",
+                "cost": 0,
+                "distance": 3.6,
+                "price": 0
+              }
+            ],
+            "tickets": 4
+          },
+          {
+            "position": "杭州滨江开元名都大酒店",
+            "type": "accommodation",
+            "price": 498,
+            "cost": 996,
+            "start_time": "22:05",
+            "end_time": "24:00",
+            "transports": [
+              {
+                "start": "西湖风景名胜区",
+                "end": "水澄桥-地铁站",
+                "mode": "walk",
+                "start_time": "20:57",
+                "end_time": "21:40",
+                "cost": 0,
+                "distance": 3.6,
+                "price": 0
+              },
+              {
+                "start": "水澄桥-地铁站",
+                "end": "伟业路-地铁站",
+                "mode": "metro",
+                "start_time": "21:40",
+                "end_time": "21:45",
+                "cost": 8,
+                "distance": 2.5,
+                "price": 2,
+                "tickets": 4
+              },
+              {
+                "start": "伟业路-地铁站",
+                "end": "杭州滨江开元名都大酒店",
+                "mode": "walk",
+                "start_time": "21:45",
+                "end_time": "22:05",
+                "cost": 0,
+                "distance": 1.71,
+                "price": 0
+              }
+            ],
+            "room_type": 2,
+            "rooms": 2
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "position": "杭州滨江开元名都大酒店",
+            "type": "breakfast",
+            "price": 0,
+            "cost": 0,
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "transports": []
+          },
+          {
+            "position": "大运河紫檀博物馆",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "09:30",
+            "end_time": "11:00",
+            "transports": [
+              {
+                "start": "杭州滨江开元名都大酒店",
+                "end": "伟业路-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:50",
+                "cost": 0,
+                "distance": 1.71,
+                "price": 0
+              },
+              {
+                "start": "伟业路-地铁站",
+                "end": "拱宸桥东-地铁站",
+                "mode": "metro",
+                "start_time": "08:50",
+                "end_time": "09:19",
+                "cost": 20,
+                "distance": 14.97,
+                "price": 5,
+                "tickets": 4
+              },
+              {
+                "start": "拱宸桥东-地铁站",
+                "end": "大运河紫檀博物馆",
+                "mode": "walk",
+                "start_time": "09:19",
+                "end_time": "09:26",
+                "cost": 0,
+                "distance": 0.62,
+                "price": 0
+              }
+            ],
+            "tickets": 4
+          },
+          {
+            "position": "杭州君悦酒店·湖滨28中餐厅",
+            "type": "lunch",
+            "price": 498,
+            "cost": 1992,
+            "start_time": "11:30",
+            "end_time": "12:30",
+            "transports": [
+              {
+                "start": "大运河紫檀博物馆",
+                "end": "拱宸桥东-地铁站",
+                "mode": "walk",
+                "start_time": "11:00",
+                "end_time": "11:07",
+                "cost": 0,
+                "distance": 0.62,
+                "price": 0
+              },
+              {
+                "start": "拱宸桥东-地铁站",
+                "end": "龙翔桥-地铁站",
+                "mode": "metro",
+                "start_time": "11:07",
+                "end_time": "11:21",
+                "cost": 12,
+                "distance": 7.09,
+                "price": 3,
+                "tickets": 4
+              },
+              {
+                "start": "龙翔桥-地铁站",
+                "end": "杭州君悦酒店·湖滨28中餐厅",
+                "mode": "walk",
+                "start_time": "11:21",
+                "end_time": "11:23",
+                "cost": 0,
+                "distance": 0.21,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "start_time": "15:01",
+            "end_time": "16:56",
+            "start": "杭州东站",
+            "end": "苏州站",
+            "price": 78.65,
+            "cost": 314.6,
+            "tickets": 4,
+            "transports": [
+              {
+                "start": "杭州君悦酒店·湖滨28中餐厅",
+                "end": "龙翔桥-地铁站",
+                "mode": "walk",
+                "start_time": "12:30",
+                "end_time": "12:32",
+                "cost": 0,
+                "distance": 0.21,
+                "price": 0
+              },
+              {
+                "start": "龙翔桥-地铁站",
+                "end": "火车东站(东广场)-地铁站",
+                "mode": "metro",
+                "start_time": "12:32",
+                "end_time": "12:45",
+                "cost": 12,
+                "distance": 6.63,
+                "price": 3,
+                "tickets": 4
+              },
+              {
+                "start": "火车东站(东广场)-地铁站",
+                "end": "杭州东站",
+                "mode": "walk",
+                "start_time": "12:45",
+                "end_time": "12:50",
+                "cost": 0,
+                "distance": 0.48,
+                "price": 0
+              }
+            ],
+            "TrainID": "G7593",
+            "type": "train"
+          }
+        ]
+      }
+    ],
+    "search_time_sec": 24.64747905731201,
+    "llm_inference_time_sec": 20.194135665893555,
+    "input_token_count": 17053,
+    "output_token_count": 2844,
+    "input_token_maxx": 3492,
+    "llm_rec_count": 14,
+    "llm_rec_format_error_count": 1,
+    "search_nodes": 2944,
+    "backtrack_count": 0,
+    "constraints_validation_count": 1,
+    "commonsense_pass_count": 1,
+    "logical_pass_count": 1,
+    "all_constraints_pass": 1
+  },
+  "details": {
+    "arm": "official_nesy",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "native_success": true,
+    "worker_usage": {
+      "requests": 18,
+      "prompt_tokens": 17053,
+      "completion_tokens": 2844,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 5947,
+      "recorded_calls": 5947,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 1655208,
+      "stored_result_count": 5942,
+      "stored_result_bytes": 14510820,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 28.726351249999425,
+  "worker_exit_code": -15,
+  "uid": "h20241029143518931601",
+  "arm": "official_nesy",
+  "ledger": {
+    "api_attempts": 18,
+    "prompt_bytes": 66607,
+    "prompt_tokens": 17053,
+    "completion_tokens": 2844,
+    "cache_hit_tokens": 7936,
+    "cache_miss_tokens": 9117,
+    "unknown_usage_requests": 0
+  }
+}

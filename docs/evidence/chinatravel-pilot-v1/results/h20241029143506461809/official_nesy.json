@@ -1,0 +1,482 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 2,
+    "start_city": "成都",
+    "target_city": "广州",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "start_time": "07:08",
+            "end_time": "14:26",
+            "start": "成都东站",
+            "end": "广州南站",
+            "price": 800.12,
+            "cost": 1600.24,
+            "tickets": 2,
+            "transports": [],
+            "TrainID": "G3711",
+            "type": "train"
+          },
+          {
+            "position": "广州北京路天字码头亚朵S酒店",
+            "type": "accommodation",
+            "price": 561,
+            "cost": 1122,
+            "start_time": "15:00",
+            "end_time": "24:00",
+            "transports": [
+              {
+                "start": "广州南站",
+                "end": "广州南站-地铁站",
+                "mode": "walk",
+                "start_time": "14:26",
+                "end_time": "14:28",
+                "cost": 0,
+                "distance": 0.19,
+                "price": 0
+              },
+              {
+                "start": "广州南站-地铁站",
+                "end": "北京路-地铁站",
+                "mode": "metro",
+                "start_time": "14:28",
+                "end_time": "14:56",
+                "cost": 10,
+                "distance": 14.39,
+                "price": 5,
+                "tickets": 2
+              },
+              {
+                "start": "北京路-地铁站",
+                "end": "广州北京路天字码头亚朵S酒店",
+                "mode": "walk",
+                "start_time": "14:56",
+                "end_time": "15:00",
+                "cost": 0,
+                "distance": 0.4,
+                "price": 0
+              }
+            ],
+            "room_type": 1,
+            "rooms": 2
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "position": "广州北京路天字码头亚朵S酒店",
+            "type": "breakfast",
+            "price": 0,
+            "cost": 0,
+            "start_time": "08:00",
+            "end_time": "08:30",
+            "transports": []
+          },
+          {
+            "position": "白云山",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "09:17",
+            "end_time": "10:47",
+            "transports": [
+              {
+                "start": "广州北京路天字码头亚朵S酒店",
+                "end": "北京路-地铁站",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:34",
+                "cost": 0,
+                "distance": 0.4,
+                "price": 0
+              },
+              {
+                "start": "北京路-地铁站",
+                "end": "京溪南方医院-地铁站",
+                "mode": "metro",
+                "start_time": "08:34",
+                "end_time": "08:52",
+                "cost": 8,
+                "distance": 9.32,
+                "price": 4,
+                "tickets": 2
+              },
+              {
+                "start": "京溪南方医院-地铁站",
+                "end": "白云山",
+                "mode": "walk",
+                "start_time": "08:52",
+                "end_time": "09:17",
+                "cost": 0,
+                "distance": 2.09,
+                "price": 0
+              }
+            ],
+            "tickets": 2
+          },
+          {
+            "position": "鮨·木々omakase日本料理(富力海珠城A区店)",
+            "type": "lunch",
+            "price": 362,
+            "cost": 724,
+            "start_time": "12:00",
+            "end_time": "13:00",
+            "transports": [
+              {
+                "start": "白云山",
+                "end": "京溪南方医院-地铁站",
+                "mode": "walk",
+                "start_time": "10:47",
+                "end_time": "11:12",
+                "cost": 0,
+                "distance": 2.09,
+                "price": 0
+              },
+              {
+                "start": "京溪南方医院-地铁站",
+                "end": "江南西-地铁站",
+                "mode": "metro",
+                "start_time": "11:12",
+                "end_time": "11:34",
+                "cost": 8,
+                "distance": 11.12,
+                "price": 4,
+                "tickets": 2
+              },
+              {
+                "start": "江南西-地铁站",
+                "end": "鮨·木々omakase日本料理(富力海珠城A区店)",
+                "mode": "walk",
+                "start_time": "11:34",
+                "end_time": "11:35",
+                "cost": 0,
+                "distance": 0.16,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "越秀公园",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "13:20",
+            "end_time": "14:50",
+            "transports": [
+              {
+                "start": "鮨·木々omakase日本料理(富力海珠城A区店)",
+                "end": "江南西-地铁站",
+                "mode": "walk",
+                "start_time": "13:00",
+                "end_time": "13:01",
+                "cost": 0,
+                "distance": 0.16,
+                "price": 0
+              },
+              {
+                "start": "江南西-地铁站",
+                "end": "小北-地铁站",
+                "mode": "metro",
+                "start_time": "13:01",
+                "end_time": "13:10",
+                "cost": 6,
+                "distance": 4.68,
+                "price": 3,
+                "tickets": 2
+              },
+              {
+                "start": "小北-地铁站",
+                "end": "越秀公园",
+                "mode": "walk",
+                "start_time": "13:10",
+                "end_time": "13:20",
+                "cost": 0,
+                "distance": 0.88,
+                "price": 0
+              }
+            ],
+            "tickets": 2
+          },
+          {
+            "position": "流花湖公园",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "15:09",
+            "end_time": "16:39",
+            "transports": [
+              {
+                "start": "越秀公园",
+                "end": "小北-地铁站",
+                "mode": "walk",
+                "start_time": "14:50",
+                "end_time": "15:00",
+                "cost": 0,
+                "distance": 0.88,
+                "price": 0
+              },
+              {
+                "start": "小北-地铁站",
+                "end": "越秀公园-地铁站",
+                "mode": "metro",
+                "start_time": "15:00",
+                "end_time": "15:03",
+                "cost": 4,
+                "distance": 1.59,
+                "price": 2,
+                "tickets": 2
+              },
+              {
+                "start": "越秀公园-地铁站",
+                "end": "流花湖公园",
+                "mode": "walk",
+                "start_time": "15:03",
+                "end_time": "15:09",
+                "cost": 0,
+                "distance": 0.52,
+                "price": 0
+              }
+            ],
+            "tickets": 2
+          },
+          {
+            "position": "广州白天鹅宾馆·玉堂春暖餐厅",
+            "type": "dinner",
+            "price": 427,
+            "cost": 854,
+            "start_time": "17:00",
+            "end_time": "18:00",
+            "transports": [
+              {
+                "start": "流花湖公园",
+                "end": "越秀公园-地铁站",
+                "mode": "walk",
+                "start_time": "16:39",
+                "end_time": "16:45",
+                "cost": 0,
+                "distance": 0.52,
+                "price": 0
+              },
+              {
+                "start": "越秀公园-地铁站",
+                "end": "黄沙-地铁站",
+                "mode": "metro",
+                "start_time": "16:45",
+                "end_time": "16:52",
+                "cost": 4,
+                "distance": 3.94,
+                "price": 2,
+                "tickets": 2
+              },
+              {
+                "start": "黄沙-地铁站",
+                "end": "广州白天鹅宾馆·玉堂春暖餐厅",
+                "mode": "walk",
+                "start_time": "16:52",
+                "end_time": "16:59",
+                "cost": 0,
+                "distance": 0.58,
+                "price": 0
+              }
+            ]
+          },
+          {
+            "position": "海珠湖公园",
+            "type": "attraction",
+            "price": 0,
+            "cost": 0,
+            "start_time": "18:36",
+            "end_time": "20:00",
+            "transports": [
+              {
+                "start": "广州白天鹅宾馆·玉堂春暖餐厅",
+                "end": "黄沙-地铁站",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:07",
+                "cost": 0,
+                "distance": 0.58,
+                "price": 0
+              },
+              {
+                "start": "黄沙-地铁站",
+                "end": "大塘-地铁站",
+                "mode": "metro",
+                "start_time": "18:07",
+                "end_time": "18:25",
+                "cost": 8,
+                "distance": 9.12,
+                "price": 4,
+                "tickets": 2
+              },
+              {
+                "start": "大塘-地铁站",
+                "end": "海珠湖公园",
+                "mode": "walk",
+                "start_time": "18:25",
+                "end_time": "18:36",
+                "cost": 0,
+                "distance": 0.96,
+                "price": 0
+              }
+            ],
+            "tickets": 2
+          },
+          {
+            "position": "广州北京路天字码头亚朵S酒店",
+            "type": "accommodation",
+            "price": 561,
+            "cost": 1122,
+            "start_time": "20:28",
+            "end_time": "24:00",
+            "transports": [
+              {
+                "start": "海珠湖公园",
+                "end": "大塘-地铁站",
+                "mode": "walk",
+                "start_time": "20:00",
+                "end_time": "20:11",
+                "cost": 0,
+                "distance": 0.96,
+                "price": 0
+              },
+              {
+                "start": "大塘-地铁站",
+                "end": "北京路-地铁站",
+                "mode": "metro",
+                "start_time": "20:11",
+                "end_time": "20:24",
+                "cost": 6,
+                "distance": 6.94,
+                "price": 3,
+                "tickets": 2
+              },
+              {
+                "start": "北京路-地铁站",
+                "end": "广州北京路天字码头亚朵S酒店",
+                "mode": "walk",
+                "start_time": "20:24",
+                "end_time": "20:28",
+                "cost": 0,
+                "distance": 0.4,
+                "price": 0
+              }
+            ],
+            "room_type": 1,
+            "rooms": 2
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "activities": [
+          {
+            "start_time": "07:42",
+            "end_time": "14:47",
+            "start": "广州南站",
+            "end": "成都东站",
+            "price": 800.12,
+            "cost": 1600.24,
+            "tickets": 2,
+            "transports": [
+              {
+                "start": "广州北京路天字码头亚朵S酒店",
+                "end": "北京路-地铁站",
+                "mode": "walk",
+                "start_time": "00:00",
+                "end_time": "00:04",
+                "cost": 0,
+                "distance": 0.4,
+                "price": 0
+              },
+              {
+                "start": "北京路-地铁站",
+                "end": "广州南站-地铁站",
+                "mode": "metro",
+                "start_time": "00:04",
+                "end_time": "00:32",
+                "cost": 10,
+                "distance": 14.39,
+                "price": 5,
+                "tickets": 2
+              },
+              {
+                "start": "广州南站-地铁站",
+                "end": "广州南站",
+                "mode": "walk",
+                "start_time": "00:32",
+                "end_time": "00:34",
+                "cost": 0,
+                "distance": 0.19,
+                "price": 0
+              }
+            ],
+            "TrainID": "G2942",
+            "type": "train"
+          }
+        ]
+      }
+    ],
+    "search_time_sec": 32.50631237030029,
+    "llm_inference_time_sec": 25.024638652801514,
+    "input_token_count": 16689,
+    "output_token_count": 3210,
+    "input_token_maxx": 2975,
+    "llm_rec_count": 15,
+    "llm_rec_format_error_count": 1,
+    "search_nodes": 4224,
+    "backtrack_count": 1402,
+    "constraints_validation_count": 1,
+    "commonsense_pass_count": 1,
+    "logical_pass_count": 1,
+    "all_constraints_pass": 1
+  },
+  "details": {
+    "arm": "official_nesy",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "native_success": true,
+    "worker_usage": {
+      "requests": 19,
+      "prompt_tokens": 16689,
+      "completion_tokens": 3210,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 7081,
+      "recorded_calls": 7081,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 1964890,
+      "stored_result_count": 6144,
+      "stored_result_bytes": 15253640,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 37.079462125002465,
+  "worker_exit_code": -15,
+  "uid": "h20241029143506461809",
+  "arm": "official_nesy",
+  "ledger": {
+    "api_attempts": 19,
+    "prompt_bytes": 67382,
+    "prompt_tokens": 16689,
+    "completion_tokens": 3210,
+    "cache_hit_tokens": 7552,
+    "cache_miss_tokens": 9137,
+    "unknown_usage_requests": 0
+  }
+}

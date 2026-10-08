@@ -1,0 +1,516 @@
+{
+  "type": "result",
+  "status": "completed",
+  "plan": {
+    "people_number": 4,
+    "start_city": "苏州",
+    "target_city": "杭州",
+    "itinerary": [
+      {
+        "day": 1,
+        "activities": [
+          {
+            "type": "train",
+            "start_time": "07:15",
+            "end_time": "08:56",
+            "start": "苏州站",
+            "end": "杭州东站",
+            "TrainID": "G7503",
+            "price": 78.65,
+            "cost": 78.65,
+            "tickets": 4,
+            "transports": []
+          },
+          {
+            "type": "accommodation",
+            "position": "浙江省人民大会堂宾馆",
+            "start_time": "09:00",
+            "end_time": "09:24",
+            "room_type": 2,
+            "rooms": 2,
+            "price": 486,
+            "cost": 486,
+            "transports": [
+              {
+                "start": "杭州东站",
+                "end": "火车东站东广场",
+                "mode": "walk",
+                "start_time": "09:00",
+                "end_time": "09:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              },
+              {
+                "start": "火车东站东广场",
+                "end": "武林门",
+                "mode": "metro",
+                "start_time": "09:06",
+                "end_time": "09:18",
+                "price": 3,
+                "cost": 3,
+                "distance": 0,
+                "tickets": 4
+              },
+              {
+                "start": "武林门",
+                "end": "浙江省人民大会堂宾馆",
+                "mode": "walk",
+                "start_time": "09:18",
+                "end_time": "09:24",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.65
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "灵隐寺",
+            "start_time": "10:45",
+            "end_time": "12:00",
+            "price": 0,
+            "cost": 0,
+            "tickets": 4,
+            "transports": [
+              {
+                "start": "浙江省人民大会堂宾馆",
+                "end": "武林门",
+                "mode": "walk",
+                "start_time": "10:00",
+                "end_time": "10:08",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.65
+              },
+              {
+                "start": "武林门",
+                "end": "古墩路",
+                "mode": "metro",
+                "start_time": "10:08",
+                "end_time": "10:20",
+                "price": 3,
+                "cost": 3,
+                "distance": 0,
+                "tickets": 4
+              },
+              {
+                "start": "古墩路",
+                "end": "灵隐寺",
+                "mode": "walk",
+                "start_time": "10:20",
+                "end_time": "10:42",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.12
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "position": "金猪",
+            "start_time": "12:50",
+            "end_time": "13:30",
+            "price": 62,
+            "cost": 62,
+            "transports": [
+              {
+                "start": "灵隐寺",
+                "end": "古墩路",
+                "mode": "walk",
+                "start_time": "12:00",
+                "end_time": "12:22",
+                "price": 0,
+                "cost": 0,
+                "distance": 2.12
+              },
+              {
+                "start": "古墩路",
+                "end": "吴山广场",
+                "mode": "metro",
+                "start_time": "12:22",
+                "end_time": "12:34",
+                "price": 3,
+                "cost": 3,
+                "distance": 0,
+                "tickets": 4
+              },
+              {
+                "start": "吴山广场",
+                "end": "金猪",
+                "mode": "walk",
+                "start_time": "12:34",
+                "end_time": "12:47",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.82
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "雷峰塔",
+            "start_time": "13:30",
+            "end_time": "14:30",
+            "price": 0,
+            "cost": 0,
+            "tickets": 4,
+            "transports": [
+              {
+                "start": "金猪",
+                "end": "雷峰塔",
+                "mode": "walk",
+                "start_time": "13:30",
+                "end_time": "13:30",
+                "price": 0,
+                "cost": 0,
+                "distance": 0
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "岳王庙景区",
+            "start_time": "15:00",
+            "end_time": "16:30",
+            "price": 25,
+            "cost": 25,
+            "tickets": 4,
+            "transports": [
+              {
+                "start": "雷峰塔",
+                "end": "吴山广场",
+                "mode": "walk",
+                "start_time": "14:30",
+                "end_time": "14:42",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.82
+              },
+              {
+                "start": "吴山广场",
+                "end": "黄龙洞",
+                "mode": "metro",
+                "start_time": "14:42",
+                "end_time": "14:54",
+                "price": 2,
+                "cost": 2,
+                "distance": 0,
+                "tickets": 4
+              },
+              {
+                "start": "黄龙洞",
+                "end": "岳王庙景区",
+                "mode": "walk",
+                "start_time": "14:54",
+                "end_time": "15:00",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.75
+              }
+            ]
+          },
+          {
+            "type": "accommodation",
+            "position": "浙江省人民大会堂宾馆",
+            "start_time": "17:00",
+            "end_time": "24:00",
+            "room_type": 2,
+            "rooms": 2,
+            "price": 486,
+            "cost": 486,
+            "transports": [
+              {
+                "start": "岳王庙景区",
+                "end": "黄龙洞",
+                "mode": "walk",
+                "start_time": "17:00",
+                "end_time": "17:06",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.75
+              },
+              {
+                "start": "黄龙洞",
+                "end": "武林门",
+                "mode": "metro",
+                "start_time": "17:06",
+                "end_time": "17:12",
+                "price": 2,
+                "cost": 2,
+                "distance": 0,
+                "tickets": 4
+              },
+              {
+                "start": "武林门",
+                "end": "浙江省人民大会堂宾馆",
+                "mode": "walk",
+                "start_time": "17:12",
+                "end_time": "17:18",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.65
+              }
+            ]
+          },
+          {
+            "type": "dinner",
+            "position": "大牌大·融合杭帮菜",
+            "start_time": "18:00",
+            "end_time": "19:00",
+            "price": 69,
+            "cost": 69,
+            "transports": [
+              {
+                "start": "浙江省人民大会堂宾馆",
+                "end": "大牌大·融合杭帮菜",
+                "mode": "walk",
+                "start_time": "18:00",
+                "end_time": "18:00",
+                "price": 0,
+                "cost": 0,
+                "distance": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "activities": [
+          {
+            "type": "attraction",
+            "position": "胡雪岩故居",
+            "start_time": "09:00",
+            "end_time": "11:00",
+            "price": 20,
+            "cost": 20,
+            "tickets": 4,
+            "transports": [
+              {
+                "start": "浙江省人民大会堂宾馆",
+                "end": "武林门",
+                "mode": "walk",
+                "start_time": "08:30",
+                "end_time": "08:38",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.65
+              },
+              {
+                "start": "武林门",
+                "end": "城站",
+                "mode": "metro",
+                "start_time": "08:38",
+                "end_time": "08:44",
+                "price": 2,
+                "cost": 2,
+                "distance": 0,
+                "tickets": 4
+              },
+              {
+                "start": "城站",
+                "end": "胡雪岩故居",
+                "mode": "walk",
+                "start_time": "08:44",
+                "end_time": "08:46",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.23
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "钱王祠",
+            "start_time": "11:10",
+            "end_time": "12:00",
+            "price": 15,
+            "cost": 15,
+            "tickets": 4,
+            "transports": [
+              {
+                "start": "胡雪岩故居",
+                "end": "城站",
+                "mode": "walk",
+                "start_time": "11:00",
+                "end_time": "11:02",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.23
+              },
+              {
+                "start": "城站",
+                "end": "定安路",
+                "mode": "metro",
+                "start_time": "11:02",
+                "end_time": "11:06",
+                "price": 2,
+                "cost": 2,
+                "distance": 0,
+                "tickets": 4
+              },
+              {
+                "start": "定安路",
+                "end": "钱王祠",
+                "mode": "walk",
+                "start_time": "11:06",
+                "end_time": "11:08",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.4
+              }
+            ]
+          },
+          {
+            "type": "lunch",
+            "position": "杭三姐妹",
+            "start_time": "12:00",
+            "end_time": "13:00",
+            "price": 74,
+            "cost": 74,
+            "transports": [
+              {
+                "start": "钱王祠",
+                "end": "杭三姐妹",
+                "mode": "walk",
+                "start_time": "12:00",
+                "end_time": "12:00",
+                "price": 0,
+                "cost": 0,
+                "distance": 0
+              }
+            ]
+          },
+          {
+            "type": "attraction",
+            "position": "六和塔",
+            "start_time": "13:30",
+            "end_time": "16:00",
+            "price": 20,
+            "cost": 20,
+            "tickets": 4,
+            "transports": [
+              {
+                "start": "杭三姐妹",
+                "end": "定安路",
+                "mode": "walk",
+                "start_time": "13:00",
+                "end_time": "13:04",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.4
+              },
+              {
+                "start": "定安路",
+                "end": "水澄桥",
+                "mode": "metro",
+                "start_time": "13:04",
+                "end_time": "13:16",
+                "price": 3,
+                "cost": 3,
+                "distance": 0,
+                "tickets": 4
+              },
+              {
+                "start": "水澄桥",
+                "end": "六和塔",
+                "mode": "walk",
+                "start_time": "13:16",
+                "end_time": "13:28",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.26
+              }
+            ]
+          },
+          {
+            "type": "train",
+            "start_time": "18:28",
+            "end_time": "19:53",
+            "start": "杭州东站",
+            "end": "苏州北站",
+            "TrainID": "G1378",
+            "price": 78.65,
+            "cost": 78.65,
+            "tickets": 4,
+            "transports": [
+              {
+                "start": "六和塔",
+                "end": "水澄桥",
+                "mode": "walk",
+                "start_time": "16:00",
+                "end_time": "16:12",
+                "price": 0,
+                "cost": 0,
+                "distance": 1.26
+              },
+              {
+                "start": "水澄桥",
+                "end": "火车东站东广场",
+                "mode": "metro",
+                "start_time": "16:12",
+                "end_time": "16:36",
+                "price": 4,
+                "cost": 4,
+                "distance": 0,
+                "tickets": 4
+              },
+              {
+                "start": "火车东站东广场",
+                "end": "杭州东站",
+                "mode": "walk",
+                "start_time": "16:36",
+                "end_time": "16:43",
+                "price": 0,
+                "cost": 0,
+                "distance": 0.48
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "details": {
+    "arm": "official_react",
+    "sandbox_digest": "94639a83525890cd705fdda6ca38aefaa1a32f2d1d1d3c483660f94df89f1a03",
+    "worker_usage": {
+      "requests": 55,
+      "prompt_tokens": 1244318,
+      "completion_tokens": 6308,
+      "authoritative_ledger": "parent_broker"
+    },
+    "tool_trace": {
+      "total_calls": 19,
+      "recorded_calls": 19,
+      "omitted_calls": 0,
+      "omitted_results": 0,
+      "truncated": false,
+      "trace_bytes": 5144,
+      "stored_result_count": 19,
+      "stored_result_bytes": 89657,
+      "audit_errors": 0,
+      "finalized": true,
+      "limits": {
+        "trace_bytes": 8388608,
+        "records": 10000,
+        "single_result_bytes": 1048576,
+        "total_blob_bytes": 16777216
+      }
+    }
+  },
+  "elapsed_seconds": 54.40138804200251,
+  "worker_exit_code": -15,
+  "uid": "h20241029143518931601",
+  "arm": "official_react",
+  "ledger": {
+    "api_attempts": 55,
+    "prompt_bytes": 3752519,
+    "prompt_tokens": 1244318,
+    "completion_tokens": 6308,
+    "cache_hit_tokens": 1229184,
+    "cache_miss_tokens": 15134,
+    "unknown_usage_requests": 0
+  }
+}
