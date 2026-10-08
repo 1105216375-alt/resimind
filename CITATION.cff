@@ -5,11 +5,11 @@ title: ResiMind
 authors:
   - alias: "1105216375-alt"
     website: "https://github.com/1105216375-alt"
-version: 0.6.0
+version: 0.7.0
 date-released: "2026-10-08"
 url: "https://github.com/1105216375-alt/resimind"
 repository-code: "https://github.com/1105216375-alt/resimind"
 license: MIT
 abstract: >-
-  A neuro-symbolic Agent architecture for customer support, mathematics, engineering, and other
+  A neuro-symbolic Agent architecture for planning, customer support, mathematics, engineering, and other
   structured tasks, using independent verification and residual-driven reasoning.

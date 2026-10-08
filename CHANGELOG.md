@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0 — 2026-10-08
+
+- Add open-ended day planning: freely compose venues, order, times and transport, then independently check complete route feasibility, budget, walking, opening windows, category coverage, and indoor requirements.
+- Accept different valid itineraries instead of matching a stored answer. Keep subjective rationale outside checked facts and unknown transport data unresolved.
+- Add installed planning scenarios, a live DeepSeek entry point, and a trace-derived SVG that clearly labels its offline fixture.
+- Lead the home pages with direct use of the standalone ResiMind Agent. Move LangGraph into the optional-integrations section; the core and domains remain independent of it.
+- Publish actual live planning and preference-change records separately from scripted demonstrations; see the validation record for precise scope.
+
 ## 0.6.0 — 2026-10-08
 
 - Add a customer-support Agent using synthetic ecommerce orders and a fictional merchant return policy, with an independently checked recommendation.

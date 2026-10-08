@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import json
+from dataclasses import replace
 from pathlib import Path
 
 from resimind import Task
-from resimind.domains import customer_support, optimization
+from resimind.domains import customer_support, optimization, planning
 
 
 def main() -> None:
@@ -27,6 +28,12 @@ def main() -> None:
             agent = optimization.build_agent(optimization.demo_problem(), complete=complete)
         elif task["domain"] == customer_support.DOMAIN:
             agent = customer_support.build_agent(customer_support.demo_case(record["scenario"]), complete=complete)
+        elif task["domain"] == planning.DOMAIN:
+            if record["scenario"] == "coffee-required":
+                problem = replace(planning.demo_problem(), required_categories=("art", "meal", "coffee"))
+            else:
+                problem = planning.demo_problem(record["scenario"])
+            agent = planning.build_agent(problem, complete=complete)
         else:
             raise SystemExit(f"Unsupported archived domain: {task['domain']}")
         result = agent.run(

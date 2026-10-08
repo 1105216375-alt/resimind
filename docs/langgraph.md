@@ -1,4 +1,9 @@
-# A verification gate for LangGraph
+# Optional LangGraph connector
+
+ResiMind has its own standalone Agent runtime. LangGraph is an optional outer
+integration for applications that already use a graph workflow; it is not a
+dependency of the reasoning core or any domain adapter. For a direct Agent
+example, see [open-ended planning](open-planning.md).
 
 Put ResiMind between candidate generation and the next step of your workflow.
 The graph runs an existing ResiMind `Agent`, then routes to `verified_report`

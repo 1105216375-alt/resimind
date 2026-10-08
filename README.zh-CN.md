@@ -6,11 +6,11 @@
 
 模型提出候选，领域验证器检查。只有通过验证的事实才能提交；没完成的问题持续保留，验证反馈指导下一步提议。
 
-适合有明确、可执行检查的任务：客服业务规则、数学证明证书、工程方程，或你自己的结构化规则。沿用已有模型，为具体领域提供验证逻辑。
+适合有明确、可执行检查的任务：开放式方案规划、客服业务规则、数学证明证书、工程方程，或你自己的结构化规则。沿用已有模型，为具体领域提供验证逻辑。
 
-**Python 3.10+ · 核心零依赖 · 可选 DeepSeek、OpenAI 与 LangGraph 接入 · MIT · 实验版本 v0.6.0**
+**Python 3.10+ · 独立 Agent · 核心零依赖 · MIT · 实验版本 v0.7.0**
 
-[English](README.md) · [真实模型接入](docs/live-model.md) · [LangGraph](docs/langgraph.md) · [日常客服](docs/customer-support.md) · [数学证明](docs/constrained-optimization.md) · [桥梁案例](docs/continuous-bridge.md) · [架构](docs/architecture.md)
+[English](README.md) · [开放式规划](docs/open-planning.md) · [可选集成](#可选集成) · [日常客服](docs/customer-support.md) · [数学证明](docs/constrained-optimization.md) · [桥梁案例](docs/continuous-bridge.md) · [架构](docs/architecture.md)
 
 **项目发起者与原始发布者：[@1105216375-alt](https://github.com/1105216375-alt)。** [原始仓库](https://github.com/1105216375-alt/resimind) · [引用信息](CITATION.cff)
 
@@ -36,48 +36,57 @@ Windows PowerShell 的激活命令为 `.venv\Scripts\Activate.ps1`。安装时�
 [静态轨迹图](docs/assets/verification-demo.png)。动画回放来自实际执行的确定性示例，**不是真实模型运行录像**；验证与状态更新确实执行，第一次错误为有意构造。
 
 ```bash
+python -m resimind demo --domain planning
 python -m resimind demo --domain customer-support
 python -m resimind demo --domain bridge
 python -m resimind demo --json > audit.json
 ```
 
-## 接到你现有的工作流
+## 直接运行独立 Agent
 
-| 起点 | 得到什么 | 运行入口 |
-| --- | --- | --- |
-| 不配置模型 | 可复现的拒绝与证明轨迹 | `python -m resimind demo` |
-| DeepSeek | 真实模型提议，由同一优化验证器检查 | `python -m examples.deepseek_optimization` |
-| OpenAI Responses | 另一种真实模型回调 | `python -m examples.openai_optimization` |
-| LangGraph | 验证子图，未解决任务进入 `needs_review` | `python -m examples.langgraph_optimization` |
-
-三个 `examples.*` 命令需要在当前仓库运行。先安装可选依赖，并在本机配置模型：
-
-```bash
-python -m pip install '.[deepseek,langgraph]'
-# 先在本机环境中设置 DEEPSEEK_API_KEY 和 DEEPSEEK_MODEL。
-python -m examples.deepseek_optimization
-python -m examples.langgraph_optimization --live
-```
-
-真实模式会产生模型 API 费用；请求失败时不会自动换成离线答案。模型可能无法提交有效证书，任务会如实保留未决状态。模型选择、调用次数与响应 token 限制见[真实模型接入](docs/live-model.md)，实际验收范围见[验证记录](docs/validation.md)。OpenAI 模式使用 `.[openai]`、`OPENAI_API_KEY` 与 `OPENAI_MODEL`。
-
-**真实 DeepSeek 实测：** `deepseek-flash` 调用 4 次，修正被拒绝的提议后提交了三阶段有效证书，LangGraph 随后放行核验报告。此前一次 `deepseek-chat` 运行停滞，保留在 `needs_review`。[查看全部三次准备期记录，包括失败记录 →](docs/evidence/README.md) 这是同一道题上的接入验收，不是准确率评测。
-
-已有 LangGraph 工作流时，可以加入验证子图：
+ResiMind 自己完成取证、提议、验证、提交事实与重建残差的推理循环，可以直接调用：
 
 ```python
 from resimind import Task
-from resimind.domains.optimization import DOMAIN, build_agent, demo_problem
-from resimind.integrations.langgraph import build_verification_graph
+from resimind.domains.planning import DOMAIN, build_agent, demo_problem, verified_plan
 
-# 这段可运行示例使用离线提议器；传入 complete=your_model 可改用真实模型。
-workflow = build_verification_graph(build_agent(demo_problem()))
-outcome = workflow.invoke({"task": Task("example", "Prove the global minimum.", DOMAIN)})
-print(outcome["branch"])  # verified_report；未解决时为 needs_review
-print(outcome["report"])  # 只含正式事实；未解决时为 None
+agent = build_agent(demo_problem())  # 离线演示；传入 complete=your_model 可使用神经模型。
+result = agent.run(Task("day-out", "Plan a relaxed day with art and a meal.", DOMAIN))
+run = result.run_result
+if run.status == "solved" and run.residual.solved:
+    print(verified_plan(result))
+else:
+    print("仍未解决：", run.residual.pending)
 ```
 
-[查看如何嵌入已有工作流 →](docs/langgraph.md)。验证器只覆盖配置的领域规则，任意自然语言结论仍需要另外定义检查方式。
+模型 SDK 与外部工作流连接器均属于[可选集成](#可选集成)。独立 Agent 和内置领域演示不需要安装 LangGraph。
+
+## 开放式规划：答案可以多样，约束必须满足
+
+![实际离线规划轨迹：步行超限被拒绝，修正交通后核验行程](docs/assets/planning-demo.svg)
+
+“帮我安排轻松的一天，想看艺术、吃顿饭，偏好安静和咖啡。”这类请求有很多合理方案。模型可以从给定的虚构场所资料中自由选择地点、顺序、时间和交通方式，并在提议中解释取舍。
+
+验证器独立检查预算、开放时间、停留时长、交通与返回时间、必需活动、步行上限和室内要求，允许不同的可行方案。再有说服力的理由，也不能替代交通证据或消除时间冲突。
+
+| 部分 | 负责什么 |
+| --- | --- |
+| 神经提议 | 根据需求组合行程，提出取舍与偏好建议。 |
+| 符号验证 | 按实际选择的地点、路线和明确约束重新核算可行性。 |
+| 残差反馈 | 明确哪项冲突或证据缺失，供下一次提议修正。 |
+| 核验结果 | 给定数据下可行的行程；“好不好玩”等主观评价不冒充已验证事实。 |
+
+```bash
+python -m resimind demo --domain planning
+python -m resimind demo --domain planning --scenario rain
+python -m resimind demo --domain planning --scenario missing-travel
+```
+
+默认离线场景展示纠错、室内行程和交通证据未决；真实模式让 DeepSeek 自行组合方案。这里核验明确条件下的可行性，不声称找到最有趣或全局最优的行程；场所资料为合成数据，不含真实营业或路况查询。
+
+[查看开放式规划的完整规则与真实模型入口 →](docs/open-planning.md)
+
+**真实需求变更记录：**先生成有效行程，再把“喝咖啡”改成必选。新约束拒绝旧方案后，DeepSeek 将“画廊 → 面馆 → 阅览室”改为“画廊 → 阅览室 → 咖啡馆”，重新通过预算与时间检查。[查看真实提议、反馈与新行程](docs/evidence/open-planning/README.md)。此前两个初始真实规划均第一次通过，未把它们包装成纠错案例。
 
 ## 日常客服：先核实退款条件，再给处理建议
 
@@ -158,6 +167,7 @@ python -m examples.continuous_bridge --json
 
 | 适配器 | 独立检查 | 完成条件 |
 | --- | --- | --- |
+| [开放式规划](src/resimind/domains/planning.py) | 预算、时间窗口、路线衔接、活动覆盖、步行与室内要求 | 有证据支持的可行行程；主观偏好不冒充已验证结论 |
 | [售后客服](src/resimind/domains/customer_support.py) | 订单证据绑定、配置的业务规则、精确退款金额 | 核验后的处理建议或人工复核结论；缺证据时保持待办 |
 | [约束优化](src/resimind/domains/optimization.py) | 精确分解、可行性、KKT、多项式证书 | 全局最优性证书核验完成 |
 | [连续梁桥](src/resimind/domains/bridge.py) | 平衡、曲率与协调条件、全部工况、弯矩极值 | 工况包络与给定限值比较完整 |
@@ -215,6 +225,28 @@ flowchart LR
 
 通过 `Agent`、`Task`、注册的 `EvidenceTool` 和可选的 `RouteMemory` 装配。核心模块不导入数学或工程适配器。可沿用[适配器指南](docs/adapters.md)和[领域契约](docs/domain-contract.md)，接入自己的计算、仿真、规则检查或证明工具。
 
+## 可选集成
+
+独立的 ResiMind Agent 负责提议、验证和残差反馈。按现有业务需要选择外部接入：
+
+| 集成 | 用途 | 可选依赖 |
+| --- | --- | --- |
+| [DeepSeek](docs/live-model.md) | 向任意领域构建器提供真实神经模型提议。 | `.[deepseek]` |
+| [OpenAI Responses](docs/live-model.md#optional-openai-responses-path) | 另一种模型回调。 | `.[openai]` |
+| [LangGraph](docs/langgraph.md) | 从已有图工作流调用 ResiMind，按完成或未决状态分流。 | `.[langgraph]` |
+
+从仓库目录运行真实规划：
+
+```bash
+python -m pip install '.[deepseek]'
+# 先在本机环境中设置 DEEPSEEK_API_KEY 和 DEEPSEEK_MODEL。
+python -m examples.open_planning --live --json
+```
+
+真实调用可能产生费用，也可能无法完成任务。调用次数与超时说明见模型接入文档；请求失败时不会换成离线答案。[验证记录](docs/validation.md)区分实际联网记录与模拟传输测试。
+
+**LangGraph 是可选的外围连接器。** ResiMind 核心及全部领域适配器均可独立运行。已有 LangGraph 项目时，可使用[验证子图](docs/langgraph.md)取得已核验事实或未决义务；连接器本身不增加领域验证规则。
+
 ## 更多示例与测试
 
 ```bash
@@ -242,7 +274,7 @@ ResiMind 由 [@1105216375-alt](https://github.com/1105216375-alt) 发起并首�
 
 使用或介绍 ResiMind 时，欢迎注明项目来源并链接原始仓库。建议引用：
 
-> 1105216375-alt. ResiMind（版本 0.6.0），2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind（版本 0.7.0），2026. https://github.com/1105216375-alt/resimind
 
 [CITATION.cff](CITATION.cff) 提供机器可读的引用信息。引用属于倡议，不是新增的许可条件。项目采用 [MIT License](LICENSE)，允许商用；软件副本或实质部分须保留版权和许可声明。
 

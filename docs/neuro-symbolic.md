@@ -15,6 +15,7 @@ ResiMind separates **model-generated proposals** from **independently checked fa
 | Optimization certificates | [Optimization adapter](../src/resimind/domains/optimization.py) | Check exact LDLᵀ, feasibility, KKT, and a global-optimality polynomial certificate independently of active-set search |
 | Continuous bridge | [Bridge adapter](../src/resimind/domains/bridge.py) | Check curvature, equilibrium, support conditions, rotation compatibility, and complete load-case envelopes |
 | Customer support | [Return adapter](../src/resimind/domains/customer_support.py) | Check a scoped order snapshot, fictional merchant policy, exact remaining refund amount, and a bounded next-step recommendation |
+| Open-ended planning | [Planning adapter](../src/resimind/domains/planning.py) | Accept different feasible itineraries by checking their selected venues, route legs, time windows, cost, walking, and required activities; keep subjective rationale unverified |
 | State transition | [`Engine`](../src/resimind/runtime.py) and [`Verdict`](../src/resimind/core.py) | Bind verification to candidate, state, and inputs; commit only verifier-produced facts after transition checks |
 | Residual reconstruction | `Domain.rebuild(state)` | Derive outstanding goals, unknowns, and hard constraints from committed facts |
 | Reviewed routes | [`RouteMemory`](../src/resimind/memory.py) | Reuse reviewed, applicable action sequences while requiring verification on current inputs |
@@ -29,7 +30,7 @@ The reference adapters accept a callable with this contract:
 complete(prompt: str) -> str
 ```
 
-Supply it as `build_agent(problem, complete=your_complete)`. Choose `ReturnCase(...)` for [customer support](customer-support.md), `QuadraticProgram(...)` or `ContinuousBridgeProblem(...)` for mathematics and engineering; `LinearEquation(a, b, c)` and `AxialBarProblem(...)` are the smaller introductory adapters. Wrap your existing model client in `your_complete`, including its credentials, network timeouts, and resource limits. The core requires no model SDK. Optional [DeepSeek/OpenAI callbacks](live-model.md) and a [LangGraph verification subgraph](langgraph.md) provide concrete integration paths.
+Supply it as `build_agent(problem, complete=your_complete)`. Choose `TripProblem(...)` for [open-ended planning](open-planning.md), `ReturnCase(...)` for [customer support](customer-support.md), `QuadraticProgram(...)` or `ContinuousBridgeProblem(...)` for mathematics and engineering; `LinearEquation(a, b, c)` and `AxialBarProblem(...)` are the smaller introductory adapters. Wrap your existing model client in `your_complete`, including its credentials, network timeouts, and resource limits. The standalone Agent owns the loop and requires no model SDK or workflow framework. Optional [DeepSeek/OpenAI callbacks](live-model.md) and a [LangGraph connector](langgraph.md) provide integration paths.
 
 The prompt includes task instructions, allowed actions, current facts, registered input evidence, residual obligations, the candidate JSON schema, and the most recent feedback. Return **one JSON object** containing only `id`, `action`, `target`, `claim`, and `refs`, or return the JSON literal `null` when there is no candidate. The domain supplies the allowed action names and exact claim format. For example, the first step of the bundled math demo can propose:
 
@@ -61,6 +62,8 @@ A rejected candidate leaves facts and residual unchanged. Missing prerequisites 
 
 The math demo deliberately proposes `x=7/3`, receives `solution_claim_mismatch`, and only then proposes `x=4/3`. It must still check `5/3=5/3` by substitution. The engineering demo's offline proposer likewise changes its incorrect stress claim after receiving `stress_claim_mismatch`. These are executable feedback paths, not prewritten text traces. Their corrections are scripted for demonstration; they do not measure a model's ability to recover from mistakes.
 
+The [recorded live planning revision](evidence/open-planning/README.md) illustrates a different kind of feedback: a previously accepted model-generated plan becomes unsuitable after coffee is added as a required activity. The new verifier run rejects that old candidate; a real model call then changes the venue selection and order. The earlier answer was valid for the earlier request. This tests adaptation to an explicit requirement change, not a fixed-answer puzzle or a comparative accuracy benchmark.
+
 “Residual” here means **unfinished reasoning obligations**, not a residual connection in a neural network or a numerical error norm. A domain may add explicit numerical error obligations, but the core does not infer them.
 
 ## What is and is not included
@@ -82,7 +85,7 @@ Model proposals, tool inputs, and verification are distinct trust boundaries. Co
 ResiMind 的神经符号体现在三个可检查的层次：
 
 1. **神经提议入口：** `ModelProposer` 接受实际模型的 `complete(prompt) -> str` 回调；默认示例用确定性的离线逻辑替代它，不携带训练权重。
-2. **符号验证实现：** 客服适配器检查订单证据、业务规则与退款金额；数学适配器检查精确方程与优化证书；工程适配器检查前提、量纲、应力或连续梁的平衡、协调及工况完整性。正式事实由验证器产生。
+2. **符号验证实现：** 开放式规划允许多个方案，通过明确的预算、时间与路线规则核验；客服适配器检查订单证据、业务规则与退款金额；数学适配器检查精确方程与优化证书；工程适配器检查前提、量纲、应力或连续梁的平衡、协调及工况完整性。正式事实由验证器产生。
 3. **残差反馈闭环：** 未完成的目标、未知项和硬约束从正式事实重建；拒绝原因真实返回下一轮提议。得到候选答案并不等于验证义务全部完成。
 
 领域构建器支持 `build_agent(problem, complete=your_complete)`，接入方将现有模型 SDK 包成回调即可。回调输出需符合当前任务声明的动作、目标、claim 格式与证据引用，不能凭 `verified` 字段自行通过验证。

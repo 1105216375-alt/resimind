@@ -6,11 +6,11 @@
 
 Your model proposes a step. Your domain verifier checks it. Only accepted facts enter the committed state; unfinished work stays visible and verifier feedback guides the next proposal.
 
-Use ResiMind for tasks with explicit, executable checks: customer-service policies, mathematical certificates, engineering equations, or your own structured rules. Keep your model and supply the checks for your domain.
+Use ResiMind for tasks with explicit, executable checks: open-ended plans, customer-service policies, mathematical certificates, engineering equations, or your own structured rules. Keep your model and supply the checks for your domain.
 
-**Python 3.10+ · Zero-dependency core · Optional DeepSeek, OpenAI & LangGraph integrations · MIT · Experimental v0.6.0**
+**Python 3.10+ · Standalone Agent · Zero-dependency core · MIT · Experimental v0.7.0**
 
-[中文](README.zh-CN.md) · [Live model](docs/live-model.md) · [LangGraph](docs/langgraph.md) · [Customer support](docs/customer-support.md) · [Math proof](docs/constrained-optimization.md) · [Bridge case](docs/continuous-bridge.md) · [Architecture](docs/architecture.md)
+[中文](README.zh-CN.md) · [Open-ended planning](docs/open-planning.md) · [Optional integrations](#optional-integrations) · [Customer support](docs/customer-support.md) · [Math proof](docs/constrained-optimization.md) · [Bridge case](docs/continuous-bridge.md) · [Architecture](docs/architecture.md)
 
 **Project creator and original publisher: [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
 
@@ -36,48 +36,57 @@ The optimization demo rejects an infeasible candidate without changing the commi
 [Static trace image](docs/assets/verification-demo.png). This replay comes from the executable deterministic fixture, **not a live model run**. The verifier and state transitions really execute; the first mistake is deliberately scripted.
 
 ```bash
+python -m resimind demo --domain planning
 python -m resimind demo --domain customer-support
 python -m resimind demo --domain bridge
 python -m resimind demo --json > audit.json
 ```
 
-## Connect it to your workflow
+## Use the standalone Agent
 
-| Start with | What it adds | Run it |
-| --- | --- | --- |
-| No model credentials | Reproducible rejection and proof trace | `python -m resimind demo` |
-| DeepSeek | Real model proposals checked by the same optimizer verifier | `python -m examples.deepseek_optimization` |
-| OpenAI Responses | An alternative real model callback | `python -m examples.openai_optimization` |
-| LangGraph | A verification subgraph that routes unresolved work to `needs_review` | `python -m examples.langgraph_optimization` |
-
-The three `examples.*` commands run from this checkout. Install optional dependencies and configure a model before a live run:
-
-```bash
-python -m pip install '.[deepseek,langgraph]'
-# Set DEEPSEEK_API_KEY and DEEPSEEK_MODEL in your local environment first.
-python -m examples.deepseek_optimization
-python -m examples.langgraph_optimization --live
-```
-
-Live mode makes billable model requests. It never substitutes an offline answer when a request fails. A run may remain unresolved; it does not promise the model will produce a valid certificate. See the [live model guide](docs/live-model.md) for model selection, bounded calls and response tokens, and the [validation record](docs/validation.md) for what was actually tested. OpenAI uses `.[openai]`, `OPENAI_API_KEY`, and `OPENAI_MODEL`.
-
-**A real DeepSeek run:** `deepseek-flash` made 4 calls, corrected a rejected proposal, and supplied all three accepted certificates. LangGraph then released the verified report. An earlier `deepseek-chat` run stalled and remained in `needs_review`. [Inspect all three preparation runs, including failures →](docs/evidence/README.md) These are smoke tests on one problem, not an accuracy benchmark.
-
-Already using LangGraph? Add a verification subgraph:
+ResiMind owns the reasoning loop: collect evidence, propose, verify, commit facts, and rebuild remaining obligations. Run it directly:
 
 ```python
 from resimind import Task
-from resimind.domains.optimization import DOMAIN, build_agent, demo_problem
-from resimind.integrations.langgraph import build_verification_graph
+from resimind.domains.planning import DOMAIN, build_agent, demo_problem, verified_plan
 
-# Offline proposer for this runnable example; pass complete=your_model for live proposals.
-workflow = build_verification_graph(build_agent(demo_problem()))
-outcome = workflow.invoke({"task": Task("example", "Prove the global minimum.", DOMAIN)})
-print(outcome["branch"])  # verified_report, or needs_review when unresolved
-print(outcome["report"])  # committed facts only; None when unresolved
+agent = build_agent(demo_problem())  # Offline; inject complete=your_model for neural proposals.
+result = agent.run(Task("day-out", "Plan a relaxed day with art and a meal.", DOMAIN))
+run = result.run_result
+if run.status == "solved" and run.residual.solved:
+    print(verified_plan(result))
+else:
+    print("Still unresolved:", run.residual.pending)
 ```
 
-[Connect this subgraph to an existing graph →](docs/langgraph.md). The verifier covers the configured domain; adding it does not turn arbitrary prose into a proved conclusion.
+Model SDKs and external workflow connectors are [optional integrations](#optional-integrations). No LangGraph installation is needed for this Agent or the built-in domain demos.
+
+## Open-ended planning: many answers, explicit constraints
+
+![Actual offline planning trace: reject an excessive walk, then verify the revised itinerary](docs/assets/planning-demo.svg)
+
+“Plan a relaxed day with art and a meal. I like quiet places and coffee.” There are many reasonable itineraries. The model chooses places, order, times, and transport from a supplied fictional catalog; it can explain its preferences in a proposal.
+
+The verifier independently checks the budget, opening windows, visit durations, travel and return timing, required activities, walking limit, and any indoor-only requirement. It accepts different feasible plans. A plausible explanation cannot override an impossible connection or an unknown travel time.
+
+| Part | Responsibility |
+| --- | --- |
+| Neural proposal | Compose an itinerary and suggest trade-offs based on the brief. |
+| Symbolic verification | Recompute feasibility using the selected places, routes, and explicit constraints. |
+| Residual feedback | Explain the rejected or missing check so the next proposal can change. |
+| Checked result | A feasible plan under the supplied data; subjective appeal stays unverified. |
+
+```bash
+python -m resimind demo --domain planning
+python -m resimind demo --domain planning --scenario rain
+python -m resimind demo --domain planning --scenario missing-travel
+```
+
+These offline scenarios demonstrate correction, indoor planning, and unresolved transport evidence. The live example lets DeepSeek compose its own itinerary. Neither mode proves that a plan is the most enjoyable or globally best; the catalog is synthetic and contains no live venue or traffic data.
+
+[Inspect the open-ended planning contract and live entry point →](docs/open-planning.md)
+
+**Recorded live revision:** coffee became mandatory after a valid plan had been generated. The new constraint rejected that older plan; DeepSeek then changed “gallery → noodles → reading room” to “gallery → reading room → cafe,” passing the same budget and timing checks. [See the actual proposal, feedback, and revised plan](docs/evidence/open-planning/README.md). The two initial live planning requests each passed immediately; we do not label them as correction demonstrations.
 
 ## Customer support: check a refund before promising one
 
@@ -158,6 +167,7 @@ python -m examples.continuous_bridge --json
 
 | Adapter | Independent checks | Completion requires |
 | --- | --- | --- |
+| [Open-ended planning](src/resimind/domains/planning.py) | Budget, time windows, route continuity, visit coverage, walking and indoor requirements | Any feasible itinerary with grounded transport; subjective preferences stay unverified |
 | [Customer support](src/resimind/domains/customer_support.py) | Scoped order evidence, configured policy, exact refund arithmetic | A checked recommendation or human-review outcome; missing evidence stays open |
 | [Constrained optimization](src/resimind/domains/optimization.py) | Exact factorization, feasibility, KKT, polynomial certificate | A verified global optimum certificate |
 | [Continuous bridge](src/resimind/domains/bridge.py) | Equilibrium, curvature and compatibility, all load cases, moment extrema | Complete case envelopes and supplied-limit comparisons |
@@ -215,6 +225,28 @@ Implement three small interfaces:
 
 Assemble them with `Agent`, `Task`, registered `EvidenceTool` objects, and optional `RouteMemory`. The core does not import either reference domain. See the [adapter guide](docs/adapters.md) and [domain contract](docs/domain-contract.md) for connecting your own calculation, simulation, rule checker, or proof tool. These detailed guides are currently in Chinese; [neuro-symbolic.md](docs/neuro-symbolic.md) provides an English implementation map.
 
+## Optional integrations
+
+The standalone ResiMind Agent remains responsible for proposal, verification, and residual feedback. Add only the integration your application needs:
+
+| Integration | Purpose | Extra |
+| --- | --- | --- |
+| [DeepSeek](docs/live-model.md) | Supply real neural proposals to any domain builder. | `.[deepseek]` |
+| [OpenAI Responses](docs/live-model.md#optional-openai-responses-path) | Use an alternative model callback. | `.[openai]` |
+| [LangGraph](docs/langgraph.md) | Call ResiMind from an existing graph and route completed or unresolved results. | `.[langgraph]` |
+
+For live planning, run from a checkout:
+
+```bash
+python -m pip install '.[deepseek]'
+# Set DEEPSEEK_API_KEY and DEEPSEEK_MODEL in your local environment first.
+python -m examples.open_planning --live --json
+```
+
+Live calls can incur provider charges and can remain unresolved. The model guide documents request budgets and timeouts; there is no offline fallback after a failed live request. [Validation](docs/validation.md) distinguishes actual live records from simulated transport tests.
+
+**LangGraph is an optional outer connector.** The ResiMind core and all domain adapters run without it. Use its [verification subgraph](docs/langgraph.md) when integrating with an existing LangGraph project; it forwards checked facts or unresolved obligations and does not supply additional domain verification rules.
+
 ## More examples and checks
 
 ```bash
@@ -242,7 +274,7 @@ ResiMind was initiated and originally published by [@1105216375-alt](https://git
 
 If you use or discuss ResiMind, please cite the project and link to the original repository. Suggested citation:
 
-> 1105216375-alt. ResiMind (version 0.6.0), 2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind (version 0.7.0), 2026. https://github.com/1105216375-alt/resimind
 
 Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is appreciated, not an additional license condition. Commercial use is permitted under the [MIT License](LICENSE), which requires retaining its copyright and permission notices in copies or substantial portions of the software.
 

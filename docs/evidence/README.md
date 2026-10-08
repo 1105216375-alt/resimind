@@ -1,6 +1,6 @@
 # Live DeepSeek smoke runs — 2026-10-08
 
-This page records the v0.5.0 optimization runs. The v0.6.0 [customer-support run](customer-support/README.md) is documented separately and is also covered by the offline replay command below.
+The v0.7.0 [open-ended planning and preference revision](open-planning/README.md) records are documented separately. This page records the v0.5.0 optimization runs. The v0.6.0 [customer-support run](customer-support/README.md) is documented separately and is also covered by the offline replay command below.
 
 These are the three live generation attempts made while preparing v0.5.0, in order. They use only the repository's synthetic three-variable quadratic program. Each JSON contains the actual candidate/verification audit and provider-reported usage. They do not contain API keys, private project data, provider reasoning traces, or full HTTP envelopes. These developer-recorded logs are not a third-party attestation or an accuracy benchmark.
 

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="432" viewBox="0 0 1100 432" role="img" aria-labelledby="title desc">
+<title id="title">ResiMind: open-ended planning with independent verification</title>
+<desc id="desc">Actual offline fixture with synthetic places. A proposal exceeds the walking limit and is rejected without changing facts. Revised transport yields a checked feasible itinerary. Displayed measurements come from the verifier trace and checked output.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif}</style>
+<rect x="0" y="0" width="1100" height="432" rx="0" fill="#0b1220"/>
+<text x="32" y="33" font-size="14" fill="#68deea" text-anchor="start" font-weight="700">RESIMIND / OPEN PLANNING</text>
+<rect x="700" y="14" width="368" height="29" rx="7" fill="#1d3044"/>
+<text x="884" y="33" font-size="12" fill="#68deea" text-anchor="middle" font-weight="700">OFFLINE FIXTURE · SYNTHETIC PLACES</text>
+<text x="32" y="82" font-size="31" fill="#f0f6ff" text-anchor="start" font-weight="700">Many valid plans. Every constraint checked.</text>
+<text x="32" y="115" font-size="17" fill="#93a8c2" text-anchor="start">Choose venues, timing and transport. Verify feasibility against the supplied snapshot.</text>
+<rect x="32" y="144" width="310" height="238" rx="12" fill="#131f31" stroke="#26364c"/>
+<text x="52" y="175" font-size="15" fill="#ff8190" text-anchor="start" font-weight="700">01  REJECT</text>
+<text x="52" y="209" font-size="17" fill="#f0f6ff" text-anchor="start" font-weight="700">A plausible all-walking day</text>
+<text x="52" y="250" font-size="29" fill="#ff8190" text-anchor="start" font-weight="700">50 min &gt; 45 min</text>
+<text x="52" y="275" font-size="15" fill="#93a8c2" text-anchor="start">Walking limit exceeded</text>
+<line x1="52" y1="293" x2="322" y2="293" stroke="#26364c"/>
+<text x="52" y="321" font-size="17" fill="#f0f6ff" text-anchor="start">State 0 → 0  |  facts 0 → 0</text>
+<text x="52" y="352" font-size="15" fill="#93a8c2" text-anchor="start">Remaining obligations: 3 → 3</text>
+<rect x="358" y="144" width="710" height="238" rx="12" fill="#131f31" stroke="#26364c"/>
+<text x="380" y="175" font-size="15" fill="#69e0b2" text-anchor="start" font-weight="700">02  REVISE TRANSPORT + ACCEPT</text>
+<text x="380" y="209" font-size="15" fill="#68deea" text-anchor="start" font-weight="700">01</text>
+<text x="417" y="209" font-size="17" fill="#f0f6ff" text-anchor="start">Paper Lantern Gallery</text>
+<text x="1046" y="209" font-size="16" fill="#93a8c2" text-anchor="end">10:00–11:00</text>
+<text x="380" y="238" font-size="15" fill="#68deea" text-anchor="start" font-weight="700">02</text>
+<text x="417" y="238" font-size="17" fill="#f0f6ff" text-anchor="start">Little Bowl Noodles</text>
+<text x="1046" y="238" font-size="16" fill="#93a8c2" text-anchor="end">11:30–12:15</text>
+<text x="380" y="267" font-size="15" fill="#68deea" text-anchor="start" font-weight="700">03</text>
+<text x="417" y="267" font-size="17" fill="#f0f6ff" text-anchor="start">Maple Reading Room</text>
+<text x="1046" y="267" font-size="16" fill="#93a8c2" text-anchor="end">12:30–13:30</text>
+<rect x="380" y="292" width="215" height="69" rx="7" fill="#0d1726"/>
+<text x="392" y="315" font-size="11" fill="#93a8c2" text-anchor="start" font-weight="700">COST / BUDGET</text>
+<text x="392" y="345" font-size="21" fill="#69e0b2" text-anchor="start" font-weight="700">¥61 / ¥300</text>
+<rect x="605" y="292" width="215" height="69" rx="7" fill="#0d1726"/>
+<text x="617" y="315" font-size="11" fill="#93a8c2" text-anchor="start" font-weight="700">WALK / LIMIT</text>
+<text x="617" y="345" font-size="21" fill="#69e0b2" text-anchor="start" font-weight="700">22 / 45 min</text>
+<rect x="830" y="292" width="215" height="69" rx="7" fill="#0d1726"/>
+<text x="842" y="315" font-size="11" fill="#93a8c2" text-anchor="start" font-weight="700">RETURN / DEADLINE</text>
+<text x="842" y="345" font-size="21" fill="#69e0b2" text-anchor="start" font-weight="700">13:38 / 18:00</text>
+<text x="32" y="414" font-size="15" fill="#93a8c2" text-anchor="start">A checked feasible plan. Enjoyment and the “best trip” remain subjective.</text>
+</svg>

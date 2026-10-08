@@ -7,7 +7,7 @@ import json
 from typing import Sequence
 
 from .agent import AgentResult
-from .domains import bridge, customer_support, optimization
+from .domains import bridge, customer_support, optimization, planning
 
 
 def _trace(result: AgentResult) -> None:
@@ -59,25 +59,35 @@ def _customer_support_answer(result: AgentResult) -> None:
     print("No refund executed; no payment-arrival promise.")
 
 
+def _planning_answer(result: AgentResult) -> None:
+    print("Verified feasible itinerary under the supplied synthetic data:")
+    print(json.dumps(planning.verified_plan(result), ensure_ascii=False, indent=2))
+    print("Subjective rationale is not a verified fact. No booking executed.")
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """Return an exit code for console scripts and ``python -m resimind``."""
     parser = argparse.ArgumentParser(prog="resimind", description="Evidence-bound Agent reasoning with independent verification.")
     commands = parser.add_subparsers(dest="command", required=True)
     demo = commands.add_parser("demo", help="run an OFFLINE deterministic fixture, without a model or API key")
-    demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support"), default="optimization",
+    demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support", "planning"), default="optimization",
                       help="demonstration domain (default: optimization)")
-    demo.add_argument("--scenario", choices=("refund", "missing-delivery", "expired"),
-                      help="customer-support scenario (default: refund); requires --domain customer-support")
+    demo.add_argument("--scenario", choices=("refund", "missing-delivery", "expired", "day-out", "rain", "missing-travel"),
+                      help="customer-support: refund/missing-delivery/expired; planning: day-out/rain/missing-travel")
     demo.add_argument("--json", action="store_true", help="write only the complete JSON evidence/decision audit")
     args = parser.parse_args(argv)
-    if args.scenario is not None and args.domain != "customer-support":
-        parser.error("--scenario requires --domain customer-support")
+    scenarios = {"customer-support": ("refund", "missing-delivery", "expired"),
+                 "planning": ("day-out", "rain", "missing-travel")}
+    if args.scenario is not None and args.scenario not in scenarios.get(args.domain, ()):
+        parser.error("--scenario must match the selected customer-support or planning domain")
     if args.domain == "optimization":
         result = optimization.run_demo()
     elif args.domain == "bridge":
         result = bridge.run_demo()
-    else:
+    elif args.domain == "customer-support":
         result = customer_support.run_demo(args.scenario or "refund")
+    else:
+        result = planning.run_demo(args.scenario or "day-out")
     run = result.run_result
     solved = run.status == "solved" and run.residual.solved
     if args.json:
@@ -89,16 +99,20 @@ def main(argv: Sequence[str] | None = None) -> int:
     elif args.domain == "bridge":
         print("Continuous bridge: synthetic 24 m + 30 m line beam; eight load cases")
         print("Supplied factors/limits; deflections reported at MIDSPAN. No bridge safety certification.")
-    else:
+    elif args.domain == "customer-support":
         print(f"Customer support: synthetic order and fictional merchant rules | scenario={args.scenario or 'refund'}")
+    else:
+        print(f"Open-ended day planning: fictional venues and declared travel data | scenario={args.scenario or 'day-out'}")
     _trace(result)
     if solved:
         if args.domain == "optimization":
             _optimization_answer(result)
         elif args.domain == "bridge":
             _bridge_answer(result)
-        else:
+        elif args.domain == "customer-support":
             _customer_support_answer(result)
+        else:
+            _planning_answer(result)
     elif run.residual.pending:
         print(f"Pending evidence or checks: {', '.join(run.residual.pending)}")
     print(f"Status: {run.status} | remaining={run.residual.measure} | state_revision={run.state.revision}")

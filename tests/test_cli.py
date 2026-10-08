@@ -41,7 +41,7 @@ def test_package_only_entrypoint_and_actual_rejection_state(installed_layout):
     assert "Status: solved | remaining=0 | state_revision=3" in result.stdout
 
 
-@pytest.mark.parametrize("domain", ["optimization", "bridge", "customer-support"])
+@pytest.mark.parametrize("domain", ["optimization", "bridge", "customer-support", "planning"])
 def test_json_is_a_single_audit_value_with_no_other_stdout(installed_layout, domain):
     result = invoke(installed_layout, "demo", "--domain", domain, "--json")
     assert result.returncode == 0, result.stderr
@@ -89,6 +89,24 @@ def test_customer_support_expired_is_completed_human_review(installed_layout):
     assert "Status: solved | remaining=0" in result.stdout
 
 
+@pytest.mark.parametrize("scenario", ["day-out", "rain"])
+def test_planning_prints_a_checked_plan_without_subjective_rationale(installed_layout, scenario):
+    result = invoke(installed_layout, "demo", "--domain", "planning", "--scenario", scenario)
+    assert result.returncode == 0, result.stderr
+    assert "REJECT" in result.stdout and "ACCEPT" in result.stdout
+    assert "Verified feasible itinerary" in result.stdout
+    assert "A pleasant creative day" not in result.stdout
+    assert "Status: solved | remaining=0" in result.stdout
+
+
+def test_planning_unknown_return_keeps_output_pending(installed_layout):
+    result = invoke(installed_layout, "demo", "--domain", "planning", "--scenario", "missing-travel")
+    assert result.returncode == 1 and not result.stderr
+    assert "DEFER" in result.stdout
+    assert "trip:transport_grounding" in result.stdout
+    assert "Verified feasible itinerary" not in result.stdout
+
+
 @pytest.mark.parametrize("args", [("--help",), ("demo", "--help")])
 def test_help_without_running_a_demo(installed_layout, args):
     result = invoke(installed_layout, *args)
@@ -100,7 +118,9 @@ def test_help_without_running_a_demo(installed_layout, args):
 
 @pytest.mark.parametrize("args", [(), ("demo", "--live"), ("demo", "--domain", "unknown"), ("unknown",),
                                   ("demo", "--scenario", "refund"),
-                                  ("demo", "--domain", "bridge", "--scenario", "expired")])
+                                  ("demo", "--domain", "bridge", "--scenario", "expired"),
+                                  ("demo", "--domain", "planning", "--scenario", "refund"),
+                                  ("demo", "--domain", "customer-support", "--scenario", "rain")])
 def test_unsupported_inputs_fail_with_helpful_argparse_error(installed_layout, args):
     result = invoke(installed_layout, *args)
     assert result.returncode == 2
