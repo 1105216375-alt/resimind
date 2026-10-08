@@ -41,7 +41,7 @@ def test_package_only_entrypoint_and_actual_rejection_state(installed_layout):
     assert "Status: solved | remaining=0 | state_revision=3" in result.stdout
 
 
-@pytest.mark.parametrize("domain", ["optimization", "bridge"])
+@pytest.mark.parametrize("domain", ["optimization", "bridge", "customer-support"])
 def test_json_is_a_single_audit_value_with_no_other_stdout(installed_layout, domain):
     result = invoke(installed_layout, "demo", "--domain", domain, "--json")
     assert result.returncode == 0, result.stderr
@@ -64,6 +64,31 @@ def test_bridge_reports_committed_envelope_and_scope(installed_layout):
     assert "Status: solved | remaining=0" in result.stdout
 
 
+def test_customer_support_reports_only_checked_amount(installed_layout):
+    result = invoke(installed_layout, "demo", "--domain", "customer-support")
+    assert result.returncode == 0, result.stderr
+    assert "REJECT" in result.stdout
+    assert "Recommended item refund: CNY 249.00" in result.stdout
+    assert "No refund executed" in result.stdout
+    assert "Status: solved | remaining=0" in result.stdout
+
+
+def test_customer_support_missing_delivery_keeps_recommendation_blocked(installed_layout):
+    result = invoke(installed_layout, "demo", "--domain", "customer-support", "--scenario", "missing-delivery")
+    assert result.returncode == 1 and not result.stderr
+    assert "DEFER" in result.stdout and "Pending evidence or checks:" in result.stdout
+    assert "Verified recommendation:" not in result.stdout
+    assert "Recommended item refund:" not in result.stdout
+
+
+def test_customer_support_expired_is_completed_human_review(installed_layout):
+    result = invoke(installed_layout, "demo", "--domain", "customer-support", "--scenario", "expired")
+    assert result.returncode == 0, result.stderr
+    assert "Verified recommendation: human_review" in result.stdout
+    assert "Recommended item refund:" not in result.stdout
+    assert "Status: solved | remaining=0" in result.stdout
+
+
 @pytest.mark.parametrize("args", [("--help",), ("demo", "--help")])
 def test_help_without_running_a_demo(installed_layout, args):
     result = invoke(installed_layout, *args)
@@ -73,7 +98,9 @@ def test_help_without_running_a_demo(installed_layout, args):
     assert "Verified objective" not in result.stdout
 
 
-@pytest.mark.parametrize("args", [(), ("demo", "--live"), ("demo", "--domain", "unknown"), ("unknown",)])
+@pytest.mark.parametrize("args", [(), ("demo", "--live"), ("demo", "--domain", "unknown"), ("unknown",),
+                                  ("demo", "--scenario", "refund"),
+                                  ("demo", "--domain", "bridge", "--scenario", "expired")])
 def test_unsupported_inputs_fail_with_helpful_argparse_error(installed_layout, args):
     result = invoke(installed_layout, *args)
     assert result.returncode == 2

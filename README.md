@@ -6,11 +6,11 @@
 
 Your model proposes a step. Your domain verifier checks it. Only accepted facts enter the committed state; unfinished work stays visible and verifier feedback guides the next proposal.
 
-Use ResiMind for tasks with explicit, executable checks: mathematical certificates, engineering equations, or your own structured rules. Keep your model and supply the checks for your domain.
+Use ResiMind for tasks with explicit, executable checks: customer-service policies, mathematical certificates, engineering equations, or your own structured rules. Keep your model and supply the checks for your domain.
 
-**Python 3.10+ · Zero-dependency core · Optional DeepSeek, OpenAI & LangGraph integrations · MIT · Experimental v0.5.0**
+**Python 3.10+ · Zero-dependency core · Optional DeepSeek, OpenAI & LangGraph integrations · MIT · Experimental v0.6.0**
 
-[中文](README.zh-CN.md) · [Live model](docs/live-model.md) · [LangGraph](docs/langgraph.md) · [Math proof](docs/constrained-optimization.md) · [Bridge case](docs/continuous-bridge.md) · [Architecture](docs/architecture.md)
+[中文](README.zh-CN.md) · [Live model](docs/live-model.md) · [LangGraph](docs/langgraph.md) · [Customer support](docs/customer-support.md) · [Math proof](docs/constrained-optimization.md) · [Bridge case](docs/continuous-bridge.md) · [Architecture](docs/architecture.md)
 
 **Project creator and original publisher: [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
 
@@ -36,6 +36,7 @@ The optimization demo rejects an infeasible candidate without changing the commi
 [Static trace image](docs/assets/verification-demo.png). This replay comes from the executable deterministic fixture, **not a live model run**. The verifier and state transitions really execute; the first mistake is deliberately scripted.
 
 ```bash
+python -m resimind demo --domain customer-support
 python -m resimind demo --domain bridge
 python -m resimind demo --json > audit.json
 ```
@@ -77,6 +78,27 @@ print(outcome["report"])  # committed facts only; None when unresolved
 ```
 
 [Connect this subgraph to an existing graph →](docs/langgraph.md). The verifier covers the configured domain; adding it does not turn arbitrary prose into a proved conclusion.
+
+## Customer support: check a refund before promising one
+
+A customer asks to return an order. The recorded item payment is **¥249**, with **¥10 shipping**. Under the example merchant's configured policy, shipping is excluded from this quote.
+
+| Situation | What the Agent does |
+| --- | --- |
+| Candidate proposes **¥259** | Rejects the amount; the incorrect proposal changes no committed facts. |
+| Corrected candidate proposes **¥249** | Verifies eligibility and amount, then produces a structured recommendation. |
+| Delivery date is missing | Keeps the required evidence pending; no completed refund recommendation. |
+| Request is outside the configured window | Recommends human review; does not invent a policy exception. |
+
+```bash
+python -m resimind demo --domain customer-support
+python -m resimind demo --domain customer-support --scenario missing-delivery
+python -m resimind demo --domain customer-support --scenario expired
+```
+
+These are offline demonstrations using fictional merchant rules and synthetic orders. The Agent prepares a recommendation; it does not execute a refund or claim that money has arrived. A missing-evidence run exits nonzero because the task is still open. You can also connect a real DeepSeek callback.
+
+[Read the customer-support adapter and live example →](docs/customer-support.md) · [Actual DeepSeek run: 5 calls, 2 rejected proposals, verified recommendation](docs/evidence/customer-support/README.md)
 
 ## Mathematics: a solution is not yet a proof
 
@@ -136,6 +158,7 @@ python -m examples.continuous_bridge --json
 
 | Adapter | Independent checks | Completion requires |
 | --- | --- | --- |
+| [Customer support](src/resimind/domains/customer_support.py) | Scoped order evidence, configured policy, exact refund arithmetic | A checked recommendation or human-review outcome; missing evidence stays open |
 | [Constrained optimization](src/resimind/domains/optimization.py) | Exact factorization, feasibility, KKT, polynomial certificate | A verified global optimum certificate |
 | [Continuous bridge](src/resimind/domains/bridge.py) | Equilibrium, curvature and compatibility, all load cases, moment extrema | Complete case envelopes and supplied-limit comparisons |
 | [Linear equation](src/resimind/domains/mathematics.py) | Rational normalization, solving and substitution | Original-equation checks, including no-solution/identity cases |
@@ -219,7 +242,7 @@ ResiMind was initiated and originally published by [@1105216375-alt](https://git
 
 If you use or discuss ResiMind, please cite the project and link to the original repository. Suggested citation:
 
-> 1105216375-alt. ResiMind (version 0.5.0), 2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind (version 0.6.0), 2026. https://github.com/1105216375-alt/resimind
 
 Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is appreciated, not an additional license condition. Commercial use is permitted under the [MIT License](LICENSE), which requires retaining its copyright and permission notices in copies or substantial portions of the software.
 

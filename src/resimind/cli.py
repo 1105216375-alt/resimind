@@ -7,7 +7,7 @@ import json
 from typing import Sequence
 
 from .agent import AgentResult
-from .domains import bridge, optimization
+from .domains import bridge, customer_support, optimization
 
 
 def _trace(result: AgentResult) -> None:
@@ -49,34 +49,57 @@ def _bridge_answer(result: AgentResult) -> None:
         print(f"Supplied-limit comparison: {metric} = {passed}")
 
 
+def _customer_support_answer(result: AgentResult) -> None:
+    resolution = customer_support.verified_resolution(result)
+    print(f"Verified recommendation: {resolution['outcome']}")
+    amount = resolution["refund_cents"]
+    if amount is not None:
+        print(f"Recommended item refund: CNY {amount // 100}.{amount % 100:02d}")
+    print(f"Reason: {resolution['reason']} | next action: {resolution['next_action']}")
+    print("No refund executed; no payment-arrival promise.")
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """Return an exit code for console scripts and ``python -m resimind``."""
     parser = argparse.ArgumentParser(prog="resimind", description="Evidence-bound Agent reasoning with independent verification.")
     commands = parser.add_subparsers(dest="command", required=True)
     demo = commands.add_parser("demo", help="run an OFFLINE deterministic fixture, without a model or API key")
-    demo.add_argument("--domain", choices=("optimization", "bridge"), default="optimization",
+    demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support"), default="optimization",
                       help="demonstration domain (default: optimization)")
+    demo.add_argument("--scenario", choices=("refund", "missing-delivery", "expired"),
+                      help="customer-support scenario (default: refund); requires --domain customer-support")
     demo.add_argument("--json", action="store_true", help="write only the complete JSON evidence/decision audit")
     args = parser.parse_args(argv)
+    if args.scenario is not None and args.domain != "customer-support":
+        parser.error("--scenario requires --domain customer-support")
     if args.domain == "optimization":
         result = optimization.run_demo()
-    else:
+    elif args.domain == "bridge":
         result = bridge.run_demo()
+    else:
+        result = customer_support.run_demo(args.scenario or "refund")
     run = result.run_result
+    solved = run.status == "solved" and run.residual.solved
     if args.json:
         print(result.to_json())
-        return 0 if run.status == "solved" else 1
+        return 0 if solved else 1
     print("ResiMind | OFFLINE deterministic fixture | NOT A LIVE LLM RUN")
     if args.domain == "optimization":
         print("Exact constrained optimization: 3 coupled variables, equality and inequality constraints")
-    else:
+    elif args.domain == "bridge":
         print("Continuous bridge: synthetic 24 m + 30 m line beam; eight load cases")
         print("Supplied factors/limits; deflections reported at MIDSPAN. No bridge safety certification.")
+    else:
+        print(f"Customer support: synthetic order and fictional merchant rules | scenario={args.scenario or 'refund'}")
     _trace(result)
-    if run.status == "solved":
+    if solved:
         if args.domain == "optimization":
             _optimization_answer(result)
-        else:
+        elif args.domain == "bridge":
             _bridge_answer(result)
+        else:
+            _customer_support_answer(result)
+    elif run.residual.pending:
+        print(f"Pending evidence or checks: {', '.join(run.residual.pending)}")
     print(f"Status: {run.status} | remaining={run.residual.measure} | state_revision={run.state.revision}")
-    return 0 if run.status == "solved" else 1
+    return 0 if solved else 1

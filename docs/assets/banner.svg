@@ -15,8 +15,8 @@
     <text x="57" y="145" font-size="70" font-weight="750" letter-spacing="-3" fill="#f4f8ff">Resi<tspan fill="#79e9d5">Mind</tspan></text>
     <text x="62" y="191" font-size="23" fill="#d5e1f1">Verify proposals. Commit checked facts.</text>
     <text x="62" y="224" font-size="23" fill="#d5e1f1">Keep unfinished work visible.</text>
-    <rect x="62" y="267" width="275" height="32" rx="16" fill="#59dbe4" fill-opacity=".07" stroke="#59dbe4" stroke-opacity=".24"/>
-    <text x="80" y="288" font-size="13" letter-spacing="1.3" fill="#99b7cb">MATHEMATICS + ENGINEERING</text>
+    <rect x="62" y="267" width="430" height="32" rx="16" fill="#59dbe4" fill-opacity=".07" stroke="#59dbe4" stroke-opacity=".24"/>
+    <text x="80" y="288" font-size="13" letter-spacing="1.3" fill="#99b7cb">MATH + ENGINEERING + CUSTOMER SUPPORT</text>
     <g stroke="#486a89" stroke-width="1.8" fill="none">
       <path d="M760 129 805 97 850 137 805 180 760 129 757 204 805 180 850 222 850 137 805 97 757 204"/>
       <path d="M805 97V180M760 129 850 137M805 180 757 204"/>

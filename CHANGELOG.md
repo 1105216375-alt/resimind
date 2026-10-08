@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0 — 2026-10-08
+
+- Add a customer-support Agent using synthetic ecommerce orders and a fictional merchant return policy, with an independently checked recommendation.
+- Demonstrate rejected over-refunds, corrected item-payment amounts, missing delivery evidence, and out-of-window human review. No refund or customer message is executed.
+- Add installed `resimind demo --domain customer-support` scenarios and an explicit live DeepSeek example using the same verifier.
+- Preserve the common Agent runtime, model callbacks, and LangGraph gate. The support adapter adds domain rules without changing the reasoning core.
+- Extend the bilingual home pages and domain documentation with everyday business examples; validation details are in `docs/validation.md`.
+
 ## 0.5.0 — 2026-10-08
 
 - Put independent verification, a three-minute quickstart, and an executable trace animation at the front of both home pages.

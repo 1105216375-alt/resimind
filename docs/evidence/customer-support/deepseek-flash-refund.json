@@ -1,0 +1,1200 @@
+{
+  "mode": "live-deepseek",
+  "scenario": "refund",
+  "resolution": {
+    "case_id": "demo-return-001",
+    "order_id": "demo-order-001",
+    "customer_id": "demo-customer-001",
+    "policy_id": "fictional-returns-v1",
+    "outcome": "refund_recommended",
+    "refund_cents": 24900,
+    "currency": "CNY",
+    "excluded_shipping_cents": 1000,
+    "reason": "within_return_window",
+    "next_action": "merchant_refund_review",
+    "payment_executed": false
+  },
+  "agent": {
+    "task": {
+      "id": "customer-support-live",
+      "instruction": "Check this return request under the configured merchant policy; recommend a next step without executing a refund.",
+      "domain": "customer_support",
+      "context": []
+    },
+    "run_result": {
+      "state": {
+        "revision": 3,
+        "facts": [
+          {
+            "id": "return:eligibility_checked",
+            "subject": "demo-order-001",
+            "metric": "check_return_eligibility",
+            "value": "{\"case_id\":\"demo-return-001\",\"customer_id\":\"demo-customer-001\",\"days_since_delivery\":7,\"eligible\":true,\"order_id\":\"demo-order-001\",\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\"}",
+            "unit": "",
+            "evidence_refs": [
+              "return:input:case_id",
+              "return:input:order_id",
+              "return:input:customer_id",
+              "return:input:request_order_id",
+              "return:input:request_customer_id",
+              "return:input:snapshot_date",
+              "return:input:requested_on",
+              "return:input:delivered_on",
+              "return:input:item_paid_cents",
+              "return:input:shipping_paid_cents",
+              "return:input:prior_item_refund_cents",
+              "return:input:list_price_cents",
+              "return:input:item_returnable",
+              "return:input:currency",
+              "return:policy:policy_id",
+              "return:policy:window_days"
+            ],
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:amount_checked",
+            "subject": "demo-order-001",
+            "metric": "calculate_refund",
+            "value": "{\"currency\":\"CNY\",\"excluded_shipping_cents\":1000,\"item_paid_cents\":24900,\"prior_item_refund_cents\":0,\"refund_cents\":24900}",
+            "unit": "",
+            "evidence_refs": [
+              "return:input:case_id",
+              "return:input:order_id",
+              "return:input:customer_id",
+              "return:input:request_order_id",
+              "return:input:request_customer_id",
+              "return:input:snapshot_date",
+              "return:input:requested_on",
+              "return:input:delivered_on",
+              "return:input:item_paid_cents",
+              "return:input:shipping_paid_cents",
+              "return:input:prior_item_refund_cents",
+              "return:input:list_price_cents",
+              "return:input:item_returnable",
+              "return:input:currency",
+              "return:policy:policy_id",
+              "return:policy:window_days"
+            ],
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:resolution_checked",
+            "subject": "demo-order-001",
+            "metric": "recommend_resolution",
+            "value": "{\"case_id\":\"demo-return-001\",\"currency\":\"CNY\",\"customer_id\":\"demo-customer-001\",\"excluded_shipping_cents\":1000,\"next_action\":\"merchant_refund_review\",\"order_id\":\"demo-order-001\",\"outcome\":\"refund_recommended\",\"payment_executed\":false,\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\",\"refund_cents\":24900}",
+            "unit": "",
+            "evidence_refs": [
+              "return:input:case_id",
+              "return:input:order_id",
+              "return:input:customer_id",
+              "return:input:request_order_id",
+              "return:input:request_customer_id",
+              "return:input:snapshot_date",
+              "return:input:requested_on",
+              "return:input:delivered_on",
+              "return:input:item_paid_cents",
+              "return:input:shipping_paid_cents",
+              "return:input:prior_item_refund_cents",
+              "return:input:list_price_cents",
+              "return:input:item_returnable",
+              "return:input:currency",
+              "return:policy:policy_id",
+              "return:policy:window_days"
+            ],
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          }
+        ]
+      },
+      "residual": {
+        "goals": [],
+        "unknowns": [],
+        "hard_constraints": []
+      },
+      "status": "solved",
+      "stop_reason": "residual_empty",
+      "trace": [
+        {
+          "step": 1,
+          "proposer": "ModelProposer",
+          "decision": "accept",
+          "reasons": [
+            "return_eligibility_checked"
+          ],
+          "before": {
+            "revision": 0,
+            "facts": []
+          },
+          "after": {
+            "revision": 1,
+            "facts": [
+              {
+                "id": "return:eligibility_checked",
+                "subject": "demo-order-001",
+                "metric": "check_return_eligibility",
+                "value": "{\"case_id\":\"demo-return-001\",\"customer_id\":\"demo-customer-001\",\"days_since_delivery\":7,\"eligible\":true,\"order_id\":\"demo-order-001\",\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\"}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              }
+            ]
+          },
+          "residual_before": {
+            "goals": [
+              "return:resolution"
+            ],
+            "unknowns": [
+              "return:refund_amount"
+            ],
+            "hard_constraints": [
+              "return:eligibility"
+            ]
+          },
+          "residual_after": {
+            "goals": [
+              "return:resolution"
+            ],
+            "unknowns": [
+              "return:refund_amount"
+            ],
+            "hard_constraints": []
+          },
+          "candidate": {
+            "id": "candidate-return-eligibility-001",
+            "action": "check_return_eligibility",
+            "target": "return:eligibility",
+            "claim": "{\"case_id\":\"demo-return-001\",\"order_id\":\"demo-order-001\",\"customer_id\":\"demo-customer-001\",\"policy_id\":\"fictional-returns-v1\",\"days_since_delivery\":7,\"eligible\":true,\"reason\":\"within_return_window\"}",
+            "refs": [
+              "return:input:case_id",
+              "return:input:order_id",
+              "return:input:customer_id",
+              "return:input:request_order_id",
+              "return:input:request_customer_id",
+              "return:input:snapshot_date",
+              "return:input:requested_on",
+              "return:input:delivered_on",
+              "return:input:item_paid_cents",
+              "return:input:shipping_paid_cents",
+              "return:input:prior_item_refund_cents",
+              "return:input:list_price_cents",
+              "return:input:item_returnable",
+              "return:input:currency",
+              "return:policy:policy_id",
+              "return:policy:window_days"
+            ]
+          },
+          "verdict": {
+            "decision": "accept",
+            "binding": {
+              "candidate_digest": "a07571837fc4882fb44c9f3398ad45b12a4ca53ad5fc22870db28b4c36161b37",
+              "state_revision": 0,
+              "state_digest": "62b233be15a8c6b88efea202949aeb65879ebce14334a14e8099b38dd3674783",
+              "evidence_digest": "afe20779f1a1aa53f023b83cfa44be6eee2a79e7b107a521997c8078bad95297"
+            },
+            "facts": [
+              {
+                "id": "return:eligibility_checked",
+                "subject": "demo-order-001",
+                "metric": "check_return_eligibility",
+                "value": "{\"case_id\":\"demo-return-001\",\"customer_id\":\"demo-customer-001\",\"days_since_delivery\":7,\"eligible\":true,\"order_id\":\"demo-order-001\",\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\"}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              }
+            ],
+            "reasons": [
+              "return_eligibility_checked"
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "proposer": "ModelProposer",
+          "decision": "reject",
+          "reasons": [
+            "missing_snapshot_refs"
+          ],
+          "before": {
+            "revision": 1,
+            "facts": [
+              {
+                "id": "return:eligibility_checked",
+                "subject": "demo-order-001",
+                "metric": "check_return_eligibility",
+                "value": "{\"case_id\":\"demo-return-001\",\"customer_id\":\"demo-customer-001\",\"days_since_delivery\":7,\"eligible\":true,\"order_id\":\"demo-order-001\",\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\"}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              }
+            ]
+          },
+          "after": {
+            "revision": 1,
+            "facts": [
+              {
+                "id": "return:eligibility_checked",
+                "subject": "demo-order-001",
+                "metric": "check_return_eligibility",
+                "value": "{\"case_id\":\"demo-return-001\",\"customer_id\":\"demo-customer-001\",\"days_since_delivery\":7,\"eligible\":true,\"order_id\":\"demo-order-001\",\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\"}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              }
+            ]
+          },
+          "residual_before": {
+            "goals": [
+              "return:resolution"
+            ],
+            "unknowns": [
+              "return:refund_amount"
+            ],
+            "hard_constraints": []
+          },
+          "residual_after": {
+            "goals": [
+              "return:resolution"
+            ],
+            "unknowns": [
+              "return:refund_amount"
+            ],
+            "hard_constraints": []
+          },
+          "candidate": {
+            "id": "candidate-return-refund-001",
+            "action": "calculate_refund",
+            "target": "return:refund_amount",
+            "claim": "{\"item_paid_cents\":24900,\"prior_item_refund_cents\":0,\"excluded_shipping_cents\":1000,\"refund_cents\":24900,\"currency\":\"CNY\"}",
+            "refs": [
+              "return:input:item_paid_cents",
+              "return:input:prior_item_refund_cents",
+              "return:input:shipping_paid_cents",
+              "return:input:currency",
+              "return:eligibility_checked"
+            ]
+          },
+          "verdict": {
+            "decision": "reject",
+            "binding": {
+              "candidate_digest": "380ec2f0cf0e0f9a9c92796d60486e51e3bb2bbac0d81cd0f27284ed164cd555",
+              "state_revision": 1,
+              "state_digest": "74b36a2d87864e994c3a28d6266b83708b718f492ec60b26f7a00d87ec33ba11",
+              "evidence_digest": "afe20779f1a1aa53f023b83cfa44be6eee2a79e7b107a521997c8078bad95297"
+            },
+            "facts": [],
+            "reasons": [
+              "missing_snapshot_refs"
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "proposer": "ModelProposer",
+          "decision": "reject",
+          "reasons": [
+            "missing_snapshot_refs"
+          ],
+          "before": {
+            "revision": 1,
+            "facts": [
+              {
+                "id": "return:eligibility_checked",
+                "subject": "demo-order-001",
+                "metric": "check_return_eligibility",
+                "value": "{\"case_id\":\"demo-return-001\",\"customer_id\":\"demo-customer-001\",\"days_since_delivery\":7,\"eligible\":true,\"order_id\":\"demo-order-001\",\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\"}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              }
+            ]
+          },
+          "after": {
+            "revision": 1,
+            "facts": [
+              {
+                "id": "return:eligibility_checked",
+                "subject": "demo-order-001",
+                "metric": "check_return_eligibility",
+                "value": "{\"case_id\":\"demo-return-001\",\"customer_id\":\"demo-customer-001\",\"days_since_delivery\":7,\"eligible\":true,\"order_id\":\"demo-order-001\",\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\"}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              }
+            ]
+          },
+          "residual_before": {
+            "goals": [
+              "return:resolution"
+            ],
+            "unknowns": [
+              "return:refund_amount"
+            ],
+            "hard_constraints": []
+          },
+          "residual_after": {
+            "goals": [
+              "return:resolution"
+            ],
+            "unknowns": [
+              "return:refund_amount"
+            ],
+            "hard_constraints": []
+          },
+          "candidate": {
+            "id": "candidate-return-refund-002",
+            "action": "calculate_refund",
+            "target": "return:refund_amount",
+            "claim": "{\"item_paid_cents\":24900,\"prior_item_refund_cents\":0,\"excluded_shipping_cents\":1000,\"refund_cents\":24900,\"currency\":\"CNY\"}",
+            "refs": [
+              "return:input:case_id",
+              "return:input:order_id",
+              "return:input:customer_id",
+              "return:input:snapshot_date",
+              "return:input:requested_on",
+              "return:input:delivered_on",
+              "return:input:item_paid_cents",
+              "return:input:shipping_paid_cents",
+              "return:input:prior_item_refund_cents",
+              "return:input:currency",
+              "return:policy:policy_id",
+              "return:policy:window_days",
+              "return:eligibility_checked"
+            ]
+          },
+          "verdict": {
+            "decision": "reject",
+            "binding": {
+              "candidate_digest": "083f672b6efff8bc1197ef547c90605ea6cc55ff8d3745ee7c7d107274e33e3f",
+              "state_revision": 1,
+              "state_digest": "74b36a2d87864e994c3a28d6266b83708b718f492ec60b26f7a00d87ec33ba11",
+              "evidence_digest": "afe20779f1a1aa53f023b83cfa44be6eee2a79e7b107a521997c8078bad95297"
+            },
+            "facts": [],
+            "reasons": [
+              "missing_snapshot_refs"
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "proposer": "ModelProposer",
+          "decision": "accept",
+          "reasons": [
+            "refund_amount_checked"
+          ],
+          "before": {
+            "revision": 1,
+            "facts": [
+              {
+                "id": "return:eligibility_checked",
+                "subject": "demo-order-001",
+                "metric": "check_return_eligibility",
+                "value": "{\"case_id\":\"demo-return-001\",\"customer_id\":\"demo-customer-001\",\"days_since_delivery\":7,\"eligible\":true,\"order_id\":\"demo-order-001\",\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\"}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              }
+            ]
+          },
+          "after": {
+            "revision": 2,
+            "facts": [
+              {
+                "id": "return:eligibility_checked",
+                "subject": "demo-order-001",
+                "metric": "check_return_eligibility",
+                "value": "{\"case_id\":\"demo-return-001\",\"customer_id\":\"demo-customer-001\",\"days_since_delivery\":7,\"eligible\":true,\"order_id\":\"demo-order-001\",\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\"}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              },
+              {
+                "id": "return:amount_checked",
+                "subject": "demo-order-001",
+                "metric": "calculate_refund",
+                "value": "{\"currency\":\"CNY\",\"excluded_shipping_cents\":1000,\"item_paid_cents\":24900,\"prior_item_refund_cents\":0,\"refund_cents\":24900}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              }
+            ]
+          },
+          "residual_before": {
+            "goals": [
+              "return:resolution"
+            ],
+            "unknowns": [
+              "return:refund_amount"
+            ],
+            "hard_constraints": []
+          },
+          "residual_after": {
+            "goals": [
+              "return:resolution"
+            ],
+            "unknowns": [],
+            "hard_constraints": []
+          },
+          "candidate": {
+            "id": "candidate-return-refund-003",
+            "action": "calculate_refund",
+            "target": "return:refund_amount",
+            "claim": "{\"item_paid_cents\":24900,\"prior_item_refund_cents\":0,\"excluded_shipping_cents\":1000,\"refund_cents\":24900,\"currency\":\"CNY\"}",
+            "refs": [
+              "return:input:case_id",
+              "return:input:order_id",
+              "return:input:customer_id",
+              "return:input:request_order_id",
+              "return:input:request_customer_id",
+              "return:input:snapshot_date",
+              "return:input:requested_on",
+              "return:input:delivered_on",
+              "return:input:item_paid_cents",
+              "return:input:shipping_paid_cents",
+              "return:input:prior_item_refund_cents",
+              "return:input:list_price_cents",
+              "return:input:item_returnable",
+              "return:input:currency",
+              "return:policy:policy_id",
+              "return:policy:window_days",
+              "return:eligibility_checked"
+            ]
+          },
+          "verdict": {
+            "decision": "accept",
+            "binding": {
+              "candidate_digest": "a7af1c3d2d67225d2bda31d9a1207a0baa565ab5d2991fa46b98855408728452",
+              "state_revision": 1,
+              "state_digest": "74b36a2d87864e994c3a28d6266b83708b718f492ec60b26f7a00d87ec33ba11",
+              "evidence_digest": "afe20779f1a1aa53f023b83cfa44be6eee2a79e7b107a521997c8078bad95297"
+            },
+            "facts": [
+              {
+                "id": "return:amount_checked",
+                "subject": "demo-order-001",
+                "metric": "calculate_refund",
+                "value": "{\"currency\":\"CNY\",\"excluded_shipping_cents\":1000,\"item_paid_cents\":24900,\"prior_item_refund_cents\":0,\"refund_cents\":24900}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              }
+            ],
+            "reasons": [
+              "refund_amount_checked"
+            ]
+          }
+        },
+        {
+          "step": 5,
+          "proposer": "ModelProposer",
+          "decision": "accept",
+          "reasons": [
+            "resolution_checked"
+          ],
+          "before": {
+            "revision": 2,
+            "facts": [
+              {
+                "id": "return:eligibility_checked",
+                "subject": "demo-order-001",
+                "metric": "check_return_eligibility",
+                "value": "{\"case_id\":\"demo-return-001\",\"customer_id\":\"demo-customer-001\",\"days_since_delivery\":7,\"eligible\":true,\"order_id\":\"demo-order-001\",\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\"}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              },
+              {
+                "id": "return:amount_checked",
+                "subject": "demo-order-001",
+                "metric": "calculate_refund",
+                "value": "{\"currency\":\"CNY\",\"excluded_shipping_cents\":1000,\"item_paid_cents\":24900,\"prior_item_refund_cents\":0,\"refund_cents\":24900}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              }
+            ]
+          },
+          "after": {
+            "revision": 3,
+            "facts": [
+              {
+                "id": "return:eligibility_checked",
+                "subject": "demo-order-001",
+                "metric": "check_return_eligibility",
+                "value": "{\"case_id\":\"demo-return-001\",\"customer_id\":\"demo-customer-001\",\"days_since_delivery\":7,\"eligible\":true,\"order_id\":\"demo-order-001\",\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\"}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              },
+              {
+                "id": "return:amount_checked",
+                "subject": "demo-order-001",
+                "metric": "calculate_refund",
+                "value": "{\"currency\":\"CNY\",\"excluded_shipping_cents\":1000,\"item_paid_cents\":24900,\"prior_item_refund_cents\":0,\"refund_cents\":24900}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              },
+              {
+                "id": "return:resolution_checked",
+                "subject": "demo-order-001",
+                "metric": "recommend_resolution",
+                "value": "{\"case_id\":\"demo-return-001\",\"currency\":\"CNY\",\"customer_id\":\"demo-customer-001\",\"excluded_shipping_cents\":1000,\"next_action\":\"merchant_refund_review\",\"order_id\":\"demo-order-001\",\"outcome\":\"refund_recommended\",\"payment_executed\":false,\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\",\"refund_cents\":24900}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              }
+            ]
+          },
+          "residual_before": {
+            "goals": [
+              "return:resolution"
+            ],
+            "unknowns": [],
+            "hard_constraints": []
+          },
+          "residual_after": {
+            "goals": [],
+            "unknowns": [],
+            "hard_constraints": []
+          },
+          "candidate": {
+            "id": "candidate-return-resolution-004",
+            "action": "recommend_resolution",
+            "target": "return:resolution",
+            "claim": "{\"case_id\":\"demo-return-001\",\"order_id\":\"demo-order-001\",\"customer_id\":\"demo-customer-001\",\"policy_id\":\"fictional-returns-v1\",\"outcome\":\"refund_recommended\",\"refund_cents\":24900,\"currency\":\"CNY\",\"excluded_shipping_cents\":1000,\"reason\":\"within_return_window\",\"next_action\":\"merchant_refund_review\",\"payment_executed\":false}",
+            "refs": [
+              "return:input:case_id",
+              "return:input:order_id",
+              "return:input:customer_id",
+              "return:input:request_order_id",
+              "return:input:request_customer_id",
+              "return:input:snapshot_date",
+              "return:input:requested_on",
+              "return:input:delivered_on",
+              "return:input:item_paid_cents",
+              "return:input:shipping_paid_cents",
+              "return:input:prior_item_refund_cents",
+              "return:input:list_price_cents",
+              "return:input:item_returnable",
+              "return:input:currency",
+              "return:policy:policy_id",
+              "return:policy:window_days",
+              "return:eligibility_checked",
+              "return:amount_checked"
+            ]
+          },
+          "verdict": {
+            "decision": "accept",
+            "binding": {
+              "candidate_digest": "6d51e32ea3f2dc4d61800b45f51d153468ee356cddeac4593a212466b90fa5ea",
+              "state_revision": 2,
+              "state_digest": "b985c2e967c058e3dbfa97de6e11f00d35ed652fa397181ec524129bcbf7e59a",
+              "evidence_digest": "afe20779f1a1aa53f023b83cfa44be6eee2a79e7b107a521997c8078bad95297"
+            },
+            "facts": [
+              {
+                "id": "return:resolution_checked",
+                "subject": "demo-order-001",
+                "metric": "recommend_resolution",
+                "value": "{\"case_id\":\"demo-return-001\",\"currency\":\"CNY\",\"customer_id\":\"demo-customer-001\",\"excluded_shipping_cents\":1000,\"next_action\":\"merchant_refund_review\",\"order_id\":\"demo-order-001\",\"outcome\":\"refund_recommended\",\"payment_executed\":false,\"policy_id\":\"fictional-returns-v1\",\"reason\":\"within_return_window\",\"refund_cents\":24900}",
+                "unit": "",
+                "evidence_refs": [
+                  "return:input:case_id",
+                  "return:input:order_id",
+                  "return:input:customer_id",
+                  "return:input:request_order_id",
+                  "return:input:request_customer_id",
+                  "return:input:snapshot_date",
+                  "return:input:requested_on",
+                  "return:input:delivered_on",
+                  "return:input:item_paid_cents",
+                  "return:input:shipping_paid_cents",
+                  "return:input:prior_item_refund_cents",
+                  "return:input:list_price_cents",
+                  "return:input:item_returnable",
+                  "return:input:currency",
+                  "return:policy:policy_id",
+                  "return:policy:window_days"
+                ],
+                "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+              }
+            ],
+            "reasons": [
+              "resolution_checked"
+            ]
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "id": "return:input:case_id",
+          "subject": "demo-order-001",
+          "metric": "case_id",
+          "value": "demo-return-001",
+          "unit": "",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:input:order_id",
+          "subject": "demo-order-001",
+          "metric": "order_id",
+          "value": "demo-order-001",
+          "unit": "",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:input:customer_id",
+          "subject": "demo-order-001",
+          "metric": "customer_id",
+          "value": "demo-customer-001",
+          "unit": "",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:input:request_order_id",
+          "subject": "demo-order-001",
+          "metric": "request_order_id",
+          "value": "demo-order-001",
+          "unit": "",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:input:request_customer_id",
+          "subject": "demo-order-001",
+          "metric": "request_customer_id",
+          "value": "demo-customer-001",
+          "unit": "",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:input:snapshot_date",
+          "subject": "demo-order-001",
+          "metric": "snapshot_date",
+          "value": "2026-10-08",
+          "unit": "date",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:input:requested_on",
+          "subject": "demo-order-001",
+          "metric": "requested_on",
+          "value": "2026-10-08",
+          "unit": "date",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:input:delivered_on",
+          "subject": "demo-order-001",
+          "metric": "delivered_on",
+          "value": "2026-10-01",
+          "unit": "date",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:input:item_paid_cents",
+          "subject": "demo-order-001",
+          "metric": "item_paid_cents",
+          "value": 24900,
+          "unit": "cents",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:input:shipping_paid_cents",
+          "subject": "demo-order-001",
+          "metric": "shipping_paid_cents",
+          "value": 1000,
+          "unit": "cents",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:input:prior_item_refund_cents",
+          "subject": "demo-order-001",
+          "metric": "prior_item_refund_cents",
+          "value": 0,
+          "unit": "cents",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:input:list_price_cents",
+          "subject": "demo-order-001",
+          "metric": "list_price_cents",
+          "value": 29900,
+          "unit": "cents",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:input:item_returnable",
+          "subject": "demo-order-001",
+          "metric": "item_returnable",
+          "value": true,
+          "unit": "",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:input:currency",
+          "subject": "demo-order-001",
+          "metric": "currency",
+          "value": "CNY",
+          "unit": "",
+          "source": "declared-order-snapshot",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:policy:policy_id",
+          "subject": "fictional-returns-v1",
+          "metric": "policy_id",
+          "value": "fictional-returns-v1",
+          "unit": "",
+          "source": "fictional-merchant-policy",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        },
+        {
+          "id": "return:policy:window_days",
+          "subject": "fictional-returns-v1",
+          "metric": "window_days",
+          "value": 14,
+          "unit": "days",
+          "source": "fictional-merchant-policy",
+          "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+        }
+      ]
+    },
+    "tool_events": [
+      {
+        "tool": "declared_return_case_reader",
+        "status": "collected",
+        "evidence": [
+          {
+            "id": "return:input:case_id",
+            "subject": "demo-order-001",
+            "metric": "case_id",
+            "value": "demo-return-001",
+            "unit": "",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:input:order_id",
+            "subject": "demo-order-001",
+            "metric": "order_id",
+            "value": "demo-order-001",
+            "unit": "",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:input:customer_id",
+            "subject": "demo-order-001",
+            "metric": "customer_id",
+            "value": "demo-customer-001",
+            "unit": "",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:input:request_order_id",
+            "subject": "demo-order-001",
+            "metric": "request_order_id",
+            "value": "demo-order-001",
+            "unit": "",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:input:request_customer_id",
+            "subject": "demo-order-001",
+            "metric": "request_customer_id",
+            "value": "demo-customer-001",
+            "unit": "",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:input:snapshot_date",
+            "subject": "demo-order-001",
+            "metric": "snapshot_date",
+            "value": "2026-10-08",
+            "unit": "date",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:input:requested_on",
+            "subject": "demo-order-001",
+            "metric": "requested_on",
+            "value": "2026-10-08",
+            "unit": "date",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:input:delivered_on",
+            "subject": "demo-order-001",
+            "metric": "delivered_on",
+            "value": "2026-10-01",
+            "unit": "date",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:input:item_paid_cents",
+            "subject": "demo-order-001",
+            "metric": "item_paid_cents",
+            "value": 24900,
+            "unit": "cents",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:input:shipping_paid_cents",
+            "subject": "demo-order-001",
+            "metric": "shipping_paid_cents",
+            "value": 1000,
+            "unit": "cents",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:input:prior_item_refund_cents",
+            "subject": "demo-order-001",
+            "metric": "prior_item_refund_cents",
+            "value": 0,
+            "unit": "cents",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:input:list_price_cents",
+            "subject": "demo-order-001",
+            "metric": "list_price_cents",
+            "value": 29900,
+            "unit": "cents",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:input:item_returnable",
+            "subject": "demo-order-001",
+            "metric": "item_returnable",
+            "value": true,
+            "unit": "",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:input:currency",
+            "subject": "demo-order-001",
+            "metric": "currency",
+            "value": "CNY",
+            "unit": "",
+            "source": "declared-order-snapshot",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:policy:policy_id",
+            "subject": "fictional-returns-v1",
+            "metric": "policy_id",
+            "value": "fictional-returns-v1",
+            "unit": "",
+            "source": "fictional-merchant-policy",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          },
+          {
+            "id": "return:policy:window_days",
+            "subject": "fictional-returns-v1",
+            "metric": "window_days",
+            "value": 14,
+            "unit": "days",
+            "source": "fictional-merchant-policy",
+            "scope": "return-snapshot:4fa51990339ba9449e1117bee71463d2714f5fda641a61d2f7349795e8800fbc"
+          }
+        ],
+        "error": null
+      }
+    ],
+    "routes": []
+  },
+  "model": "deepseek-flash",
+  "api_calls": 5,
+  "usage": {
+    "input_tokens": 16987,
+    "output_tokens": 5884,
+    "total_tokens": 22871,
+    "responses_with_usage": 5
+  },
+  "provider_error": null,
+  "recorded_at": "2026-10-08T07:34:10.928458+00:00",
+  "settings": {
+    "max_calls": 8,
+    "max_output_tokens": 4096,
+    "timeout": 90
+  }
+}

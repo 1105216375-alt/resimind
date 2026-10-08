@@ -6,12 +6,12 @@ import json
 from pathlib import Path
 
 from resimind import Task
-from resimind.domains.optimization import build_agent, demo_problem
+from resimind.domains import customer_support, optimization
 
 
 def main() -> None:
     folder = Path(__file__).resolve().parents[1] / "docs" / "evidence"
-    records = sorted(folder.glob("deepseek-*.json"))
+    records = sorted(folder.rglob("deepseek-*.json"))
     if not records:
         raise SystemExit("No archived DeepSeek audits found.")
     for path in records:
@@ -23,7 +23,13 @@ def main() -> None:
             return json.dumps(next(candidates))
 
         task = record["agent"]["task"]
-        result = build_agent(demo_problem(), complete=complete).run(
+        if task["domain"] == optimization.DOMAIN:
+            agent = optimization.build_agent(optimization.demo_problem(), complete=complete)
+        elif task["domain"] == customer_support.DOMAIN:
+            agent = customer_support.build_agent(customer_support.demo_case(record["scenario"]), complete=complete)
+        else:
+            raise SystemExit(f"Unsupported archived domain: {task['domain']}")
+        result = agent.run(
             Task(task["id"], task["instruction"], task["domain"])
         )
         if result.to_dict()["run_result"] != expected:

@@ -14,6 +14,7 @@ ResiMind separates **model-generated proposals** from **independently checked fa
 | Symbolic engineering | [`AxialBarVerifier`](../src/resimind/domains/engineering.py) and [`units`](../src/resimind/units.py) | Check scope, declared assumptions, units and dimensions; recompute nominal stress and compare the supplied limit |
 | Optimization certificates | [Optimization adapter](../src/resimind/domains/optimization.py) | Check exact LDLᵀ, feasibility, KKT, and a global-optimality polynomial certificate independently of active-set search |
 | Continuous bridge | [Bridge adapter](../src/resimind/domains/bridge.py) | Check curvature, equilibrium, support conditions, rotation compatibility, and complete load-case envelopes |
+| Customer support | [Return adapter](../src/resimind/domains/customer_support.py) | Check a scoped order snapshot, fictional merchant policy, exact remaining refund amount, and a bounded next-step recommendation |
 | State transition | [`Engine`](../src/resimind/runtime.py) and [`Verdict`](../src/resimind/core.py) | Bind verification to candidate, state, and inputs; commit only verifier-produced facts after transition checks |
 | Residual reconstruction | `Domain.rebuild(state)` | Derive outstanding goals, unknowns, and hard constraints from committed facts |
 | Reviewed routes | [`RouteMemory`](../src/resimind/memory.py) | Reuse reviewed, applicable action sequences while requiring verification on current inputs |
@@ -28,7 +29,7 @@ The reference adapters accept a callable with this contract:
 complete(prompt: str) -> str
 ```
 
-Supply it as `build_agent(problem, complete=your_complete)`. Choose `QuadraticProgram(...)` or `ContinuousBridgeProblem(...)` for the headline examples; `LinearEquation(a, b, c)` and `AxialBarProblem(...)` are the smaller introductory adapters. Wrap your existing model client in `your_complete`, including its credentials, network timeouts, and resource limits. The core requires no model SDK. Optional [DeepSeek/OpenAI callbacks](live-model.md) and a [LangGraph verification subgraph](langgraph.md) provide concrete integration paths.
+Supply it as `build_agent(problem, complete=your_complete)`. Choose `ReturnCase(...)` for [customer support](customer-support.md), `QuadraticProgram(...)` or `ContinuousBridgeProblem(...)` for mathematics and engineering; `LinearEquation(a, b, c)` and `AxialBarProblem(...)` are the smaller introductory adapters. Wrap your existing model client in `your_complete`, including its credentials, network timeouts, and resource limits. The core requires no model SDK. Optional [DeepSeek/OpenAI callbacks](live-model.md) and a [LangGraph verification subgraph](langgraph.md) provide concrete integration paths.
 
 The prompt includes task instructions, allowed actions, current facts, registered input evidence, residual obligations, the candidate JSON schema, and the most recent feedback. Return **one JSON object** containing only `id`, `action`, `target`, `claim`, and `refs`, or return the JSON literal `null` when there is no candidate. The domain supplies the allowed action names and exact claim format. For example, the first step of the bundled math demo can propose:
 
@@ -72,7 +73,7 @@ The math demo deliberately proposes `x=7/3`, receives `solution_claim_mismatch`,
 | Reviewed, revocable in-memory action routes | Learned weights, automatic knowledge distillation, or persistent memory |
 | Interfaces for domain-specific verification | Ready-made CAS, SMT, proof-assistant, or simulation connectors |
 
-The reference adapters cover rational linear equations, small strictly convex quadratic programs, declared uniform axial bars, and a two-span continuous beam under uniform load patterns. See the [optimization certificate](constrained-optimization.md) and [bridge model](continuous-bridge.md) for exact supported scopes. Engineering verifiers check declared assumptions; they cannot establish whether a real component satisfies them. A completed task may conclude that an equation has no solution or that the supplied limit is exceeded.
+The reference adapters cover return recommendations under a configured merchant policy, rational linear equations, small strictly convex quadratic programs, declared uniform axial bars, and a two-span continuous beam under uniform load patterns. See the [customer-support contract](customer-support.md), [optimization certificate](constrained-optimization.md), and [bridge model](continuous-bridge.md) for supported scopes. Engineering verifiers check declared assumptions; they cannot establish whether a real component satisfies them. A completed task may conclude that an equation has no solution, a supplied limit is exceeded, or a support request needs human review.
 
 Model proposals, tool inputs, and verification are distinct trust boundaries. Correct checking of false real-world inputs still produces an inapplicable conclusion. Callback timeouts, isolation, input authenticity, and domain-model validity remain the integrator's responsibility. See [architecture](architecture.md) and [domain contract](domain-contract.md) for the full contract.
 
@@ -81,7 +82,7 @@ Model proposals, tool inputs, and verification are distinct trust boundaries. Co
 ResiMind 的神经符号体现在三个可检查的层次：
 
 1. **神经提议入口：** `ModelProposer` 接受实际模型的 `complete(prompt) -> str` 回调；默认示例用确定性的离线逻辑替代它，不携带训练权重。
-2. **符号验证实现：** 数学适配器检查精确方程与优化证书；工程适配器检查前提、量纲、应力或连续梁的平衡、协调及工况完整性。正式事实由验证器产生。
+2. **符号验证实现：** 客服适配器检查订单证据、业务规则与退款金额；数学适配器检查精确方程与优化证书；工程适配器检查前提、量纲、应力或连续梁的平衡、协调及工况完整性。正式事实由验证器产生。
 3. **残差反馈闭环：** 未完成的目标、未知项和硬约束从正式事实重建；拒绝原因真实返回下一轮提议。得到候选答案并不等于验证义务全部完成。
 
 领域构建器支持 `build_agent(problem, complete=your_complete)`，接入方将现有模型 SDK 包成回调即可。回调输出需符合当前任务声明的动作、目标、claim 格式与证据引用，不能凭 `verified` 字段自行通过验证。

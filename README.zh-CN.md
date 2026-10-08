@@ -6,11 +6,11 @@
 
 模型提出候选，领域验证器检查。只有通过验证的事实才能提交；没完成的问题持续保留，验证反馈指导下一步提议。
 
-适合有明确、可执行检查的任务：数学证明证书、工程方程，或你自己的结构化规则。沿用已有模型，为具体领域提供验证逻辑。
+适合有明确、可执行检查的任务：客服业务规则、数学证明证书、工程方程，或你自己的结构化规则。沿用已有模型，为具体领域提供验证逻辑。
 
-**Python 3.10+ · 核心零依赖 · 可选 DeepSeek、OpenAI 与 LangGraph 接入 · MIT · 实验版本 v0.5.0**
+**Python 3.10+ · 核心零依赖 · 可选 DeepSeek、OpenAI 与 LangGraph 接入 · MIT · 实验版本 v0.6.0**
 
-[English](README.md) · [真实模型接入](docs/live-model.md) · [LangGraph](docs/langgraph.md) · [数学证明](docs/constrained-optimization.md) · [桥梁案例](docs/continuous-bridge.md) · [架构](docs/architecture.md)
+[English](README.md) · [真实模型接入](docs/live-model.md) · [LangGraph](docs/langgraph.md) · [日常客服](docs/customer-support.md) · [数学证明](docs/constrained-optimization.md) · [桥梁案例](docs/continuous-bridge.md) · [架构](docs/architecture.md)
 
 **项目发起者与原始发布者：[@1105216375-alt](https://github.com/1105216375-alt)。** [原始仓库](https://github.com/1105216375-alt/resimind) · [引用信息](CITATION.cff)
 
@@ -36,6 +36,7 @@ Windows PowerShell 的激活命令为 `.venv\Scripts\Activate.ps1`。安装时�
 [静态轨迹图](docs/assets/verification-demo.png)。动画回放来自实际执行的确定性示例，**不是真实模型运行录像**；验证与状态更新确实执行，第一次错误为有意构造。
 
 ```bash
+python -m resimind demo --domain customer-support
 python -m resimind demo --domain bridge
 python -m resimind demo --json > audit.json
 ```
@@ -77,6 +78,27 @@ print(outcome["report"])  # 只含正式事实；未解决时为 None
 ```
 
 [查看如何嵌入已有工作流 →](docs/langgraph.md)。验证器只覆盖配置的领域规则，任意自然语言结论仍需要另外定义检查方式。
+
+## 日常客服：先核实退款条件，再给处理建议
+
+客户申请退货，订单记录显示商品实付 **249 元**、运费 **10 元**。按示例商家配置的规则，这次退款报价不含运费。
+
+| 情况 | Agent 的处理 |
+| --- | --- |
+| 候选说“可退 **259 元**” | 金额被拒绝，错误提议不会写入正式事实。 |
+| 修正为“可退 **249 元**” | 核验申请条件和金额后，输出结构化处理建议。 |
+| 缺少签收日期 | 保留待补证据，不能给出完整退款建议。 |
+| 超过配置的申请期限 | 建议人工复核，不能自行编造政策例外。 |
+
+```bash
+python -m resimind demo --domain customer-support
+python -m resimind demo --domain customer-support --scenario missing-delivery
+python -m resimind demo --domain customer-support --scenario expired
+```
+
+这些命令使用合成订单和虚构商家规则，默认离线运行。Agent 给出处理建议，不执行退款，也不会声称款项已到账。缺证据场景会返回非零退出码，表示任务还没解决；也支持接入真实 DeepSeek 回调。
+
+[查看客服规则、完整案例与真实模型接入 →](docs/customer-support.md) · [真实 DeepSeek 记录：5 次调用、2 次拒绝、核验后给出建议](docs/evidence/customer-support/README.md)
 
 ## 数学：算出一个解，还得证明它是全局最优
 
@@ -136,6 +158,7 @@ python -m examples.continuous_bridge --json
 
 | 适配器 | 独立检查 | 完成条件 |
 | --- | --- | --- |
+| [售后客服](src/resimind/domains/customer_support.py) | 订单证据绑定、配置的业务规则、精确退款金额 | 核验后的处理建议或人工复核结论；缺证据时保持待办 |
 | [约束优化](src/resimind/domains/optimization.py) | 精确分解、可行性、KKT、多项式证书 | 全局最优性证书核验完成 |
 | [连续梁桥](src/resimind/domains/bridge.py) | 平衡、曲率与协调条件、全部工况、弯矩极值 | 工况包络与给定限值比较完整 |
 | [一元方程](src/resimind/domains/mathematics.py) | 有理数归一化、求解与回代 | 原方程检查完成，包括无解/恒等情况 |
@@ -219,7 +242,7 @@ ResiMind 由 [@1105216375-alt](https://github.com/1105216375-alt) 发起并首�
 
 使用或介绍 ResiMind 时，欢迎注明项目来源并链接原始仓库。建议引用：
 
-> 1105216375-alt. ResiMind（版本 0.5.0），2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind（版本 0.6.0），2026. https://github.com/1105216375-alt/resimind
 
 [CITATION.cff](CITATION.cff) 提供机器可读的引用信息。引用属于倡议，不是新增的许可条件。项目采用 [MIT License](LICENSE)，允许商用；软件副本或实质部分须保留版权和许可声明。
 

@@ -17,6 +17,8 @@ jobs:
       - run: python -m pytest -q -o pythonpath=.
       - run: python -m resimind demo
       - run: python -m resimind demo --domain bridge
+      - run: python -m resimind demo --domain customer-support
+      - run: python -m examples.customer_support --scenario expired
       - run: python -m examples.constrained_optimization
       - run: python -m examples.continuous_bridge
       - run: python -m examples.mathematics_agent
