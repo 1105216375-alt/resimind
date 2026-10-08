@@ -6,9 +6,9 @@ import json
 
 import pytest
 
-from residual_agent import Candidate, Decision, State
-from residual_agent.agent import Task
-from residual_agent.domains.mathematics import (
+from resimind import Candidate, Decision, State
+from resimind.agent import Task
+from resimind.domains.mathematics import (
     ACTIONS, CHECK_TARGET, COEFFICIENT_FACT, COEFFICIENT_TARGET, DOMAIN,
     EVIDENCE_IDS, NORMALIZED_FACT, NORMALIZE_TARGET, SOLUTION_FACT, SOLVE_TARGET,
     EquationTool, LinearEquation, MathematicsDomain, MathematicsVerifier, build_agent, run_demo,

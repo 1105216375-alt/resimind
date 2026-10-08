@@ -4,10 +4,10 @@ from dataclasses import FrozenInstanceError
 import json
 import unittest
 
-from residual_agent.adapters import ModelProposer, ModelResponseError
-from residual_agent.agent import Agent, AgentResult, Task, ToolEvent
-from residual_agent.core import Candidate, Decision, Evidence, Fact, Residual, State, Verdict
-from residual_agent.memory import Route, RouteMemory
+from resimind.adapters import ModelProposer, ModelResponseError
+from resimind.agent import Agent, AgentResult, Task, ToolEvent
+from resimind.core import Candidate, Decision, Evidence, Fact, Residual, State, Verdict
+from resimind.memory import Route, RouteMemory
 
 
 class StockTool:

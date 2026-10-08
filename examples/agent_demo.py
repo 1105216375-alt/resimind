@@ -7,9 +7,9 @@ from __future__ import annotations
 
 import json
 
-from residual_agent.agent import Agent, AgentResult, Task
-from residual_agent.adapters import ModelProposer
-from residual_agent.memory import Route, RouteMemory
+from resimind.agent import Agent, AgentResult, Task
+from resimind.adapters import ModelProposer
+from resimind.memory import Route, RouteMemory
 
 from .inventory import (
     ACTION, INPUTS, TARGET, InventoryDomain, InventoryVerifier, make_evidence,

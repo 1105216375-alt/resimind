@@ -1,9 +1,9 @@
 """One installed Agent contract supports different verification semantics."""
 import json
 
-from residual_agent import Agent, AgentResult, Task
-from residual_agent.domains.mathematics import LinearEquation, build_agent as math_agent
-from residual_agent.domains.engineering import AxialBarProblem, build_agent as engineering_agent
+from resimind import Agent, AgentResult, Task
+from resimind.domains.mathematics import LinearEquation, build_agent as math_agent
+from resimind.domains.engineering import AxialBarProblem, build_agent as engineering_agent
 
 
 def bar(**values):

@@ -7,7 +7,7 @@ Run with ``python -m examples.document_review``.
 
 from __future__ import annotations
 
-from residual_agent import (
+from resimind import (
     Candidate, Decision, Engine, Evidence, Fact, Residual, RunResult, State,
     Verdict,
 )

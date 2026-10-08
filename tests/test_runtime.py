@@ -3,7 +3,7 @@ from dataclasses import FrozenInstanceError, replace
 import json
 import unittest
 
-from residual_agent import (Candidate, Decision, Engine, Evidence, Fact,
+from resimind import (Candidate, Decision, Engine, Evidence, Fact,
                                Residual, State, Verdict)
 
 

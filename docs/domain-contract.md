@@ -1,6 +1,6 @@
 # 工程与数学共用的 Agent 架构
 
-Residual Agent 的通用性来自稳定的任务、证据、候选、验证和状态转移契约。工程模型与数学规则作为领域适配器接入同一个 `Agent`，无需改写执行循环。
+ResiMind 的通用性来自稳定的任务、证据、候选、验证和状态转移契约。工程模型与数学规则作为领域适配器接入同一个 `Agent`，无需改写执行循环。
 
 ```mermaid
 flowchart TD
@@ -30,7 +30,7 @@ flowchart TD
 | 记忆 | `RouteMemory` | 有适用前提的解题路线 | 有适用条件的分析路线 |
 | 结果 | `AgentResult` | 结论与证明过程 | 分析结果与限制条件 |
 
-`Agent` 本身不包含桥梁、库存、方程或杆件的判断分支。两个参考适配器放在可安装的 `residual_agent.domains` 包中，示例只负责调用它们；因此安装 wheel 后仍可以在自己的项目中复用。
+`Agent` 本身不包含桥梁、库存、方程或杆件的判断分支。两个参考适配器放在可安装的 `resimind.domains` 包中，示例只负责调用它们；因此安装 wheel 后仍可以在自己的项目中复用。
 
 ## 已运行的两种领域
 
@@ -70,7 +70,7 @@ flowchart TD
 当前使用一个仓库和一个安装包，内部保持三个模块边界：
 
 - 通用 Agent：任务、证据、候选、验证门控、残差、记忆与审计。
-- 数学适配器：`residual_agent.domains.mathematics`，有自己的入口与测试。
-- 工程适配器：`residual_agent.domains.engineering`，有自己的入口与测试，使用独立的 `units` 工具模块。
+- 数学适配器：`resimind.domains.mathematics`，有自己的入口与测试。
+- 工程适配器：`resimind.domains.engineering`，有自己的入口与测试，使用独立的 `units` 工具模块。
 
 两个适配器依赖共用的 Agent 契约，核心模块不导入这两个适配器。目前它们没有第三方运行时依赖，统一版本便于核验兼容性。如果未来领域插件的依赖、维护团队或发布周期明显分化，可再拆成单独的安装包或仓库；不需要复制两套核心。

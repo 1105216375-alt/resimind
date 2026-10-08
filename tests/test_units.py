@@ -4,8 +4,8 @@ from fractions import Fraction
 
 import pytest
 
-import residual_agent.units as units_module
-from residual_agent.units import (
+import resimind.units as units_module
+from resimind.units import (
     AREA, DIMENSIONLESS, FORCE, LENGTH, MASS, PRESSURE, TIME,
     Dimension, Quantity, UnitRegistry,
 )

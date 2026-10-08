@@ -4,7 +4,7 @@ from dataclasses import FrozenInstanceError, fields
 import json
 import unittest
 
-from residual_agent.memory import Route, RouteMemory
+from resimind.memory import Route, RouteMemory
 
 
 def sample_route(route_id="inventory-v1", **changes):

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="title desc">
+  <title id="title">ResiMind — neuro-symbolic agents for mathematics and engineering</title>
+  <desc id="desc">A connected network proposes a candidate, a check validates it, and remaining obligations flow back into the next step.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101e36"/><stop offset="1" stop-color="#071321"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#59dbe4"/><stop offset="1" stop-color="#9cf4cb"/></linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#a7c9e4" stroke-opacity=".045"/></pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="m0 0 10 5-10 5Z" fill="#57d8db"/></marker>
+  </defs>
+  <rect width="1280" height="360" rx="20" fill="url(#bg)"/>
+  <rect width="1280" height="360" rx="20" fill="url(#grid)"/>
+  <path d="M0 359H1280" stroke="url(#accent)" stroke-opacity=".7"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif">
+    <text x="62" y="64" font-size="12" font-weight="600" letter-spacing="3" fill="#6fe0d5">NEURO-SYMBOLIC AGENT ARCHITECTURE</text>
+    <text x="57" y="145" font-size="70" font-weight="750" letter-spacing="-3" fill="#f4f8ff">Resi<tspan fill="#79e9d5">Mind</tspan></text>
+    <text x="62" y="191" font-size="23" fill="#d5e1f1">Models propose. Verifiers decide.</text>
+    <text x="62" y="224" font-size="23" fill="#d5e1f1">Residuals drive the next step.</text>
+    <rect x="62" y="267" width="275" height="32" rx="16" fill="#59dbe4" fill-opacity=".07" stroke="#59dbe4" stroke-opacity=".24"/>
+    <text x="80" y="288" font-size="13" letter-spacing="1.3" fill="#99b7cb">MATHEMATICS + ENGINEERING</text>
+    <g stroke="#486a89" stroke-width="1.8" fill="none">
+      <path d="M760 129 805 97 850 137 805 180 760 129 757 204 805 180 850 222 850 137 805 97 757 204"/>
+      <path d="M805 97V180M760 129 850 137M805 180 757 204"/>
+    </g>
+    <g fill="#7ee4db" stroke="#102437" stroke-width="4">
+      <circle cx="805" cy="97" r="8"/><circle cx="760" cy="129" r="9"/><circle cx="850" cy="137" r="9"/>
+      <circle cx="805" cy="180" r="10"/><circle cx="757" cy="204" r="7"/><circle cx="850" cy="222" r="7"/>
+    </g>
+    <path d="M882 160H989" fill="none" stroke="#57d8db" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="907" y="140" width="46" height="40" rx="9" fill="#112b3c" stroke="#427286"/>
+    <text x="917" y="166" font-size="20" fill="#9fe4e9">{ }</text>
+    <rect x="1006" y="110" width="106" height="100" rx="24" fill="#76e7ce" fill-opacity=".06" stroke="#76e7ce" stroke-opacity=".4"/>
+    <path d="m1032 160 18 18 35-39" fill="none" stroke="#91f1cb" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M1060 229V260Q1060 281 1039 281H826Q805 281 805 260V245" fill="none" stroke="#57d8db" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="768" y="58" font-size="12" letter-spacing="2" fill="#7e9cb5">PROPOSE</text>
+    <text x="1030" y="83" font-size="12" letter-spacing="2" fill="#7e9cb5">VERIFY</text>
+    <rect x="865" y="269" width="132" height="23" rx="5" fill="#0b1829"/>
+    <text x="877" y="285" font-size="12" letter-spacing="1.6" fill="#78cbd0">WHAT REMAINS</text>
+  </g>
+</svg>

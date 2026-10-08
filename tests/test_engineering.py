@@ -4,9 +4,9 @@ import json
 
 import pytest
 
-from residual_agent.agent import Task
-from residual_agent.core import Candidate, Decision, State
-from residual_agent.domains.engineering import (
+from resimind.agent import Task
+from resimind.core import Candidate, Decision, State
+from resimind.domains.engineering import (
     DOMAIN, LIMIT_ACTION, LIMIT_TARGET, STRESS_ACTION, STRESS_INPUTS, STRESS_TARGET,
     AxialBarDomain, AxialBarProblem, AxialBarProposer, AxialBarVerifier, build_agent, make_evidence, run_demo,
 )

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 — 2026-10-08
+
+- Launch as **ResiMind** with the Python package and import namespace `resimind`.
+- Add an English landing page, complete Chinese guide, and an original architecture banner.
+- Document the implemented symbolic checks, injectable neural component, residual feedback, and current limitations.
+- Preserve the shared Agent core and runnable mathematics and engineering adapters from the pre-publication versions below.
+
 ## 0.2.0 — 2026-10-08
 
 - Add installable mathematics and engineering adapters sharing the unchanged Agent runtime.

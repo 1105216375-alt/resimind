@@ -5,7 +5,7 @@ import json
 
 import pytest
 
-from residual_agent import Candidate, Decision, Fact, State
+from resimind import Candidate, Decision, Fact, State
 from examples import document_review, inventory, route_memory
 
 

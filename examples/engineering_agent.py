@@ -2,9 +2,9 @@
 
 Run ``python -m examples.engineering_agent`` from the source checkout.
 Installed applications can import the same adapter from
-``residual_agent.domains.engineering``. No design standard is implemented.
+``resimind.domains.engineering``. No design standard is implemented.
 """
-from residual_agent.domains.engineering import AxialBarProblem, build_agent, run_demo
+from resimind.domains.engineering import AxialBarProblem, build_agent, run_demo
 
 __all__ = ["AxialBarProblem", "build_agent", "run_demo"]
 

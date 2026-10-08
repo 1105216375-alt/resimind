@@ -1,7 +1,7 @@
 import json
 
 from examples.agent_demo import build_agent, run_demo
-from residual_agent.agent import Task
+from resimind.agent import Task
 
 
 def test_complete_agent_rejects_false_model_claim_and_finishes():
