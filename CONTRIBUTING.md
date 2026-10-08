@@ -1,6 +1,6 @@
 # Contributing
 
-Use Python 3.10+ and install `python -m pip install -e '.[dev]'`. Run `python -m pytest -q` and the four examples before submitting a change.
+Use Python 3.10+ and install `python -m pip install -e '.[dev]'`. Run `python -m pytest -q` and the six examples before submitting a change.
 
 Keep runtime dependencies minimal. Add domain adapters as self-contained examples with synthetic data. Document which code and evidence the adapter trusts. A proposer must never bypass a verifier, and a verifier's accepted facts must remain bound to the exact candidate and state being committed.
 

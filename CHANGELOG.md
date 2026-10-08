@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0 — 2026-10-08
+
+- Add installable mathematics and engineering adapters sharing the unchanged Agent runtime.
+- Add exact rational linear-equation normalization, solution, and substitution/classification checks.
+- Add a synthetic axial-bar stress workflow with explicit model assumptions, dimensions, and supplied limits.
+- Add reusable exact quantities and a multiplicative unit registry.
+- Demonstrate that a completed analysis can conclude no solution or an exceeded limit.
+
 ## 0.1.0 — 2026-10-08
 
 - Add task-level Agent orchestration, registered evidence tools, provider-neutral structured model proposals, and verifier feedback for correction.

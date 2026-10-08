@@ -2,11 +2,11 @@
 
 **让模型提议，让验证器决定，让残差驱动下一步。**
 
-一个领域无关、零运行时依赖的**神经符号 Agent 架构**。把任务、工具取证、模型提议、独立验证、残差执行循环和经审路线记忆串成可运行的 Agent。来自「桥梁医生」的实践，并以独立 Python 框架重新实现。
+面向**数学、工程和其他结构化任务的通用神经符号 Agent 架构**。共享任务、工具取证、模型提议、独立验证、残差执行循环和经审路线记忆；各领域接入自己的规则与计算工具。来自「桥梁医生」的实践，以零运行时依赖的 Python 框架独立实现。
 
-[English](README.en.md) · [架构与信任边界](docs/architecture.md) · [扩展接口](docs/adapters.md) · [来源与范围](docs/provenance.md)
+[English](README.en.md) · [架构与信任边界](docs/architecture.md) · [工程与数学适配](docs/domain-contract.md) · [扩展接口](docs/adapters.md) · [来源与范围](docs/provenance.md)
 
-> **v0.1.0 / 实验阶段。** 这是验证门控的编排框架。领域验证器的质量决定了结论的质量；它不是任意自然语言的自动证明器。离线示例使用确定性提议器，不需要模型账号。
+> **v0.2.0 / 实验阶段。** 这是验证门控的编排框架。领域验证器的质量决定了结论的质量；它不是任意自然语言的自动证明器。离线示例使用确定性提议器，不需要模型账号。
 
 ## Agent 架构
 
@@ -42,6 +42,8 @@ flowchart TD
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[dev]'
+python -m examples.mathematics_agent
+python -m examples.engineering_agent
 python -m examples.agent_demo
 python -m examples.inventory
 python -m examples.document_review
@@ -51,22 +53,39 @@ python -m pytest -q
 
 Windows PowerShell 使用 `.venv\Scripts\Activate.ps1` 激活环境。运行时不依赖任何第三方包；安装工具和测试工具可能需要下载。也可以跳过安装，用 `PYTHONPATH=src python -m examples.inventory` 运行示例（POSIX shell）。
 
-完整示例会让“模型”先提出错误库存 `999`，被独立验证器拒绝；下一次提出 `12`，验证器用工具证据重算通过，残差清空。拒绝原因会反馈给下一轮模型提议。模型回调是离线模拟，可替换成你自己的模型 SDK。
+数学示例运行精确方程的“归一化 → 求解 → 回代”，工程示例运行“量纲与前提检查 → 应力计算 → 限值比较”。错误候选会被拒绝，拒绝原因反馈给下一轮提议。默认使用离线提议器，可通过 `complete(prompt) -> str` 接入实际模型。
+
+同一个任务和结果接口，可以调用不同领域适配器：
 
 ```python
-from examples.agent_demo import build_agent
 from residual_agent import Task
+from residual_agent.domains.mathematics import LinearEquation, build_agent as math_agent
+from residual_agent.domains.engineering import AxialBarProblem, build_agent as engineering_agent
 
-agent = build_agent()
-result = agent.run(Task("demo", "核对本批次库存", "inventory"))
-print(result.run_result.status)  # solved
-print(result.to_json())         # 工具、证据、候选、决策与未决项
+jobs = [
+    (math_agent(LinearEquation(2, 3, 11)),
+     Task("math-1", "求解并回代验证 2*x+3=11", "mathematics")),
+    (engineering_agent(AxialBarProblem(
+        force_value=100, force_unit="kN",
+        area_value=1000, area_unit="mm2",
+        allowable_stress_value=150, allowable_stress_unit="MPa",
+        axial_static=True, is_uniform=True, no_local_effects=True,
+    )), Task("engineering-1", "核算合成杆件名义应力并比较给定限值", "engineering")),
+]
+for agent, task in jobs:
+    result = agent.run(task)
+    print(result.run_result.status)
+    print(result.to_json())
 ```
+
+这两个适配器随安装包提供。数学当前支持精确有理数的一元一次方程；工程当前支持静态轴向等截面杆的名义应力模型，示例限值是合成输入。`solved` 表示任务的验证义务完成；结论仍可能是“无解”或“超限”。
 
 ## 可以看到什么
 
 | 示例 | 提议与验证 | 残差的作用 |
 | --- | --- | --- |
+| 数学 Agent | 精确有理数归一化、求解、回代与退化情形核验 | 推导和回代义务都完成才收口 |
+| 工程 Agent | 检查模型前提、量纲、应力公式与输入限值 | 缺前提保留残差，超限作为已核验结果 |
 | 完整 Agent | 任务 → 工具 → 模型回调 → 验证 → 已核验结果 | 错误提议被拒绝后继续执行 |
 | 库存计算 | 从合成库存证据重新计算，拒绝错误候选 | 只有结果核验通过才能完成目标 |
 | 资料完整性 | 核对同一对象、同一范围的所需资料 | 缺资料保留未知项，不伪造完整结论 |
@@ -80,7 +99,7 @@ print(result.to_json())         # 工具、证据、候选、决策与未决项
 2. `Verifier.verify(...)`：独立核对证据、对象、单位、适用范围和领域规则，返回四级决策及可提交事实。
 3. `Domain.rebuild(...)`：从实际事实重建未完成义务，决定是否完成。
 
-从 [agent_demo.py](examples/agent_demo.py) 的完整 Agent 开始，再看 [inventory.py](examples/inventory.py) 的领域验证实现，然后阅读 [适配器指南](docs/adapters.md)。模型适配器只是候选生产者；不要把模型自报的正确性当成验证结果。
+从 [数学 Agent](examples/mathematics_agent.py) 或 [工程 Agent](examples/engineering_agent.py) 开始，阅读 [领域契约](docs/domain-contract.md) 与 [适配器指南](docs/adapters.md)。模型适配器只是候选生产者；不要把模型自报的正确性当成验证结果。
 
 ## 已实现与边界
 
@@ -89,6 +108,7 @@ print(result.to_json())         # 工具、证据、候选、决策与未决项
 - `accept / reject / defer / interrupt`、轮换提议器、尝试次数与无进展停止策略。
 - JSON 运行记录和明确的停止原因。
 - 进程内路线记忆，带适用条件、审核记录和撤销。
+- 可复用的数学、工程适配器，以及基于 `Fraction` 的单位换算与量纲运算组件。
 
 工具在任务开始时采集证据；循环内动态取证、自动多角色规划尚未实现。
 
