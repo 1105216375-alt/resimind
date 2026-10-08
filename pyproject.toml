@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "residual-agent"
+version = "0.1.0"
+description = "A neuro-symbolic Agent architecture with verified residual reasoning"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "Residual Agent contributors"}]
+keywords = ["neuro-symbolic", "reasoning", "verification", "residual", "agents"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4,<9"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
