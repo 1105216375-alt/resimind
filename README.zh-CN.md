@@ -12,7 +12,7 @@ ResiMind 是一套独立运行的开源**神经符号 Agent 架构**，把验证
 
 当前自适应推理与规则学习示例支持**有界有理多项式展开**。同一套 Agent 核心还提供规划、客服、约束优化与桥梁示例，各自使用明确的检查条件。
 
-**沿用你的模型 · Python 3.10+ · 核心零依赖 · MIT · v0.11.0 / 实验阶段**
+**沿用你的模型 · Python 3.10+ · 核心零依赖 · MIT · v0.12.0 / 实验阶段**
 
 [English](README.md) · [快速上手](#三分钟跑起来) · [知识增长](docs/knowledge-growth.zh-CN.md) · [开放性完整案例](#开放式规划答案可以多样约束必须满足) · [量化证据](#衡量-agent-架构带来了什么) · [架构](#agent-架构)
 
@@ -38,7 +38,13 @@ ResiMind 是一套独立运行的开源**神经符号 Agent 架构**，把验证
 
 **当前范围：**自适应适配器支持有界有理多项式展开。其他领域共用 Agent 核心，使用各自的检查条件。可选 Lean 4.29.0 后端检查生成的 `Rat` 等式，并把未完成证明的真实目标反馈给下一次提议。
 
-[**运行自适应 Agent →**](docs/adaptive-reasoning.md) · [版本验证](docs/validation-v0.11.0.md) · [更新记录](CHANGELOG.md)
+[**运行自适应 Agent →**](docs/adaptive-reasoning.md) · [版本验证](docs/validation-v0.12.0.md) · [更新记录](CHANGELOG.md)
+
+### v0.12 新增：给难题一笔有界的额外预算
+
+自适应数学 Agent 保留原有的本地工作预算，同时可以显式配置累计溢出额度，
+处理少数特别大的符号展开。每个被接受的步骤只扣除估计值超出基础预算的部分；
+恒等性、目标进展和可选 Lean 门仍然决定它能否提交。默认溢出额度为 0，已有调用行为不变。
 
 ### v0.11：让推理朝着目标前进
 
@@ -384,7 +390,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-当前检查见 [v0.11.0 版本验证](docs/validation-v0.11.0.md)；历史检查保留在 [v0.10.0 记录](docs/validation-v0.10.0.md)、[v0.9.0 记录](docs/validation-v0.9.0.md)、[v0.8.0 记录](docs/validation-v0.8.0.md)、[知识增长开发记录](docs/validation-knowledge-growth.md)与[早期版本记录](docs/validation.md)中。
+当前检查见 [v0.12.0 版本验证](docs/validation-v0.12.0.md)；历史检查保留在 [v0.11.0 记录](docs/validation-v0.11.0.md)、[v0.10.0 记录](docs/validation-v0.10.0.md)、[v0.9.0 记录](docs/validation-v0.9.0.md)、[v0.8.0 记录](docs/validation-v0.8.0.md)、[知识增长开发记录](docs/validation-knowledge-growth.md)与[早期版本记录](docs/validation.md)中。
 
 ## 衡量 Agent 架构带来了什么
 
@@ -414,7 +420,7 @@ ResiMind 由 [@1105216375-alt](https://github.com/1105216375-alt) 发起并首�
 
 使用或介绍 ResiMind 时，欢迎注明项目来源并链接原始仓库。建议引用：
 
-> 1105216375-alt. ResiMind（版本 0.11.0），2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind（版本 0.12.0），2026. https://github.com/1105216375-alt/resimind
 
 [CITATION.cff](CITATION.cff) 提供机器可读的引用信息。引用属于倡议，不是新增的许可条件。项目采用 [MIT License](LICENSE)，允许商用；软件副本或实质部分须保留版权和许可声明。
 

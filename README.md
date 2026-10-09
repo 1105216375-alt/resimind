@@ -12,7 +12,7 @@ The [adaptive math Agent](docs/adaptive-reasoning.md) can switch strategies afte
 
 The current adaptive and rule-learning demo supports **bounded rational polynomial expansion**. The same Agent core also runs planning, customer support, optimization and bridge examples with domain-specific checks.
 
-**Bring your own model · Python 3.10+ · Zero-dependency core · MIT · v0.11.0 / Experimental**
+**Bring your own model · Python 3.10+ · Zero-dependency core · MIT · v0.12.0 / Experimental**
 
 [中文](README.zh-CN.md) · [Quick start](#try-it-in-three-minutes) · [Knowledge growth](docs/knowledge-growth.md) · [Open-ended case](#open-ended-planning-many-answers-explicit-constraints) · [Evidence](#measure-the-agent-not-the-model) · [Architecture](#the-architecture)
 
@@ -38,7 +38,15 @@ Try the offline recovery demo: a deliberately wrong expansion is rejected, a loc
 
 **Current scope:** the adaptive adapter handles bounded rational polynomial expansion. Other domains share the Agent core and use their own checks. An optional Lean 4.29.0 backend checks generated equalities over `Rat` and feeds unfinished proof goals back into the next proposal.
 
-[**Run the adaptive Agent →**](docs/adaptive-reasoning.md) · [Release validation](docs/validation-v0.11.0.md) · [Changelog](CHANGELOG.md)
+[**Run the adaptive Agent →**](docs/adaptive-reasoning.md) · [Release validation](docs/validation-v0.12.0.md) · [Changelog](CHANGELOG.md)
+
+### New in v0.12: let hard cases spend a bounded reserve
+
+The adaptive math Agent keeps its normal local-work budget, then can spend an
+explicit cumulative overflow reserve on unusually large symbolic steps. Each
+accepted step pays only its estimated excess; exact identity, goal progress and
+optional Lean gates still decide whether it commits. The default reserve is
+zero, so existing callers keep the previous budget behavior.
 
 ### New in v0.11: keep reasoning aimed at the goal
 
@@ -386,7 +394,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-See [v0.11.0 release validation](docs/validation-v0.11.0.md) for current checks, and the [v0.10.0 record](docs/validation-v0.10.0.md), [v0.9.0 record](docs/validation-v0.9.0.md), [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier release record](docs/validation.md) for historical checks.
+See [v0.12.0 release validation](docs/validation-v0.12.0.md) for current checks, and the [v0.11.0 record](docs/validation-v0.11.0.md), [v0.10.0 record](docs/validation-v0.10.0.md), [v0.9.0 record](docs/validation-v0.9.0.md), [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier release record](docs/validation.md) for historical checks.
 
 ## Measure the Agent, not the model
 
@@ -416,7 +424,7 @@ ResiMind was initiated and originally published by [@1105216375-alt](https://git
 
 If you use or discuss ResiMind, please cite the project and link to the original repository. Suggested citation:
 
-> 1105216375-alt. ResiMind (version 0.11.0), 2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind (version 0.12.0), 2026. https://github.com/1105216375-alt/resimind
 
 Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is appreciated, not an additional license condition. Commercial use is permitted under the [MIT License](LICENSE), which requires retaining its copyright and permission notices in copies or substantial portions of the software.
 

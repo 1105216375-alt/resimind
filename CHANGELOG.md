@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.0 — 2026-10-09
+
+- Add an opt-in cumulative local-work overflow reserve for unusually large symbolic steps. Each accepted candidate pays only its estimated excess over the normal bound; the reserve is finite, never refunded by rollback, and remains behind exact identity, goal-progress, and optional Lean gates.
+- Keep the default local-work budget and zero-overflow behavior unchanged for existing callers. Record bounded overflow grants in the adaptive audit without treating scheduling estimates as mathematical evidence.
+- Add regression coverage for multi-step overflow, strict option validation, and the complex mixed-product expansion path. Detailed model evaluations remain local.
+
 ## 0.11.0 — 2026-10-09
 
 - Separate verified identity from goal progress in the adaptive polynomial loop. Assess progress after exact verification and before optional Lean checks; defer cosmetic rewrites with feedback about remaining expansion work.
