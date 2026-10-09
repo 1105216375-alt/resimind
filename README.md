@@ -4,7 +4,7 @@
 
 **Catch a bad step. Try another route. Remember a verified solution.**
 
-ResiMind is a standalone, open-source **neuro-symbolic Agent architecture** for verification-guided self-correction and reusable rule memory. Your model proposes a step. Independent code checks it. The **residual** tracks what remains to be solved and guides the next attempt.
+ResiMind is a standalone, open-source **neuro-symbolic Agent architecture** for verification-guided self-correction and reusable rule memory. Rules, symbolic tools and your model can propose steps. Independent code checks them. The **residual** tracks what remains to be solved and guides the next attempt.
 
 **Self-correction · Verified agent memory · Knowledge growth without model retraining**
 
@@ -12,7 +12,7 @@ The [adaptive math Agent](docs/adaptive-reasoning.md) can switch strategies afte
 
 The current adaptive and rule-learning demo supports **bounded rational polynomial expansion**. The same Agent core also runs planning, customer support, optimization and bridge examples with domain-specific checks.
 
-**Bring your own model · Python 3.10+ · Zero-dependency core · MIT · v0.9.0 / Experimental**
+**Bring your own model · Python 3.10+ · Zero-dependency core · MIT · v0.10.0 / Experimental**
 
 [中文](README.zh-CN.md) · [Quick start](#try-it-in-three-minutes) · [Knowledge growth](docs/knowledge-growth.md) · [Open-ended case](#open-ended-planning-many-answers-explicit-constraints) · [Evidence](#measure-the-agent-not-the-model) · [Architecture](#the-architecture)
 
@@ -38,7 +38,13 @@ Try the offline recovery demo: a deliberately wrong expansion is rejected, a loc
 
 **Current scope:** the adaptive adapter handles bounded rational polynomial expansion. Other domains share the Agent core and use their own checks. An optional Lean 4.29.0 backend checks generated equalities over `Rat` and feeds unfinished proof goals back into the next proposal.
 
-[**Run the adaptive Agent →**](docs/adaptive-reasoning.md) · [Release validation](docs/validation-v0.9.0.md) · [Changelog](CHANGELOG.md)
+[**Run the adaptive Agent →**](docs/adaptive-reasoning.md) · [Release validation](docs/validation-v0.10.0.md) · [Changelog](CHANGELOG.md)
+
+### New in v0.10: use what you know; call the model when needed
+
+The math adapter now compares bounded previews of verified rules, compaction and local expansion before requesting a model. A rule that closes the task can win even if its expression is larger; a matching rule can be skipped when simpler local work looks cheaper. Every selected step still needs independent verification, including Lean when enabled.
+
+[**Try local selection, zero-callback reuse and explicit fallback →**](docs/cost-aware-scheduling.md)
 
 ### New in v0.9: compact math, with Lean in the loop
 
@@ -56,17 +62,18 @@ cd resimind
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install .
-python -m resimind demo --domain adaptive
+python -m resimind demo --domain scheduling
 ```
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. Installation may download build tools. The demo runs **offline, without an API key**; both `python -m resimind` and the installed `resimind` command work outside the checkout.
 
-The first demo shows a rejected expansion, a checked local edit, symbolic recovery, and a new rule that is saved, reloaded and reused on a new-variable task. It labels its model responses as an offline script and prints the strategy audit.
+The first demo saves and reloads checked rules, then compares empty and learned libraries with a callback configured. The normal tasks should finish without invoking that callback. A separate case with a deliberately zero local-work budget invokes one scripted proposal to show fallback. No API calls are made.
 
-Choose a different challenge. All eight commands run offline; the Lean example additionally requires an installed Lean 4.29.0 toolchain:
+Choose a different challenge. All nine commands run offline; the Lean example additionally requires an installed Lean 4.29.0 toolchain:
 
 | Try | What the example makes visible | Command |
 | --- | --- | --- |
+| [Local scheduling](docs/cost-aware-scheduling.md) | Reuse a useful rule, simplify before an expensive substitution, and skip model callbacks when local work suffices | `python -m resimind demo --domain scheduling` |
 | [Expression growth](docs/expression-growth-and-lean.md) | Compare primitive expansion with bounded distribution and term collection on four quadratic factors | `python -m resimind demo --domain growth-control` |
 | [Lean proof feedback](docs/expression-growth-and-lean.md#let-lean-feedback-drive-the-next-proposal) | A real unfinished Lean goal drives a new tactic, then a checked rule is reused | `python -m resimind demo --domain lean` |
 | [Adaptive reasoning](docs/adaptive-reasoning.md) | Reject a wrong step, change strategy, finish a proof and reuse its checked rule | `python -m resimind demo --domain adaptive` |
@@ -372,7 +379,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-See [v0.9.0 release validation](docs/validation-v0.9.0.md) for current checks, and the [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier release record](docs/validation.md) for historical checks.
+See [v0.10.0 release validation](docs/validation-v0.10.0.md) for current checks, and the [v0.9.0 record](docs/validation-v0.9.0.md), [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier release record](docs/validation.md) for historical checks.
 
 ## Measure the Agent, not the model
 
@@ -402,7 +409,7 @@ ResiMind was initiated and originally published by [@1105216375-alt](https://git
 
 If you use or discuss ResiMind, please cite the project and link to the original repository. Suggested citation:
 
-> 1105216375-alt. ResiMind (version 0.9.0), 2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind (version 0.10.0), 2026. https://github.com/1105216375-alt/resimind
 
 Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is appreciated, not an additional license condition. Commercial use is permitted under the [MIT License](LICENSE), which requires retaining its copyright and permission notices in copies or substantial portions of the software.
 

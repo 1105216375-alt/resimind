@@ -207,6 +207,28 @@ class StrategyController:
     def events(self) -> tuple[StrategyEvent, ...]:
         return tuple(self._events)
 
+    def is_eligible(self, state_key: str, strategy: str, *, branch: str = "main") -> bool:
+        """Inspect remaining budgets without reserving an attempt or adding events.
+
+        A pending attempt is already charged. This query does not finish that
+        attempt or authorize another selection: callers must still use the
+        normal ``select`` / ``record`` lifecycle. Candidate validity and
+        duplicate detection remain the adapter's separate responsibilities.
+        """
+        _text(state_key, "state_key")
+        _text(strategy, "strategy")
+        _text(branch, "branch")
+        if strategy not in self._strategies:
+            raise ValueError("strategy is not registered")
+        if self._branch_budgets is not None and branch not in self._branch_budgets:
+            raise ValueError("branch is not registered in branch_budgets")
+        counts = self._counts.get((state_key, strategy), {})
+        return (self._attempts < self._max_attempts
+                and (self._branch_budgets is None
+                     or self._branches.get(branch, 0) < self._branch_budgets[branch])
+                and counts.get("attempts", 0) < self._max_per_strategy
+                and counts.get("failures", 0) < self._max_failures)
+
     def _event(self, **values):
         event = StrategyEvent(index=len(self._events), attempt=self._attempts, **values)
         if event.event == "stopped":

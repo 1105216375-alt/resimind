@@ -108,7 +108,8 @@ def test_unknown_checker_does_not_become_a_successful_simplification(monkeypatch
 def test_disabling_growth_retains_primitive_path_and_existing_budget(factor_count, expected_status):
     stats, store = AdaptiveStats(), library()
     problem = PolynomialProblem(linear_product(factor_count), ("x",))
-    outcome = build_adaptive_learning_agent(problem, store, stats=stats, control_expression_growth=False).run(
+    outcome = build_adaptive_learning_agent(problem, store, stats=stats, control_expression_growth=False,
+                                             cost_aware_scheduling=False).run(
         Task("legacy", "Expand", DOMAIN), learn=False)
     run = outcome.result.run_result
     assert run.status == expected_status

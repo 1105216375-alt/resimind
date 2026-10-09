@@ -4,7 +4,7 @@
 
 **发现错步，换条路走。验证过的解法，留给下一题。**
 
-ResiMind 是一套独立运行的开源**神经符号 Agent 架构**，把验证驱动的自我纠错和可复用规则记忆接进推理循环。沿用你的模型，由模型提出步骤，独立代码核验；**残差**记录还差什么，指导下一次尝试。
+ResiMind 是一套独立运行的开源**神经符号 Agent 架构**，把验证驱动的自我纠错和可复用规则记忆接进推理循环。规则、符号工具和你的模型都可以提出步骤，由独立代码核验；**残差**记录还差什么，指导下一次尝试。
 
 **自我纠错 × 可验证记忆 × 无需重训的知识增长**
 
@@ -12,7 +12,7 @@ ResiMind 是一套独立运行的开源**神经符号 Agent 架构**，把验证
 
 当前自适应推理与规则学习示例支持**有界有理多项式展开**。同一套 Agent 核心还提供规划、客服、约束优化与桥梁示例，各自使用明确的检查条件。
 
-**沿用你的模型 · Python 3.10+ · 核心零依赖 · MIT · v0.9.0 / 实验阶段**
+**沿用你的模型 · Python 3.10+ · 核心零依赖 · MIT · v0.10.0 / 实验阶段**
 
 [English](README.md) · [快速上手](#三分钟跑起来) · [知识增长](docs/knowledge-growth.zh-CN.md) · [开放性完整案例](#开放式规划答案可以多样约束必须满足) · [量化证据](#衡量-agent-架构带来了什么) · [架构](#agent-架构)
 
@@ -38,7 +38,13 @@ ResiMind 是一套独立运行的开源**神经符号 Agent 架构**，把验证
 
 **当前范围：**自适应适配器支持有界有理多项式展开。其他领域共用 Agent 核心，使用各自的检查条件。可选 Lean 4.29.0 后端检查生成的 `Rat` 等式，并把未完成证明的真实目标反馈给下一次提议。
 
-[**运行自适应 Agent →**](docs/adaptive-reasoning.md) · [版本验证](docs/validation-v0.9.0.md) · [更新记录](CHANGELOG.md)
+[**运行自适应 Agent →**](docs/adaptive-reasoning.md) · [版本验证](docs/validation-v0.10.0.md) · [更新记录](CHANGELOG.md)
+
+### v0.10：会的直接做，需要时再问模型
+
+数学适配器先在有限预算内预览规则、化简和局部展开，比较后再决定是否调用模型。能够直接完成任务的规则，即使表达式更长，也可以优先；匹配到规则，也可以因为更简单的路线而跳过。选中的步骤仍须独立验证，启用 Lean 时也必须通过证明检查。
+
+[**运行零模型回调的规则复用与按需回退示例 →**](docs/cost-aware-scheduling.md)
 
 ### v0.9：控制表达式膨胀，让 Lean 反馈参与推理
 
@@ -56,17 +62,18 @@ cd resimind
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install .
-python -m resimind demo --domain adaptive
+python -m resimind demo --domain scheduling
 ```
 
 Windows PowerShell 的激活命令为 `.venv\Scripts\Activate.ps1`。安装时可能需要下载构建工具。示例**离线运行，无需 API 密钥**；安装后，`python -m resimind` 与 `resimind` 命令均可在仓库目录外使用。
 
-首个示例会展示错误展开被拒绝、局部修改通过、符号步骤完成证明，以及新规则保存重载后用于新变量的任务。终端会明确标注离线脚本，并列出策略审计记录。
+首个示例保存重载已验证规则，在配置了模型回调的情况下比较空库与已学规则。正常任务应无需调用回调就能完成；另一个明确把本地工作预算设为零的案例，用一次脚本提议展示回退。整个示例不调用模型 API。
 
-选一个你关心的场景，下面八条命令都能离线运行；Lean 示例另外需要本机安装 Lean 4.29.0：
+选一个你关心的场景，下面九条命令都能离线运行；Lean 示例另外需要本机安装 Lean 4.29.0：
 
 | 场景 | 能看出什么 | 运行命令 |
 | --- | --- | --- |
+| [本地策略选择](docs/cost-aware-scheduling.md) | 有用规则直接复用，复杂代入先考虑化简，本地能完成就跳过模型回调 | `python -m resimind demo --domain scheduling` |
 | [表达式膨胀控制](docs/expression-growth-and-lean.md) | 四个二次三项式相乘，对比逐步展开与有界分配、同类项合并 | `python -m resimind demo --domain growth-control` |
 | [Lean 证明反馈](docs/expression-growth-and-lean.md#let-lean-feedback-drive-the-next-proposal) | 真实未完成目标推动更换 tactic，通过后入库并重验复用 | `python -m resimind demo --domain lean` |
 | [自适应推理](docs/adaptive-reasoning.md) | 拒绝错误步骤、切换解法、完成证明，再复用已验证规则 | `python -m resimind demo --domain adaptive` |
@@ -370,7 +377,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-当前检查见 [v0.9.0 版本验证](docs/validation-v0.9.0.md)；历史检查保留在 [v0.8.0 记录](docs/validation-v0.8.0.md)、[知识增长开发记录](docs/validation-knowledge-growth.md)与[早期版本记录](docs/validation.md)中。
+当前检查见 [v0.10.0 版本验证](docs/validation-v0.10.0.md)；历史检查保留在 [v0.9.0 记录](docs/validation-v0.9.0.md)、[v0.8.0 记录](docs/validation-v0.8.0.md)、[知识增长开发记录](docs/validation-knowledge-growth.md)与[早期版本记录](docs/validation.md)中。
 
 ## 衡量 Agent 架构带来了什么
 
@@ -400,7 +407,7 @@ ResiMind 由 [@1105216375-alt](https://github.com/1105216375-alt) 发起并首�
 
 使用或介绍 ResiMind 时，欢迎注明项目来源并链接原始仓库。建议引用：
 
-> 1105216375-alt. ResiMind（版本 0.9.0），2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind（版本 0.10.0），2026. https://github.com/1105216375-alt/resimind
 
 [CITATION.cff](CITATION.cff) 提供机器可读的引用信息。引用属于倡议，不是新增的许可条件。项目采用 [MIT License](LICENSE)，允许商用；软件副本或实质部分须保留版权和许可声明。
 

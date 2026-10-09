@@ -28,7 +28,7 @@ def run_demo() -> dict:
     library, stats = KnowledgeLibrary(verifiers), AdaptiveStats()
     discovery = build_adaptive_learning_agent(
         PolynomialProblem("(x+1)*(x+2)", ("x",)), library, complete=scripted_proposal,
-        lean_backend=backend, stats=stats, max_model_calls=2, max_lean_checks=4,
+        lean_backend=backend, stats=stats, max_model_calls=2, max_lean_checks=4, max_local_work=0,
     ).run(Task("lean-feedback-discovery", "Expand and prove each step", "algebra"))
     with TemporaryDirectory(prefix="resimind-lean-demo-") as directory:
         path = Path(directory) / "rules.json"
@@ -54,5 +54,6 @@ def run_demo() -> dict:
     return {"mode": "scripted-proposals-real-local-lean", "live_model": False,
             "discovery": report(discovery, stats), "transfer": report(transfer, transfer_stats),
             "proposal_inputs": prompts,
-            "scope": "Scripted proposals; actual Lean 4.29.0 proofs over Rat. No model API calls. "
+            "scope": "Scripted proposals; actual Lean 4.29.0 proofs over Rat. Zero local-work budget "
+                     "deliberately activates the proposal callback for this proof-feedback demonstration. No model API calls. "
                      "Rule admission/reload use the exact algebra library verifier; each task application also requires Lean."}

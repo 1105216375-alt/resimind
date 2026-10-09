@@ -23,6 +23,7 @@ def solve(expression, variables=("x",), *, library=None, stats=None, **kwargs):
     # These regressions pin the original primitive/rollback controller path.
     # Default growth control is exercised separately in test_adaptive_growth.py.
     kwargs.setdefault("control_expression_growth", False)
+    kwargs.setdefault("cost_aware_scheduling", False)
     result = build_adaptive_learning_agent(PolynomialProblem(expression, variables), library,
                                             stats=stats, **kwargs).run(Task("source", "Expand", DOMAIN))
     return result, stats, library
@@ -239,7 +240,7 @@ def test_same_learner_reuse_has_fresh_task_state_and_separate_budgets():
     stats = AdaptiveStats()
     learner = build_adaptive_learning_agent(PolynomialProblem("(x+1)**2", ("x",)), store(),
                                              complete=lambda _: '{"after":"0"}', stats=stats,
-                                             max_model_calls=1)
+                                             max_model_calls=1, cost_aware_scheduling=False)
     first = learner.run(Task("first", "Expand", DOMAIN), learn=False)
     second = learner.run(Task("second", "Expand", DOMAIN), learn=False)
     assert first.result.run_result.status == second.result.run_result.status == "solved"

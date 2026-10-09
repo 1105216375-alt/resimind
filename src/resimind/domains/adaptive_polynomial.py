@@ -11,6 +11,7 @@ from collections.abc import Callable
 from copy import deepcopy
 from dataclasses import dataclass, field
 import json
+import time
 
 from ..agent import Agent, Task
 from ..core import Candidate, Decision, State, Verdict, content_digest
@@ -25,10 +26,11 @@ from .algebra import MAX_DERIVATION_STEPS, MAX_SOURCE_LENGTH, _tree as _bounded_
 from .polynomial_learning import (
     DOMAIN, INPUT_ID, TARGET, RULE_ACTION, PolynomialDomain, PolynomialProblem,
     PolynomialTool, WorkCounts, _StateBoundPolynomialVerifier, _expansion_rules,
-    _match, _needs_expansion, _normalized_expression, _primitive, _state_fingerprint,
+    _bounded_macro, _match, _needs_expansion, _normalized_expression, _primitive, _state_fingerprint,
     _text, _tree, _unique_object, distill_expansion, is_expanded,
 )
 from .polynomial_simplification import bounded_distribute, compact_expression
+from .polynomial_scheduling import candidate_rank, cheap_progress, estimated_local_work, expression_cost
 
 STRATEGIES = ("whole_model", "local_model", "proof_model", "verified_rule", "simplify", "distribute", "primitive", "lean_retry", "rollback")
 MODEL_STRATEGIES = ("whole_model", "local_model", "proof_model")
@@ -84,6 +86,14 @@ class AdaptiveStats:
     diagnostic_counts: dict[str, int] = field(default_factory=dict)
     events: list[dict] = field(default_factory=list)
     events_omitted: int = 0
+    rule_previews: int = 0
+    rule_preview_pattern_attempts: int = 0
+    scheduling_preview_nodes: int = 0
+    scheduling_preview_elapsed_seconds: float = 0.0
+    scheduling_decisions: list[dict] = field(default_factory=list)
+    scheduling_decisions_omitted: int = 0
+    rule_usage: list[dict] = field(default_factory=list)
+    rule_usage_omitted: int = 0
     stop_reason: str = "not_started"
 
 
@@ -152,18 +162,26 @@ def _diagnose(reasons: tuple[str, ...]) -> FailureKind:
 class _AdaptiveProposer:
     def __init__(self, problem, library, records, complete, counts, stats, task_id,
                  max_model_calls, max_steps, max_rollbacks, control_expression_growth,
-                 lean_backend, max_lean_checks):
+                 lean_backend, max_lean_checks, cost_aware_scheduling=True,
+                 max_local_work=4096, max_rule_previews=16):
         self.problem, self.library, self.records = problem, library, _expansion_rules(records)[:16]
         self.complete, self.counts, self.stats, self.task_id = complete, counts, stats, task_id
         self.max_model_calls, self.max_steps, self.max_rollbacks = max_model_calls, max_steps, max_rollbacks
         self.control_expression_growth = control_expression_growth
+        self.cost_aware_scheduling = cost_aware_scheduling
+        self.max_local_work, self.max_rule_previews = max_local_work, max_rule_previews
+        self.scheduling_previews = {}
+        self.scheduled_rules = {}
+        self.scheduling_decision = None
+        self.rule_strategies = {"verified_rule:" + record.fingerprint: record for record in self.records}
         self.growth_options = {}
         self.lean_backend, self.max_lean_checks = lean_backend, max_lean_checks
         self.lean_checks = 0
         self.lean_feedback = None
         self.pending_proof = None
         self.lean_stop = None
-        self.controller = StrategyController(STRATEGIES, max_attempts=max_steps,
+        controller_strategies = STRATEGIES + (tuple(self.rule_strategies) if cost_aware_scheduling else ())
+        self.controller = StrategyController(controller_strategies, max_attempts=max_steps,
                                              max_attempts_per_strategy=3, max_failures_per_strategy=2)
         self.model_calls = self.attempts = self.rollbacks = 0
         initial = _semantic(problem.expression)
@@ -203,7 +221,7 @@ class _AdaptiveProposer:
             except ValueError:
                 compact = None
             distributed = None
-            if compact is None:
+            if compact is None or self.cost_aware_scheduling:
                 self.stats.distribution_probes += 1
                 try:
                     distributed = bounded_distribute(expression, self.problem.variables)
@@ -241,7 +259,205 @@ class _AdaptiveProposer:
                     return record
         return None
 
+    def _preview_entry(self, current, before, strategy, after, *, record=None, error=None):
+        entry = {"strategy": strategy, "rule_id": None if record is None else record.candidate.id,
+                 "rule_fingerprint": None if record is None else record.fingerprint,
+                 "after_fingerprint": None, "after": None, "rank": None,
+                 "estimated_local_work": None, "eligible": False,
+                 "reason": error or "no_candidate", "_after": after}
+        if after is None:
+            return entry
+        try:
+            cost = expression_cost(after)
+            entry.update(after=cost, after_fingerprint=_semantic(after),
+                         rank=list(candidate_rank(before, cost, strategy)),
+                         estimated_local_work=estimated_local_work(cost), reason="preview_only")
+            self.stats.scheduling_preview_nodes += cost["ast_nodes"]
+        except (ValueError, RecursionError):
+            entry.update(reason="preview_resource_limit", _after=None)
+        return entry
+
+    def _cost_previews(self, state, current, key, compact, distributed):
+        fingerprint = _state_fingerprint(self.problem, state, current)
+        if fingerprint in self.scheduling_previews:
+            return deepcopy(self.scheduling_previews[fingerprint]), True
+        before = expression_cost(current)
+        self.stats.scheduling_preview_nodes += before["ast_nodes"]
+        entries = []
+        for initial in self.records[:self.max_rule_previews]:
+            self.stats.rule_previews += 1
+            start = time.perf_counter()
+            prior_patterns = self.counts.pattern_attempts
+            after, error = None, None
+            try:
+                current_record = self.library.get(initial.candidate.id)
+                if current_record != initial or current_record.status != "verified":
+                    error = "rule_unavailable_or_changed"
+                else:
+                    after = _bounded_macro(current, current_record, self.counts)
+                    if after is None:
+                        error = "no_matching_rule"
+            except KeyError:
+                error = "rule_unavailable_or_changed"
+            except (ValueError, RecursionError):
+                error = "preview_resource_limit"
+            work = self.counts.pattern_attempts - prior_patterns
+            self.stats.rule_preview_pattern_attempts += work
+            entry = self._preview_entry(current, before, "verified_rule", after, record=initial, error=error)
+            entry.update(preview_pattern_attempts=work, preview_elapsed_seconds=time.perf_counter() - start)
+            entries.append(entry)
+        entries.extend((self._preview_entry(current, before, "simplify", compact),
+                        self._preview_entry(current, before, "distribute", distributed)))
+        # At most 64 action states, each with at most 18 bounded previews.
+        self.scheduling_previews[fingerprint] = deepcopy(entries)
+        return entries, False
+
+    def _filter_preview(self, entry, before, key):
+        if entry["_after"] is None:
+            return
+        after_key = entry["after_fingerprint"]
+        strategy, rule_id = entry["strategy"], entry["rule_id"]
+        controller_strategy = "verified_rule:" + entry["rule_fingerprint"] if rule_id is not None else strategy
+        if not self.controller.is_eligible(key, controller_strategy):
+            entry["reason"] = "strategy_budget_exhausted"
+            return
+        if rule_id is not None:
+            if (key, rule_id) in self.failed_rules:
+                entry["reason"] = "previous_rule_failure"
+                return
+            initial = next((item for item in self.records if item.candidate.id == rule_id), None)
+            try:
+                current = self.library.get(rule_id)
+            except KeyError:
+                current = None
+            if current is None or current != initial or current.status != "verified":
+                entry["reason"] = "rule_unavailable_or_changed"
+                return
+            candidate_key = "rule:" + entry["rule_fingerprint"]
+        else:
+            candidate_key = "rewrite:" + after_key
+            if self.lean_backend is not None:
+                candidate_key += ":lean:grind"
+        if (self.controller.is_duplicate(key, candidate_key) or (key, after_key) in self.failed_edges
+                or (after_key in self.seen and not (after_key == key and entry["after"]["expanded"]))):
+            entry["reason"] = "duplicate_or_cycle_candidate"
+            return
+        if entry["estimated_local_work"] > self.max_local_work:
+            entry["reason"] = "estimated_local_work_exceeds_budget"
+            return
+        if not cheap_progress(before, entry["after"]) and strategy != "primitive":
+            entry["reason"] = "no_estimated_progress"
+            return
+        entry.update(eligible=True, reason="bounded_local_progress")
+
+    def _available_cost_aware(self, state, current, key):
+        start = time.perf_counter()
+        previous_nodes = self.stats.scheduling_preview_nodes
+        before = expression_cost(current)
+        fingerprint = _state_fingerprint(self.problem, state, current)
+        paths = _paths(current)
+        local = next((item for item in paths if (key, "local_model", item[0]) not in self.failed_paths), None)
+        primitive = next((item for item in paths if (key, "primitive", item[0]) not in self.failed_paths), None)
+        if primitive is None and not paths:
+            primitive = ((), current)
+        compact, distributed = self._growth_candidates(current, key)
+        entries, cache_hit = self._cost_previews(state, current, key, compact, distributed)
+        for entry in entries:
+            self._filter_preview(entry, before, key)
+        cheap = sorted((item for item in entries if item["eligible"]), key=lambda item: tuple(item["rank"]))
+        self.scheduled_rules = {}
+        local_names = []
+        for entry in cheap:
+            if entry["strategy"] == "verified_rule":
+                name = "verified_rule:" + entry["rule_fingerprint"]
+                self.scheduled_rules[name] = self.rule_strategies[name]
+            else:
+                name = entry["strategy"]
+            local_names.append(name)
+        # Primitive rewrites remain a bounded fallback, not additional eager
+        # work when a compact/distribute/rule preview already makes progress.
+        self.scheduled_primitive = None
+        if not cheap and primitive is not None:
+            try:
+                rewritten = _primitive(primitive[1], self.counts)
+                after = (current if rewritten is None and is_expanded(current) else
+                         None if rewritten is None else _replace_path(current, primitive[0], rewritten))
+                primitive_entry = self._preview_entry(current, before, "primitive", after)
+                self._filter_preview(primitive_entry, before, key)
+                entries.append(primitive_entry)
+                if primitive_entry["eligible"]:
+                    self.scheduled_primitive = (after, "certify_expansion" if rewritten is None else "rewrite_polynomial")
+                    if cheap_progress(before, primitive_entry["after"]):
+                        cheap.append(primitive_entry)
+                        local_names.append("primitive")
+            except (ValueError, RecursionError):
+                pass
+        model_available = self.complete is not None and self.model_calls < self.max_model_calls
+        models = [name for name in self.priority if name in ("whole_model", "local_model")
+                  and (key, name) not in self.disabled and (name != "local_model" or local is not None)
+                  and self.controller.is_eligible(key, name)]
+        model_enabled = model_available and not cheap and bool(models)
+        available = list(local_names)
+        reason = "complete_local_candidate" if cheap and cheap[0]["after"]["expanded"] else "lowest_estimated_remaining_work"
+        if model_enabled:
+            available.extend(models)
+            reason = ("local_work_budget_exceeded" if any(item["reason"] == "estimated_local_work_exceeds_budget"
+                                                        for item in entries) else "no_cheap_local_progress")
+        if not cheap and self.scheduled_primitive is not None:
+            available.append("primitive")
+            if not model_enabled:
+                reason = "bounded_primitive_fallback"
+        if not available:
+            reason = "no_available_bounded_candidate"
+        pending_proof = self.pending_proof is not None and self.pending_proof["state_key"] == key
+        proof_names = []
+        if pending_proof:
+            if (model_available and not self.pending_proof.get("model_feedback_used", False)
+                    and self.controller.is_eligible(key, "proof_model")):
+                proof_names.append("proof_model")
+                model_enabled = True
+            if self.pending_proof["tactic"] != "grind" and self.controller.is_eligible(key, "lean_retry"):
+                proof_names.append("lean_retry")
+        if proof_names:
+            available = proof_names + [name for name in available if name not in proof_names]
+            reason = "proof_feedback_requires_correction"
+        rollback = None
+        if (self.rollbacks < self.max_rollbacks and len(self.ancestors) > 1
+                and key in self.rollback_requested and not cheap and not proof_names
+                and self.controller.is_eligible(key, "rollback")):
+            rollback = self.ancestors[-2]
+            available = ["rollback"] + available
+            reason = "verified_checkpoint_recovery"
+        if self.lean_stop:
+            available, reason = [], self.lean_stop
+        elapsed = time.perf_counter() - start
+        self.stats.scheduling_preview_elapsed_seconds += elapsed
+        self.scheduling_decision = {
+            "task_id": self.task_id, "step": self.attempts, "state_revision": state.revision,
+            "state_fingerprint": fingerprint, "state_key": key, "mode": "cost_aware",
+            "before": before, "candidates": [{name: value for name, value in entry.items() if not name.startswith("_")}
+                                               for entry in entries],
+            "selected_strategy": None, "selected_rule_id": None, "selection_reason": reason,
+            "max_local_work": self.max_local_work, "model_enabled": model_enabled,
+            "preview_cache_hit": cache_hit, "preview_nodes": self.stats.scheduling_preview_nodes - previous_nodes,
+            "preview_elapsed_seconds": elapsed,
+        }
+        return tuple(available), local, primitive, None, rollback, compact, distributed
+
     def _available(self, state, current, key):
+        if self.cost_aware_scheduling:
+            return self._available_cost_aware(state, current, key)
+        self.scheduling_decision = {
+            "task_id": self.task_id, "step": self.attempts, "state_revision": state.revision,
+            "state_fingerprint": _state_fingerprint(self.problem, state, current), "state_key": key,
+            "mode": "legacy", "before": expression_cost(current), "candidates": [],
+            "selected_strategy": None, "selected_rule_id": None, "selection_reason": "legacy_strategy_order",
+            "max_local_work": self.max_local_work, "model_enabled": self.complete is not None,
+            "preview_cache_hit": False, "preview_nodes": 0, "preview_elapsed_seconds": 0.0,
+        }
+        return self._available_legacy(state, current, key)
+
+    def _available_legacy(self, state, current, key):
         if self.lean_stop:
             return (), None, None, None, None, None, None
         compact, distributed = self._growth_candidates(current, key)
@@ -351,13 +567,28 @@ class _AdaptiveProposer:
             return None
 
     def propose(self, state, residual):
+        started = time.perf_counter()
         current = self._current(state)
         key = _semantic(current)
         self.attempts += 1
         self.stats.action_attempts += 1
         available, local, primitive, rule, rollback, compact, distributed = self._available(state, current, key)
-        strategy = self.controller.select(key, available, checkpoint={"revision": state.revision, "state_key": key})
+        controller_strategy = self.controller.select(key, available, checkpoint={"revision": state.revision, "state_key": key})
+        strategy = controller_strategy
+        if controller_strategy in self.scheduled_rules:
+            strategy, rule = "verified_rule", self.scheduled_rules[controller_strategy]
+        decision = deepcopy(self.scheduling_decision)
+        decision["selected_strategy"] = strategy
+        decision["selected_rule_id"] = rule.candidate.id if strategy == "verified_rule" and rule is not None else None
+        if strategy is None:
+            decision["selection_reason"] = self.lean_stop or "strategy_budget_exhausted"
+        if len(self.stats.scheduling_decisions) < 512:
+            self.stats.scheduling_decisions.append(decision)
+        else:
+            self.stats.scheduling_decisions_omitted += 1
         self.pending = {"strategy": strategy, "state_key": key, "revision": state.revision,
+                        "controller_strategy": controller_strategy, "started": started,
+                        "scheduling_decision": decision,
                         "candidate_key": None, "host_reasons": (), "path": None, "lean_tactic": "grind"}
         if strategy is None:
             self.no_more_strategies = True
@@ -389,17 +620,21 @@ class _AdaptiveProposer:
             elif strategy == "verified_rule":
                 rule_id, action = rule.candidate.id, RULE_ACTION
                 self.pending["rule_id"] = rule_id
+                self.pending["rule_fingerprint"] = rule.fingerprint
                 claim.update(rule_id=rule_id, rule_fingerprint=rule.fingerprint)
                 self.pending["candidate_key"] = "rule:" + rule.fingerprint
             elif strategy == "primitive":
                 self.pending["path"] = primitive[0]
-                rewritten = _primitive(primitive[1], self.counts)
-                if rewritten is None and is_expanded(current):
-                    after, action = current, "certify_expansion"
-                elif rewritten is None:
-                    self.pending["host_reasons"] = ("no_primitive_rewrite",)
+                if self.cost_aware_scheduling and self.scheduled_primitive is not None:
+                    after, action = self.scheduled_primitive
                 else:
-                    after = _replace_path(current, primitive[0], rewritten)
+                    rewritten = _primitive(primitive[1], self.counts)
+                    if rewritten is None and is_expanded(current):
+                        after, action = current, "certify_expansion"
+                    elif rewritten is None:
+                        self.pending["host_reasons"] = ("no_primitive_rewrite",)
+                    else:
+                        after = _replace_path(current, primitive[0], rewritten)
             elif strategy in ("simplify", "distribute"):
                 after = compact if strategy == "simplify" else distributed
             elif strategy == "lean_retry":
@@ -408,6 +643,7 @@ class _AdaptiveProposer:
                 claim = json.loads(self.pending_proof["claim"])
                 rule_id = claim["rule_id"]
                 self.pending["rule_id"] = rule_id
+                self.pending["rule_fingerprint"] = claim.get("rule_fingerprint")
                 self.pending["candidate_key"] = "lean:grind:" + _semantic(after)
             else:
                 self.rollbacks += 1
@@ -530,7 +766,7 @@ class _AdaptiveProposer:
         after_key = _semantic(after)
         progress = accepted and strategy != "rollback" and (after_key != key or event.residual_after.solved)
         if strategy is not None:
-            self.controller.record(key, strategy, pending["candidate_key"], accepted=accepted,
+            self.controller.record(key, pending.get("controller_strategy", strategy), pending["candidate_key"], accepted=accepted,
                                    progress=progress, reasons=tuple(reasons), failure_kind=kind,
                                    revision=event.after.revision)
         if accepted:
@@ -584,6 +820,25 @@ class _AdaptiveProposer:
                 self.priority = ["whole_model", "lean_retry", "local_model", "verified_rule",
                                  "simplify", "distribute", "primitive", "rollback"]
         nodes, length = self._track_size(after)
+        if pending.get("rule_id"):
+            observed = {
+                "task_id": self.task_id, "step": event.step,
+                "state_fingerprint": _state_fingerprint(self.problem, event.before, self._current(event.before)),
+                "rule_id": pending["rule_id"], "rule_fingerprint": pending.get("rule_fingerprint"),
+                "scenario": {"variables": list(self.problem.variables),
+                             "initial_expression_fingerprint": _semantic(self.problem.expression)},
+                "before": expression_cost(self._current(event.before)), "after": expression_cost(after),
+                "goals_before": list(event.residual_before.pending),
+                "goals_after": list(event.residual_after.pending),
+                "accepted": accepted, "progress": progress, "decision": event.decision.value,
+                "reasons": [reason[:256] for reason in reasons[:3]],
+                "elapsed_seconds": time.perf_counter() - pending["started"],
+                "preview_elapsed_seconds": pending["scheduling_decision"]["preview_elapsed_seconds"],
+            }
+            if len(self.stats.rule_usage) < 512:
+                self.stats.rule_usage.append(observed)
+            else:
+                self.stats.rule_usage_omitted += 1
         self._audit({"step": event.step, "strategy": strategy, "decision": event.decision.value,
                      "expression_nodes": nodes, "expression_length": length,
                      "state_key": key, "before_revision": event.before.revision,
@@ -676,6 +931,8 @@ def build_adaptive_learning_agent(
     max_no_progress: int | None = None, max_rollbacks: int = 2,
     control_expression_growth: bool = True,
     lean_backend: LeanPolynomialBackend | None = None, max_lean_checks: int = 64,
+    cost_aware_scheduling: bool = True, max_local_work: int = 4096,
+    max_rule_previews: int = 16,
 ) -> LearningAgent:
     """Build an opt-in adaptive learner; legacy adapters remain unchanged.
 
@@ -694,6 +951,12 @@ def build_adaptive_learning_agent(
     Model replies may include ``tactic`` (``rfl`` or ``grind``); Lean goals and
     diagnostics feed subsequent prompts and bounded proof retries. Failed or
     unavailable Lean checks never silently fall back to exact-only acceptance.
+    The default scheduler compares bounded local and recalled-rule previews
+    before enabling a model. ``max_local_work`` caps a dimensionless syntax
+    estimate, not actual runtime; zero forces escalation when a model exists.
+    ``cost_aware_scheduling=False`` retains the previous strategy order, with
+    ``control_expression_growth`` remaining a separate switch. Preview and
+    rule-use observations are bounded JSON data, never verification evidence.
     """
     if not isinstance(problem, PolynomialProblem) or not isinstance(library, KnowledgeLibrary):
         raise ValueError("expected PolynomialProblem and KnowledgeLibrary")
@@ -701,6 +964,12 @@ def build_adaptive_learning_agent(
         raise ValueError("complete must be callable or None")
     if type(control_expression_growth) is not bool:
         raise ValueError("control_expression_growth must be a bool")
+    if type(cost_aware_scheduling) is not bool:
+        raise ValueError("cost_aware_scheduling must be a bool")
+    if type(max_local_work) is not int or not 0 <= max_local_work <= 100_000:
+        raise ValueError("max_local_work must be an integer from 0 through 100000")
+    if type(max_rule_previews) is not int or not 1 <= max_rule_previews <= 16:
+        raise ValueError("max_rule_previews must be an integer from 1 through 16")
     if lean_backend is not None and not isinstance(lean_backend, LeanPolynomialBackend):
         raise ValueError("lean_backend must be a LeanPolynomialBackend or None")
     if type(max_lean_checks) is not int or not 1 <= max_lean_checks <= MAX_DERIVATION_STEPS:
@@ -721,7 +990,8 @@ def build_adaptive_learning_agent(
     def factory(task, records):
         proposer = _AdaptiveProposer(problem, library, records, complete, counts, stats, task.id,
                                      max_model_calls, max_steps, max_rollbacks, control_expression_growth,
-                                     lean_backend, max_lean_checks)
+                                     lean_backend, max_lean_checks, cost_aware_scheduling,
+                                     max_local_work, max_rule_previews)
         return _AdaptiveAgent(
             adaptive_proposer=proposer, domain_factory=lambda _: PolynomialDomain(problem, counts),
             verifier_factory=lambda _: _AdaptiveVerifier(proposer),

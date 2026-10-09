@@ -26,7 +26,7 @@ def run_demo() -> dict:
     library, stats = KnowledgeLibrary(verifiers), AdaptiveStats()
     discovery = build_adaptive_learning_agent(
         PolynomialProblem("(x+1)*(x+2)*(x+3)", ("x",)), library,
-        complete=fixture, stats=stats,
+        complete=fixture, stats=stats, cost_aware_scheduling=False,
     ).run(Task("adaptive-demo-discovery", "Expand the product", "algebra"))
     with TemporaryDirectory(prefix="resimind-adaptive-") as directory:
         path = Path(directory) / "rules.json"
@@ -50,5 +50,6 @@ def run_demo() -> dict:
     return {
         "mode": "offline-scripted-adaptive-recovery", "live_model": False,
         "discovery": report(discovery, stats), "transfer": report(transfer, transfer_stats),
-        "scope": "Deliberate scripted mistakes exercise real verification and recovery; no live-model performance claim.",
+        "scope": "Deliberate scripted mistakes use the legacy model-first policy to exercise real verification "
+                 "and recovery; default routing is demonstrated by --domain scheduling. No live-model performance claim.",
     }

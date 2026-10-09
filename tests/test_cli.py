@@ -208,6 +208,31 @@ def test_help_without_running_a_demo(installed_layout, args):
     assert "Verified objective" not in result.stdout
 
 
+def test_local_scheduling_cli_finishes_without_model_callbacks(installed_layout):
+    result = invoke(installed_layout, "demo", "--domain", "scheduling", "--json")
+    assert result.returncode == 0 and not result.stderr
+    report = json.loads(result.stdout)
+    assert report["live_model"] is False
+    assert report["verified_rules"] == 2
+    for example in report["examples"]:
+        for arm in (example["cold"], example["warm"]):
+            assert arm["status"] == "solved"
+            assert arm["strategy_audit"]["model_calls"] == 0
+            assert arm["strategy_audit"]["scheduling_decisions"]
+    assert report["examples"][0]["warm"]["strategy_audit"]["rule_accepts"] == 1
+    assert report["examples"][1]["warm"]["steps"] <= report["examples"][1]["cold"]["steps"]
+    assert report["fallback"]["status"] == "solved"
+    assert report["fallback"]["strategy_audit"]["model_calls"] == 1
+
+
+def test_local_scheduling_cli_labels_offline_scripted_fallback(installed_layout):
+    result = invoke(installed_layout, "demo", "--domain", "scheduling")
+    assert result.returncode == 0 and not result.stderr
+    assert "NOT A LIVE LLM RUN" in result.stdout
+    assert "model callbacks=0" in result.stdout
+    assert "scripted callbacks=1" in result.stdout
+
+
 @pytest.mark.parametrize("args", [(), ("demo", "--live"), ("demo", "--domain", "unknown"), ("unknown",),
                                   ("demo", "--scenario", "refund"),
                                   ("demo", "--domain", "bridge", "--scenario", "expired"),

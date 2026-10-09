@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.10.0 — 2026-10-09
+
+- Compare bounded rule, compaction and local-expansion candidates before requesting a model. Prefer a candidate that completes the goal, then estimate remaining work and growth; a matching rule need not be selected. Exact verification and optional Lean checks remain mandatory for selected steps.
+- Add explicit local-work and rule-preview limits, with an opt-out preserving the earlier scheduling policy. Keep model/action/proof budgets and failed-candidate protections; historical evaluation runners explicitly retain their original policy.
+- Record candidate selection reasons and bounded per-rule outcome/complexity observations in the JSON audit. Observations accumulate through a supplied statistics object and never authorize a rule or claim measured savings.
+- Add an offline `scheduling` demo showing configured-but-unused model callbacks, learned-rule reuse, and a separately labeled scripted fallback. See [the guide](docs/cost-aware-scheduling.md) and [release validation](docs/validation-v0.10.0.md). New quantitative evaluation records remain private.
+
 ## 0.9.0 — 2026-10-09
 
 - Control expression growth with exact local compaction and bounded distributive batches. Preserve the existing AST, depth, source-length and action limits; independently verify every candidate. The adaptive builder enables these tools by default, with an explicit switch preserving the original primitive path.

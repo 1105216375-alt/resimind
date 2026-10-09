@@ -35,6 +35,9 @@ to the original strategies.
 
 Growth control is enabled by default in `build_adaptive_learning_agent`.
 Set `control_expression_growth=False` to use the original primitive path.
+The growth comparison pins `cost_aware_scheduling=False` in both arms to isolate
+its original tool comparison. New default scheduling is demonstrated separately
+by [`--domain scheduling`](cost-aware-scheduling.md).
 The historical v5 evaluation runner explicitly disables the new tools to
 preserve its controller treatment. New experiments should disclose the added
 tools and measure local work as well as model calls.
@@ -49,7 +52,8 @@ python -m resimind demo --domain lean
 ```
 
 The model responses are scripted, while all Lean checks execute the actual
-local compiler. The first correct algebraic proposal requests `rfl`, which
+local compiler. Its discovery phase deliberately sets `max_local_work=0` so the
+callback runs under the new scheduler. The first correct algebraic proposal requests `rfl`, which
 does not close this equality. The uncommitted proposal's actual Lean goal and
 diagnostics enter the next `proof_model` request. The script selects `grind`
 in response; the independently checked proof then permits the commit. The

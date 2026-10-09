@@ -13,6 +13,12 @@ for the new tools, the two runnable demos and their exact scope.
 This is an opt-in adapter. Existing `build_learning_agent` behavior and the
 reference runtime remain unchanged.
 
+Within this adapter, bounded local candidate comparison is enabled by default.
+Rules and symbolic tools may finish a task without invoking a configured model.
+See [local scheduling](cost-aware-scheduling.md) for costs, budgets and rule-effect
+observations. The fault-injection demo below explicitly keeps the earlier policy
+so its scripted mistakes still exercise recovery.
+
 ## Use it
 
 Run the installed offline fault-injection fixture first:
@@ -128,8 +134,8 @@ and verifiers. The concrete decomposition and checkpoint adapter here supports
 bounded rational polynomial expansion. It does not add a universal theorem
 prover, engineering design solver, or automatic policy authoring system.
 
-The historical v5 evaluation runner disables the later expression-growth tools
-and Lean gate. It compares the original adaptive adapter with the previous
+The historical v5 evaluation runner disables the later expression-growth tools,
+local cost selection and Lean gate. It compares the original adaptive adapter with the previous
 executable-rule adapter, strong verification-and-retry, and a symbolic-only
 control using the same library. Its larger action budget and automatic tool
 access are disclosed: the comparison measures the complete implementation,

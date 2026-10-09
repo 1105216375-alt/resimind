@@ -70,7 +70,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="resimind", description="Evidence-bound Agent reasoning with independent verification.")
     commands = parser.add_subparsers(dest="command", required=True)
     demo = commands.add_parser("demo", help="run an OFFLINE deterministic fixture, without a model or API key")
-    demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support", "planning", "knowledge-growth", "adaptive", "growth-control", "lean"), default="optimization",
+    demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support", "planning", "knowledge-growth", "adaptive", "growth-control", "lean", "scheduling"), default="optimization",
                       help="demonstration domain (default: optimization)")
     demo.add_argument("--scenario", choices=("refund", "missing-delivery", "expired", "day-out", "rain", "missing-travel"),
                       help="customer-support: refund/missing-delivery/expired; planning: day-out/rain/missing-travel")
@@ -80,6 +80,28 @@ def main(argv: Sequence[str] | None = None) -> int:
                  "planning": ("day-out", "rain", "missing-travel")}
     if args.scenario is not None and args.scenario not in scenarios.get(args.domain, ()):
         parser.error("--scenario must match the selected customer-support or planning domain")
+    if args.domain == "scheduling":
+        from .scheduling_demo import run_demo
+        report = run_demo()
+        if args.json:
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+        else:
+            print("ResiMind | OFFLINE local scheduling | NOT A LIVE LLM RUN")
+            print("Use checked rules and bounded symbolic tools; invoke a model only when local work is unsuitable.")
+            for example in report["examples"]:
+                print(example["name"] + ": " + example["expression"])
+                for name in ("cold", "warm"):
+                    arm = example[name]
+                    audit = arm["strategy_audit"]
+                    print(f"  {name}: {arm['status']}; actions={arm['steps']}; "
+                          f"model callbacks={audit['model_calls']}; checked rule uses={audit['rule_accepts']}")
+            fallback = report["fallback"]
+            print(f"Explicit zero-local-work fallback: {fallback['status']}; "
+                  f"scripted callbacks={fallback['strategy_audit']['model_calls']}")
+            print(report["scope"])
+        normal_ok = all(arm["status"] == "solved" and arm["strategy_audit"]["model_calls"] == 0
+                        for example in report["examples"] for arm in (example["cold"], example["warm"]))
+        return 0 if normal_ok and report["fallback"]["status"] == "solved" else 1
     if args.domain == "growth-control":
         from .growth_demo import run_demo
         report = run_demo()
