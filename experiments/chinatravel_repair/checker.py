@@ -14,12 +14,14 @@ from experiments.chinatravel.upstream_worker import ENVIRONMENT_CHECKS
 
 
 def coverage_checks(plan, people):
-    """Cover every traveller, keeping keys stable for existing activity slots.
+    """Check ticket/vehicle allocation and positive hotel quantities.
 
     Malformed or unavailable structure is unknown, never a vacuous pass. These
     checks also run before schema repair; missing fields must not make a later
     valid replacement introduce a different verification contract. The sandbox
-    models four passengers per taxi.
+    models four passengers per taxi. Hotel ``numbed`` is a bed count, not a
+    guest-capacity field. Positive rooms/beds are checked here; actual hotel
+    occupancy capacity is outside this dataset's verification scope.
     """
     def enough(value, minimum):
         return type(value) is int and value >= minimum
@@ -45,7 +47,7 @@ def coverage_checks(plan, people):
                 covered = enough(activity.get("tickets"), people)
             elif kind == "accommodation":
                 rooms, beds = activity.get("rooms"), activity.get("room_type")
-                covered = (enough(rooms, 1) and enough(beds, 1) and rooms * beds >= people)
+                covered = enough(rooms, 1) and enough(beds, 1)
             elif kind in ("breakfast", "lunch", "dinner"):
                 covered = True
             checks[prefix + "/activity"] = covered
@@ -134,7 +136,8 @@ class LocalContract:
         from .binding import binding_checks
 
         checks = {"translation_valid": True if not self.translation_errors else None}
-        diagnostics = {"translation_errors": self.translation_errors, "environment": {}}
+        diagnostics = {"translation_errors": self.translation_errors, "environment": {},
+                       "scope_limits": ["hotel_guest_capacity_not_available_in_dataset"]}
         errors = list(self.validator.iter_errors(plan))
         checks["schema"] = not errors
         diagnostics["schema"] = [

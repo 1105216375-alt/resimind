@@ -14,14 +14,17 @@ old manifest hashes to match newer code.
   missing mode/quantity intent, or impossible time windows stay unresolved.
 - Atomic local repairs with registered tool evidence, base-plan and old-value
   checks, complete revalidation, and no regression of previously passed checks.
-- Explicit coverage of travellers by tickets, rooms and taxis; local acceptance
-  can be stricter than the official score.
+- Traveller coverage by tickets and taxis; positive room/bed quantities and
+  exact hotel binding. Bed count cannot establish guest capacity; actual hotel
+  occupancy limits are unavailable in this dataset.
 - A schema-only final-plan prompt with the original request at the end, explicit
   total-cost arithmetic, and public task metadata checks. The native exploration
   prompt remains, with corrected task/cost instructions appended.
 - A bad/empty self-translation stops generation as unfinished. Automatic
   retranslation, replacement entity selection, missing-mode decisions and
-  schedule search are not implemented.
+  schedule search are not implemented in this repair adapter. The separate
+  [search adapter](../chinatravel_search/README.md) adds limited schedule/entity
+  alternatives and contradiction detection, but no automatic retranslation.
 - An explicit overnight guard: the last listed activity of each nonfinal day
   must be an accommodation ending at `24:00` before the next day's route may
   be bound. A morning hotel check-in followed by dinner elsewhere does not

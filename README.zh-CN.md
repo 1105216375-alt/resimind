@@ -18,7 +18,7 @@ ResiMind 是一套**独立运行的神经符号 Agent 架构**：模型探索方
 
 **已做官方原题实测：**同一 DeepSeek 模型和资源上限下，ChinaTravel 12 题试点中，官方 ReAct **0/12**、官方 NeSy **5/12**、ReAct + ResiMind **1/12**。ResiMind 这组没有错误交付，但还有 11 题未完成。[查看结果、差距与全部原始记录 →](docs/chinatravel-evaluation.zh-CN.md)
 
-**据实测新增局部修复：**用工具事实修正字段，完整复验后才保留改动。[通用修复 API](docs/local-repair.md) 在 28 个旧候选中改善了 14 个草稿，但完整通过数没有增加；联网验收还暴露了过夜状态缺口，补上检查后两道开发题均未完成。[查看具体改动、两轮结果与完整记录 →](docs/repair-development.zh-CN.md)
+**新增有限搜索：**在[局部修复](docs/local-repair.md)之外，[搜索替代方案](docs/bounded-search.md)，完整校验后再交付。出游离线回放在明确人工语义标注后打通了 1 道旧任务；默认保守策略仍为 0/2。[查看结果、边界与复现方法 →](docs/search-development.zh-CN.md)
 
 **项目发起者与原始发布者：[@1105216375-alt](https://github.com/1105216375-alt)。** [原始仓库](https://github.com/1105216375-alt/resimind) · [引用信息](CITATION.cff)
 

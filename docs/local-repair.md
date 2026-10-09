@@ -1,5 +1,9 @@
 # Local repair without losing checked work
 
+For coupled choices that require temporarily worse drafts, see the separate
+[bounded search API](bounded-search.md). It still requires complete validation
+before releasing a solution.
+
 `resimind.repair` adds a provider-independent, zero-dependency repair transaction
 for JSON drafts. An application supplies tool evidence and a whole-plan checker;
 a model or a deterministic adapter proposes a small set of replacements. This

@@ -2,6 +2,9 @@
 
 ## Unreleased — 2026-10-09
 
+- Add zero-dependency `resimind.search`: bounded alternatives, temporary draft regressions, full verification before acceptance, callback integrity checks and finite traces.
+- Add an oracle-blind ChinaTravel schedule constructor, restaurant alternatives and narrow AST checks for contradictory self-translations. Preserve default refusal for ambiguous zero-room visits; explicitly annotated replay completes one seen task, while the default remains 0/2. Publish a compact summary; retain new raw records locally.
+- Correct hotel allocation checks: the dataset's bed count cannot prove guest capacity. Keep positive room/bed quantities and exact room-type binding; disclose the unavailable capacity check.
 - Add the zero-dependency `resimind.repair` API for evidence-referenced JSON edits, stale-write protection, atomic revalidation, and strict progress without checked-constraint regressions.
 - Add a separate ChinaTravel development integration with exact tool-data binding, conservative route repairs, task-anchored prompts, corrected total-cost instructions and traveller-coverage checks.
 - Add an explicit overnight-state guard after a first live development round exposed a gap in the official scorer. Keep both two-task live rounds and both full 28-candidate replays: 14 drafts improve, but full replay completions stay unchanged and the guarded live round finishes neither task. These are development diagnostics, not held-out or component-level superiority claims.

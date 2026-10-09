@@ -18,7 +18,7 @@ Plan a day with many possible answers. Check a refund against a merchant policy.
 
 **Measured on original ChinaTravel tasks:** in a frozen 12-task pilot with the same DeepSeek model and resource ceilings, official ReAct passed **0/12**, official NeSy **5/12**, and ReAct + ResiMind **1/12**. ResiMind delivered no invalid plan but left 11 tasks unfinished. [Results, raw records, and limits →](docs/evidence/chinatravel-pilot-v1/README.md)
 
-**Development update:** repair supported fields without losing checked work. The new [local repair API](docs/local-repair.md) improves 14/28 recorded drafts without increasing full completions. A live development run exposed an overnight-state gap; after adding that guard, both development tasks remain unfinished. [Changes, both rounds, and complete evidence →](docs/repair-development.zh-CN.md)
+**Development update:** [bounded search](docs/bounded-search.md) now complements [local repair](docs/local-repair.md): explore alternatives, then release only a fully checked plan. A travel replay resolves one seen task with explicit manual semantic annotations; the conservative default remains 0/2. [Results, limitations and reproduction →](docs/search-development.zh-CN.md)
 
 **Project creator and original publisher: [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
 

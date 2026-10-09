@@ -104,7 +104,7 @@ def test_truthy_non_boolean_dsl_result_cannot_pass(native_checker, code):
     assert checker(tiny_plan())["self_constraint/0"] is None
 
 
-def test_party_coverage_checks_ticket_room_and_taxi_capacity_boundaries():
+def test_party_coverage_checks_ticket_and_taxi_capacity_boundaries():
     from experiments.chinatravel_repair.checker import coverage_checks
 
     plan = {"itinerary": [{"activities": [
@@ -115,13 +115,27 @@ def test_party_coverage_checks_ticket_room_and_taxi_capacity_boundaries():
     ]}]}
     snapshot = deepcopy(plan)
     assert all(value is True for value in coverage_checks(plan, 4).values())
-    assert all(value is False for value in coverage_checks(plan, 5).values())
+    checks = coverage_checks(plan, 5)
+    assert checks["coverage/0/0/activity"] is False
+    assert checks["coverage/0/0/route"] is False
+    assert checks["coverage/0/1/route"] is False
+    assert checks["coverage/0/1/activity"] is True
     assert plan == snapshot
     plan["itinerary"][0]["activities"][0]["tickets"] = 5
     plan["itinerary"][0]["activities"][0]["transports"][0]["tickets"] = 5
     plan["itinerary"][0]["activities"][1]["rooms"] = 2
     plan["itinerary"][0]["activities"][1]["transports"][0]["cars"] = 2
     assert all(value is True for value in coverage_checks(plan, 5).values())
+
+
+@pytest.mark.parametrize("rooms,beds,expected", [(1, 1, True), (0, 1, False),
+    (1, 0, False), (True, 1, False), (1, None, False)])
+def test_hotel_bed_count_is_not_guest_capacity(rooms, beds, expected):
+    from experiments.chinatravel_repair.checker import coverage_checks
+
+    plan = {"itinerary": [{"activities": [{"type": "accommodation",
+        "rooms": rooms, "room_type": beds, "transports": []}]}]}
+    assert coverage_checks(plan, 2)["coverage/0/0/activity"] is expected
 
 
 def test_party_coverage_never_treats_boolean_as_a_ticket():

@@ -1,0 +1,537 @@
+{
+  "kind": "seen_candidate_development_with_explicit_manual_semantic_annotation",
+  "model_api_calls": 0,
+  "runs": {
+    "annotated": {
+      "optional_visit_policy": [
+        {
+          "attempt": 1,
+          "paths": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "uid": "h20241029143447759844"
+        },
+        {
+          "attempt": 2,
+          "paths": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "uid": "h20241029143447759844"
+        },
+        {
+          "attempt": 3,
+          "paths": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "uid": "h20241029143447759844"
+        }
+      ],
+      "report": {
+        "candidate_count": 5,
+        "cases": [
+          {
+            "attempt": 1,
+            "evaluated": 7,
+            "expansions": 3,
+            "generated": 11,
+            "reason": "all_checks_passed",
+            "score": {
+              "baseline": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": true
+              },
+              "best_draft": {
+                "env": true,
+                "final": true,
+                "logical": true,
+                "schema": true
+              },
+              "delivered": {
+                "env": true,
+                "final": true,
+                "logical": true,
+                "schema": true
+              }
+            },
+            "status": "accepted",
+            "uid": "h20241029143447759844"
+          },
+          {
+            "attempt": 2,
+            "evaluated": 7,
+            "expansions": 3,
+            "generated": 11,
+            "reason": "all_checks_passed",
+            "score": {
+              "baseline": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": true
+              },
+              "best_draft": {
+                "env": true,
+                "final": true,
+                "logical": true,
+                "schema": true
+              },
+              "delivered": {
+                "env": true,
+                "final": true,
+                "logical": true,
+                "schema": true
+              }
+            },
+            "status": "accepted",
+            "uid": "h20241029143447759844"
+          },
+          {
+            "attempt": 3,
+            "evaluated": 7,
+            "expansions": 3,
+            "generated": 11,
+            "reason": "all_checks_passed",
+            "score": {
+              "baseline": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": true
+              },
+              "best_draft": {
+                "env": true,
+                "final": true,
+                "logical": true,
+                "schema": true
+              },
+              "delivered": {
+                "env": true,
+                "final": true,
+                "logical": true,
+                "schema": true
+              }
+            },
+            "status": "accepted",
+            "uid": "h20241029143447759844"
+          },
+          {
+            "attempt": 1,
+            "evaluated": 0,
+            "expansions": 0,
+            "generated": 0,
+            "reason": "needs_retranslation",
+            "score": {
+              "baseline": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": false
+              },
+              "best_draft": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": false
+              },
+              "delivered": {
+                "env": false,
+                "final": false,
+                "logical": false,
+                "schema": false
+              }
+            },
+            "status": "deferred",
+            "uid": "h20241029143450090032"
+          },
+          {
+            "attempt": 2,
+            "evaluated": 0,
+            "expansions": 0,
+            "generated": 0,
+            "reason": "needs_retranslation",
+            "score": {
+              "baseline": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": false
+              },
+              "best_draft": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": false
+              },
+              "delivered": {
+                "env": false,
+                "final": false,
+                "logical": false,
+                "schema": false
+              }
+            },
+            "status": "deferred",
+            "uid": "h20241029143450090032"
+          }
+        ],
+        "kind": "seen_candidate_development_not_new_model_run",
+        "manifest_sha256": "7d4d9aa944aea28d58c1eb346870b3122c1b763a8b6ad5f99033c0ff227bc72e",
+        "model_api_calls": 0,
+        "official": {
+          "baseline": {
+            "env": 0,
+            "final": 0,
+            "logical": 5,
+            "schema": 3
+          },
+          "best_draft": {
+            "env": 3,
+            "final": 3,
+            "logical": 5,
+            "schema": 3
+          },
+          "delivered": {
+            "env": 3,
+            "final": 3,
+            "logical": 3,
+            "schema": 3
+          }
+        },
+        "task_count": 2,
+        "tasks": [
+          {
+            "first_local_accept": 1,
+            "official_pass": true,
+            "uid": "h20241029143447759844"
+          },
+          {
+            "first_local_accept": null,
+            "official_pass": false,
+            "uid": "h20241029143450090032"
+          }
+        ]
+      },
+      "report_sha256": "e1f85632c7d7bc589dd5334ea4936fd3697eb0d0cf90fbbddf088e42b84eac05",
+      "source_sha256": {
+        "experiments/__init__.py": "80a7a5e6f0be33d3c4b11fb85ccb0face5db7442b722455c5f8d6544c626f74c",
+        "experiments/chinatravel/__init__.py": "93268f0b9426d5e081089ecc580c6404e2214296088df4417564202ca8b774ac",
+        "experiments/chinatravel/official_scoring.py": "0e8c253801d01af810fa6db5aeae511104b3c62da04971884d6d53a00597a697",
+        "experiments/chinatravel/prepare_data.py": "1af864d34537614293384ad65e58f92d44395f8aa9c7bd3e62672d9c3763dec6",
+        "experiments/chinatravel/recording.py": "dd7405a08a291e25545d188459df3ade61ac9256770cb9f85fa9b1ad6936a4bb",
+        "experiments/chinatravel/resimind_adapter.py": "d8ade0a5b50932dc09255090709dcbe170fac5ea3efd042e75872c3d40409c0f",
+        "experiments/chinatravel/run.py": "5e7c2c2fe6fa1956379ee0146e7d1c35228c65046359089084070e0a54b26ac6",
+        "experiments/chinatravel/sandbox.py": "ed81cd146fc09a1217fb01f75160a153e566b42a8cdcfd191a9093367e0b382f",
+        "experiments/chinatravel/upstream_worker.py": "57917b1ab2cedae459cca02faad4dbc4e8e7431109a257a5d2a4582211562c4c",
+        "experiments/chinatravel_repair/__init__.py": "01ad9ad4e77c9ab3989b159dc8bb46fef110474bf96b864f5d9b8fa70431b264",
+        "experiments/chinatravel_repair/binding.py": "73f9e008c6d6db6d9f1be2ac775d4c88cc82f3a4fdbe9eb2ee7c1cc9c0fdd4c7",
+        "experiments/chinatravel_repair/checker.py": "aed023bc070334df02c86a02371b49db4029c6abe0dfd30f6dace9e27e86a9c9",
+        "experiments/chinatravel_repair/live.py": "6567f507263fa669b105484f0fc076a2b413b627ee871a37ec404d32642048e6",
+        "experiments/chinatravel_repair/live_worker.py": "b1262574989ae90e8de913723a31d571ce85d3ea39e347c868947ef34733c961",
+        "experiments/chinatravel_repair/proposals.py": "516aa6dfbbf4ab2a631bd73d6eaeafd73e2657e57cb0ebcef4d2f0ac0f87f791",
+        "experiments/chinatravel_repair/repair.py": "da1f2949dc505c1499d207231e329eba84adf00bd7a16435e83cb928d0d2d6fd",
+        "experiments/chinatravel_repair/replay.py": "a97d6a786b23e539c310cc217e978746defd05456d729b4153111c909a7ea20e",
+        "experiments/chinatravel_repair/replay_worker.py": "9ce023eef4b53b4b09b92afba66b5ebaed16597b42e3477cb5932af469e76cb2",
+        "experiments/chinatravel_search/__init__.py": "ecefebbbb7aebeaa5734b8ddbe6a0e3e63bbd8803dc62bba883d9474f7300c58",
+        "experiments/chinatravel_search/preflight.py": "73df7726842ccdec13816826c9a140772acff7296126a8e60cc7d41a1c27944a",
+        "experiments/chinatravel_search/schedule.py": "a07499c7711ce93d0f522c3ae2abec38c42fff23b9608503e6def14a5e28c246",
+        "experiments/chinatravel_search/solve.py": "99234779ac6ccbd6cc780063bf25a799fa239263606fb347de0d6e039b57301e",
+        "experiments/chinatravel_search/worker.py": "35cf4eea076f649d5fe89fa0e9eaaf67771adbf0107f126977ad97200bc6e63c",
+        "scripts/replay_search_development.py": "5223d45ab878c1b24a9de3e098d0f8cac8de6c9378966f4661992b3a29e8cfb3",
+        "src/resimind/__init__.py": "a5f51dbb5563ea6b674c63021614a29a80c7f144ace1b442bf255a5756d81b5d",
+        "src/resimind/__main__.py": "9e6c2aa4795391e4f7ccf270ccf478de8b7cc134151421b79a9274e99d6aeb52",
+        "src/resimind/adapters.py": "7d74acdb5301b22996c62634e8ee64d200d74f28b935958758a62a6527f66675",
+        "src/resimind/agent.py": "9e9e86a5b364cccfac13af1fb38c44a731b6241d80fa274c4ee58ff614f3e9a5",
+        "src/resimind/cli.py": "95280bcaac267b53b88820909c3c116fac2555fb1f5fea4f4bae6e6235bf48d9",
+        "src/resimind/core.py": "1cc0c2af4421dc1fc2837eb34e90bae5560426b257c614a9537b71486801840b",
+        "src/resimind/domains/__init__.py": "563ae238666384cc664f672c6b4180c145972b1bf990cb8c152de200765fb4c4",
+        "src/resimind/domains/bridge.py": "8c474d9cbc5bd210e4211641abb850b7c925aca97f84a3893c8cd208f33af3c5",
+        "src/resimind/domains/customer_support.py": "19a5c894a10c5ba15556eadc51a4e04e4c403785cfa5ef2b831b1499f8136992",
+        "src/resimind/domains/engineering.py": "d096124ff6c28e9ede67c0afa991dc42ec8d42b4bddce4fcbb037ed58f425c51",
+        "src/resimind/domains/mathematics.py": "23efa942c31f3d321377251c850f1f686f242d1d026c7cf6ddf925c50cf1707f",
+        "src/resimind/domains/optimization.py": "b13a567968cef7e5549f2b64f06e99f046239368a763e88c7de81ccbb3aa8723",
+        "src/resimind/domains/planning.py": "c5c01ac5be6d11585a14e49e4def4ec517d15a99b686f1551ce293ea9cd42f66",
+        "src/resimind/integrations/__init__.py": "4194ac6c400196952b8140ff079982b541511ee7ccf9c8c843b7b39d01e54dbb",
+        "src/resimind/integrations/deepseek.py": "8461c381a148bd36135388b4aedf443e3f60cf477102d04f8c0ec30d51885f8b",
+        "src/resimind/integrations/langgraph.py": "b917e31a6b48d9ff3d94b8a464ca86a7b5265e2a237ddfcebbc8868c4c0d3616",
+        "src/resimind/integrations/openai.py": "e41ac4b2df9fc4383e6e0e8349f7e479a14b961acc5834c75c50196862a93738",
+        "src/resimind/memory.py": "f108b4204dfc5d64fae92efa493965a219bdb64685108aedae753d953e76a89f",
+        "src/resimind/repair.py": "623e401aad2babdbe1f98bd75dd83d078095e01f5c3b4d0b36eb33b2467142af",
+        "src/resimind/runtime.py": "e936efc8154bd4764de6f770a6b36e2a63472036c7d81b39e51120cf43a5c754",
+        "src/resimind/search.py": "fcdc8c1a9d5236db9e4a5a3fe8809a9d4e60c794cdf7276de2e35e4f70d66204",
+        "src/resimind/units.py": "7a3e43dbceaef624a931c15753ecdd695e929fd0c8f1489ee5a927bcc60de171"
+      },
+      "source_zip_sha256": "016332529394d3232fa9a38624ce941f8bf133534ed1b5fd97e760c03882d347"
+    },
+    "default": {
+      "optional_visit_policy": [],
+      "report": {
+        "candidate_count": 5,
+        "cases": [
+          {
+            "attempt": 1,
+            "evaluated": 6,
+            "expansions": 6,
+            "generated": 10,
+            "reason": "no_remaining_drafts",
+            "score": {
+              "baseline": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": true
+              },
+              "best_draft": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": true
+              },
+              "delivered": {
+                "env": false,
+                "final": false,
+                "logical": false,
+                "schema": false
+              }
+            },
+            "status": "exhausted",
+            "uid": "h20241029143447759844"
+          },
+          {
+            "attempt": 2,
+            "evaluated": 5,
+            "expansions": 5,
+            "generated": 5,
+            "reason": "no_remaining_drafts",
+            "score": {
+              "baseline": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": true
+              },
+              "best_draft": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": true
+              },
+              "delivered": {
+                "env": false,
+                "final": false,
+                "logical": false,
+                "schema": false
+              }
+            },
+            "status": "exhausted",
+            "uid": "h20241029143447759844"
+          },
+          {
+            "attempt": 3,
+            "evaluated": 5,
+            "expansions": 5,
+            "generated": 5,
+            "reason": "no_remaining_drafts",
+            "score": {
+              "baseline": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": true
+              },
+              "best_draft": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": true
+              },
+              "delivered": {
+                "env": false,
+                "final": false,
+                "logical": false,
+                "schema": false
+              }
+            },
+            "status": "exhausted",
+            "uid": "h20241029143447759844"
+          },
+          {
+            "attempt": 1,
+            "evaluated": 0,
+            "expansions": 0,
+            "generated": 0,
+            "reason": "needs_retranslation",
+            "score": {
+              "baseline": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": false
+              },
+              "best_draft": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": false
+              },
+              "delivered": {
+                "env": false,
+                "final": false,
+                "logical": false,
+                "schema": false
+              }
+            },
+            "status": "deferred",
+            "uid": "h20241029143450090032"
+          },
+          {
+            "attempt": 2,
+            "evaluated": 0,
+            "expansions": 0,
+            "generated": 0,
+            "reason": "needs_retranslation",
+            "score": {
+              "baseline": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": false
+              },
+              "best_draft": {
+                "env": false,
+                "final": false,
+                "logical": true,
+                "schema": false
+              },
+              "delivered": {
+                "env": false,
+                "final": false,
+                "logical": false,
+                "schema": false
+              }
+            },
+            "status": "deferred",
+            "uid": "h20241029143450090032"
+          }
+        ],
+        "kind": "seen_candidate_development_not_new_model_run",
+        "manifest_sha256": "3513e3984633df8f6b7b345dc2def1c34e0533363890008c1eb415b303002a41",
+        "model_api_calls": 0,
+        "official": {
+          "baseline": {
+            "env": 0,
+            "final": 0,
+            "logical": 5,
+            "schema": 3
+          },
+          "best_draft": {
+            "env": 0,
+            "final": 0,
+            "logical": 5,
+            "schema": 3
+          },
+          "delivered": {
+            "env": 0,
+            "final": 0,
+            "logical": 0,
+            "schema": 0
+          }
+        },
+        "task_count": 2,
+        "tasks": [
+          {
+            "first_local_accept": null,
+            "official_pass": false,
+            "uid": "h20241029143447759844"
+          },
+          {
+            "first_local_accept": null,
+            "official_pass": false,
+            "uid": "h20241029143450090032"
+          }
+        ]
+      },
+      "report_sha256": "b7871d9807ebde87fd1b0c64eaa9ac2ce4be4b8eef819aac250b4f8746b5fc61",
+      "source_sha256": {
+        "experiments/__init__.py": "80a7a5e6f0be33d3c4b11fb85ccb0face5db7442b722455c5f8d6544c626f74c",
+        "experiments/chinatravel/__init__.py": "93268f0b9426d5e081089ecc580c6404e2214296088df4417564202ca8b774ac",
+        "experiments/chinatravel/official_scoring.py": "0e8c253801d01af810fa6db5aeae511104b3c62da04971884d6d53a00597a697",
+        "experiments/chinatravel/prepare_data.py": "1af864d34537614293384ad65e58f92d44395f8aa9c7bd3e62672d9c3763dec6",
+        "experiments/chinatravel/recording.py": "dd7405a08a291e25545d188459df3ade61ac9256770cb9f85fa9b1ad6936a4bb",
+        "experiments/chinatravel/resimind_adapter.py": "d8ade0a5b50932dc09255090709dcbe170fac5ea3efd042e75872c3d40409c0f",
+        "experiments/chinatravel/run.py": "5e7c2c2fe6fa1956379ee0146e7d1c35228c65046359089084070e0a54b26ac6",
+        "experiments/chinatravel/sandbox.py": "ed81cd146fc09a1217fb01f75160a153e566b42a8cdcfd191a9093367e0b382f",
+        "experiments/chinatravel/upstream_worker.py": "57917b1ab2cedae459cca02faad4dbc4e8e7431109a257a5d2a4582211562c4c",
+        "experiments/chinatravel_repair/__init__.py": "01ad9ad4e77c9ab3989b159dc8bb46fef110474bf96b864f5d9b8fa70431b264",
+        "experiments/chinatravel_repair/binding.py": "73f9e008c6d6db6d9f1be2ac775d4c88cc82f3a4fdbe9eb2ee7c1cc9c0fdd4c7",
+        "experiments/chinatravel_repair/checker.py": "aed023bc070334df02c86a02371b49db4029c6abe0dfd30f6dace9e27e86a9c9",
+        "experiments/chinatravel_repair/live.py": "6567f507263fa669b105484f0fc076a2b413b627ee871a37ec404d32642048e6",
+        "experiments/chinatravel_repair/live_worker.py": "b1262574989ae90e8de913723a31d571ce85d3ea39e347c868947ef34733c961",
+        "experiments/chinatravel_repair/proposals.py": "516aa6dfbbf4ab2a631bd73d6eaeafd73e2657e57cb0ebcef4d2f0ac0f87f791",
+        "experiments/chinatravel_repair/repair.py": "da1f2949dc505c1499d207231e329eba84adf00bd7a16435e83cb928d0d2d6fd",
+        "experiments/chinatravel_repair/replay.py": "a97d6a786b23e539c310cc217e978746defd05456d729b4153111c909a7ea20e",
+        "experiments/chinatravel_repair/replay_worker.py": "9ce023eef4b53b4b09b92afba66b5ebaed16597b42e3477cb5932af469e76cb2",
+        "experiments/chinatravel_search/__init__.py": "ecefebbbb7aebeaa5734b8ddbe6a0e3e63bbd8803dc62bba883d9474f7300c58",
+        "experiments/chinatravel_search/preflight.py": "73df7726842ccdec13816826c9a140772acff7296126a8e60cc7d41a1c27944a",
+        "experiments/chinatravel_search/schedule.py": "a07499c7711ce93d0f522c3ae2abec38c42fff23b9608503e6def14a5e28c246",
+        "experiments/chinatravel_search/solve.py": "99234779ac6ccbd6cc780063bf25a799fa239263606fb347de0d6e039b57301e",
+        "experiments/chinatravel_search/worker.py": "35cf4eea076f649d5fe89fa0e9eaaf67771adbf0107f126977ad97200bc6e63c",
+        "scripts/replay_search_development.py": "5223d45ab878c1b24a9de3e098d0f8cac8de6c9378966f4661992b3a29e8cfb3",
+        "src/resimind/__init__.py": "a5f51dbb5563ea6b674c63021614a29a80c7f144ace1b442bf255a5756d81b5d",
+        "src/resimind/__main__.py": "9e6c2aa4795391e4f7ccf270ccf478de8b7cc134151421b79a9274e99d6aeb52",
+        "src/resimind/adapters.py": "7d74acdb5301b22996c62634e8ee64d200d74f28b935958758a62a6527f66675",
+        "src/resimind/agent.py": "9e9e86a5b364cccfac13af1fb38c44a731b6241d80fa274c4ee58ff614f3e9a5",
+        "src/resimind/cli.py": "95280bcaac267b53b88820909c3c116fac2555fb1f5fea4f4bae6e6235bf48d9",
+        "src/resimind/core.py": "1cc0c2af4421dc1fc2837eb34e90bae5560426b257c614a9537b71486801840b",
+        "src/resimind/domains/__init__.py": "563ae238666384cc664f672c6b4180c145972b1bf990cb8c152de200765fb4c4",
+        "src/resimind/domains/bridge.py": "8c474d9cbc5bd210e4211641abb850b7c925aca97f84a3893c8cd208f33af3c5",
+        "src/resimind/domains/customer_support.py": "19a5c894a10c5ba15556eadc51a4e04e4c403785cfa5ef2b831b1499f8136992",
+        "src/resimind/domains/engineering.py": "d096124ff6c28e9ede67c0afa991dc42ec8d42b4bddce4fcbb037ed58f425c51",
+        "src/resimind/domains/mathematics.py": "23efa942c31f3d321377251c850f1f686f242d1d026c7cf6ddf925c50cf1707f",
+        "src/resimind/domains/optimization.py": "b13a567968cef7e5549f2b64f06e99f046239368a763e88c7de81ccbb3aa8723",
+        "src/resimind/domains/planning.py": "c5c01ac5be6d11585a14e49e4def4ec517d15a99b686f1551ce293ea9cd42f66",
+        "src/resimind/integrations/__init__.py": "4194ac6c400196952b8140ff079982b541511ee7ccf9c8c843b7b39d01e54dbb",
+        "src/resimind/integrations/deepseek.py": "8461c381a148bd36135388b4aedf443e3f60cf477102d04f8c0ec30d51885f8b",
+        "src/resimind/integrations/langgraph.py": "b917e31a6b48d9ff3d94b8a464ca86a7b5265e2a237ddfcebbc8868c4c0d3616",
+        "src/resimind/integrations/openai.py": "e41ac4b2df9fc4383e6e0e8349f7e479a14b961acc5834c75c50196862a93738",
+        "src/resimind/memory.py": "f108b4204dfc5d64fae92efa493965a219bdb64685108aedae753d953e76a89f",
+        "src/resimind/repair.py": "623e401aad2babdbe1f98bd75dd83d078095e01f5c3b4d0b36eb33b2467142af",
+        "src/resimind/runtime.py": "e936efc8154bd4764de6f770a6b36e2a63472036c7d81b39e51120cf43a5c754",
+        "src/resimind/search.py": "fcdc8c1a9d5236db9e4a5a3fe8809a9d4e60c794cdf7276de2e35e4f70d66204",
+        "src/resimind/units.py": "7a3e43dbceaef624a931c15753ecdd695e929fd0c8f1489ee5a927bcc60de171"
+      },
+      "source_zip_sha256": "016332529394d3232fa9a38624ce941f8bf133534ed1b5fd97e760c03882d347"
+    }
+  },
+  "scope_limits": [
+    "not_held_out",
+    "not_end_to_end",
+    "candidates_not_independent",
+    "not_an_ablation",
+    "hotel_guest_capacity_not_available",
+    "soft_natural_language_preferences_not_fully_encoded"
+  ],
+  "source_candidate_count": 5,
+  "source_task_count": 2
+}
