@@ -5,7 +5,7 @@ or a ranking against other Agent frameworks.
 
 | Check | Result |
 | --- | --- |
-| Complete source regression suite, including actual Lean checks | 1,639 passed |
+| Complete source regression suite, including actual Lean checks | 1,645 passed |
 | Runnable source examples | All 12 passed |
 | Fresh Python 3.12 venv, wheel installed without Python dependencies | Version 0.11.0; imports came from the installed wheel |
 | Installed console outside the repository, 10 domains in text and JSON | 20/20 passed |
@@ -25,6 +25,13 @@ completes the task. Other tests retain mathematical rejection, unavailable or
 failed proof gates, and the distinction between accepted exploration and
 observed goal progress. A smaller or fully expanded-looking false expression
 cannot bypass exact verification.
+
+Six additional Lean regressions cover task variables that disappear after
+cancellation. The generated theorem retains every original variable binding
+and disables only its unused-variable linter; any emitted warning or error
+still fails verification. Actual compiler checks confirm that a proof chain
+can continue after cancellation and that a false subsequent equality remains
+unresolved.
 
 ## Reproduce
 

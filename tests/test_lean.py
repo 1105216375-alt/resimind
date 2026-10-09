@@ -71,6 +71,15 @@ def test_source_rewrites_names_and_interpolates_only_validated_ast():
     assert source.count("theorem ") == 1
 
 
+def test_unused_binder_linter_option_is_scoped_to_the_generated_theorem():
+    source, target, mapping = lean._source("x+x", "2*x", ("x", "y"), "grind", 200000)
+    assert mapping == (("x", "v0"), ("y", "v1"))
+    assert "(v0 : Rat) (v1 : Rat)" in source
+    assert source.count("set_option linter.unusedVariables false in\n") == 1
+    assert "set_option linter.unusedVariables false in\ntheorem resimind_checked" in source
+    assert source.endswith("#print axioms resimind_checked\n")
+
+
 def test_feedback_binding_changes_for_target_and_variable_order():
     value = polynomial_binding_digest("x+y", "y+x", ("x", "y"))
     assert value != polynomial_binding_digest("x+y", "y-x", ("x", "y"))
@@ -198,6 +207,22 @@ def test_incomplete_or_ambiguous_success_evidence_fails_closed(monkeypatch, tmp_
     assert result.proof_digest is None
 
 
+@pytest.mark.parametrize("severity,diagnostic", [
+    ("warning", "unused variable `v1`"),
+    ("warning", "synthetic unrelated compiler warning"),
+    ("error", "synthetic elaboration failure"),
+])
+def test_any_emitted_warning_or_error_still_rejects_after_unused_binder_fix(monkeypatch, tmp_path, severity, diagnostic):
+    result = _fake_compiler(monkeypatch, tmp_path, messages=[
+        _message("v0 v1 : Rat\n⊢ v0 + v0 = 2 * v0", kind="trace"),
+        _message("'resimind_checked' depends on axioms: [propext, Classical.choice, Quot.sound]"),
+        _message(diagnostic, severity=severity),
+    ]).check("x+x", "2*x", ("x", "y"))
+    assert result.status == "error"
+    assert result.diagnostics == (diagnostic,)
+    assert result.proof_digest is None
+
+
 @pytest.mark.parametrize("failure", ["Lean check timed out", "Lean output exceeded the byte limit"])
 def test_failed_transport_does_not_accept_existing_proof_bytes(monkeypatch, tmp_path, failure):
     result = _fake_compiler(monkeypatch, tmp_path, failure=failure).check("x", "x", ("x",))
@@ -276,3 +301,30 @@ def test_real_lean_does_not_certify_false_identity(real_lean):
     result = real_lean.check("x+1", "x+2", ("x",))
     assert result.status == "unresolved", result
     assert result.goals and result.proof_digest is None
+
+
+def test_real_lean_retains_all_task_variables_when_one_is_unused(real_lean):
+    variables = ("x", "y")
+    result = real_lean.check("x+x", "2*x", variables)
+    assert result.status == "verified", result
+    assert result.variable_mapping == (("x", "v0"), ("y", "v1"))
+    assert result.binding_digest == polynomial_binding_digest("x+x", "2*x", variables)
+    assert result.binding_digest != polynomial_binding_digest("x+x", "2*x", ("x",))
+    assert "v0 v1 : Rat" in result.actual_target
+    assert result.diagnostics == () and result.goals == ()
+    assert result.proof_digest and set(result.axioms) <= APPROVED_AXIOMS
+
+
+def test_real_lean_proof_chain_can_continue_after_variable_cancellation(real_lean):
+    variables = ("x", "y")
+    expressions = ("(x+y)+(x-y)", "x+x", "2*x")
+    for before, after in zip(expressions, expressions[1:]):
+        result = real_lean.check(before, after, variables)
+        assert result.status == "verified", result
+        assert result.variable_mapping == (("x", "v0"), ("y", "v1"))
+        assert result.binding_digest == polynomial_binding_digest(before, after, variables)
+        assert result.proof_digest and "sorryAx" not in result.axioms
+        assert result.diagnostics == ()
+    wrong = real_lean.check(expressions[-1], "2*x+1", variables)
+    assert wrong.status == "unresolved", wrong
+    assert wrong.proof_digest is None and wrong.goals

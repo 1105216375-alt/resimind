@@ -141,9 +141,13 @@ def _source(before: str, after: str, variables: Sequence[str], tactic: str,
     rhs = _render(ast.parse(after.strip(), mode="eval").body, names)
     target = f"{lhs} = {rhs}"
     binders = " ".join(f"({renamed} : Rat)" for _, renamed in mapping)
+    # Keep every task variable bound even after cancellation removes it from
+    # both expressions. Silence only this theorem's cosmetic unused-binder
+    # linter; every emitted warning/error still fails the diagnostic gate.
     source = ("import Lean\n"
               "set_option maxRecDepth 512\n"
               f"set_option maxHeartbeats {max_heartbeats}\n"
+              "set_option linter.unusedVariables false in\n"
               f"theorem {_THEOREM} {binders} : {target} := by\n"
               "  trace_state\n"
               f"  {tactic}\n"

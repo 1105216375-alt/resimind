@@ -5,6 +5,7 @@
 - Separate verified identity from goal progress in the adaptive polynomial loop. Assess progress after exact verification and before optional Lean checks; defer cosmetic rewrites with feedback about remaining expansion work.
 - Preserve useful local distribution and power decomposition even when expressions grow. Give uncertain intermediate steps a finite per-task allowance that cannot be refunded by changing state or rolling back.
 - Add explicit goal feedback and bounded progress observations, with an opt-out for earlier behavior. Progress heuristics never replace identity verification, Lean or the actual task-completion condition.
+- Keep Lean proof chains working when cancellation removes a task variable. Retain all original bindings and scope the unused-variable linter option to the generated theorem; emitted warnings and errors still fail verification.
 - Add the offline `progress` demonstration for cosmetic recovery and useful decomposition. See [goal progress](docs/goal-progress.md). New quantitative evaluation records remain local.
 
 ## 0.10.0 — 2026-10-09
