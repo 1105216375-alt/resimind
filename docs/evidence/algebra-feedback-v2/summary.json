@@ -1,0 +1,2141 @@
+{
+  "schema_version": 1,
+  "study": "same-model-algebra-feedback-v2",
+  "protocol_sha256": "a344338003ce7e863b04548bf8426ec5f0cca0f88b8e7eea9816d60562221c74",
+  "evaluation_kind": "seen_case_development_rerun",
+  "completed_at_utc": "2026-10-09T03:16:46.903767+00:00",
+  "wall_seconds": 38.113380875001894,
+  "requests_present_at_session_start": 0,
+  "settings": {
+    "model": "deepseek-flash",
+    "temperature": 0.0,
+    "thinking": "disabled",
+    "max_output_tokens": 4096,
+    "timeout_seconds": 90,
+    "max_physical_calls": 360,
+    "max_prompt_bytes": 48000,
+    "max_total_output_tokens": 1474560,
+    "max_calls_per_task": 8,
+    "workers": 4,
+    "sdk_retries": 0
+  },
+  "development_totals": {
+    "tasks": 8,
+    "successes": 8,
+    "invalid_delivered": 0,
+    "unsuccessful_delivered": 0,
+    "technical_failures": 0,
+    "schema_failures": 0,
+    "model_calls": 8,
+    "api_attempts": 8,
+    "input_tokens": 3890,
+    "output_tokens": 360,
+    "identity_checks": 10,
+    "accepted_steps": 6,
+    "rule_uses": 0,
+    "tasks_with_cross_task_reuse": 0,
+    "model_seconds": 5.069082,
+    "summed_task_seconds": 5.079855749019771
+  },
+  "discovery": [
+    {
+      "status": "solved",
+      "stop_reason": "residual_empty",
+      "output": "u**2 + 2*u*v + v**2",
+      "work": {
+        "proposal_calls": 1,
+        "primitive_node_visits": 0,
+        "pattern_attempts": 0,
+        "identity_checks": 2
+      },
+      "accepted_steps": 1,
+      "retrieved_rule_ids": [],
+      "committed_rule_uses": [],
+      "admissions": [
+        {
+          "id": "expansion:19610ad9b4a234e8d19b8cba",
+          "status": "verified",
+          "fingerprint": "3f42e23854781e66f3011f40eb30efb2c4ec2e2338424b24d819498090c84f51"
+        }
+      ],
+      "learning_errors": [],
+      "elapsed_seconds": 0.7720057499973336,
+      "task_id": "discover-square",
+      "expression": "(u+v)**2",
+      "variables": [
+        "u",
+        "v"
+      ],
+      "group": "discovery",
+      "arm": "residual_growth",
+      "request_ids": [
+        "discovery-discover-square-residual_growth-001"
+      ],
+      "oracle": {
+        "status": "valid",
+        "reason": "exact_grid_identity",
+        "points_checked": 9,
+        "required_points": 9,
+        "degree_bounds": [
+          2,
+          2
+        ],
+        "expanded": true
+      },
+      "success": true,
+      "invalid_delivered": false,
+      "unsuccessful_delivered": false,
+      "technical_failure": false,
+      "schema_failure": false,
+      "usage": {
+        "input_tokens": 762,
+        "output_tokens": 70,
+        "total_tokens": 832
+      },
+      "model_seconds": 0.769611,
+      "api_attempts": 1
+    },
+    {
+      "status": "solved",
+      "stop_reason": "residual_empty",
+      "output": "u**3 + 3*u**2*v + 3*u*v**2 + v**3",
+      "work": {
+        "proposal_calls": 1,
+        "primitive_node_visits": 0,
+        "pattern_attempts": 0,
+        "identity_checks": 2
+      },
+      "accepted_steps": 1,
+      "retrieved_rule_ids": [
+        "expansion:19610ad9b4a234e8d19b8cba"
+      ],
+      "committed_rule_uses": [],
+      "admissions": [
+        {
+          "id": "expansion:81a5f43cc6faaee60a83c3fa",
+          "status": "verified",
+          "fingerprint": "3100c61d871aeaa3103f9caaaef2cb437eda57226c9e93989b3f8ece3b887bfc"
+        }
+      ],
+      "learning_errors": [],
+      "elapsed_seconds": 0.8436596250103321,
+      "task_id": "discover-cube",
+      "expression": "(u+v)**3",
+      "variables": [
+        "u",
+        "v"
+      ],
+      "group": "discovery",
+      "arm": "residual_growth",
+      "request_ids": [
+        "discovery-discover-cube-residual_growth-001"
+      ],
+      "oracle": {
+        "status": "valid",
+        "reason": "exact_grid_identity",
+        "points_checked": 16,
+        "required_points": 16,
+        "degree_bounds": [
+          3,
+          3
+        ],
+        "expanded": true
+      },
+      "success": true,
+      "invalid_delivered": false,
+      "unsuccessful_delivered": false,
+      "technical_failure": false,
+      "schema_failure": false,
+      "usage": {
+        "input_tokens": 832,
+        "output_tokens": 79,
+        "total_tokens": 911
+      },
+      "model_seconds": 0.840302,
+      "api_attempts": 1
+    },
+    {
+      "status": "solved",
+      "stop_reason": "residual_empty",
+      "output": "u**2 - v**2",
+      "work": {
+        "proposal_calls": 1,
+        "primitive_node_visits": 0,
+        "pattern_attempts": 0,
+        "identity_checks": 2
+      },
+      "accepted_steps": 1,
+      "retrieved_rule_ids": [
+        "expansion:19610ad9b4a234e8d19b8cba",
+        "expansion:81a5f43cc6faaee60a83c3fa"
+      ],
+      "committed_rule_uses": [],
+      "admissions": [
+        {
+          "id": "expansion:c90ff6314d0292fa44e1835c",
+          "status": "verified",
+          "fingerprint": "4363d95ecc174dd2d589ca61c9f5a33f4107895ee031f96f3a141ce3bf4664cd"
+        }
+      ],
+      "learning_errors": [],
+      "elapsed_seconds": 0.49334679200546816,
+      "task_id": "discover-difference",
+      "expression": "(u+v)*(u-v)",
+      "variables": [
+        "u",
+        "v"
+      ],
+      "group": "discovery",
+      "arm": "residual_growth",
+      "request_ids": [
+        "discovery-discover-difference-residual_growth-001"
+      ],
+      "oracle": {
+        "status": "valid",
+        "reason": "exact_grid_identity",
+        "points_checked": 9,
+        "required_points": 9,
+        "degree_bounds": [
+          2,
+          2
+        ],
+        "expanded": true
+      },
+      "success": true,
+      "invalid_delivered": false,
+      "unsuccessful_delivered": false,
+      "technical_failure": false,
+      "schema_failure": false,
+      "usage": {
+        "input_tokens": 906,
+        "output_tokens": 67,
+        "total_tokens": 973
+      },
+      "model_seconds": 0.486114,
+      "api_attempts": 1
+    }
+  ],
+  "discovery_totals": {
+    "tasks": 3,
+    "successes": 3,
+    "invalid_delivered": 0,
+    "unsuccessful_delivered": 0,
+    "technical_failures": 0,
+    "schema_failures": 0,
+    "model_calls": 3,
+    "api_attempts": 3,
+    "input_tokens": 2500,
+    "output_tokens": 216,
+    "identity_checks": 6,
+    "accepted_steps": 3,
+    "rule_uses": 0,
+    "tasks_with_cross_task_reuse": 0,
+    "model_seconds": 2.096027,
+    "summed_task_seconds": 2.109012167013134
+  },
+  "transfer": [
+    {
+      "task_id": "fractional-square",
+      "react": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "4*x**2/9 + 20*x*y/21 + 25*y**2/49",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 0
+        },
+        "accepted_steps": 0,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.8075444159912877,
+        "task_id": "fractional-square",
+        "expression": "(2*x/3+5*y/7)**2",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "react",
+        "request_ids": [
+          "transfer-fractional-square-react-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 9,
+          "required_points": 9,
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 213,
+          "output_tokens": 29,
+          "total_tokens": 242
+        },
+        "model_seconds": 0.803202,
+        "api_attempts": 1
+      },
+      "verify_retry": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "4*x**2/9 + 20*x*y/21 + 25*y**2/49",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 1
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.607861625001533,
+        "task_id": "fractional-square",
+        "expression": "(2*x/3+5*y/7)**2",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "verify_retry",
+        "request_ids": [
+          "transfer-fractional-square-verify_retry-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 9,
+          "required_points": 9,
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 203,
+          "output_tokens": 29,
+          "total_tokens": 232
+        },
+        "model_seconds": 0.600075,
+        "api_attempts": 1
+      },
+      "residual": {
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "output": "4*x**2/9+20*x*y/21+25*y**2/49",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 2
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.6164390839985572,
+        "task_id": "fractional-square",
+        "expression": "(2*x/3+5*y/7)**2",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "residual",
+        "request_ids": [
+          "transfer-fractional-square-residual-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 9,
+          "required_points": 9,
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 783,
+          "output_tokens": 84,
+          "total_tokens": 867
+        },
+        "model_seconds": 0.605644,
+        "api_attempts": 1
+      },
+      "residual_growth": {
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "output": "(2*x/3)**2 + 2*(2*x/3)*(5*y/7) + (5*y/7)**2",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 1,
+          "identity_checks": 2
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [
+          "expansion:19610ad9b4a234e8d19b8cba",
+          "expansion:81a5f43cc6faaee60a83c3fa",
+          "expansion:c90ff6314d0292fa44e1835c"
+        ],
+        "committed_rule_uses": [
+          {
+            "rule_id": "expansion:19610ad9b4a234e8d19b8cba",
+            "fingerprint": "3f42e23854781e66f3011f40eb30efb2c4ec2e2338424b24d819498090c84f51",
+            "source_task_id": "discover-square",
+            "cross_task": true
+          }
+        ],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.8932906249974621,
+        "task_id": "fractional-square",
+        "expression": "(2*x/3+5*y/7)**2",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "residual_growth",
+        "request_ids": [
+          "transfer-fractional-square-residual_growth-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 9,
+          "required_points": 9,
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 981,
+          "output_tokens": 112,
+          "total_tokens": 1093
+        },
+        "model_seconds": 0.87904,
+        "api_attempts": 1
+      }
+    },
+    {
+      "task_id": "affine-cube",
+      "react": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "8*x**3 + 36*x**2*y + 54*x*y**2 + 27*y**3 + 12*x**2 + 36*x*y + 27*y**2 + 6*x + 9*y + 1",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 0
+        },
+        "accepted_steps": 0,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.6759179579967167,
+        "task_id": "affine-cube",
+        "expression": "(2*x+3*y+1)**3",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "react",
+        "request_ids": [
+          "transfer-affine-cube-react-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 16,
+          "required_points": 16,
+          "degree_bounds": [
+            3,
+            3
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 211,
+          "output_tokens": 60,
+          "total_tokens": 271
+        },
+        "model_seconds": 0.662742,
+        "api_attempts": 1
+      },
+      "verify_retry": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "8*x**3 + 36*x**2*y + 12*x**2 + 54*x*y**2 + 36*x*y + 6*x + 27*y**3 + 27*y**2 + 9*y + 1",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 1
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.9035494170093443,
+        "task_id": "affine-cube",
+        "expression": "(2*x+3*y+1)**3",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "verify_retry",
+        "request_ids": [
+          "transfer-affine-cube-verify_retry-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 16,
+          "required_points": 16,
+          "degree_bounds": [
+            3,
+            3
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 201,
+          "output_tokens": 60,
+          "total_tokens": 261
+        },
+        "model_seconds": 0.896211,
+        "api_attempts": 1
+      },
+      "residual": {
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "output": "8*x**3 + 36*x**2*y + 54*x*y**2 + 27*y**3 + 12*x**2 + 36*x*y + 27*y**2 + 6*x + 9*y + 1",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 2
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 1.0772707919968525,
+        "task_id": "affine-cube",
+        "expression": "(2*x+3*y+1)**3",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "residual",
+        "request_ids": [
+          "transfer-affine-cube-residual-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 16,
+          "required_points": 16,
+          "degree_bounds": [
+            3,
+            3
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 779,
+          "output_tokens": 115,
+          "total_tokens": 894
+        },
+        "model_seconds": 1.061679,
+        "api_attempts": 1
+      },
+      "residual_growth": {
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "output": "8*x**3 + 36*x**2*y + 54*x*y**2 + 27*y**3 + 12*x**2 + 36*x*y + 27*y**2 + 6*x + 9*y + 1",
+        "work": {
+          "proposal_calls": 2,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 1,
+          "identity_checks": 6
+        },
+        "accepted_steps": 2,
+        "retrieved_rule_ids": [
+          "expansion:19610ad9b4a234e8d19b8cba",
+          "expansion:81a5f43cc6faaee60a83c3fa",
+          "expansion:c90ff6314d0292fa44e1835c"
+        ],
+        "committed_rule_uses": [
+          {
+            "rule_id": "expansion:81a5f43cc6faaee60a83c3fa",
+            "fingerprint": "3100c61d871aeaa3103f9caaaef2cb437eda57226c9e93989b3f8ece3b887bfc",
+            "source_task_id": "discover-cube",
+            "cross_task": true
+          }
+        ],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 1.9464407080085948,
+        "task_id": "affine-cube",
+        "expression": "(2*x+3*y+1)**3",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "residual_growth",
+        "request_ids": [
+          "transfer-affine-cube-residual_growth-001",
+          "transfer-affine-cube-residual_growth-002"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 16,
+          "required_points": 16,
+          "degree_bounds": [
+            3,
+            3
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 2287,
+          "output_tokens": 271,
+          "total_tokens": 2558
+        },
+        "model_seconds": 1.919589,
+        "api_attempts": 2
+      }
+    },
+    {
+      "task_id": "nested-square",
+      "react": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "x**4 + 4*x**3*y + 6*x**2*y**2 + 4*x*y**3 + y**4 + 2*x**2 + 2*x*y - 2*x - 2*y + 1",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 0
+        },
+        "accepted_steps": 0,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.7078881249908591,
+        "task_id": "nested-square",
+        "expression": "((x+y)**2+(x-y))**2",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "react",
+        "request_ids": [
+          "transfer-nested-square-react-001"
+        ],
+        "oracle": {
+          "status": "invalid",
+          "reason": "exact_counterexample",
+          "points_checked": 1,
+          "required_points": 25,
+          "degree_bounds": [
+            4,
+            4
+          ],
+          "counterexample": {
+            "x": -2,
+            "y": -2
+          }
+        },
+        "success": false,
+        "invalid_delivered": true,
+        "unsuccessful_delivered": true,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 211,
+          "output_tokens": 60,
+          "total_tokens": 271
+        },
+        "model_seconds": 0.700003,
+        "api_attempts": 1
+      },
+      "verify_retry": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "x**4 + 4*x**3*y + 6*x**2*y**2 + 4*x*y**3 + y**4 + 2*x**3 + 2*x**2*y - 2*x*y**2 - 2*y**3 + x**2 - 2*x*y + y**2",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 1
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.9583001249993686,
+        "task_id": "nested-square",
+        "expression": "((x+y)**2+(x-y))**2",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "verify_retry",
+        "request_ids": [
+          "transfer-nested-square-verify_retry-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 25,
+          "required_points": 25,
+          "degree_bounds": [
+            4,
+            4
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 201,
+          "output_tokens": 77,
+          "total_tokens": 278
+        },
+        "model_seconds": 0.947264,
+        "api_attempts": 1
+      },
+      "residual": {
+        "status": "stalled",
+        "stop_reason": "max_no_progress",
+        "output": null,
+        "work": {
+          "proposal_calls": 8,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 16
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 7.350854707998224,
+        "task_id": "nested-square",
+        "expression": "((x+y)**2+(x-y))**2",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "residual",
+        "request_ids": [
+          "transfer-nested-square-residual-001",
+          "transfer-nested-square-residual-002",
+          "transfer-nested-square-residual-003",
+          "transfer-nested-square-residual-004",
+          "transfer-nested-square-residual-005",
+          "transfer-nested-square-residual-006",
+          "transfer-nested-square-residual-007",
+          "transfer-nested-square-residual-008"
+        ],
+        "oracle": {
+          "status": "missing",
+          "reason": "no_delivered_answer"
+        },
+        "success": false,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 8272,
+          "output_tokens": 1079,
+          "total_tokens": 9351
+        },
+        "model_seconds": 7.26818,
+        "api_attempts": 8
+      },
+      "residual_growth": {
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "output": "x**4 + 4*x**3*y + 6*x**2*y**2 + 4*x*y**3 + y**4 + 2*x**3 + 4*x**2*y + 2*x*y**2 - 2*x**2*y - 4*x*y**2 - 2*y**3 + x**2 - 2*x*y + y**2",
+        "work": {
+          "proposal_calls": 3,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 1,
+          "identity_checks": 7
+        },
+        "accepted_steps": 2,
+        "retrieved_rule_ids": [
+          "expansion:19610ad9b4a234e8d19b8cba",
+          "expansion:81a5f43cc6faaee60a83c3fa",
+          "expansion:c90ff6314d0292fa44e1835c"
+        ],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 2.916911374995834,
+        "task_id": "nested-square",
+        "expression": "((x+y)**2+(x-y))**2",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "residual_growth",
+        "request_ids": [
+          "transfer-nested-square-residual_growth-001",
+          "transfer-nested-square-residual_growth-002",
+          "transfer-nested-square-residual_growth-003"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 25,
+          "required_points": 25,
+          "degree_bounds": [
+            4,
+            4
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 3290,
+          "output_tokens": 344,
+          "total_tokens": 3634
+        },
+        "model_seconds": 2.890433,
+        "api_attempts": 3
+      }
+    },
+    {
+      "task_id": "trinomial-cube",
+      "react": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "x**3 + 3*x**2*y + 3*x**2*z + 3*x*y**2 + 6*x*y*z + 3*x*z**2 + y**3 + 3*y**2*z + 3*y*z**2 + z**3",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 0
+        },
+        "accepted_steps": 0,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.8308857910014922,
+        "task_id": "trinomial-cube",
+        "expression": "(x+y+z)**3",
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ],
+        "group": "applicability",
+        "arm": "react",
+        "request_ids": [
+          "transfer-trinomial-cube-react-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 64,
+          "required_points": 64,
+          "degree_bounds": [
+            3,
+            3,
+            3
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 209,
+          "output_tokens": 67,
+          "total_tokens": 276
+        },
+        "model_seconds": 0.819662,
+        "api_attempts": 1
+      },
+      "verify_retry": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "x**3 + 3*x**2*y + 3*x**2*z + 3*x*y**2 + 6*x*y*z + 3*x*z**2 + y**3 + 3*y**2*z + 3*y*z**2 + z**3",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 1
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.5857139999861829,
+        "task_id": "trinomial-cube",
+        "expression": "(x+y+z)**3",
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ],
+        "group": "applicability",
+        "arm": "verify_retry",
+        "request_ids": [
+          "transfer-trinomial-cube-verify_retry-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 64,
+          "required_points": 64,
+          "degree_bounds": [
+            3,
+            3,
+            3
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 199,
+          "output_tokens": 67,
+          "total_tokens": 266
+        },
+        "model_seconds": 0.569392,
+        "api_attempts": 1
+      },
+      "residual": {
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "output": "x**3 + 3*x**2*y + 3*x**2*z + 3*x*y**2 + 6*x*y*z + 3*x*z**2 + y**3 + 3*y**2*z + 3*y*z**2 + z**3",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 2
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.7945652500056894,
+        "task_id": "trinomial-cube",
+        "expression": "(x+y+z)**3",
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ],
+        "group": "applicability",
+        "arm": "residual",
+        "request_ids": [
+          "transfer-trinomial-cube-residual-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 64,
+          "required_points": 64,
+          "degree_bounds": [
+            3,
+            3,
+            3
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 772,
+          "output_tokens": 118,
+          "total_tokens": 890
+        },
+        "model_seconds": 0.773138,
+        "api_attempts": 1
+      },
+      "residual_growth": {
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "output": "x**3 + 3*x**2*y + 3*x**2*z + 3*x*y**2 + 6*x*y*z + 3*x*z**2 + y**3 + 3*y**2*z + 3*y*z**2 + z**3",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 2
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [
+          "expansion:19610ad9b4a234e8d19b8cba",
+          "expansion:81a5f43cc6faaee60a83c3fa",
+          "expansion:c90ff6314d0292fa44e1835c"
+        ],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.9170189169963123,
+        "task_id": "trinomial-cube",
+        "expression": "(x+y+z)**3",
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ],
+        "group": "applicability",
+        "arm": "residual_growth",
+        "request_ids": [
+          "transfer-trinomial-cube-residual_growth-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 64,
+          "required_points": 64,
+          "degree_bounds": [
+            3,
+            3,
+            3
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 970,
+          "output_tokens": 118,
+          "total_tokens": 1088
+        },
+        "model_seconds": 0.90306,
+        "api_attempts": 1
+      }
+    },
+    {
+      "task_id": "difference-scaled",
+      "react": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "4*x**2-9*y**2",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 0
+        },
+        "accepted_steps": 0,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 1.327061791002052,
+        "task_id": "difference-scaled",
+        "expression": "(2*x+3*y)*(2*x-3*y)",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "react",
+        "request_ids": [
+          "transfer-difference-scaled-react-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 9,
+          "required_points": 9,
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 214,
+          "output_tokens": 17,
+          "total_tokens": 231
+        },
+        "model_seconds": 1.321427,
+        "api_attempts": 1
+      },
+      "verify_retry": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "4*x**2-9*y**2",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 1
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.4306863749952754,
+        "task_id": "difference-scaled",
+        "expression": "(2*x+3*y)*(2*x-3*y)",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "verify_retry",
+        "request_ids": [
+          "transfer-difference-scaled-verify_retry-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 9,
+          "required_points": 9,
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 204,
+          "output_tokens": 17,
+          "total_tokens": 221
+        },
+        "model_seconds": 0.419384,
+        "api_attempts": 1
+      },
+      "residual": {
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "output": "4*x**2-9*y**2",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 2
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.7433899579918943,
+        "task_id": "difference-scaled",
+        "expression": "(2*x+3*y)*(2*x-3*y)",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "residual",
+        "request_ids": [
+          "transfer-difference-scaled-residual-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 9,
+          "required_points": 9,
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 785,
+          "output_tokens": 75,
+          "total_tokens": 860
+        },
+        "model_seconds": 0.72878,
+        "api_attempts": 1
+      },
+      "residual_growth": {
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "output": "4*x**2 - 9*y**2",
+        "work": {
+          "proposal_calls": 2,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 1,
+          "identity_checks": 3
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [
+          "expansion:19610ad9b4a234e8d19b8cba",
+          "expansion:81a5f43cc6faaee60a83c3fa",
+          "expansion:c90ff6314d0292fa44e1835c"
+        ],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 1.5129004580085166,
+        "task_id": "difference-scaled",
+        "expression": "(2*x+3*y)*(2*x-3*y)",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "applicability",
+        "arm": "residual_growth",
+        "request_ids": [
+          "transfer-difference-scaled-residual_growth-001",
+          "transfer-difference-scaled-residual_growth-002"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 9,
+          "required_points": 9,
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 2091,
+          "output_tokens": 167,
+          "total_tokens": 2258
+        },
+        "model_seconds": 1.487401,
+        "api_attempts": 2
+      }
+    },
+    {
+      "task_id": "difference-nested",
+      "react": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "x**2 + 2*x*y + y**2 - 4*z**2",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 0
+        },
+        "accepted_steps": 0,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.6894844999915222,
+        "task_id": "difference-nested",
+        "expression": "((x+y)+2*z)*((x+y)-2*z)",
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ],
+        "group": "applicability",
+        "arm": "react",
+        "request_ids": [
+          "transfer-difference-nested-react-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 27,
+          "required_points": 27,
+          "degree_bounds": [
+            2,
+            2,
+            2
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 217,
+          "output_tokens": 26,
+          "total_tokens": 243
+        },
+        "model_seconds": 0.674351,
+        "api_attempts": 1
+      },
+      "verify_retry": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "x**2 + 2*x*y + y**2 - 4*z**2",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 1
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.5938332499936223,
+        "task_id": "difference-nested",
+        "expression": "((x+y)+2*z)*((x+y)-2*z)",
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ],
+        "group": "applicability",
+        "arm": "verify_retry",
+        "request_ids": [
+          "transfer-difference-nested-verify_retry-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 27,
+          "required_points": 27,
+          "degree_bounds": [
+            2,
+            2,
+            2
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 207,
+          "output_tokens": 26,
+          "total_tokens": 233
+        },
+        "model_seconds": 0.586152,
+        "api_attempts": 1
+      },
+      "residual": {
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "output": "x**2 + 2*x*y + y**2 - 4*z**2",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 2
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.7836679580068449,
+        "task_id": "difference-nested",
+        "expression": "((x+y)+2*z)*((x+y)-2*z)",
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ],
+        "group": "applicability",
+        "arm": "residual",
+        "request_ids": [
+          "transfer-difference-nested-residual-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 27,
+          "required_points": 27,
+          "degree_bounds": [
+            2,
+            2,
+            2
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 797,
+          "output_tokens": 85,
+          "total_tokens": 882
+        },
+        "model_seconds": 0.771205,
+        "api_attempts": 1
+      },
+      "residual_growth": {
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "output": "x**2 + 2*x*y + y**2 - 4*z**2",
+        "work": {
+          "proposal_calls": 2,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 1,
+          "identity_checks": 6
+        },
+        "accepted_steps": 2,
+        "retrieved_rule_ids": [
+          "expansion:19610ad9b4a234e8d19b8cba",
+          "expansion:81a5f43cc6faaee60a83c3fa",
+          "expansion:c90ff6314d0292fa44e1835c"
+        ],
+        "committed_rule_uses": [
+          {
+            "rule_id": "expansion:c90ff6314d0292fa44e1835c",
+            "fingerprint": "4363d95ecc174dd2d589ca61c9f5a33f4107895ee031f96f3a141ce3bf4664cd",
+            "source_task_id": "discover-difference",
+            "cross_task": true
+          }
+        ],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 1.4728201249963604,
+        "task_id": "difference-nested",
+        "expression": "((x+y)+2*z)*((x+y)-2*z)",
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ],
+        "group": "applicability",
+        "arm": "residual_growth",
+        "request_ids": [
+          "transfer-difference-nested-residual_growth-001",
+          "transfer-difference-nested-residual_growth-002"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 27,
+          "required_points": 27,
+          "degree_bounds": [
+            2,
+            2,
+            2
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 2270,
+          "output_tokens": 182,
+          "total_tokens": 2452
+        },
+        "model_seconds": 1.447717,
+        "api_attempts": 2
+      }
+    },
+    {
+      "task_id": "unmatched-product",
+      "react": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "2*x**3 - 3*x**2*y - 11*x*y**2 - 6*y**3",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 0
+        },
+        "accepted_steps": 0,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.5427881249925122,
+        "task_id": "unmatched-product",
+        "expression": "(x+2*y)*(x-3*y)*(2*x+y)",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "unmatched-control",
+        "arm": "react",
+        "request_ids": [
+          "transfer-unmatched-product-react-001"
+        ],
+        "oracle": {
+          "status": "invalid",
+          "reason": "exact_counterexample",
+          "points_checked": 2,
+          "required_points": 16,
+          "degree_bounds": [
+            3,
+            3
+          ],
+          "counterexample": {
+            "x": -2,
+            "y": -1
+          }
+        },
+        "success": false,
+        "invalid_delivered": true,
+        "unsuccessful_delivered": true,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 216,
+          "output_tokens": 32,
+          "total_tokens": 248
+        },
+        "model_seconds": 0.52818,
+        "api_attempts": 1
+      },
+      "verify_retry": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "2*x**3 - x**2*y - 13*x*y**2 - 6*y**3",
+        "work": {
+          "proposal_calls": 3,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 3
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 2.0333921249984996,
+        "task_id": "unmatched-product",
+        "expression": "(x+2*y)*(x-3*y)*(2*x+y)",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "unmatched-control",
+        "arm": "verify_retry",
+        "request_ids": [
+          "transfer-unmatched-product-verify_retry-001",
+          "transfer-unmatched-product-verify_retry-002",
+          "transfer-unmatched-product-verify_retry-003"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 16,
+          "required_points": 16,
+          "degree_bounds": [
+            3,
+            3
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 835,
+          "output_tokens": 94,
+          "total_tokens": 929
+        },
+        "model_seconds": 1.997071,
+        "api_attempts": 3
+      },
+      "residual": {
+        "status": "stalled",
+        "stop_reason": "max_no_progress",
+        "output": null,
+        "work": {
+          "proposal_calls": 8,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 8
+        },
+        "accepted_steps": 0,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 6.406699957995443,
+        "task_id": "unmatched-product",
+        "expression": "(x+2*y)*(x-3*y)*(2*x+y)",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "unmatched-control",
+        "arm": "residual",
+        "request_ids": [
+          "transfer-unmatched-product-residual-001",
+          "transfer-unmatched-product-residual-002",
+          "transfer-unmatched-product-residual-003",
+          "transfer-unmatched-product-residual-004",
+          "transfer-unmatched-product-residual-005",
+          "transfer-unmatched-product-residual-006",
+          "transfer-unmatched-product-residual-007",
+          "transfer-unmatched-product-residual-008"
+        ],
+        "oracle": {
+          "status": "missing",
+          "reason": "no_delivered_answer"
+        },
+        "success": false,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 7401,
+          "output_tokens": 736,
+          "total_tokens": 8137
+        },
+        "model_seconds": 6.3343300000000005,
+        "api_attempts": 8
+      },
+      "residual_growth": {
+        "status": "stalled",
+        "stop_reason": "max_no_progress",
+        "output": null,
+        "work": {
+          "proposal_calls": 8,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 8
+        },
+        "accepted_steps": 0,
+        "retrieved_rule_ids": [
+          "expansion:19610ad9b4a234e8d19b8cba",
+          "expansion:81a5f43cc6faaee60a83c3fa",
+          "expansion:c90ff6314d0292fa44e1835c"
+        ],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 6.01153170800535,
+        "task_id": "unmatched-product",
+        "expression": "(x+2*y)*(x-3*y)*(2*x+y)",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "group": "unmatched-control",
+        "arm": "residual_growth",
+        "request_ids": [
+          "transfer-unmatched-product-residual_growth-001",
+          "transfer-unmatched-product-residual_growth-002",
+          "transfer-unmatched-product-residual_growth-003",
+          "transfer-unmatched-product-residual_growth-004",
+          "transfer-unmatched-product-residual_growth-005",
+          "transfer-unmatched-product-residual_growth-006",
+          "transfer-unmatched-product-residual_growth-007",
+          "transfer-unmatched-product-residual_growth-008"
+        ],
+        "oracle": {
+          "status": "missing",
+          "reason": "no_delivered_answer"
+        },
+        "success": false,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 8985,
+          "output_tokens": 736,
+          "total_tokens": 9721
+        },
+        "model_seconds": 5.938946,
+        "api_attempts": 8
+      }
+    },
+    {
+      "task_id": "sixth-power",
+      "react": {
+        "status": "delivered",
+        "stop_reason": "delivered",
+        "output": "64*x**6 - 576*x**5*y + 2160*x**4*y**2 + 192*x**4*z - 4320*x**3*y**3 - 1440*x**3*y*z + 4860*x**2*y**4 + 4320*x**2*y**2*z + 216*x**2*z**2 - 2916*x*y**5 - 6480*x*y**3*z - 1080*x*y*z**2 + 729*y**6 + 2916*y**4*z + 972*y**2*z**2 + 108*z**3",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 0
+        },
+        "accepted_steps": 0,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 0.9083227910014102,
+        "task_id": "sixth-power",
+        "expression": "(2*x-3*y+z)**6",
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ],
+        "group": "unmatched-control",
+        "arm": "react",
+        "request_ids": [
+          "transfer-sixth-power-react-001"
+        ],
+        "oracle": {
+          "status": "invalid",
+          "reason": "exact_counterexample",
+          "points_checked": 1,
+          "required_points": 343,
+          "degree_bounds": [
+            6,
+            6,
+            6
+          ],
+          "counterexample": {
+            "x": -3,
+            "y": -3,
+            "z": -3
+          }
+        },
+        "success": false,
+        "invalid_delivered": true,
+        "unsuccessful_delivered": true,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 212,
+          "output_tokens": 140,
+          "total_tokens": 352
+        },
+        "model_seconds": 0.891792,
+        "api_attempts": 1
+      },
+      "verify_retry": {
+        "status": "budget_exhausted",
+        "stop_reason": "budget_exhausted",
+        "output": null,
+        "work": {
+          "proposal_calls": 8,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 8
+        },
+        "accepted_steps": 0,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 10.345437124997261,
+        "task_id": "sixth-power",
+        "expression": "(2*x-3*y+z)**6",
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ],
+        "group": "unmatched-control",
+        "arm": "verify_retry",
+        "request_ids": [
+          "transfer-sixth-power-verify_retry-001",
+          "transfer-sixth-power-verify_retry-002",
+          "transfer-sixth-power-verify_retry-003",
+          "transfer-sixth-power-verify_retry-004",
+          "transfer-sixth-power-verify_retry-005",
+          "transfer-sixth-power-verify_retry-006",
+          "transfer-sixth-power-verify_retry-007",
+          "transfer-sixth-power-verify_retry-008"
+        ],
+        "oracle": {
+          "status": "missing",
+          "reason": "no_delivered_answer"
+        },
+        "success": false,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 9957,
+          "output_tokens": 2062,
+          "total_tokens": 12019
+        },
+        "model_seconds": 10.223598,
+        "api_attempts": 8
+      },
+      "residual": {
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "output": "64*x**6 - 576*x**5*y + 2160*x**4*y**2 - 4320*x**3*y**3 + 4860*x**2*y**4 - 2916*x*y**5 + 729*y**6 + 192*x**5*z - 1440*x**4*y*z + 4320*x**3*y**2*z - 6480*x**2*y**3*z + 4860*x*y**4*z - 1458*y**5*z + 240*x**4*z**2 - 1440*x**3*y*z**2 + 3240*x**2*y**2*z**2 - 3240*x*y**3*z**2 + 1215*y**4*z**2 + 160*x**3*z**3 - 720*x**2*y*z**3 + 1080*x*y**2*z**3 - 540*y**3*z**3 + 60*x**2*z**4 - 180*x*y*z**4 + 135*y**2*z**4 + 12*x*z**5 - 18*y*z**5 + z**6",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 2
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 1.6082511249987874,
+        "task_id": "sixth-power",
+        "expression": "(2*x-3*y+z)**6",
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ],
+        "group": "unmatched-control",
+        "arm": "residual",
+        "request_ids": [
+          "transfer-sixth-power-residual-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 343,
+          "required_points": 343,
+          "degree_bounds": [
+            6,
+            6,
+            6
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 783,
+          "output_tokens": 309,
+          "total_tokens": 1092
+        },
+        "model_seconds": 1.5789,
+        "api_attempts": 1
+      },
+      "residual_growth": {
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "output": "64*x**6 - 576*x**5*y + 192*x**5*z + 2160*x**4*y**2 - 1440*x**4*y*z + 240*x**4*z**2 - 4320*x**3*y**3 + 4320*x**3*y**2*z - 1440*x**3*y*z**2 + 160*x**3*z**3 + 4860*x**2*y**4 - 6480*x**2*y**3*z + 3240*x**2*y**2*z**2 - 720*x**2*y*z**3 + 60*x**2*z**4 - 2916*x*y**5 + 4860*x*y**4*z - 3240*x*y**3*z**2 + 1080*x*y**2*z**3 - 180*x*y*z**4 + 12*x*z**5 + 729*y**6 - 1458*y**5*z + 1215*y**4*z**2 - 540*y**3*z**3 + 135*y**2*z**4 - 18*y*z**5 + z**6",
+        "work": {
+          "proposal_calls": 1,
+          "primitive_node_visits": 0,
+          "pattern_attempts": 0,
+          "identity_checks": 2
+        },
+        "accepted_steps": 1,
+        "retrieved_rule_ids": [
+          "expansion:19610ad9b4a234e8d19b8cba",
+          "expansion:81a5f43cc6faaee60a83c3fa",
+          "expansion:c90ff6314d0292fa44e1835c"
+        ],
+        "committed_rule_uses": [],
+        "admissions": [],
+        "learning_errors": [],
+        "elapsed_seconds": 1.457020084009855,
+        "task_id": "sixth-power",
+        "expression": "(2*x-3*y+z)**6",
+        "variables": [
+          "x",
+          "y",
+          "z"
+        ],
+        "group": "unmatched-control",
+        "arm": "residual_growth",
+        "request_ids": [
+          "transfer-sixth-power-residual_growth-001"
+        ],
+        "oracle": {
+          "status": "valid",
+          "reason": "exact_grid_identity",
+          "points_checked": 343,
+          "required_points": 343,
+          "degree_bounds": [
+            6,
+            6,
+            6
+          ],
+          "expanded": true
+        },
+        "success": true,
+        "invalid_delivered": false,
+        "unsuccessful_delivered": false,
+        "technical_failure": false,
+        "schema_failure": false,
+        "usage": {
+          "input_tokens": 981,
+          "output_tokens": 309,
+          "total_tokens": 1290
+        },
+        "model_seconds": 1.435058,
+        "api_attempts": 1
+      }
+    }
+  ],
+  "totals": {
+    "react": {
+      "tasks": 8,
+      "successes": 5,
+      "invalid_delivered": 3,
+      "unsuccessful_delivered": 3,
+      "technical_failures": 0,
+      "schema_failures": 0,
+      "model_calls": 8,
+      "api_attempts": 8,
+      "input_tokens": 1703,
+      "output_tokens": 431,
+      "identity_checks": 0,
+      "accepted_steps": 0,
+      "rule_uses": 0,
+      "tasks_with_cross_task_reuse": 0,
+      "model_seconds": 6.401359,
+      "summed_task_seconds": 6.489893496967852
+    },
+    "verify_retry": {
+      "tasks": 8,
+      "successes": 7,
+      "invalid_delivered": 0,
+      "unsuccessful_delivered": 0,
+      "technical_failures": 0,
+      "schema_failures": 0,
+      "model_calls": 17,
+      "api_attempts": 17,
+      "input_tokens": 12007,
+      "output_tokens": 2432,
+      "identity_checks": 17,
+      "accepted_steps": 7,
+      "rule_uses": 0,
+      "tasks_with_cross_task_reuse": 0,
+      "model_seconds": 16.239147000000003,
+      "summed_task_seconds": 16.458774041981087
+    },
+    "residual": {
+      "tasks": 8,
+      "successes": 6,
+      "invalid_delivered": 0,
+      "unsuccessful_delivered": 0,
+      "technical_failures": 0,
+      "schema_failures": 0,
+      "model_calls": 22,
+      "api_attempts": 22,
+      "input_tokens": 20372,
+      "output_tokens": 2601,
+      "identity_checks": 36,
+      "accepted_steps": 7,
+      "rule_uses": 0,
+      "tasks_with_cross_task_reuse": 0,
+      "model_seconds": 19.121856,
+      "summed_task_seconds": 19.381138832992292
+    },
+    "residual_growth": {
+      "tasks": 8,
+      "successes": 7,
+      "invalid_delivered": 0,
+      "unsuccessful_delivered": 0,
+      "technical_failures": 0,
+      "schema_failures": 0,
+      "model_calls": 20,
+      "api_attempts": 20,
+      "input_tokens": 21855,
+      "output_tokens": 2239,
+      "identity_checks": 36,
+      "accepted_steps": 10,
+      "rule_uses": 3,
+      "tasks_with_cross_task_reuse": 3,
+      "model_seconds": 16.901244,
+      "summed_task_seconds": 17.127934000018286
+    }
+  },
+  "physical_requests": {
+    "physical_calls": 78,
+    "complete_requests": 78,
+    "failed_requests": 0,
+    "blocked_requests": 0,
+    "in_flight_requests": 0,
+    "reserved_output_tokens": 319488,
+    "model_returned": [
+      "deepseek-flash"
+    ],
+    "model_seconds": 65.828715,
+    "usage": {
+      "input_tokens": 62327,
+      "output_tokens": 8279,
+      "total_tokens": 70606
+    }
+  },
+  "library": {
+    "verified_rules": 3,
+    "snapshot_sha256": "03c7842df81b629d31b713baf8bb230bac7c7a5537e390022ebc769b2668f2df",
+    "reload_reverified": true,
+    "frozen_during_transfer": true,
+    "admission_calls": 3,
+    "reload_calls": 3,
+    "transfer_admission_calls": 0,
+    "rules": [
+      {
+        "id": "expansion:19610ad9b4a234e8d19b8cba",
+        "source_task_id": "discover-square",
+        "statement": {
+          "lhs": "(u+v)**2",
+          "rhs": "u**2 + 2*u*v + v**2",
+          "variables": [
+            "u",
+            "v"
+          ]
+        },
+        "fingerprint": "3f42e23854781e66f3011f40eb30efb2c4ec2e2338424b24d819498090c84f51"
+      },
+      {
+        "id": "expansion:81a5f43cc6faaee60a83c3fa",
+        "source_task_id": "discover-cube",
+        "statement": {
+          "lhs": "(u+v)**3",
+          "rhs": "u**3 + 3*u**2*v + 3*u*v**2 + v**3",
+          "variables": [
+            "u",
+            "v"
+          ]
+        },
+        "fingerprint": "3100c61d871aeaa3103f9caaaef2cb437eda57226c9e93989b3f8ece3b887bfc"
+      },
+      {
+        "id": "expansion:c90ff6314d0292fa44e1835c",
+        "source_task_id": "discover-difference",
+        "statement": {
+          "lhs": "(u+v)*(u-v)",
+          "rhs": "u**2 - v**2",
+          "variables": [
+            "u",
+            "v"
+          ]
+        },
+        "fingerprint": "4363d95ecc174dd2d589ca61c9f5a33f4107895ee031f96f3a141ce3bf4664cd"
+      }
+    ]
+  },
+  "limitations": {
+    "react": "Model chooses check_identity or final; final is not delivery-gated.",
+    "verify_retry": "Whole-answer proposals; mandatory identity+expansion check; retry original task.",
+    "residual": "Production Agent; gated intermediate rewrites and persistent checked state.",
+    "residual_growth": "Identical production Agent plus frozen independently admitted discovery rules.",
+    "budget": "Eight model calls per task, same model/parameters/output cap; stop on completion, abstention, schema failure or technical failure. The harness normalizes JSON null to immediate abstention in the production arms.",
+    "discovery": "Three sequential model tasks; admission and disk reload are reverified; costs charged separately.",
+    "transfer": "No learning; no selective reruns; arm submission order rotates by task, four concurrent workers.",
+    "scoring": "Separate exact degree-complete Cartesian-grid oracle, never provided to proposers.",
+    "scope": "Post-result development rerun on the same eight seen tasks; not held-out validation or a causal feedback ablation.",
+    "confounds": "Schemas, state visibility, mandatory gating and stopping differ intentionally; this does not isolate residual scheduling alone.",
+    "residual_limit": "Polynomial adapter has one binary expansion obligation, not structured subterm residuals."
+  }
+}

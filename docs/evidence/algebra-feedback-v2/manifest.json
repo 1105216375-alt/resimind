@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "study": "same-model-algebra-feedback-v2",
+  "development_on_seen_cases": true,
+  "settings": {
+    "model": "deepseek-flash",
+    "temperature": 0.0,
+    "thinking": "disabled",
+    "max_output_tokens": 4096,
+    "timeout_seconds": 90,
+    "max_physical_calls": 360,
+    "max_prompt_bytes": 48000,
+    "max_total_output_tokens": 1474560,
+    "max_calls_per_task": 8,
+    "workers": 4,
+    "sdk_retries": 0
+  },
+  "system_prompt": "Follow the requested JSON schema exactly. Return JSON only, without Markdown.",
+  "common_goal": "Expand the supplied rational polynomial completely. Equivalent full expansions in one step are allowed; there is no restriction to primitive rewrites. Combining like terms is optional. No multiplication or power may enclose an addition/subtraction in the final expression. Grammar: declared variables, integer constants, +, -, *, integer powers **0 through **16, and division only by a nonzero integer literal. No decimals, functions or symbolic denominators. Use the available checker feedback, if any. Return null if unable to propose an answer.",
+  "arms": [
+    "react",
+    "verify_retry",
+    "residual",
+    "residual_growth"
+  ],
+  "development": [
+    {
+      "id": "dev-square",
+      "expression": "(2*x-3*y)**2",
+      "variables": [
+        "x",
+        "y"
+      ],
+      "group": "development"
+    },
+    {
+      "id": "dev-product",
+      "expression": "(x+1)*(x-1)",
+      "variables": [
+        "x"
+      ],
+      "group": "development"
+    }
+  ],
+  "discovery": [
+    {
+      "id": "discover-square",
+      "expression": "(u+v)**2",
+      "variables": [
+        "u",
+        "v"
+      ],
+      "group": "discovery"
+    },
+    {
+      "id": "discover-cube",
+      "expression": "(u+v)**3",
+      "variables": [
+        "u",
+        "v"
+      ],
+      "group": "discovery"
+    },
+    {
+      "id": "discover-difference",
+      "expression": "(u+v)*(u-v)",
+      "variables": [
+        "u",
+        "v"
+      ],
+      "group": "discovery"
+    }
+  ],
+  "transfer": [
+    {
+      "id": "fractional-square",
+      "expression": "(2*x/3+5*y/7)**2",
+      "variables": [
+        "x",
+        "y"
+      ],
+      "group": "applicability"
+    },
+    {
+      "id": "affine-cube",
+      "expression": "(2*x+3*y+1)**3",
+      "variables": [
+        "x",
+        "y"
+      ],
+      "group": "applicability"
+    },
+    {
+      "id": "nested-square",
+      "expression": "((x+y)**2+(x-y))**2",
+      "variables": [
+        "x",
+        "y"
+      ],
+      "group": "applicability"
+    },
+    {
+      "id": "trinomial-cube",
+      "expression": "(x+y+z)**3",
+      "variables": [
+        "x",
+        "y",
+        "z"
+      ],
+      "group": "applicability"
+    },
+    {
+      "id": "difference-scaled",
+      "expression": "(2*x+3*y)*(2*x-3*y)",
+      "variables": [
+        "x",
+        "y"
+      ],
+      "group": "applicability"
+    },
+    {
+      "id": "difference-nested",
+      "expression": "((x+y)+2*z)*((x+y)-2*z)",
+      "variables": [
+        "x",
+        "y",
+        "z"
+      ],
+      "group": "applicability"
+    },
+    {
+      "id": "unmatched-product",
+      "expression": "(x+2*y)*(x-3*y)*(2*x+y)",
+      "variables": [
+        "x",
+        "y"
+      ],
+      "group": "unmatched-control"
+    },
+    {
+      "id": "sixth-power",
+      "expression": "(2*x-3*y+z)**6",
+      "variables": [
+        "x",
+        "y",
+        "z"
+      ],
+      "group": "unmatched-control"
+    }
+  ],
+  "source_sha256": {
+    "src/resimind/__init__.py": "68f31001c5e55c08e40bfbbac3135adfb66ebffeba7e948c0dea6e629c70f2e6",
+    "src/resimind/__main__.py": "9e6c2aa4795391e4f7ccf270ccf478de8b7cc134151421b79a9274e99d6aeb52",
+    "src/resimind/adapters.py": "7d74acdb5301b22996c62634e8ee64d200d74f28b935958758a62a6527f66675",
+    "src/resimind/agent.py": "9e9e86a5b364cccfac13af1fb38c44a731b6241d80fa274c4ee58ff614f3e9a5",
+    "src/resimind/cli.py": "4680455fbe473548c62e10f867e9446f625601bd8467d82e98b55b8031eb6d96",
+    "src/resimind/core.py": "1cc0c2af4421dc1fc2837eb34e90bae5560426b257c614a9537b71486801840b",
+    "src/resimind/domains/__init__.py": "563ae238666384cc664f672c6b4180c145972b1bf990cb8c152de200765fb4c4",
+    "src/resimind/domains/algebra.py": "5a4c5025b34c0c29a56c89e2c01f4699f943ec17fedadbdf87428843ee6922f3",
+    "src/resimind/domains/bridge.py": "8c474d9cbc5bd210e4211641abb850b7c925aca97f84a3893c8cd208f33af3c5",
+    "src/resimind/domains/customer_support.py": "19a5c894a10c5ba15556eadc51a4e04e4c403785cfa5ef2b831b1499f8136992",
+    "src/resimind/domains/engineering.py": "d096124ff6c28e9ede67c0afa991dc42ec8d42b4bddce4fcbb037ed58f425c51",
+    "src/resimind/domains/mathematics.py": "23efa942c31f3d321377251c850f1f686f242d1d026c7cf6ddf925c50cf1707f",
+    "src/resimind/domains/optimization.py": "b13a567968cef7e5549f2b64f06e99f046239368a763e88c7de81ccbb3aa8723",
+    "src/resimind/domains/planning.py": "c5c01ac5be6d11585a14e49e4def4ec517d15a99b686f1551ce293ea9cd42f66",
+    "src/resimind/domains/polynomial_learning.py": "39435d758fb934eb1770909f6fe4bd6f316b5ef2487086c81eb98e55ae9e8a4b",
+    "src/resimind/integrations/__init__.py": "4194ac6c400196952b8140ff079982b541511ee7ccf9c8c843b7b39d01e54dbb",
+    "src/resimind/integrations/deepseek.py": "8461c381a148bd36135388b4aedf443e3f60cf477102d04f8c0ec30d51885f8b",
+    "src/resimind/integrations/langgraph.py": "b917e31a6b48d9ff3d94b8a464ca86a7b5265e2a237ddfcebbc8868c4c0d3616",
+    "src/resimind/integrations/openai.py": "e41ac4b2df9fc4383e6e0e8349f7e479a14b961acc5834c75c50196862a93738",
+    "src/resimind/knowledge.py": "d1acdd5f45bac8e06b85075acd746d625ad4e567345df79556a3e0b8388ca1f1",
+    "src/resimind/learning.py": "cbe71fb8fa5f479a9fbd708b8bab95cb05182cb757a904e8ba7a47cc7d161449",
+    "src/resimind/memory.py": "f108b4204dfc5d64fae92efa493965a219bdb64685108aedae753d953e76a89f",
+    "src/resimind/repair.py": "623e401aad2babdbe1f98bd75dd83d078095e01f5c3b4d0b36eb33b2467142af",
+    "src/resimind/runtime.py": "e936efc8154bd4764de6f770a6b36e2a63472036c7d81b39e51120cf43a5c754",
+    "src/resimind/search.py": "fcdc8c1a9d5236db9e4a5a3fe8809a9d4e60c794cdf7276de2e35e4f70d66204",
+    "src/resimind/units.py": "7a3e43dbceaef624a931c15753ecdd695e929fd0c8f1489ee5a927bcc60de171",
+    "benchmarks/run_algebra_live_eval.py": "3640e98b6c416db104da02e28b789dedc6b094d1b6ed3e041fc13d0496d9cc7e",
+    "benchmarks/knowledge_growth.py": "e03c4061f5c7cbe8d8a63618e238000a71e90f83393cf2cbfd0dad676c1bbacd",
+    "benchmarks/live_eval_support.py": "94676e31e69c3cb76163bf700fe4a2008c5d9b2c355e7ac1b5abd3c1bc12fdc0"
+  },
+  "rules": {
+    "react": "Model chooses check_identity or final; final is not delivery-gated.",
+    "verify_retry": "Whole-answer proposals; mandatory identity+expansion check; retry original task.",
+    "residual": "Production Agent; gated intermediate rewrites and persistent checked state.",
+    "residual_growth": "Identical production Agent plus frozen independently admitted discovery rules.",
+    "budget": "Eight model calls per task, same model/parameters/output cap; stop on completion, abstention, schema failure or technical failure. The harness normalizes JSON null to immediate abstention in the production arms.",
+    "discovery": "Three sequential model tasks; admission and disk reload are reverified; costs charged separately.",
+    "transfer": "No learning; no selective reruns; arm submission order rotates by task, four concurrent workers.",
+    "scoring": "Separate exact degree-complete Cartesian-grid oracle, never provided to proposers.",
+    "scope": "Post-result development rerun on the same eight seen tasks; not held-out validation or a causal feedback ablation.",
+    "confounds": "Schemas, state visibility, mandatory gating and stopping differ intentionally; this does not isolate residual scheduling alone.",
+    "residual_limit": "Polynomial adapter has one binary expansion obligation, not structured subterm residuals."
+  },
+  "frozen_at_utc": "2026-10-09T03:16:04.317804+00:00",
+  "base_git_commit": "37bbf13405be85ac83f26c715d74ef7eda82e3f6",
+  "protocol_sha256": "a344338003ce7e863b04548bf8426ec5f0cca0f88b8e7eea9816d60562221c74"
+}

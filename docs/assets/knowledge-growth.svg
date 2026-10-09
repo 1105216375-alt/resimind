@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="500" viewBox="0 0 1280 500" role="img" aria-labelledby="title desc">
+  <title id="title">ResiMind — reasoning that carries forward</title>
+  <desc id="desc">A standalone neuro-symbolic Agent: derive a step, verify it, admit a completed proof to a persistent rule library, then reuse and recheck it on another task. An offline ten-task development study needed 84 transfer proposals with a fixed library and 24 with a growing library. Both completed ten tasks; learning cost 13 extra proposals.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101e36"/><stop offset="1" stop-color="#071321"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#59dbe4"/><stop offset="1" stop-color="#9cf4cb"/></linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#a7c9e4" stroke-opacity=".045"/></pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="m0 0 10 5-10 5Z" fill="#70dfd7"/></marker>
+  </defs>
+  <rect width="1280" height="500" rx="20" fill="url(#bg)"/>
+  <rect width="1280" height="500" rx="20" fill="url(#grid)"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif">
+    <text x="48" y="53" font-size="14" font-weight="600" letter-spacing="2.5" fill="#79e9d5">STANDALONE NEURO-SYMBOLIC AGENT</text>
+    <text x="45" y="117" font-size="58" font-weight="750" letter-spacing="-2" fill="#f4f8ff">Resi<tspan fill="#79e9d5">Mind</tspan></text>
+    <text x="368" y="112" font-size="33" font-weight="600" fill="#f4f8ff">Reasoning that carries forward.</text>
+    <text x="48" y="155" font-size="20" fill="#a9c2d7">Verified derivations become reusable rules. Every new application is checked again.</text>
+
+    <g fill="#11273b" stroke="#33536e">
+      <rect x="48" y="191" width="255" height="105" rx="14"/>
+      <rect x="352" y="191" width="255" height="105" rx="14"/>
+      <rect x="656" y="191" width="255" height="105" rx="14"/>
+      <rect x="960" y="191" width="272" height="105" rx="14"/>
+    </g>
+    <g font-size="22" font-weight="650" fill="#f4f8ff">
+      <text x="70" y="231">Derive</text>
+      <text x="374" y="231">Verify</text>
+      <text x="678" y="231">Admit + store</text>
+      <text x="982" y="231">Reuse + recheck</text>
+    </g>
+    <g font-size="16" fill="#a9c2d7">
+      <text x="70" y="263">Model / rule proposals</text>
+      <text x="374" y="263">Independent task checks</text>
+      <text x="678" y="263">A separate proof gate</text>
+      <text x="982" y="263">A new task, same library</text>
+    </g>
+    <g fill="none" stroke="#70dfd7" stroke-width="2.2" marker-end="url(#arrow)">
+      <path d="M313 242H341"/>
+      <path d="M617 242H645"/>
+      <path d="M921 242H949"/>
+      <path d="M480 297V318H176V297"/>
+    </g>
+    <rect x="231" y="308" width="192" height="22" rx="5" fill="#0d1b2e"/>
+    <text x="243" y="324" font-size="14" fill="#79e9d5">Residual: what remains?</text>
+    <text x="678" y="325" font-size="14" fill="#a9c2d7">Current proof scope: bounded exact polynomial identities.</text>
+
+    <path d="M48 353H1232" stroke="#29485f"/>
+    <text x="48" y="384" font-size="13" font-weight="600" letter-spacing="1.5" fill="#79e9d5">OFFLINE TRANSFER STUDY</text>
+    <text x="46" y="438" font-size="47" font-weight="700" fill="#f4f8ff">84 <tspan fill="#79e9d5">→ 24</tspan></text>
+    <text x="266" y="434" font-size="19" fill="#a9c2d7">proposals</text>
+    <text x="530" y="429" font-size="36" font-weight="700" fill="#f4f8ff">10/10</text>
+    <text x="651" y="430" font-size="18" fill="#a9c2d7">solved in both arms</text>
+    <text x="967" y="429" font-size="36" font-weight="700" fill="#f4f8ff">+13</text>
+    <text x="1060" y="430" font-size="18" fill="#a9c2d7">to learn</text>
+    <text x="48" y="474" font-size="15" fill="#89a5bd">10 published development tasks · 8 committed cross-task rule applications · No model calls in this study</text>
+  </g>
+  <path d="M20 499H1260" stroke="url(#accent)" stroke-opacity=".7"/>
+</svg>

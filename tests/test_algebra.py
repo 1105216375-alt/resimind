@@ -76,6 +76,54 @@ def test_false_claims_and_fixed_sample_overfit_are_rejected(lhs, rhs):
     assert AlgebraVerifier().verify(identity(lhs, rhs, variables=("x",))).status == "rejected"
 
 
+@pytest.mark.parametrize(("lhs", "rhs", "variables", "diagnostic"), [
+    ("x/3", "x/2", ("x",), "monomial=x; lhs coefficient=1/3; rhs coefficient=1/2"),
+    ("1/3", "1/2", (), "monomial=1; lhs coefficient=1/3; rhs coefficient=1/2"),
+    ("(3*x/5+2*y/7)**2", "9*x*x/25+4*y*y/49", ("x", "y"),
+     "monomial=x*y; lhs coefficient=12/35; rhs coefficient=0"),
+    ("0", "-x/7", ("x",), "monomial=x; lhs coefficient=0; rhs coefficient=-1/7"),
+])
+def test_rejection_identifies_one_exact_coefficient_mismatch(lhs, rhs, variables, diagnostic):
+    result = verify_identity(lhs, rhs, variables)
+    assert result.status == "rejected"
+    assert result.reason == "exact polynomial coefficients differ: " + diagnostic
+
+
+def test_mismatch_selection_is_deterministic_not_source_term_order():
+    first = verify_identity("y+3*x", "5*x+2*y", ("x", "y"))
+    reordered = verify_identity("3*x+y", "2*y+5*x", ("x", "y"))
+    assert first.reason == reordered.reason
+    assert first.reason.endswith("monomial=y; lhs coefficient=1; rhs coefficient=2")
+    assert "monomial=x" not in first.reason
+
+
+def test_diagnostic_does_not_change_verified_or_unknown_results():
+    verified = verify_identity("(x+1)**2", "x*x+2*x+1", ("x",))
+    assert verified.status == "verified"
+    assert verified.reason == "all exact rational polynomial coefficients agree"
+    unknown = verify_identity("x/x", "1", ("x",))
+    assert unknown.status == "unknown"
+    assert unknown.reason == "a bounded integer literal is required"
+
+
+def test_false_multivariable_certificate_remains_rejected_with_diagnostic():
+    candidate = identity("(p+q+r)**2", "p*p+q*q+r*r", variables=("p", "q", "r"))
+    result = AlgebraVerifier().verify(candidate)
+    assert result.status == "rejected"
+    assert "monomial=q*r; lhs coefficient=2; rhs coefficient=0" in result.reason
+    store = KnowledgeLibrary({"algebra": AlgebraVerifier()})
+    assert store.admit(candidate).status == "rejected"
+    assert store.lookup("algebra") == ()
+
+
+def test_diagnostic_size_is_bounded_by_validated_symbol_limits():
+    variables = tuple(f"v{i:02d}_" + "a" * 60 for i in range(16))
+    expression = "*".join(f"{name}**2" for name in variables)
+    result = verify_identity(expression, "0", variables)
+    assert result.status == "rejected"
+    assert len(result.reason) < 2048
+
+
 def test_true_endpoints_do_not_excuse_a_false_middle_step():
     candidate = identity(derivation=(
         {"lhs": "(u+v)**2", "rhs": "999"},

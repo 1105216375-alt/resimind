@@ -2,6 +2,11 @@
 
 ## Unreleased — 2026-10-09
 
+- Add a prospectively frozen, same-DeepSeek four-controller algebra pilot, an independent exact-grid scorer and bounded, replayable request accounting. Publish compact results including failures and discovery costs; retain full new requests locally.
+- Match learned-rule applications structurally, allowing whitespace and redundant parentheses while rejecting different substitutions that falsely claim rule provenance.
+- Return one exact coefficient discrepancy on rejected polynomial identities, preserving rejection codes and verification boundaries. Publish a separate seen-case development rerun: richer feedback improves the retry baseline, while residual and growth completion totals stay unchanged.
+- Refresh English and Chinese project pages around checked reasoning and cross-task knowledge growth, with an executable quickstart and explicit evidence for quantitative claims.
+
 - Add verified knowledge growth: completed Agent proof chains become candidate rules, independently verified before admission, persisted with conditions/provenance, rechecked on reload, and reverified on use in new tasks. Unknown or rejected checks never authorize promotion.
 - Add a bounded, exact rational-polynomial certificate kernel and a learning Agent with primitive AST derivations, learned-rule matching, and optional model proposals. Keep nonzero preconditions explicit for cancellation; unsupported symbolic division and numerical samples cannot prove a universal rule.
 - Add `resimind demo --domain knowledge-growth` and a frozen-library comparison with an independent exact degree-grid scorer. Publish compact development results; distinguish proposal-count savings from compute savings or model superiority.

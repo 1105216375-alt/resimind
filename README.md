@@ -1,28 +1,91 @@
-![ResiMind — let AI explore, verify what you trust](docs/assets/banner.svg)
+![ResiMind — reasoning that carries forward](docs/assets/knowledge-growth.svg)
 
 # ResiMind
 
-**Let AI explore. Verify what you trust.**
+**An Agent that builds on what it proves.**
 
-ResiMind is a **standalone neuro-symbolic Agent architecture** for turning model proposals into checked results. The model explores possible steps. Independent code checks your domain's explicit rules. Rejected proposals leave committed facts unchanged; unfinished obligations — the **residual** — guide what happens next.
+ResiMind is a **standalone neuro-symbolic Agent architecture**. Your model proposes a step. Independent code checks it. The **residual** tracks what remains to be solved. Completed, verified derivations can become reusable rules for the next task.
 
-**Neural proposals → symbolic checks → committed facts → residual feedback.**
+**Propose → verify → resolve what remains. Derive → verify → store → reuse and recheck.**
 
-Plan a day with many possible answers. Check a refund against a merchant policy. Verify an optimization certificate or a continuous-beam calculation. Keep your model; make the acceptance rules executable.
+The knowledge-growth adapter currently proves bounded, exact polynomial identities. The same Agent core also runs open-ended planning, customer support, constrained optimization, and bridge calculations, with explicit checks for each domain.
 
-**Python 3.10+ · Standalone Agent · Zero-dependency core · MIT · Experimental v0.7.0**
+**Bring your own model · Python 3.10+ · Zero-dependency core · MIT · Experimental / main**
 
-[中文](README.zh-CN.md) · [Quick start](#try-it-in-three-minutes) · [Open-ended case](#open-ended-planning-many-answers-explicit-constraints) · [Pilot evaluation](docs/evidence/planning-pilot-v1/README.md) · [Related systems (中文)](docs/public-systems-comparison.zh-CN.md) · [Architecture](docs/architecture.md) · [Optional integrations](#optional-integrations)
+[中文](README.zh-CN.md) · [Quick start](#try-it-in-three-minutes) · [Knowledge growth](docs/knowledge-growth.md) · [Open-ended case](#open-ended-planning-many-answers-explicit-constraints) · [Evidence](#measure-the-agent-not-the-model) · [Architecture](#the-architecture)
 
-[**6 runnable domains**](#included-domain-adapters) · [**660 tests passed locally for v0.7.0**](docs/validation.md) · [**Inspect real DeepSeek proposals and decisions**](docs/evidence/open-planning/README.md)
+**Created and originally published by [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
 
-**Measured on original ChinaTravel tasks:** in a frozen 12-task pilot with the same DeepSeek model and resource ceilings, official ReAct passed **0/12**, official NeSy **5/12**, and ReAct + ResiMind **1/12**. ResiMind delivered no invalid plan but left 11 tasks unfinished. [Results, raw records, and limits →](docs/evidence/chinatravel-pilot-v1/README.md)
+## Derive once. Reuse on a new task.
 
-**Development update:** [bounded search](docs/bounded-search.md) now complements [local repair](docs/local-repair.md): explore alternatives, then release only a fully checked plan. A travel replay resolves one seen task with explicit manual semantic annotations; the conservative default remains 0/2. [Results, limitations and reproduction →](docs/search-development.zh-CN.md)
+An Agent derives the square and cube identities, submits their proof chains for independent admission, saves its library, and reloads it with verification. New tasks can retrieve those rules; each application must still pass the current task's checks.
 
-**Project creator and original publisher: [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
+| Ten-task offline comparison | Fixed library | Growing library |
+| --- | ---: | ---: |
+| Independently valid completed tasks | 10/10 | 10/10 |
+| Transfer proposals | 84 | **24** |
+| Committed cross-task rule applications | 0 | **8** |
 
-**New: turn a checked derivation into a reusable rule.** Derive a symbolic polynomial identity, independently verify its proof chain, save it, and reuse it on a new task. Each reuse is checked again. Run `python -m resimind demo --domain knowledge-growth`. [Knowledge growth, controlled comparison, and supported proof scope →](docs/knowledge-growth.md) · [994-test development validation](docs/validation-knowledge-growth.md)
+**71.4% fewer transfer proposals**, with **13 additional proposals to learn the rules**. Both arms use the same deterministic proposer and budget. This measures reuse on published development tasks; it does not measure a model accuracy gain or total compute savings.
+
+[**How rules are proved, admitted, stored, revoked, and reused →**](docs/knowledge-growth.md) · [Reproduce the comparison](benchmarks/knowledge_growth.py) · [Validation](docs/validation-knowledge-growth.md)
+
+## Same DeepSeek. Four Agent strategies.
+
+The original frozen, eight-task algebra pilot (v1) uses **`deepseek-flash`**, identical model settings, and an **eight-call ceiling per task**. A separate exact oracle scores final outputs.
+
+| Agent strategy | Valid completed tasks | Invalid answers delivered | Transfer model calls |
+| --- | ---: | ---: | ---: |
+| ReAct-style baseline | 5/8 | 3 | 8 |
+| Verify and retry | 6/8 | 0 | 22 |
+| Residual reasoning | 6/8 | 0 | 22 |
+| **Residual + verified knowledge growth** | **7/8** | **0** | **20** |
+
+The growth arm records **3 actual cross-task rule applications**, all on tasks the other arms also solve. Its extra completed task has no committed rule application, so the 7/8 result does not isolate a causal benefit from reuse. Learning its three rules costs **3 additional calls**, bringing learning plus transfer to **23 calls**. This run does not establish overall cost savings.
+
+This is a single, handcrafted pilot. The ReAct-style implementation offered an optional check tool, but the model chose no tool calls. The study measures these four implementations under the published protocol; it is not a ranking against optimized ReAct systems or evidence of general superiority.
+
+**Current development rerun: more informative feedback, same eight cases.** After inspecting v1, we added exact coefficient-discrepancy feedback and reran the seen tasks:
+
+| Agent strategy | Correct in development v2 | Transfer calls |
+| --- | ---: | ---: |
+| ReAct-style baseline | 5/8 | 8 |
+| Verify and retry | **7/8** | **17** |
+| Residual reasoning | 6/8 | 22 |
+| Residual + verified knowledge growth | **7/8** | 20 |
+
+All three gated arms again deliver no invalid answer. Growth still needs 3 discovery calls and records 3 cross-task rule applications: **it ties verify-and-retry on completion and uses more calls**. The updated feedback did not improve residual or growth completion in this rerun. This is post-result development on seen cases, not a fresh held-out result; v1 remains available unchanged.
+
+[**Protocol, per-task results, tokens, and limitations →**](docs/algebra-live-evaluation.md) · [v1 JSON](docs/evidence/algebra-live-v1/summary.json) · [Development v2 JSON](docs/evidence/algebra-feedback-v2/summary.json)
+
+## Try it in three minutes
+
+With Python installed:
+
+```bash
+git clone https://github.com/1105216375-alt/resimind.git
+cd resimind
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install .
+python -m resimind demo --domain knowledge-growth
+```
+
+On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. Installation may download build tools. The demo runs **offline, without an API key**; both `python -m resimind` and the installed `resimind` command work outside the checkout.
+
+The first demo derives a cubic identity, verifies and saves it, reloads it, and uses it on a new expression. The terminal compares the fixed-library and growing-library steps.
+
+Choose a different challenge. All five commands run offline:
+
+| Try | What the example makes visible | Command |
+| --- | --- | --- |
+| [Knowledge growth](docs/knowledge-growth.md) | Derive a rule, verify and store it, then reuse and recheck it on a new task | `python -m resimind demo --domain knowledge-growth` |
+| [Open-ended planning](docs/open-planning.md) | Many valid answers; time, budget, and route constraints still apply | `python -m resimind demo --domain planning` |
+| [Customer support](docs/customer-support.md) | A ¥259 refund proposal fails the configured ¥249 calculation | `python -m resimind demo --domain customer-support` |
+| [Mathematics](docs/constrained-optimization.md) | A lower objective is useless if the candidate violates a constraint; check an exact optimality certificate | `python -m resimind demo` |
+| [Bridge engineering](docs/continuous-bridge.md) | Balanced forces can still hide incompatible rotations at a shared pier | `python -m resimind demo --domain bridge` |
+
+Add `--json` to inspect the audit. [Connect DeepSeek](docs/open-planning.md#let-deepseek-choose-the-plan) when you want the model to compose its own plan.
 
 ## Open-ended planning: many answers, explicit constraints
 
@@ -70,34 +133,6 @@ The model chooses among possible plans; the verifier enforces the requirements. 
 [**Inspect both proposals, the rejection, and the checked revision →**](docs/evidence/open-planning/README.md)
 
 [**Full planning rules and all three offline scenarios**](docs/open-planning.md) · [**Runnable example**](examples/open_planning.py) · [**Real DeepSeek audits**](docs/evidence/open-planning/README.md)
-
-## Try it in three minutes
-
-With Python installed:
-
-```bash
-git clone https://github.com/1105216375-alt/resimind.git
-cd resimind
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install .
-python -m resimind demo --domain planning
-```
-
-On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. Installation may download build tools. The demo runs **offline, without an API key**; both `python -m resimind` and the installed `resimind` command work outside the checkout.
-
-The default planning example runs the rejection-and-revision sequence [shown above](#open-ended-planning-many-answers-explicit-constraints).
-
-Choose a different challenge. All four commands run offline:
-
-| Try | What the example makes visible | Command |
-| --- | --- | --- |
-| [Open-ended planning](docs/open-planning.md) | Many valid answers; time, budget, and route constraints still apply | `python -m resimind demo --domain planning` |
-| [Customer support](docs/customer-support.md) | A ¥259 refund proposal fails the configured ¥249 calculation | `python -m resimind demo --domain customer-support` |
-| [Mathematics](docs/constrained-optimization.md) | A lower objective is useless if the candidate violates a constraint; check an exact optimality certificate | `python -m resimind demo` |
-| [Bridge engineering](docs/continuous-bridge.md) | Balanced forces can still hide incompatible rotations at a shared pier | `python -m resimind demo --domain bridge` |
-
-Add `--json` to inspect the audit. [Connect DeepSeek](docs/open-planning.md#let-deepseek-choose-the-plan) when you want the model to compose its own plan.
 
 ## Use the standalone Agent
 
@@ -203,6 +238,7 @@ python -m examples.continuous_bridge --json
 
 | Adapter | Independent checks | Completion requires |
 | --- | --- | --- |
+| [Knowledge growth](src/resimind/domains/polynomial_learning.py) | Exact polynomial proof chains, independent admission, reload and application checks | A completed task before rule extraction; unknown checks cannot admit knowledge |
 | [Open-ended planning](src/resimind/domains/planning.py) | Budget, time windows, route continuity, visit coverage, walking and indoor requirements | Any feasible itinerary with grounded transport; subjective preferences stay unverified |
 | [Customer support](src/resimind/domains/customer_support.py) | Scoped order evidence, configured policy, exact refund arithmetic | A checked recommendation or human-review outcome; missing evidence stays open |
 | [Constrained optimization](src/resimind/domains/optimization.py) | Exact factorization, feasibility, KKT, polynomial certificate | A verified global optimum certificate |
@@ -220,7 +256,9 @@ python -m examples.continuous_bridge --json
 
 **Residual feedback.** A residual is the set of outstanding goals, unknowns, and hard constraints. It is rebuilt from committed facts. A rejection preserves state and returns its reason to the proposer; a missing prerequisite keeps the task open.
 
-This is a **neuro-symbolic architecture with an injectable neural component**. It ships no trained weights, neural training pipeline, or external-model benchmark. It is not a general theorem prover. See the [implementation map and boundaries](docs/neuro-symbolic.md).
+**Knowledge growth.** `LearningAgent` extracts candidate knowledge from completed derivations. `KnowledgeLibrary` delegates admission to the registered domain verifier, supports save/reload with re-verification and revocation, and retrieves rules as proposal guidance. Current-task verification still applies.
+
+Models connect through callbacks; the project develops **Agent reasoning, verification, and knowledge admission**. The algebra proof checker has explicit expression and resource limits. See [knowledge growth](docs/knowledge-growth.md) and the [neuro-symbolic implementation map](docs/neuro-symbolic.md).
 
 ## The architecture
 
@@ -241,11 +279,16 @@ flowchart LR
     F --> D[Rebuild residual]
     D --> R
     F --> O[Facts + JSON audit trail]
+    D -->|task complete| X[Extract derivation certificate]
+    X --> K[Independent knowledge admission]
+    K -->|verified| L[Persistent knowledge library]
+    L -->|retrieve; application rechecked| P
 ```
 
 - **Evidence before claims:** registered tools collect typed inputs for each task.
 - **Verification before state changes:** verdicts bind to candidate, state, and evidence; commits check references and conflicts atomically.
 - **Explicit unfinished work:** goals, unknowns, and hard constraints remain visible until discharged by the domain adapter.
+- **Knowledge that carries forward:** completed derivations face independent admission, re-verification on reload, and checks on every new application.
 - **Reusable routes:** in-memory routes require review and matching applicability; reused steps still need verification on current inputs.
 - **Inspectable execution:** every attempt records its decision, reason, state, and residual; attempt and stall budgets bound the loop.
 
@@ -294,11 +337,25 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-The [validation record](docs/validation.md) describes local checks and their scope. No external-model performance or production reliability is claimed.
+The [knowledge-growth validation](docs/validation-knowledge-growth.md) and [release validation](docs/validation.md) distinguish development-branch checks from published-version checks.
+
+## Measure the Agent, not the model
+
+Keep the model, tasks, and resource ceilings fixed; measure completion, invalid deliveries, calls, and cross-task reuse. These studies use different tasks and budgets, so their results are reported separately:
+
+| Study | Measured result | Evidence |
+| --- | --- | --- |
+| Same-model algebra: frozen v1 + seen-case development v2 | v1: 5/8, 6/8, 6/8, 7/8. v2: 5/8, 7/8, 6/8, 7/8; growth ties retry with more calls | [Four-arm protocol and results](docs/algebra-live-evaluation.md) |
+| Knowledge growth: 10 offline transfer tasks | Both arms 10/10; proposals 84→24, plus 13 learning proposals; 8 committed cross-task applications | [Method and results](docs/knowledge-growth.md) |
+| ChinaTravel: 12 official tasks, same DeepSeek | Official ReAct 0/12, official NeSy 5/12, ReAct + ResiMind 1/12; ResiMind delivered no invalid plan and left 11 tasks unfinished | [Full evaluation](docs/evidence/chinatravel-pilot-v1/README.md) |
+| Local repair and bounded search: seen-task replay | Conservative default 0/2; explicit manual semantic annotations enable 1/2 | [Development results](docs/search-development.zh-CN.md) |
+| Open-ended planning: a real requirement change | Making coffee mandatory rejects the old plan; one new DeepSeek call produces a checked revision | [Proposals and audit](docs/evidence/open-planning/README.md) |
+
+[Related systems (中文)](docs/public-systems-comparison.zh-CN.md) compares the project with orchestration frameworks, verifier-driven reasoning, and knowledge-accumulating agents.
 
 ## Current scope
 
-ResiMind is an experimental, synchronous Agent framework. Tool evidence is collected **before** the loop. Optional DeepSeek/OpenAI model callbacks and a LangGraph verification subgraph are included. Dynamic tool scheduling, automatic multi-role planning, CAS/SMT/prover connectors, learned memory, persistence, and distributed execution are not included.
+ResiMind is an experimental, synchronous Agent framework. Tool evidence is collected **before** the loop. It includes optional DeepSeek/OpenAI callbacks, a LangGraph verification subgraph, bounded search, and an independently checked knowledge library with JSON persistence. The bounded algebra adapter implements the derivation-to-reuse learning loop. Dynamic tool scheduling, automatic multi-role planning, general CAS/SMT/prover connectors, and distributed execution are not included.
 
 Domain verifiers and residual builders are trusted application code; their correctness determines what `solved` means. Evidence labels do not authenticate real-world inputs. Digests catch result mix-ups, not malicious plugins. Callers must enforce model/tool timeouts and resource limits; step budgets cannot interrupt a blocked callback. The optional model wrappers bound response tokens and API attempts; these are not a total-cost cap or a hard deadline for the full run.
 

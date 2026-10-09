@@ -85,8 +85,10 @@ def source_hashes():
     return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
 
 
-def protocol():
-    return dict(schema_version=1, study="same-model-algebra-v1", settings=SETTINGS,
+def protocol(*, development=False):
+    return dict(schema_version=1,
+                study="same-model-algebra-feedback-v2" if development else "same-model-algebra-v1",
+                development_on_seen_cases=development, settings=SETTINGS,
                 system_prompt=SYSTEM, common_goal=GOAL, arms=list(ARMS),
                 development=[asdict(c) for c in DEVELOPMENT],
                 discovery=[asdict(c) for c in DISCOVERY], transfer=[asdict(c) for c in TRANSFER],
@@ -100,18 +102,19 @@ def protocol():
                     "discovery": "Three sequential model tasks; admission and disk reload are reverified; costs charged separately.",
                     "transfer": "No learning; no selective reruns; arm submission order rotates by task, four concurrent workers.",
                     "scoring": "Separate exact degree-complete Cartesian-grid oracle, never provided to proposers.",
-                    "scope": "Handcrafted prospective mechanism pilot; one run, eight tasks, not an established benchmark or SOTA comparison.",
+                    "scope": ("Post-result development rerun on the same eight seen tasks; not held-out validation or a causal feedback ablation."
+                              if development else "Handcrafted prospective mechanism pilot; one run, eight tasks, not an established benchmark or SOTA comparison."),
                     "confounds": "Schemas, state visibility, mandatory gating and stopping differ intentionally; this does not isolate residual scheduling alone.",
                     "residual_limit": "Polynomial adapter has one binary expansion obligation, not structured subterm residuals.",
                 })
 
 
-def freeze(folder):
+def freeze(folder, *, development=False):
     folder = Path(folder)
     path = folder / "manifest.json"
     if path.exists():
         raise ValueError("Manifest already exists; use a new study folder")
-    value = protocol()
+    value = protocol(development=development)
     value["frozen_at_utc"] = datetime.now(timezone.utc).isoformat()
     value["base_git_commit"] = subprocess.check_output(
         ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
@@ -124,7 +127,7 @@ def check_frozen(folder):
     value = json.loads((Path(folder) / "manifest.json").read_text())
     if value["protocol_sha256"] != digest({k: v for k, v in value.items() if k != "protocol_sha256"}):
         raise ValueError("Frozen manifest was modified")
-    current = json.loads(canonical(protocol()))
+    current = json.loads(canonical(protocol(development=value.get("development_on_seen_cases", False))))
     if any(value.get(k) != v for k, v in current.items()):
         raise ValueError("Source or protocol changed after freeze; create a separately labelled study")
     return value
@@ -342,7 +345,8 @@ def run_study(folder, client):
     def compact(row):
         return {key: value for key, value in row.items() if key not in ("observations", "partial_output")}
     result = dict(schema_version=1, study=manifest["study"], protocol_sha256=manifest["protocol_sha256"],
-                  evaluation_kind="prospectively_frozen_same_model_handcrafted_pilot",
+                  evaluation_kind=("seen_case_development_rerun" if manifest["development_on_seen_cases"]
+                                   else "prospectively_frozen_same_model_handcrafted_pilot"),
                   completed_at_utc=datetime.now(timezone.utc).isoformat(),
                   wall_seconds=time.perf_counter() - start,
                   requests_present_at_session_start=requests_at_start,
@@ -369,9 +373,11 @@ def main(argv=None):
     parser.add_argument("action", choices=("freeze", "run"))
     parser.add_argument("--folder", type=Path, required=True)
     parser.add_argument("--live", action="store_true")
+    parser.add_argument("--development", action="store_true",
+                        help="Label a freeze after inspecting these tasks as seen-case development")
     args = parser.parse_args(argv)
     if args.action == "freeze":
-        value = freeze(args.folder)
+        value = freeze(args.folder, development=args.development)
         print(value["protocol_sha256"])
         return
     if not args.live:

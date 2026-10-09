@@ -184,12 +184,30 @@ def _result(status: str, reason: str) -> Verification:
     return Verification(status=status, reason=reason, verifier_id=VERIFIER_ID)
 
 
+def _coefficient_mismatch(left: _Polynomial, right: _Polynomial,
+                          variables: tuple[str, ...]) -> str:
+    """Explain one exact mismatch, not the complete expansion of either side.
+
+    Ordering uses exponent tuples in the declared variable order. Existing
+    variable, degree and coefficient limits bound the diagnostic's size.
+    """
+    power = next(power for power in sorted(left.keys() | right.keys())
+                 if left.get(power, 0) != right.get(power, 0))
+    monomial = "*".join(name if exponent == 1 else f"{name}**{exponent}"
+                        for name, exponent in zip(variables, power) if exponent) or "1"
+    return (f"exact polynomial coefficients differ: monomial={monomial}; "
+            f"lhs coefficient={left.get(power, Fraction(0))}; "
+            f"rhs coefficient={right.get(power, Fraction(0))}")
+
+
 def verify_identity(lhs: str, rhs: str, variables: Sequence[str]) -> Verification:
     """Prove an identity by comparing all exact polynomial coefficients.
 
     A ``verified`` result covers every rational/real assignment of the declared
     variables. ``rejected`` means two supported polynomials differ; ``unknown``
     means the grammar or resource bounds prevent this verifier deciding.
+    A rejected result identifies one exact coefficient mismatch for correction;
+    it does not return the complete expanded answer.
     """
     try:
         ring = _Ring(_variables(variables))
@@ -198,7 +216,7 @@ def verify_identity(lhs: str, rhs: str, variables: Sequence[str]) -> Verificatio
         return _result("unknown", str(exc))
     if left == right:
         return _result("verified", "all exact rational polynomial coefficients agree")
-    return _result("rejected", "exact polynomial coefficients differ")
+    return _result("rejected", _coefficient_mismatch(left, right, ring.variables))
 
 
 def validate_expression(expression: str, variables: Sequence[str]) -> None:

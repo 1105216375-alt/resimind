@@ -1,28 +1,91 @@
-![ResiMind — 让 AI 放开想，让结果经得起查](docs/assets/banner.svg)
+![ResiMind — 让推理留下可复用的知识](docs/assets/knowledge-growth.svg)
 
 # ResiMind
 
-**让 AI 放开想，让结果经得起查。**
+**让 Agent 把做对的推导，变成下一题的能力。**
 
-ResiMind 是一套**独立运行的神经符号 Agent 架构**：模型探索方案，独立代码检查领域规则，通过验证的事实才能提交。错误提议不会改动正式事实；尚未满足的约束和缺失证据形成**残差**，指引下一步推理。
+ResiMind 是一套**独立运行的神经符号 Agent 架构**。沿用你的模型，由模型提出步骤，独立代码核验；**残差**记录还差什么，推动下一步。完成并通过验证的推导，还能提炼成规则，留给后续任务复用。
 
-**神经提议 → 符号验证 → 事实提交 → 残差反馈。**
+**题内：提议 → 验证 → 解决剩余问题。跨题：推导 → 验证 → 入库 → 复用并重验。**
 
-从没有唯一答案的出游方案，到客服退款、数学最优性证书、连续梁计算：沿用你的模型，把“什么结果可以接受”写成真正会执行的检查。
+当前知识增长适配器支持有界、精确的多项式恒等式证明。同一套 Agent 核心还可运行开放式规划、日常客服、约束优化与桥梁计算，每个领域都有明确的检查条件。
 
-**Python 3.10+ · 独立 Agent · 核心零依赖 · MIT · 实验版本 v0.7.0**
+**沿用你的模型 · Python 3.10+ · 核心零依赖 · MIT · 实验阶段 / main 分支**
 
-[English](README.md) · [快速上手](#三分钟跑起来) · [开放性完整案例](#开放式规划答案可以多样约束必须满足) · [量化评价](docs/evaluation-summary.zh-CN.md) · [国内外对标](docs/public-systems-comparison.zh-CN.md) · [架构](docs/architecture.md) · [可选集成](#可选集成)
-
-[**6 个可运行领域**](#内置领域适配器) · [**v0.7.0 本地通过 660 项测试**](docs/validation.md) · [**真实 DeepSeek 提议与验证记录可查**](docs/evidence/open-planning/README.md)
-
-**已做官方原题实测：**同一 DeepSeek 模型和资源上限下，ChinaTravel 12 题试点中，官方 ReAct **0/12**、官方 NeSy **5/12**、ReAct + ResiMind **1/12**。ResiMind 这组没有错误交付，但还有 11 题未完成。[查看结果、差距与全部原始记录 →](docs/chinatravel-evaluation.zh-CN.md)
-
-**新增有限搜索：**在[局部修复](docs/local-repair.md)之外，[搜索替代方案](docs/bounded-search.md)，完整校验后再交付。出游离线回放在明确人工语义标注后打通了 1 道旧任务；默认保守策略仍为 0/2。[查看结果、边界与复现方法 →](docs/search-development.zh-CN.md)
+[English](README.md) · [快速上手](#三分钟跑起来) · [知识增长](docs/knowledge-growth.zh-CN.md) · [开放性完整案例](#开放式规划答案可以多样约束必须满足) · [量化证据](#衡量-agent-架构带来了什么) · [架构](#agent-架构)
 
 **项目发起者与原始发布者：[@1105216375-alt](https://github.com/1105216375-alt)。** [原始仓库](https://github.com/1105216375-alt/resimind) · [引用信息](CITATION.cff)
 
-**新增知识增长：推导一次，验明之后，下一题接着用。** Agent 从实际完成的符号推导中提炼候选规则，经独立证明检查后入库，保存重载后用于新任务；每次复用仍重新验算。运行 `python -m resimind demo --domain knowledge-growth`。[查看完整闭环、量化对比与支持范围 →](docs/knowledge-growth.zh-CN.md) · [994 项开发回归通过](docs/validation-knowledge-growth.md)
+## 推导一次，验明入库，下一题接着用
+
+Agent 从基础步骤推导平方、立方恒等式，提交完整推导链，经独立核验后写入规则库。保存、重载时再次检查；新题检索到规则后，还要验证这次应用是否成立。
+
+| 10 道迁移题的离线对比 | 固定知识库 | 增长知识库 |
+| --- | ---: | ---: |
+| 经独立评分确认完成 | 10/10 | 10/10 |
+| 迁移阶段提案次数 | 84 | **24** |
+| 实际提交的跨题规则应用 | 0 | **8** |
+
+**迁移提案减少 71.4%**，学习规则另外花费 **13 次提案**。两组使用同一确定性提议器和相同预算，测到的是公开开发题上的复用收益；这组数字不等于模型准确率提升或总计算量节省。
+
+[**查看证明、准入、存储、撤销与复用的完整机制 →**](docs/knowledge-growth.zh-CN.md) · [复现对比](benchmarks/knowledge_growth.py) · [验证记录](docs/validation-knowledge-growth.md)
+
+## 同一个 DeepSeek，四种 Agent 策略
+
+首轮冻结试验（v1）固定 **`deepseek-flash`**、模型参数和**每题最多 8 次调用**，运行预先冻结的 8 道代数题，由独立精确评分器核对最终答案。
+
+| Agent 策略 | 正确完成 | 错误答案交付 | 迁移阶段模型调用 |
+| --- | ---: | ---: | ---: |
+| 自建 ReAct 式基线 | 5/8 | 3 | 8 |
+| 验证后重试 | 6/8 | 0 | 22 |
+| 残差推理 | 6/8 | 0 | 22 |
+| **残差 + 已验证知识增长** | **7/8** | **0** | **20** |
+
+增长组记录到 **3 次实际跨题规则应用**，都发生在其他组也完成的题上；多完成的那一题没有实际提交规则应用，因此不能把 7/8 因果归于规则复用。学习三条规则另需 **3 次调用**，学习加迁移合计 **23 次**；本次结果不支持总成本更低的结论。
+
+这是单次、人工构造的小样本试验。ReAct 式基线提供了可选检查工具，但模型没有调用；比较对象是协议中的四种具体实现，不能据此给优化过的 ReAct 系统或整个领域排名。
+
+**当前开发重跑：增强反馈，重测同一组旧题。** 分析 v1 后，我们增加了精确系数差异反馈，再次运行这 8 道已见题：
+
+| Agent 策略 | 开发重跑 v2 正确完成 | 迁移调用 |
+| --- | ---: | ---: |
+| 自建 ReAct 式基线 | 5/8 | 8 |
+| 验证后重试 | **7/8** | **17** |
+| 残差推理 | 6/8 | 22 |
+| 残差 + 已验证知识增长 | **7/8** | 20 |
+
+三种强制验证组本次仍无错误交付。增长组另有 3 次学习调用，实际跨题规则应用仍为 3 次：**完成数与验证后重试持平，调用更多**。本次反馈改进没有提高残差组或增长组的完成数。这是看过结果后的旧题开发重跑，不是新的盲测；原始 v1 完整保留。
+
+[**查看协议、逐题结果、token 与适用范围 →**](docs/algebra-live-evaluation.zh-CN.md) · [冻结 v1 摘要](docs/evidence/algebra-live-v1/summary.json) · [开发 v2 摘要](docs/evidence/algebra-feedback-v2/summary.json)
+
+## 三分钟跑起来
+
+准备好 Python，然后执行：
+
+```bash
+git clone https://github.com/1105216375-alt/resimind.git
+cd resimind
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install .
+python -m resimind demo --domain knowledge-growth
+```
+
+Windows PowerShell 的激活命令为 `.venv\Scripts\Activate.ps1`。安装时可能需要下载构建工具。示例**离线运行，无需 API 密钥**；安装后，`python -m resimind` 与 `resimind` 命令均可在仓库目录外使用。
+
+首个示例会推导立方恒等式、核验入库、保存重载，再用于新表达式；终端会列出固定知识库与增长知识库的步骤差异。
+
+选一个你关心的场景，下面五条命令都能离线运行：
+
+| 场景 | 能看出什么 | 运行命令 |
+| --- | --- | --- |
+| [知识增长](docs/knowledge-growth.zh-CN.md) | 推导出规则，验证入库，下一题检索复用并重验 | `python -m resimind demo --domain knowledge-growth` |
+| [开放式规划](docs/open-planning.md) | 答案可以多样，预算、时间和路线必须满足约束 | `python -m resimind demo --domain planning` |
+| [日常客服](docs/customer-support.md) | 提议退 259 元，配置规则只允许计算出 249 元，金额被拦下 | `python -m resimind demo --domain customer-support` |
+| [数学证明](docs/constrained-optimization.md) | 目标函数更低也可能不可行；最后检查精确最优性证书 | `python -m resimind demo` |
+| [桥梁工程](docs/continuous-bridge.md) | 力的平衡过了，中墩两侧的转角仍可能对不上 | `python -m resimind demo --domain bridge` |
+
+追加 `--json` 查看审计记录；[接入 DeepSeek](docs/open-planning.md#let-deepseek-choose-the-plan)，让模型自行组合行程。
 
 ## 开放式规划：答案可以多样，约束必须满足
 
@@ -70,34 +133,6 @@ ResiMind 是一套**独立运行的神经符号 Agent 架构**：模型探索方
 [**查看两份提议、拒绝原因和核验结果 →**](docs/evidence/open-planning/README.md)
 
 [**完整规则与三个离线场景**](docs/open-planning.md) · [**可运行源码**](examples/open_planning.py) · [**真实 DeepSeek 审计记录**](docs/evidence/open-planning/README.md)
-
-## 三分钟跑起来
-
-准备好 Python，然后执行：
-
-```bash
-git clone https://github.com/1105216375-alt/resimind.git
-cd resimind
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install .
-python -m resimind demo --domain planning
-```
-
-Windows PowerShell 的激活命令为 `.venv\Scripts\Activate.ps1`。安装时可能需要下载构建工具。示例**离线运行，无需 API 密钥**；安装后，`python -m resimind` 与 `resimind` 命令均可在仓库目录外使用。
-
-默认规划示例会运行[上方展示的拒绝与修正过程](#开放式规划答案可以多样约束必须满足)。
-
-选一个你关心的场景，下面四条命令都能离线运行：
-
-| 场景 | 能看出什么 | 运行命令 |
-| --- | --- | --- |
-| [开放式规划](docs/open-planning.md) | 答案可以多样，预算、时间和路线必须满足约束 | `python -m resimind demo --domain planning` |
-| [日常客服](docs/customer-support.md) | 提议退 259 元，配置规则只允许计算出 249 元，金额被拦下 | `python -m resimind demo --domain customer-support` |
-| [数学证明](docs/constrained-optimization.md) | 目标函数更低也可能不可行；最后检查精确最优性证书 | `python -m resimind demo` |
-| [桥梁工程](docs/continuous-bridge.md) | 力的平衡过了，中墩两侧的转角仍可能对不上 | `python -m resimind demo --domain bridge` |
-
-追加 `--json` 查看审计记录；[接入 DeepSeek](docs/open-planning.md#let-deepseek-choose-the-plan)，让模型自行组合行程。
 
 ## 直接运行独立 Agent
 
@@ -201,6 +236,7 @@ python -m examples.continuous_bridge --json
 
 | 适配器 | 独立检查 | 完成条件 |
 | --- | --- | --- |
+| [知识增长](src/resimind/domains/polynomial_learning.py) | 精确多项式推导链、独立知识准入、重载与当前应用检查 | 完成原任务后才能提炼规则；未知检查不能晋升 |
 | [开放式规划](src/resimind/domains/planning.py) | 预算、时间窗口、路线衔接、活动覆盖、步行与室内要求 | 有证据支持的可行行程；主观偏好不冒充已验证结论 |
 | [售后客服](src/resimind/domains/customer_support.py) | 订单证据绑定、配置的业务规则、精确退款金额 | 核验后的处理建议或人工复核结论；缺证据时保持待办 |
 | [约束优化](src/resimind/domains/optimization.py) | 精确分解、可行性、KKT、多项式证书 | 全局最优性证书核验完成 |
@@ -218,7 +254,9 @@ python -m examples.continuous_bridge --json
 
 **残差反馈层。** 残差是仍未完成的目标、未知项和硬约束集合，根据正式事实重建。候选被拒绝时保留原状态，将真实拒绝原因反馈给提议器；缺少条件时保留未完成义务。
 
-因此，这是**可注入神经模型的神经符号架构**。仓库不带训练好的权重、神经训练流程或外部模型性能测评，也不是通用定理证明器。详见[实现位置与边界](docs/neuro-symbolic.md)。
+**知识增长层。** `LearningAgent` 从完成任务的推导中提炼候选知识，`KnowledgeLibrary` 调用领域验证器决定能否入库。库支持保存、重载重验与撤销；检索到的规则只能作为新候选的依据，不能绕过当前任务验证。
+
+模型通过回调接入，项目贡献集中在 **Agent 的推理、验证与知识准入机制**。当前代数证明有明确的表达式与资源范围。详见[知识增长接口](docs/knowledge-growth.zh-CN.md)与[神经符号实现位置](docs/neuro-symbolic.md)。
 
 ## Agent 架构
 
@@ -239,11 +277,16 @@ flowchart LR
     F --> D[重建残差]
     D --> R
     F --> O[事实与 JSON 审计记录]
+    D -->|任务完成| X[提取推导证书]
+    X --> K[独立知识准入检查]
+    K -->|核验通过| L[持久知识库]
+    L -->|检索；应用须重验| P
 ```
 
 - **先取证，再提议：** 注册工具为每个任务采集类型化输入。
 - **先验证，再改状态：** 验证结果绑定候选、状态和证据；原子提交时检查引用与冲突。
 - **未完成项可见：** 目标、未知项和硬约束一直保留，直到领域适配器确认义务解除。
+- **知识可积累：** 完成的推导经过独立准入后写入规则库，保存重载时重验，新题应用时再验。
 - **路线可复用：** 内存中的路线经过审核且适用条件匹配后才能检索，复用步骤仍需以当前输入重新核验。
 - **过程可检查：** 每次尝试都记录决策、原因、状态与残差；尝试次数和停滞预算限制执行循环。
 
@@ -292,11 +335,25 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-[验证记录](docs/validation.md)说明本地检查与范围；没有声称外部模型性能或生产环境可靠性。
+[知识增长验证记录](docs/validation-knowledge-growth.md)与[版本验证记录](docs/validation.md)区分开发分支和已发布版本的本地检查。
+
+## 衡量 Agent 架构带来了什么
+
+沿用相同模型，固定任务与资源上限，观察完成率、错误交付、调用成本和跨题复用。各实验的任务、数据与预算不同，结果分别报告：
+
+| 实验 | 已测到什么 | 记录 |
+| --- | --- | --- |
+| 同模型代数：冻结 v1 与旧题开发 v2 | v1：5/8、6/8、6/8、7/8；v2：5/8、7/8、6/8、7/8，增长组与重试持平且调用更多 | [四组协议与结果](docs/algebra-live-evaluation.zh-CN.md) |
+| 知识增长：10 道离线迁移题 | 两组均 10/10；提案 84→24，学习另计 13 次，实际跨题复用 8 次 | [方法与结果](docs/knowledge-growth.zh-CN.md) |
+| ChinaTravel：12 道官方题，同一 DeepSeek | 官方 ReAct 0/12、官方 NeSy 5/12、ReAct + ResiMind 1/12；ResiMind 无错误交付，11 题未完成 | [完整评价](docs/chinatravel-evaluation.zh-CN.md) |
+| 局部修复与有限搜索：旧任务回放 | 默认保守策略 0/2；加入明确人工语义标注后 1/2 | [开发结果](docs/search-development.zh-CN.md) |
+| 开放式规划：真实需求变更 | 咖啡改为必选后旧方案被拒；1 次新增 DeepSeek 调用得到已核验新方案 | [提议与审计记录](docs/evidence/open-planning/README.md) |
+
+[国内外系统对照](docs/public-systems-comparison.zh-CN.md)介绍 ResiMind 与编排框架、验证驱动推理及知识积累系统的关系。
 
 ## 当前范围
 
-ResiMind 是实验阶段的同步 Agent 框架，工具在**循环之前**取证。已提供可选 DeepSeek／OpenAI 模型回调与 LangGraph 验证子图。尚未包含循环内动态工具调度、自动多角色规划、CAS/SMT/证明器现成连接器、学习式记忆、持久化或分布式执行。
+ResiMind 是实验阶段的同步 Agent 框架，工具在**循环之前**取证。已提供可选 DeepSeek／OpenAI 模型回调、LangGraph 验证子图、有限搜索，以及带独立准入和 JSON 持久化的知识库；有界代数适配器打通了推导到跨题复用的学习循环。尚未包含循环内动态工具调度、自动多角色规划、通用 CAS/SMT/证明器连接器或分布式执行。
 
 领域验证器与残差重建器属于可信应用代码，它们的正确性决定 `solved` 的含义。证据标签不能认证现实输入的真实性，摘要绑定不能隔离恶意插件。调用方须设置模型、工具超时和资源限制；核心步骤预算无法打断阻塞回调。可选模型封装提供单次响应 token 与调用次数限制；它们不构成总费用或整个任务的硬时限。
 

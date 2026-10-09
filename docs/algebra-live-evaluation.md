@@ -4,6 +4,8 @@ This evaluates **Agent architecture using an existing DeepSeek model**. ResiMind
 
 The [frozen manifest](evidence/algebra-live-v1/manifest.json) and [compact results](evidence/algebra-live-v1/summary.json) are public. Full prompts, responses and intermediate traces remain local. Run the public [runner](../benchmarks/run_algebra_live_eval.py) with your own credentials to reproduce the protocol; model service outputs may change.
 
+The original v1 evaluated source is preserved in Git commit `37bbf13`; the manifest contains exact per-file hashes. Later main-branch improvements do not replace that implementation or its results.
+
 ## Result, including costs and failures
 
 All four arms used `deepseek-flash`, temperature 0, thinking disabled, up to eight calls per task, and 4,096 output tokens per call. The provider returned `deepseek-flash` on every request; this is a service identifier, not proof of an immutable model snapshot.
@@ -46,6 +48,23 @@ The unmatched product was delivered incorrectly by the immediate-final baseline 
 
 The initial rejection feedback said only that coefficients differed. This motivates a general improvement: expose a bounded, exact coefficient discrepancy from the production checker, while retaining the same acceptance criteria. It does not prove generic feedback caused every failure. Any post-result improvement and rerun must be labelled development on seen cases, with this first result retained.
 
+## v2: development after inspecting the same tasks
+
+We implemented that diagnostic and froze a **separate, seen-case development rerun**. The acceptance test remains exact equality of every coefficient; a rejection now names one mismatching monomial and the two exact coefficients. The model receives one discrepancy, not a generated complete answer. The final independent grid scorer is still isolated. Both the retry baseline and the production Agent receive the richer checker information.
+
+| Controller | v1 correct / 8 | v2 correct / 8 | v2 incorrect deliveries | v2 transfer calls |
+|---|---:|---:|---:|---:|
+| ReAct-style | 5 | 5 | 3 | 8 |
+| Verification + retry | 6 | 7 | 0 | 17 |
+| Residual | 6 | 6 | 0 | 22 |
+| Residual + verified knowledge | 7 | 7 | 0 | 20 |
+
+The retry baseline corrected the unmatched product in three calls, using two successive coefficient discrepancies. This is a concrete improvement in that recorded trajectory. Residual and growth completion totals did not improve: some proposals ignored the named discrepancy or changed a different monomial. The growth configuration now ties the retry baseline on completion while using more calls, plus its three discovery calls. No general architecture superiority or causal effect is established by this rerun.
+
+The original experiment has 83 physical calls and 72,493 reported tokens; v2 has 78 physical calls and 70,606 tokens, each including its eight smoke and three discovery runs. All 43 task trajectories in each experiment were independently replayed offline against recorded requests, including re-admission and frozen-library checks. No mathematical miss was selectively removed or overwritten.
+
+[v2 frozen manifest](evidence/algebra-feedback-v2/manifest.json) · [v2 compact results](evidence/algebra-feedback-v2/summary.json) · [中文解读](algebra-live-evaluation.zh-CN.md) · [Implementation validation](validation-algebra-live.md)
+
 ## Run locally
 
 ```bash
@@ -55,4 +74,4 @@ PYTHONPATH=src:. python -m benchmarks.run_algebra_live_eval freeze --folder ../l
 PYTHONPATH=src:. python -m benchmarks.run_algebra_live_eval run --folder ../local-algebra-study --live
 ```
 
-Freezing makes no model calls. Running requires explicit `--live`; the recorder has global physical-call, prompt-size and worst-case output-token limits. Keep the study folder outside Git. Source or protocol changes after freeze require a separately labelled study.
+Freezing makes no model calls. Running requires explicit `--live`; the recorder has global physical-call, prompt-size and worst-case output-token limits. Keep the study folder outside Git. Source or protocol changes after freeze require a separately labelled study. Add `--development` to `freeze` when running after inspecting the tasks/results, as we did for v2; do not present such a rerun as fresh validation.

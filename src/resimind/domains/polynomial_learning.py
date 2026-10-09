@@ -288,9 +288,10 @@ class PolynomialVerifier:
 
     def verify(self, candidate: Candidate, state: State, residual: Residual,
                evidence: tuple[Evidence, ...]) -> Verdict:
-        def reply(decision, reason, facts=()):
+        def reply(decision, reason, facts=(), *, diagnostic=None):
             return Verdict.for_candidate(candidate, state, decision, evidence=evidence,
-                                         reasons=(reason,), facts=facts)
+                                         reasons=(reason,) if diagnostic is None else (reason, diagnostic),
+                                         facts=facts)
         if candidate.action not in ACTIONS or candidate.target != TARGET or TARGET not in residual.pending:
             return reply(Decision.REJECT, "unsupported_polynomial_step")
         expected = PolynomialTool(self.problem).collect(Task("verify", "Verify", DOMAIN))
@@ -310,8 +311,10 @@ class PolynomialVerifier:
             validate_expression(after, self.problem.variables)
         except (ValueError, TypeError, RecursionError):
             return reply(Decision.REJECT, "malformed_or_unsupported_rewrite")
-        if not _checked(before, after, self.problem.variables, self.counts):
-            return reply(Decision.REJECT, "polynomial_identity_not_proved")
+        self.counts.identity_checks += 1
+        identity = verify_identity(before, after, self.problem.variables)
+        if identity.status != "verified":
+            return reply(Decision.REJECT, "polynomial_identity_not_proved", diagnostic=identity.reason)
         fingerprint = ""
         if rule_id:
             record = self.records.get(rule_id)

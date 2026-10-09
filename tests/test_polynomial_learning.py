@@ -103,6 +103,50 @@ def test_model_candidates_are_verified_and_only_committed_proof_is_distilled():
     assert calls[1]["last_feedback"]["decision"] == "reject"
 
 
+def test_exact_coefficient_diagnostic_reaches_model_feedback():
+    prompts = []
+
+    def complete(prompt):
+        payload = json.loads(prompt)
+        prompts.append(payload)
+        after = "x*x+1" if len(prompts) == 1 else "x*x+2*x+1"
+        return json.dumps({"id": f"attempt-{len(prompts)}", "action": "rewrite_polynomial",
+                           "target": TARGET, "claim": json.dumps({"before": "(x+1)**2",
+                           "after": after, "rule_id": ""}), "refs": [INPUT_ID]})
+
+    result = run(PolynomialProblem("(x+1)**2", ("x",)), complete=complete)
+    reasons = prompts[1]["last_feedback"]["reasons"]
+    assert reasons == ["polynomial_identity_not_proved",
+                       "exact polynomial coefficients differ: monomial=x; lhs coefficient=2; rhs coefficient=0"]
+    trace = result.result.run_result.trace
+    assert [event.decision for event in trace] == [Decision.REJECT, Decision.ACCEPT]
+    assert trace[0].before == trace[0].after
+    assert len(result.admissions[0].candidate.derivation) == 1
+
+
+def test_repeated_wrong_candidates_cannot_commit_or_learn_despite_diagnostics():
+    store = library()
+    counts = WorkCounts()
+    prompts = []
+
+    def complete(prompt):
+        prompts.append(json.loads(prompt))
+        return json.dumps({"id": f"attempt-{len(prompts)}", "action": "rewrite_polynomial",
+                           "target": TARGET, "claim": json.dumps({"before": "(x+1)**2",
+                           "after": "x*x+1", "rule_id": ""}), "refs": [INPUT_ID]})
+
+    result = run(PolynomialProblem("(x+1)**2", ("x",)), store, complete=complete,
+                 max_steps=3, counts=counts)
+    execution = result.result.run_result
+    assert execution.status != "solved"
+    assert execution.state.facts == ()
+    assert execution.residual.pending == (TARGET,)
+    assert all(event.decision is Decision.REJECT for event in execution.trace)
+    assert all("lhs coefficient=2" in event.reasons[1] for event in execution.trace)
+    assert counts.identity_checks == counts.proposal_calls == 3
+    assert result.admissions == store.lookup("algebra") == ()
+
+
 @pytest.mark.parametrize("after,rule_id", [("999", ""), ("x*x+2*x+1", "made-up-rule"),
                                          ("x/x", ""), ("x ± 2", "")])
 def test_unsound_or_unbound_candidates_never_clear_residual(after, rule_id):
