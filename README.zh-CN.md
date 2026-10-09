@@ -2,7 +2,7 @@
 
 # ResiMind
 
-**让 Agent 把做对的推导，变成下一题的能力。**
+**验出错误，就换一种解法。做对的推导，成为下一题的能力。**
 
 ResiMind 是一套**独立运行的神经符号 Agent 架构**。沿用你的模型，由模型提出步骤，独立代码核验；**残差**记录还差什么，推动下一步。完成并通过验证的推导，还能提炼成规则，留给后续任务复用。
 
@@ -10,11 +10,29 @@ ResiMind 是一套**独立运行的神经符号 Agent 架构**。沿用你的模
 
 当前知识增长适配器支持有界、精确的多项式恒等式证明。同一套 Agent 核心还可运行开放式规划、日常客服、约束优化与桥梁计算，每个领域都有明确的检查条件。
 
-**沿用你的模型 · Python 3.10+ · 核心零依赖 · MIT · 实验阶段 / main 分支**
+可选的[自适应推理适配器](docs/adaptive-reasoning.md)把失败反馈接到实际策略切换：拆解局部任务、调用已验证规则、执行符号变换，或回到先前已验证的检查点。每一步仍须通过验证才能成为事实。[离线恢复示例](examples/adaptive_reasoning.py)展示错误之后如何继续求解。
+
+**沿用你的模型 · Python 3.10+ · 核心零依赖 · MIT · v0.8.0 / 实验阶段**
 
 [English](README.md) · [快速上手](#三分钟跑起来) · [知识增长](docs/knowledge-growth.zh-CN.md) · [开放性完整案例](#开放式规划答案可以多样约束必须满足) · [量化证据](#衡量-agent-架构带来了什么) · [架构](#agent-架构)
 
 **项目发起者与原始发布者：[@1105216375-alt](https://github.com/1105216375-alt)。** [原始仓库](https://github.com/1105216375-alt/resimind) · [引用信息](CITATION.cff)
+
+## v0.8：验出错误之后，Agent 有下一招
+
+整题提议失败，自适应数学 Agent 可以拆成局部任务、调用已验证规则、继续符号变换，或回到已验证的检查点。每个新候选都要通过检查才能成为事实；换策略不会重置重试次数和行动预算。
+
+```text
+提议 → 检查 → 诊断剩余问题 → 切换策略 → 再次检查
+                                        ↓
+                          完成证明 → 验证入库 → 下一题复用并重验
+```
+
+离线恢复示例会故意提出一个错误展开式：错误被拒绝，局部修改通过，符号步骤完成证明；验证入库的规则随后用一次应用完成新变量的任务。模型响应由脚本提供，验证、状态变化、规则准入与复用都真实执行。
+
+**当前范围：**自适应适配器支持有界有理多项式展开。其他领域共用 Agent 核心，使用各自的检查条件。Lean 接入留到后续版本。
+
+[**运行自适应 Agent →**](docs/adaptive-reasoning.md) · [版本验证](docs/validation-v0.8.0.md) · [更新记录](CHANGELOG.md)
 
 ## 推导一次，验明入库，下一题接着用
 
@@ -30,7 +48,9 @@ Agent 从基础步骤推导平方、立方恒等式，提交完整推导链，�
 
 [**查看证明、准入、存储、撤销与复用的完整机制 →**](docs/knowledge-growth.zh-CN.md) · [复现对比](benchmarks/knowledge_growth.py) · [验证记录](docs/validation-knowledge-growth.md)
 
-## 同一个 DeepSeek，四种 Agent 策略
+## 已公开的早期试验：同一个 DeepSeek，四种 Agent 策略
+
+下面的 v1/v2 记录对应早期实现，不是 v0.8 自适应适配器的成绩。
 
 首轮冻结试验（v1）固定 **`deepseek-flash`**、模型参数和**每题最多 8 次调用**，运行预先冻结的 8 道代数题，由独立精确评分器核对最终答案。
 
@@ -45,7 +65,7 @@ Agent 从基础步骤推导平方、立方恒等式，提交完整推导链，�
 
 这是单次、人工构造的小样本试验。ReAct 式基线提供了可选检查工具，但模型没有调用；比较对象是协议中的四种具体实现，不能据此给优化过的 ReAct 系统或整个领域排名。
 
-**当前开发重跑：增强反馈，重测同一组旧题。** 分析 v1 后，我们增加了精确系数差异反馈，再次运行这 8 道已见题：
+**早期开发重跑：增强反馈，重测同一组旧题。** 分析 v1 后，我们增加了精确系数差异反馈，再次运行这 8 道已见题：
 
 | Agent 策略 | 开发重跑 v2 正确完成 | 迁移调用 |
 | --- | ---: | ---: |
@@ -68,17 +88,18 @@ cd resimind
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install .
-python -m resimind demo --domain knowledge-growth
+python -m resimind demo --domain adaptive
 ```
 
 Windows PowerShell 的激活命令为 `.venv\Scripts\Activate.ps1`。安装时可能需要下载构建工具。示例**离线运行，无需 API 密钥**；安装后，`python -m resimind` 与 `resimind` 命令均可在仓库目录外使用。
 
-首个示例会推导立方恒等式、核验入库、保存重载，再用于新表达式；终端会列出固定知识库与增长知识库的步骤差异。
+首个示例会展示错误展开被拒绝、局部修改通过、符号步骤完成证明，以及新规则保存重载后用于新变量的任务。终端会明确标注离线脚本，并列出策略审计记录。
 
-选一个你关心的场景，下面五条命令都能离线运行：
+选一个你关心的场景，下面六条命令都能离线运行：
 
 | 场景 | 能看出什么 | 运行命令 |
 | --- | --- | --- |
+| [自适应推理](docs/adaptive-reasoning.md) | 拒绝错误步骤、切换解法、完成证明，再复用已验证规则 | `python -m resimind demo --domain adaptive` |
 | [知识增长](docs/knowledge-growth.zh-CN.md) | 推导出规则，验证入库，下一题检索复用并重验 | `python -m resimind demo --domain knowledge-growth` |
 | [开放式规划](docs/open-planning.md) | 答案可以多样，预算、时间和路线必须满足约束 | `python -m resimind demo --domain planning` |
 | [日常客服](docs/customer-support.md) | 提议退 259 元，配置规则只允许计算出 249 元，金额被拦下 | `python -m resimind demo --domain customer-support` |
@@ -335,7 +356,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-[知识增长验证记录](docs/validation-knowledge-growth.md)与[版本验证记录](docs/validation.md)区分开发分支和已发布版本的本地检查。
+当前检查见 [v0.8.0 版本验证](docs/validation-v0.8.0.md)；历史检查保留在[知识增长开发记录](docs/validation-knowledge-growth.md)与[早期版本记录](docs/validation.md)中。
 
 ## 衡量 Agent 架构带来了什么
 
@@ -365,7 +386,7 @@ ResiMind 由 [@1105216375-alt](https://github.com/1105216375-alt) 发起并首�
 
 使用或介绍 ResiMind 时，欢迎注明项目来源并链接原始仓库。建议引用：
 
-> 1105216375-alt. ResiMind（版本 0.7.0），2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind（版本 0.8.0），2026. https://github.com/1105216375-alt/resimind
 
 [CITATION.cff](CITATION.cff) 提供机器可读的引用信息。引用属于倡议，不是新增的许可条件。项目采用 [MIT License](LICENSE)，允许商用；软件副本或实质部分须保留版权和许可声明。
 

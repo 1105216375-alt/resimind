@@ -2,7 +2,7 @@
 
 # ResiMind
 
-**An Agent that builds on what it proves.**
+**When a check fails, change strategy. Build on what you prove.**
 
 ResiMind is a **standalone neuro-symbolic Agent architecture**. Your model proposes a step. Independent code checks it. The **residual** tracks what remains to be solved. Completed, verified derivations can become reusable rules for the next task.
 
@@ -10,11 +10,29 @@ ResiMind is a **standalone neuro-symbolic Agent architecture**. Your model propo
 
 The knowledge-growth adapter currently proves bounded, exact polynomial identities. The same Agent core also runs open-ended planning, customer support, constrained optimization, and bridge calculations, with explicit checks for each domain.
 
-**Bring your own model · Python 3.10+ · Zero-dependency core · MIT · Experimental / main**
+The optional [adaptive reasoning adapter](docs/adaptive-reasoning.md) turns a failed check into a strategy change: decompose a local task, try a verified rule, use a symbolic rewrite, or return to a verified checkpoint. Every new step is checked before it becomes a fact. Run the [offline recovery example](examples/adaptive_reasoning.py) to inspect the transitions.
+
+**Bring your own model · Python 3.10+ · Zero-dependency core · MIT · v0.8.0 / Experimental**
 
 [中文](README.zh-CN.md) · [Quick start](#try-it-in-three-minutes) · [Knowledge growth](docs/knowledge-growth.md) · [Open-ended case](#open-ended-planning-many-answers-explicit-constraints) · [Evidence](#measure-the-agent-not-the-model) · [Architecture](#the-architecture)
 
 **Created and originally published by [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
+
+## New in v0.8: a failed check becomes the next move
+
+The adaptive math Agent can turn a failed whole-expression proposal into a smaller local task, apply a checked rule, continue with symbolic rewrites, or return to a verified checkpoint. Each new candidate is checked before becoming a fact; retry and action budgets remain bounded across strategy changes.
+
+```text
+Propose → check → diagnose what remains → change strategy → check again
+                                                     ↓
+                                  completed proof → admit rule → reuse and recheck
+```
+
+Try the offline recovery demo: a deliberately wrong expansion is rejected, a local edit passes, symbolic steps finish the proof, and its checked rule solves a new-variable task in one application. The fixture is scripted; the verification, state transitions, rule admission and reuse actually execute.
+
+**Current scope:** the adaptive adapter handles bounded rational polynomial expansion. Other domains share the Agent core and use their own checks. Lean integration is planned for a later version.
+
+[**Run the adaptive Agent →**](docs/adaptive-reasoning.md) · [Release validation](docs/validation-v0.8.0.md) · [Changelog](CHANGELOG.md)
 
 ## Derive once. Reuse on a new task.
 
@@ -30,7 +48,9 @@ An Agent derives the square and cube identities, submits their proof chains for 
 
 [**How rules are proved, admitted, stored, revoked, and reused →**](docs/knowledge-growth.md) · [Reproduce the comparison](benchmarks/knowledge_growth.py) · [Validation](docs/validation-knowledge-growth.md)
 
-## Same DeepSeek. Four Agent strategies.
+## Earlier published pilot: same DeepSeek, four Agent strategies
+
+These v1/v2 records describe earlier implementations; they are not a benchmark of the v0.8 adaptive adapter.
 
 The original frozen, eight-task algebra pilot (v1) uses **`deepseek-flash`**, identical model settings, and an **eight-call ceiling per task**. A separate exact oracle scores final outputs.
 
@@ -45,7 +65,7 @@ The growth arm records **3 actual cross-task rule applications**, all on tasks t
 
 This is a single, handcrafted pilot. The ReAct-style implementation offered an optional check tool, but the model chose no tool calls. The study measures these four implementations under the published protocol; it is not a ranking against optimized ReAct systems or evidence of general superiority.
 
-**Current development rerun: more informative feedback, same eight cases.** After inspecting v1, we added exact coefficient-discrepancy feedback and reran the seen tasks:
+**Earlier development rerun: more informative feedback, same eight cases.** After inspecting v1, we added exact coefficient-discrepancy feedback and reran the seen tasks:
 
 | Agent strategy | Correct in development v2 | Transfer calls |
 | --- | ---: | ---: |
@@ -68,17 +88,18 @@ cd resimind
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install .
-python -m resimind demo --domain knowledge-growth
+python -m resimind demo --domain adaptive
 ```
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. Installation may download build tools. The demo runs **offline, without an API key**; both `python -m resimind` and the installed `resimind` command work outside the checkout.
 
-The first demo derives a cubic identity, verifies and saves it, reloads it, and uses it on a new expression. The terminal compares the fixed-library and growing-library steps.
+The first demo shows a rejected expansion, a checked local edit, symbolic recovery, and a new rule that is saved, reloaded and reused on a new-variable task. It labels its model responses as an offline script and prints the strategy audit.
 
-Choose a different challenge. All five commands run offline:
+Choose a different challenge. All six commands run offline:
 
 | Try | What the example makes visible | Command |
 | --- | --- | --- |
+| [Adaptive reasoning](docs/adaptive-reasoning.md) | Reject a wrong step, change strategy, finish a proof and reuse its checked rule | `python -m resimind demo --domain adaptive` |
 | [Knowledge growth](docs/knowledge-growth.md) | Derive a rule, verify and store it, then reuse and recheck it on a new task | `python -m resimind demo --domain knowledge-growth` |
 | [Open-ended planning](docs/open-planning.md) | Many valid answers; time, budget, and route constraints still apply | `python -m resimind demo --domain planning` |
 | [Customer support](docs/customer-support.md) | A ¥259 refund proposal fails the configured ¥249 calculation | `python -m resimind demo --domain customer-support` |
@@ -337,7 +358,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-The [knowledge-growth validation](docs/validation-knowledge-growth.md) and [release validation](docs/validation.md) distinguish development-branch checks from published-version checks.
+See [v0.8.0 release validation](docs/validation-v0.8.0.md) for current checks, and the [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier release record](docs/validation.md) for historical checks.
 
 ## Measure the Agent, not the model
 
@@ -367,7 +388,7 @@ ResiMind was initiated and originally published by [@1105216375-alt](https://git
 
 If you use or discuss ResiMind, please cite the project and link to the original repository. Suggested citation:
 
-> 1105216375-alt. ResiMind (version 0.7.0), 2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind (version 0.8.0), 2026. https://github.com/1105216375-alt/resimind
 
 Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is appreciated, not an additional license condition. Commercial use is permitted under the [MIT License](LICENSE), which requires retaining its copyright and permission notices in copies or substantial portions of the software.
 

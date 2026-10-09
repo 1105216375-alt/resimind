@@ -9,15 +9,17 @@ from .memory import Route, RouteMemory
 from .knowledge import (KnowledgeCandidate, KnowledgeLibrary, KnowledgeRecord,
                         KnowledgeVerifier, Verification)
 from .learning import LearningAgent, LearningResult
+from .strategy import FailureKind, StrategyController, StrategyEvent
 
 __all__ = [
     "Agent", "AgentResult", "EvidenceTool", "Task", "ToolEvent",
     "ModelProposer", "ModelResponseError", "Route", "RouteMemory",
     "KnowledgeCandidate", "KnowledgeLibrary", "KnowledgeRecord", "KnowledgeVerifier",
     "Verification", "LearningAgent", "LearningResult",
+    "FailureKind", "StrategyController", "StrategyEvent",
     "Binding", "Candidate", "Decision", "Domain", "Engine", "Evidence", "Fact",
     "JSONScalar", "JSONValue", "Proposer", "Residual", "RunResult", "State",
     "TraceEvent", "Verdict", "Verifier", "canonical_json", "content_digest",
 ]
 
-__version__ = "0.7.0"
+__version__ = "0.8.0"

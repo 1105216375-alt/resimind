@@ -68,6 +68,10 @@ print(transfer.retrieved_ids)
 
 To supply neural proposals, pass your existing `complete(prompt: str) -> str` model callback as `build_learning_agent(problem, library, complete=model_callback)`. The adapter supplies `ModelProposer` with its candidate contract and available identities. The callback's candidates face the same task verifier, and the callback cannot directly approve knowledge.
 
+The optional [current-state proposal and rule-execution interface](state-bound-polynomial-actions.md) exposes the latest verified expression directly and lets the model select one verified rule for bounded symbolic execution. The resulting step still requires independent verification.
+
+The [adaptive reasoning adapter](adaptive-reasoning.md) additionally controls bounded strategy changes, local subtree proposals, symbolic fallback, and verified checkpoint returns. It uses the same independent admission and reuse checks described here.
+
 ## Extend another domain
 
 [`LearningAgent`](../src/resimind/learning.py) accepts an `agent_factory(task, records)` and a `distill(agent_result)` function. The factory builds your ordinary Agent using retrieved records as guidance. The distiller returns `KnowledgeCandidate` objects only after a completed task.

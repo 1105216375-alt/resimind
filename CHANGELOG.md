@@ -1,6 +1,13 @@
 # Changelog
 
-## Unreleased — 2026-10-09
+## 0.8.0 — 2026-10-09
+
+- Add opt-in adaptive polynomial reasoning: failed checks can switch between whole-expression model proposals, local subexpression proposals, verified rules, primitive symbolic rewrites, and checked checkpoint returns. Preserve finite budgets across retries, strategy changes and recovery; unfinished runs remain unfinished.
+- Add the reusable `StrategyController` with classified failures, semantic-state retry accounting, duplicate suppression, and bounded audit events. Strategy choices never authorize a fact without domain verification.
+- Bind polynomial actions to the current expression, revision and fingerprint. Execute retrieved, currently verified rules as bounded substitutions and independently recheck every application.
+- Add structured unresolved-subexpression guidance and bounded coefficient-discrepancy feedback to guide corrections without exposing oracle-generated answers.
+- Add `resimind demo --domain adaptive`: an explicitly scripted offline mistake, checked local repair, symbolic completion, verified rule admission, save/reload, and reuse on a new variable. Add reproducible evaluation runners; private experiments and their raw model traces are not included.
+- Release validation and package checks are recorded in [v0.8.0 validation](docs/validation-v0.8.0.md). The adaptive adapter currently supports bounded rational polynomial expansion; Lean integration is future work.
 
 - Add a prospectively frozen, same-DeepSeek four-controller algebra pilot, an independent exact-grid scorer and bounded, replayable request accounting. Publish compact results including failures and discovery costs; retain full new requests locally.
 - Match learned-rule applications structurally, allowing whitespace and redundant parentheses while rejecting different substitutions that falsely claim rule provenance.

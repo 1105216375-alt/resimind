@@ -72,6 +72,32 @@ def test_knowledge_growth_runs_from_installed_package_only(installed_layout):
     assert "1 committed cross-task rule use(s)" in result.stdout
 
 
+def test_adaptive_recovery_and_reloaded_rule_reuse_from_installed_package(installed_layout):
+    result = invoke(installed_layout, "demo", "--domain", "adaptive", "--json")
+    assert result.returncode == 0, result.stderr
+    report = json.loads(result.stdout)
+    assert report["live_model"] is False
+    discovery, transfer = report["discovery"], report["transfer"]
+    assert discovery["status"] == transfer["status"] == "solved"
+    assert discovery["strategy_audit"]["whole_model_accepts"] == 0
+    assert discovery["strategy_audit"]["local_model_accepts"] == 1
+    assert discovery["strategy_audit"]["primitive_accepts"] > 0
+    assert discovery["strategy_audit"]["strategy_switches"] >= 2
+    assert len(discovery["admitted_rules"]) == 1
+    assert transfer["strategy_audit"]["model_calls"] == 0
+    assert transfer["strategy_audit"]["rule_accepts"] == 1
+    rejected = [e for e in discovery["result"]["run_result"]["trace"] if e["decision"] == "reject"]
+    assert rejected and all(e["before"] == e["after"] for e in rejected)
+
+
+def test_adaptive_text_labels_fixture_without_claiming_a_live_run(installed_layout):
+    result = invoke(installed_layout, "demo", "--domain", "adaptive")
+    assert result.returncode == 0, result.stderr
+    assert "OFFLINE scripted adaptive recovery | NOT A LIVE LLM RUN" in result.stdout
+    assert "whole_model: reject" in result.stdout and "local_model: accept" in result.stdout
+    assert "transfer: solved; checked rule uses=1" in result.stdout
+
+
 def test_knowledge_growth_json_reports_discovery_and_transfer_separately(installed_layout):
     result = invoke(installed_layout, "demo", "--domain", "knowledge-growth", "--json")
     assert result.returncode == 0, result.stderr
