@@ -70,7 +70,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="resimind", description="Evidence-bound Agent reasoning with independent verification.")
     commands = parser.add_subparsers(dest="command", required=True)
     demo = commands.add_parser("demo", help="run an OFFLINE deterministic fixture, without a model or API key")
-    demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support", "planning", "knowledge-growth", "adaptive", "growth-control", "lean", "scheduling"), default="optimization",
+    demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support", "planning", "knowledge-growth", "adaptive", "growth-control", "lean", "scheduling", "progress"), default="optimization",
                       help="demonstration domain (default: optimization)")
     demo.add_argument("--scenario", choices=("refund", "missing-delivery", "expired", "day-out", "rain", "missing-travel"),
                       help="customer-support: refund/missing-delivery/expired; planning: day-out/rain/missing-travel")
@@ -80,6 +80,28 @@ def main(argv: Sequence[str] | None = None) -> int:
                  "planning": ("day-out", "rain", "missing-travel")}
     if args.scenario is not None and args.scenario not in scenarios.get(args.domain, ()):
         parser.error("--scenario must match the selected customer-support or planning domain")
+    if args.domain == "progress":
+        from .progress_demo import run_demo
+        report = run_demo()
+        if args.json:
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+        else:
+            print("ResiMind | OFFLINE goal progress | NOT A LIVE LLM RUN")
+            print("Keep reasoning aimed at the unfinished goal.")
+            for name in ("cosmetic_recovery", "useful_decomposition"):
+                arm = report[name]
+                print(f"{name}: {arm['status']}; committed steps={arm['committed_steps']}; "
+                      f"scripted callbacks={arm['strategy_audit']['model_calls']}")
+                for event in arm["result"]["run_result"]["trace"]:
+                    print(f"  {event['step']}. {event['decision']}: {', '.join(event['reasons'])}")
+                if arm["output"] is not None:
+                    print("  Verified expansion:", arm["output"])
+            print(report["scope"])
+        cosmetic, decomposition = report["cosmetic_recovery"], report["useful_decomposition"]
+        unchanged = cosmetic["result"]["run_result"]["trace"][0]
+        return 0 if (cosmetic["status"] == decomposition["status"] == "solved"
+                     and unchanged["before"] == unchanged["after"]
+                     and cosmetic["committed_steps"] == 1 and decomposition["committed_steps"] == 3) else 1
     if args.domain == "scheduling":
         from .scheduling_demo import run_demo
         report = run_demo()

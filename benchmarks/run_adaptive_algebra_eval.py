@@ -195,7 +195,7 @@ def adaptive_run(case, library, complete, max_calls, max_steps, *, symbolic=Fals
         complete=None if symbolic else augmented, counts=counts, stats=stats,
         # Preserve the v5 controller treatment; growth control is a later tool addition.
         max_model_calls=max_calls, max_steps=max_steps, control_expression_growth=False,
-        cost_aware_scheduling=False)
+        cost_aware_scheduling=False, goal_directed=False)
     outcome = learner.run(Task(case.id, GOAL, "algebra"), learn=False)
     run = outcome.result.run_result
     strategy = asdict(stats)

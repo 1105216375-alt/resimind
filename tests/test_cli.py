@@ -233,6 +233,30 @@ def test_local_scheduling_cli_labels_offline_scripted_fallback(installed_layout)
     assert "scripted callbacks=1" in result.stdout
 
 
+def test_goal_progress_cli_preserves_state_for_cosmetic_but_accepts_decomposition(installed_layout):
+    result = invoke(installed_layout, "demo", "--domain", "progress", "--json")
+    assert result.returncode == 0, result.stderr
+    assert not result.stderr
+    report = json.loads(result.stdout)
+    assert report["live_model"] is False
+    cosmetic, decomposition = report["cosmetic_recovery"], report["useful_decomposition"]
+    assert cosmetic["status"] == decomposition["status"] == "solved"
+    first = cosmetic["result"]["run_result"]["trace"][0]
+    assert first["decision"] == "defer" and first["before"] == first["after"]
+    assert cosmetic["committed_steps"] == 1 and decomposition["committed_steps"] == 3
+    assert all(event["decision"] == "accept"
+               for event in decomposition["result"]["run_result"]["trace"])
+    assert len(cosmetic["proposal_inputs"]) == 2 and len(decomposition["proposal_inputs"]) == 3
+
+
+def test_goal_progress_cli_labels_scripted_scope(installed_layout):
+    result = invoke(installed_layout, "demo", "--domain", "progress")
+    assert result.returncode == 0 and not result.stderr
+    assert "NOT A LIVE LLM RUN" in result.stdout
+    assert "cosmetic_recovery: solved; committed steps=1" in result.stdout
+    assert "useful_decomposition: solved; committed steps=3" in result.stdout
+
+
 @pytest.mark.parametrize("args", [(), ("demo", "--live"), ("demo", "--domain", "unknown"), ("unknown",),
                                   ("demo", "--scenario", "refund"),
                                   ("demo", "--domain", "bridge", "--scenario", "expired"),

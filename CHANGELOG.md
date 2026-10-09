@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.0 — 2026-10-09
+
+- Separate verified identity from goal progress in the adaptive polynomial loop. Assess progress after exact verification and before optional Lean checks; defer cosmetic rewrites with feedback about remaining expansion work.
+- Preserve useful local distribution and power decomposition even when expressions grow. Give uncertain intermediate steps a finite per-task allowance that cannot be refunded by changing state or rolling back.
+- Add explicit goal feedback and bounded progress observations, with an opt-out for earlier behavior. Progress heuristics never replace identity verification, Lean or the actual task-completion condition.
+- Add the offline `progress` demonstration for cosmetic recovery and useful decomposition. See [goal progress](docs/goal-progress.md). New quantitative evaluation records remain local.
+
 ## 0.10.0 — 2026-10-09
 
 - Compare bounded rule, compaction and local-expansion candidates before requesting a model. Prefer a candidate that completes the goal, then estimate remaining work and growth; a matching rule need not be selected. Exact verification and optional Lean checks remain mandatory for selected steps.

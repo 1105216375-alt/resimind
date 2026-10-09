@@ -19,6 +19,11 @@ See [local scheduling](cost-aware-scheduling.md) for costs, budgets and rule-eff
 observations. The fault-injection demo below explicitly keeps the earlier policy
 so its scripted mistakes still exercise recovery.
 
+The [goal-progress policy](goal-progress.md) also distinguishes a checked identity
+from a useful next step. Cosmetic rewrites receive feedback before Lean work;
+useful decomposition and a finite allowance for uncertain intermediate steps
+preserve routes that need larger expressions along the way.
+
 ## Use it
 
 Run the installed offline fault-injection fixture first:

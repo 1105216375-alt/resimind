@@ -26,7 +26,7 @@ def run_demo() -> dict:
     library, stats = KnowledgeLibrary(verifiers), AdaptiveStats()
     discovery = build_adaptive_learning_agent(
         PolynomialProblem("(x+1)*(x+2)*(x+3)", ("x",)), library,
-        complete=fixture, stats=stats, cost_aware_scheduling=False,
+        complete=fixture, stats=stats, cost_aware_scheduling=False, goal_directed=False,
     ).run(Task("adaptive-demo-discovery", "Expand the product", "algebra"))
     with TemporaryDirectory(prefix="resimind-adaptive-") as directory:
         path = Path(directory) / "rules.json"

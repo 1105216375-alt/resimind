@@ -25,6 +25,7 @@ def store():
 def solve(backend, *, library=None, complete=None, stats=None, **options):
     # Pin model-first proof-failure scenarios; default routing has separate tests.
     options.setdefault("cost_aware_scheduling", False)
+    options.setdefault("goal_directed", False)
     library = store() if library is None else library
     stats = AdaptiveStats() if stats is None else stats
     result = build_adaptive_learning_agent(
@@ -239,7 +240,7 @@ def test_new_run_resets_lean_budget_but_preserves_cumulative_metrics(monkeypatch
     learner = build_adaptive_learning_agent(PolynomialProblem(EXPRESSION, ("x",)), library,
         lean_backend=backend, max_lean_checks=1, max_model_calls=1, stats=stats, counts=counts,
         complete=lambda _: json.dumps({"after": EXPANDED, "tactic": "rfl"}),
-        cost_aware_scheduling=False)
+        cost_aware_scheduling=False, goal_directed=False)
     for task_id in ("first", "second"):
         result = learner.run(Task(task_id, "Expand", DOMAIN))
         assert result.result.run_result.state.facts == () and result.admissions == ()

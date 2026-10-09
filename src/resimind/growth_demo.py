@@ -17,7 +17,7 @@ def run_demo() -> dict:
             PolynomialProblem(expression, ("x",)), KnowledgeLibrary({"algebra": AlgebraVerifier()}),
             stats=stats, counts=counts, max_model_calls=0, max_steps=64,
             control_expression_growth=enabled,
-            cost_aware_scheduling=False,
+            cost_aware_scheduling=False, goal_directed=False,
         ).run(Task(name, "Expand within fixed limits", "algebra"), learn=False)
         run = outcome.result.run_result
         arms[name] = {"status": run.status, "steps": run.steps,

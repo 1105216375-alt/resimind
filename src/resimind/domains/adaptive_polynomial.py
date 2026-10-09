@@ -27,10 +27,11 @@ from .polynomial_learning import (
     DOMAIN, INPUT_ID, TARGET, RULE_ACTION, POLYNOMIAL_SYNTAX_GUIDANCE, PolynomialDomain, PolynomialProblem,
     PolynomialTool, WorkCounts, _StateBoundPolynomialVerifier, _expansion_rules,
     _bounded_macro, _match, _needs_expansion, _normalized_expression, _primitive, _state_fingerprint,
-    _text, _tree, _unique_object, distill_expansion, is_expanded,
+    _text, _tree, _unique_object, _unresolved_subexpressions, distill_expansion, is_expanded,
 )
 from .polynomial_simplification import bounded_distribute, compact_expression
 from .polynomial_scheduling import candidate_rank, cheap_progress, estimated_local_work, expression_cost
+from .polynomial_progress import assess_polynomial_progress
 
 STRATEGIES = ("whole_model", "local_model", "proof_model", "verified_rule", "simplify", "distribute", "primitive", "lean_retry", "rollback")
 MODEL_STRATEGIES = ("whole_model", "local_model", "proof_model")
@@ -94,6 +95,14 @@ class AdaptiveStats:
     scheduling_decisions_omitted: int = 0
     rule_usage: list[dict] = field(default_factory=list)
     rule_usage_omitted: int = 0
+    progress_checks: int = 0
+    progress_complete: int = 0
+    progress_structural: int = 0
+    progress_no_progress: int = 0
+    progress_detours: int = 0
+    progress_detour_rejections: int = 0
+    progress_events: list[dict] = field(default_factory=list)
+    progress_events_omitted: int = 0
     stop_reason: str = "not_started"
 
 
@@ -143,6 +152,8 @@ def _replace_path(expression: str, path: tuple[str, ...], replacement: str) -> s
 
 def _diagnose(reasons: tuple[str, ...]) -> FailureKind:
     text = " ".join(reasons)
+    if "polynomial_no_progress" in reasons:
+        return FailureKind.NO_PROGRESS
     if "lean_proof_unresolved" in reasons:
         return FailureKind.PROOF_INCOMPLETE
     if any(word in text for word in ("schema", "json", "state_mismatch", "evidence", "reference", "binding",
@@ -163,13 +174,17 @@ class _AdaptiveProposer:
     def __init__(self, problem, library, records, complete, counts, stats, task_id,
                  max_model_calls, max_steps, max_rollbacks, control_expression_growth,
                  lean_backend, max_lean_checks, cost_aware_scheduling=True,
-                 max_local_work=4096, max_rule_previews=16):
+                 max_local_work=4096, max_rule_previews=16, goal_directed=True,
+                 max_progress_detours=1):
         self.problem, self.library, self.records = problem, library, _expansion_rules(records)[:16]
         self.complete, self.counts, self.stats, self.task_id = complete, counts, stats, task_id
         self.max_model_calls, self.max_steps, self.max_rollbacks = max_model_calls, max_steps, max_rollbacks
         self.control_expression_growth = control_expression_growth
         self.cost_aware_scheduling = cost_aware_scheduling
         self.max_local_work, self.max_rule_previews = max_local_work, max_rule_previews
+        self.goal_directed, self.max_progress_detours = goal_directed, max_progress_detours
+        self.progress_detours_used = 0
+        self.progress_feedback = None
         self.scheduling_previews = {}
         self.scheduled_rules = {}
         self.scheduling_decision = None
@@ -522,6 +537,24 @@ class _AdaptiveProposer:
                    if selected is not None else
                    "Propose an equivalent expansion or useful intermediate rewrite of the whole current_expression.")),
         }
+        if self.goal_directed:
+            prompt["goal"] = {
+                "target": TARGET,
+                "description": "Expand products and powers that still contain sums; an equivalent expression alone is not the objective.",
+                "accepted_intermediates": "A genuine local distributive or power-unfolding step is useful even when its AST grows.",
+                "detours_used_in_task": self.progress_detours_used,
+                "max_progress_detours": self.max_progress_detours,
+            }
+            prompt["residual"] = {
+                "pending": [TARGET], "unexpanded_subexpressions": _unresolved_subexpressions(current),
+                "heuristic_only": True, "contains_expected_answer": False,
+            }
+            prompt["instruction"] += (
+                " Work toward the expansion goal and the displayed unresolved subexpressions. "
+                "Do not spend a step only changing signs or notation. Local distribution and power "
+                "decomposition are allowed; uncertain useful detours have a bounded task allowance.")
+            if self.progress_feedback is not None:
+                prompt["progress_feedback"] = deepcopy(self.progress_feedback)
         if self.lean_backend is not None:
             prompt["proof_tactics"] = list(ALLOWED_TACTICS)
             prompt["response_schema"]["properties"]["tactic"] = {
@@ -678,6 +711,66 @@ class _AdaptiveProposer:
         self.metadata[candidate.id] = dict(self.pending)
         return (candidate,)
 
+    def check_progress(self, candidate, state, before, after):
+        """Assess usefulness only after exact verification and before Lean work."""
+        if not self.goal_directed:
+            return None
+        metadata = self.metadata.get(candidate.id, {})
+        if metadata.get("strategy") == "rollback":
+            # The caller has already checked this exact ancestor. Deliberate
+            # recovery is not a new forward detour and never refunds one.
+            self.pending["progress_assessment"] = {
+                "classification": "checkpoint_recovery", "reason": "verified_ancestor_recovery",
+                "heuristic_only": True, "before": expression_cost(before), "after": expression_cost(after),
+                "unexpanded_subexpressions": _unresolved_subexpressions(after),
+                "local_probes": 0, "elapsed_seconds": 0.0,
+            }
+            return ()
+        self.stats.progress_checks += 1
+        try:
+            assessment = assess_polynomial_progress(before, after, self.problem.variables).to_dict()
+        except (ValueError, RecursionError):
+            # Lack of heuristic recognition is not mathematical falsity. It
+            # still needs the bounded exploration policy and every truth gate.
+            assessment = {
+                "classification": "uncertain", "reason": "progress_assessment_unavailable",
+                "heuristic_only": True, "before": {}, "after": {},
+                "unexpanded_subexpressions": _unresolved_subexpressions(after),
+                "local_probes": 0, "elapsed_seconds": 0.0,
+            }
+        self.pending["progress_assessment"] = assessment
+        classification = assessment["classification"]
+        if classification in ("complete", "structural"):
+            counter = "progress_" + classification
+            setattr(self.stats, counter, getattr(self.stats, counter) + 1)
+            return ()
+        if classification == "uncertain" and self.progress_detours_used < self.max_progress_detours:
+            # Charge only once this attempt actually commits. A failed Lean
+            # proof followed by a tactic retry has not consumed a detour yet.
+            self.pending["progress_detour"] = True
+            return ()
+        self.stats.progress_no_progress += 1
+        if classification == "uncertain":
+            self.stats.progress_detour_rejections += 1
+        current_remaining = _unresolved_subexpressions(before)
+        self.progress_feedback = {
+            **deepcopy(assessment), "state_revision": state.revision,
+            "state_fingerprint": _state_fingerprint(self.problem, state, before),
+            "current_unexpanded_subexpressions": current_remaining,
+            "detours_used_in_task": self.progress_detours_used,
+            "max_progress_detours": self.max_progress_detours,
+            "instruction": "Expand a remaining product or power over a sum; a sign-only equivalent rewrite is not expansion progress.",
+        }
+        # This candidate is not awaiting a proof; do not retry its tactic or
+        # carry stale proof feedback into correction of the rejected proposal.
+        self.pending_proof = None
+        self.lean_feedback = None
+        example = current_remaining["items"][0]["expression"][:128] if current_remaining["items"] else before[:128]
+        reason = ("No expansion progress; still pending: " + example + ". Expand that subexpression instead of changing notation."
+                  if classification == "cosmetic" else
+                  "Exploratory detour budget exhausted; expand a remaining product or power instead. Pending: " + example)
+        return ("polynomial_no_progress", reason)
+
     def check_lean(self, candidate, state, before, after):
         """Return a separate proof gate result; feedback is never an accepted fact."""
         if self.lean_backend is None:
@@ -765,6 +858,10 @@ class _AdaptiveProposer:
         after = self._current(event.after)
         after_key = _semantic(after)
         progress = accepted and strategy != "rollback" and (after_key != key or event.residual_after.solved)
+        if self.goal_directed and pending.get("progress_assessment") is not None:
+            progress = (accepted and strategy != "rollback"
+                        and (pending["progress_assessment"]["classification"] in ("complete", "structural")
+                             or event.residual_after.solved))
         if strategy is not None:
             self.controller.record(key, pending.get("controller_strategy", strategy), pending["candidate_key"], accepted=accepted,
                                    progress=progress, reasons=tuple(reasons), failure_kind=kind,
@@ -772,6 +869,21 @@ class _AdaptiveProposer:
         if accepted:
             self.pending_proof = None
             self.lean_feedback = None
+            self.progress_feedback = None
+            if pending.get("progress_detour"):
+                self.progress_detours_used += 1
+                self.stats.progress_detours += 1
+                self.progress_feedback = {
+                    **deepcopy(pending["progress_assessment"]),
+                    "state_revision": event.after.revision,
+                    "state_fingerprint": _state_fingerprint(self.problem, event.after, after),
+                    "current_unexpanded_subexpressions": _unresolved_subexpressions(after),
+                    "exploratory_step_accepted": True,
+                    "actual_goal_complete": event.residual_after.solved,
+                    "detours_used_in_task": self.progress_detours_used,
+                    "max_progress_detours": self.max_progress_detours,
+                    "instruction": "This equivalent exploratory step was accepted, but expansion is still incomplete. Make a structural expansion step next.",
+                }
             counter = "rule" if strategy == "verified_rule" else strategy
             setattr(self.stats, counter + "_accepts", getattr(self.stats, counter + "_accepts") + 1)
             if strategy == "rollback":
@@ -820,6 +932,21 @@ class _AdaptiveProposer:
                 self.priority = ["whole_model", "lean_retry", "local_model", "verified_rule",
                                  "simplify", "distribute", "primitive", "rollback"]
         nodes, length = self._track_size(after)
+        if pending.get("progress_assessment") is not None:
+            progress_observation = {
+                "task_id": self.task_id, "step": event.step,
+                "state_fingerprint": _state_fingerprint(self.problem, event.before, self._current(event.before)),
+                **deepcopy(pending["progress_assessment"]),
+                "decision": event.decision.value, "accepted": accepted,
+                "actual_goal_complete": event.residual_after.solved, "goal_progress": progress,
+                "detour_charged": bool(accepted and pending.get("progress_detour")),
+                "detours_used_in_task": self.progress_detours_used,
+                "max_progress_detours": self.max_progress_detours,
+            }
+            if len(self.stats.progress_events) < 512:
+                self.stats.progress_events.append(progress_observation)
+            else:
+                self.stats.progress_events_omitted += 1
         if pending.get("rule_id"):
             observed = {
                 "task_id": self.task_id, "step": event.step,
@@ -849,6 +976,7 @@ class _AdaptiveProposer:
                      "selected_expression": pending.get("selected_expression"),
                      "rollback_target": pending.get("rollback_target"),
                      "lean_proof": pending.get("lean_proof"),
+                     "progress_assessment": pending.get("progress_assessment"),
                      "next_strategy_order": list(self.priority), "model_calls_in_task": self.model_calls})
         self.pending = None
 
@@ -884,6 +1012,9 @@ class _AdaptiveVerifier:
             reason = "adaptive_cycle_detected"
         if not allowed:
             return Verdict.for_candidate(candidate, state, Decision.REJECT, evidence=evidence, reasons=(reason,))
+        progress_reasons = self.proposer.check_progress(candidate, state, verdict.facts[0].value[0], after)
+        if progress_reasons:
+            return Verdict.for_candidate(candidate, state, Decision.DEFER, evidence=evidence, reasons=progress_reasons)
         lean_reasons = self.proposer.check_lean(candidate, state, verdict.facts[0].value[0], after)
         if lean_reasons:
             return Verdict.for_candidate(candidate, state, Decision.DEFER, evidence=evidence, reasons=lean_reasons)
@@ -933,6 +1064,7 @@ def build_adaptive_learning_agent(
     lean_backend: LeanPolynomialBackend | None = None, max_lean_checks: int = 64,
     cost_aware_scheduling: bool = True, max_local_work: int = 4096,
     max_rule_previews: int = 16,
+    goal_directed: bool = True, max_progress_detours: int = 1,
 ) -> LearningAgent:
     """Build an opt-in adaptive learner; legacy adapters remain unchanged.
 
@@ -957,6 +1089,11 @@ def build_adaptive_learning_agent(
     ``cost_aware_scheduling=False`` retains the previous strategy order, with
     ``control_expression_growth`` remaining a separate switch. Preview and
     rule-use observations are bounded JSON data, never verification evidence.
+    After exact identity verification, goal-directed progress checks run before
+    Lean. Cosmetic changes are deferred; uncertain steps may use a small
+    per-task detour allowance, charged only on actual acceptance. Rollback does
+    not refund it. Set ``goal_directed=False`` for the previous acceptance and
+    prompt behavior. Progress assessment is a fallible heuristic, not a proof.
     """
     if not isinstance(problem, PolynomialProblem) or not isinstance(library, KnowledgeLibrary):
         raise ValueError("expected PolynomialProblem and KnowledgeLibrary")
@@ -966,6 +1103,10 @@ def build_adaptive_learning_agent(
         raise ValueError("control_expression_growth must be a bool")
     if type(cost_aware_scheduling) is not bool:
         raise ValueError("cost_aware_scheduling must be a bool")
+    if type(goal_directed) is not bool:
+        raise ValueError("goal_directed must be a bool")
+    if type(max_progress_detours) is not int or not 0 <= max_progress_detours <= MAX_DERIVATION_STEPS:
+        raise ValueError("max_progress_detours must be an integer from 0 through 64")
     if type(max_local_work) is not int or not 0 <= max_local_work <= 100_000:
         raise ValueError("max_local_work must be an integer from 0 through 100000")
     if type(max_rule_previews) is not int or not 1 <= max_rule_previews <= 16:
@@ -991,7 +1132,7 @@ def build_adaptive_learning_agent(
         proposer = _AdaptiveProposer(problem, library, records, complete, counts, stats, task.id,
                                      max_model_calls, max_steps, max_rollbacks, control_expression_growth,
                                      lean_backend, max_lean_checks, cost_aware_scheduling,
-                                     max_local_work, max_rule_previews)
+                                     max_local_work, max_rule_previews, goal_directed, max_progress_detours)
         return _AdaptiveAgent(
             adaptive_proposer=proposer, domain_factory=lambda _: PolynomialDomain(problem, counts),
             verifier_factory=lambda _: _AdaptiveVerifier(proposer),
