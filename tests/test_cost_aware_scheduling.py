@@ -121,6 +121,54 @@ def test_comparison_considers_later_better_matching_rule():
         bloated.candidate.id, compact.candidate.id}
 
 
+def test_overflow_charge_binds_to_selected_rule_instead_of_first_matching_rule():
+    store = library()
+    first = admit(store, "rule:first-bloated", "(a+b)**4",
+                  "a*a*a*a+4*a*a*a*b+6*a*a*b*b+4*a*b*b*b+b*b*b*b")
+    selected = admit(store, "rule:second-compact", "(a+b)**4", QUARTIC)
+    outcome, stats, _, _ = solve("(5*z+7)**4", store=store, complete=no_model,
+                                  max_local_work=0, max_local_work_overflow=1000)
+    assert outcome.result.run_result.status == "solved"
+    assert outcome.result.run_result.state.facts[0].value[2] == selected.candidate.id
+    estimates = {entry["rule_id"]: entry["estimated_local_work"]
+                 for entry in stats.scheduling_decisions[0]["candidates"] if entry["rule_id"]}
+    assert estimates[first.candidate.id] > estimates[selected.candidate.id]
+    assert stats.local_work_overflow_spent == estimates[selected.candidate.id]
+    grants = [event for event in stats.events if event.get("event") == "local_work_overflow_granted"]
+    assert len(grants) == 1 and grants[0]["rule_id"] == selected.candidate.id
+    assert grants[0]["overflow_cost"] == estimates[selected.candidate.id]
+
+
+def test_overflow_denials_are_deduplicated_across_repeated_previews(monkeypatch):
+    original = module._AdaptiveProposer._available_cost_aware
+    observed = []
+
+    def twice(self, *args):
+        first = original(self, *args)
+        denials = self.stats.local_work_overflow_denials
+        original(self, *args)
+        assert self.stats.local_work_overflow_denials == denials
+        observed.append(denials)
+        return first
+
+    monkeypatch.setattr(module._AdaptiveProposer, "_available_cost_aware", twice)
+    outcome, stats, _, _ = solve("(3*z+8)**4", max_local_work=0,
+                                  max_local_work_overflow=1)
+    assert observed and observed[0] > 0
+    assert outcome.result.run_result.state.facts == ()
+    assert stats.local_work_overflow_spent == stats.local_work_overflow_grants == 0
+
+
+def test_overflow_cannot_admit_a_false_local_candidate(monkeypatch):
+    monkeypatch.setattr(module, "bounded_distribute", lambda *args: "0")
+    outcome, stats, _, store = solve("(z-4)*(z+6)", max_local_work=0,
+                                      max_local_work_overflow=1, learn=True)
+    assert outcome.result.run_result.trace[0].decision is Decision.REJECT
+    assert outcome.result.run_result.state.facts == ()
+    assert stats.local_work_overflow_spent == stats.local_work_overflow_grants == 0
+    assert outcome.admissions == () and store.lookup(DOMAIN) == ()
+
+
 def test_one_rejected_rule_does_not_disable_another_rule(monkeypatch):
     store = library()
     first = admit(store, "rule:first-short", "(a+b)**4", QUARTIC)

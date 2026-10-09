@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.1 — 2026-10-10
+
+- Fix overflow accounting when several verified rules match the same state: the reserve is now bound to the rule actually selected, not the first previewed rule.
+- Track cumulative overflow spent in shared statistics, deduplicate budget denials, and keep the accounting audit explicit about the selected strategy and rule.
+- Keep failed proof gates and rollback paths free of overflow charges. The full regression suite passes with 1,652 tests.
+
 ## 0.12.0 — 2026-10-09
 
 - Add an opt-in cumulative local-work overflow reserve for unusually large symbolic steps. Each accepted candidate pays only its estimated excess over the normal bound; the reserve is finite, never refunded by rollback, and remains behind exact identity, goal-progress, and optional Lean gates.

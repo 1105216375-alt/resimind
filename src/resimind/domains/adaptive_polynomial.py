@@ -104,6 +104,7 @@ class AdaptiveStats:
     progress_events: list[dict] = field(default_factory=list)
     progress_events_omitted: int = 0
     local_work_overflow_grants: int = 0
+    local_work_overflow_spent: int = 0
     local_work_overflow_denials: int = 0
     stop_reason: str = "not_started"
 
@@ -186,6 +187,7 @@ class _AdaptiveProposer:
         self.max_local_work, self.max_rule_previews = max_local_work, max_rule_previews
         self.max_local_work_overflow = max_local_work_overflow
         self.local_work_overflow_spent = 0
+        self.overflow_denied_candidates = set()
         self.goal_directed, self.max_progress_detours = goal_directed, max_progress_detours
         self.progress_detours_used = 0
         self.progress_feedback = None
@@ -369,6 +371,10 @@ class _AdaptiveProposer:
                 entry["overflow_cost"] = overflow_cost
             else:
                 entry["reason"] = "estimated_local_work_exceeds_budget"
+                denial_key = (key, candidate_key)
+                if self.max_local_work_overflow and denial_key not in self.overflow_denied_candidates:
+                    self.overflow_denied_candidates.add(denial_key)
+                    self.stats.local_work_overflow_denials += 1
                 return
         if not cheap_progress(before, entry["after"]) and strategy != "primitive":
             entry["reason"] = "no_estimated_progress"
@@ -637,7 +643,8 @@ class _AdaptiveProposer:
                         "scheduling_decision": decision,
                         "candidate_key": None, "host_reasons": (), "path": None, "lean_tactic": "grind"}
         selected_preview = next((item for item in self.scheduling_decision.get("candidates", [])
-                                 if item.get("strategy") == strategy and item.get("eligible")), None)
+                                 if item.get("strategy") == strategy and item.get("eligible")
+                                 and item.get("rule_id") == decision["selected_rule_id"]), None)
         if selected_preview is not None:
             self.pending["estimated_local_work"] = selected_preview.get("estimated_local_work")
             self.pending["overflow_candidate"] = bool(selected_preview.get("overflow_candidate"))
@@ -669,6 +676,11 @@ class _AdaptiveProposer:
                 after = self._model_after(state, current, strategy, selected)
                 if after is not None and selected is not None:
                     after = _replace_path(current, selected[0], after)
+                if (strategy == "proof_model" and after is not None
+                        and _semantic(after) == _semantic(self.pending_proof["after"])):
+                    # A tactic-only correction still commits the original
+                    # local candidate. Its failed proof has not paid yet.
+                    self.pending.update(self.pending_proof.get("local_work_accounting", {}))
             elif strategy == "verified_rule":
                 rule_id, action = rule.candidate.id, RULE_ACTION
                 self.pending["rule_id"] = rule_id
@@ -691,6 +703,7 @@ class _AdaptiveProposer:
                 after = compact if strategy == "simplify" else distributed
             elif strategy == "lean_retry":
                 after = self.pending_proof["after"]
+                self.pending.update(self.pending_proof.get("local_work_accounting", {}))
                 action = self.pending_proof["action"]
                 claim = json.loads(self.pending_proof["claim"])
                 rule_id = claim["rule_id"]
@@ -854,7 +867,11 @@ class _AdaptiveProposer:
         if proof.status == "unresolved":
             self.stats.lean_unresolved += 1
             self.pending_proof = {"state_key": _semantic(before), "after": after,
-                                  "action": candidate.action, "claim": candidate.claim, "tactic": tactic}
+                                  "action": candidate.action, "claim": candidate.claim, "tactic": tactic,
+                                  "local_work_accounting": {
+                                      name: self.pending[name] for name in (
+                                          "estimated_local_work", "overflow_candidate", "overflow_cost")
+                                      if name in self.pending}}
         else:
             self.stats.lean_errors += 1
             self.pending_proof = None
@@ -890,8 +907,10 @@ class _AdaptiveProposer:
                 overflow_cost = int(pending.get("overflow_cost") or 0)
                 self.local_work_overflow_spent += overflow_cost
                 self.stats.local_work_overflow_grants += 1
+                self.stats.local_work_overflow_spent += overflow_cost
                 self._audit({"event": "local_work_overflow_granted", "base_budget": self.max_local_work,
                              "overflow_budget": self.max_local_work_overflow,
+                             "step": event.step, "strategy": strategy, "rule_id": pending.get("rule_id"),
                              "overflow_cost": overflow_cost,
                              "overflow_spent": self.local_work_overflow_spent,
                              "overflow_remaining": self.max_local_work_overflow - self.local_work_overflow_spent,
@@ -1116,6 +1135,10 @@ def build_adaptive_learning_agent(
     The default scheduler compares bounded local and recalled-rule previews
     before enabling a model. ``max_local_work`` caps a dimensionless syntax
     estimate, not actual runtime; zero forces escalation when a model exists.
+    ``max_local_work_overflow`` optionally supplies a per-task reserve for
+    cumulative accepted excess over that bound. Failed checks do not spend it;
+    proof-only retries retain the originating local candidate's charge, and
+    rollback never refunds an accepted charge. The default reserve is zero.
     ``cost_aware_scheduling=False`` retains the previous strategy order, with
     ``control_expression_growth`` remaining a separate switch. Preview and
     rule-use observations are bounded JSON data, never verification evidence.
