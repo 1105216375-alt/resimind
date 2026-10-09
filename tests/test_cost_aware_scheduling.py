@@ -281,6 +281,24 @@ def test_exhausted_local_and_model_budgets_stop_without_fabricated_success():
     assert outcome.admissions == () and store.lookup(DOMAIN) == ()
 
 
+def test_local_work_overflow_is_bounded_and_can_cover_multiple_steps():
+    expression = "(x+y)**8*(2*x-3*y+1)**4"
+    cold, cold_stats, _, _ = solve(expression, variables=("x", "y"),
+                                   max_local_work=4096, max_local_work_overflow=0)
+    assert cold.result.run_result.status != "solved"
+    assert cold_stats.local_work_overflow_grants == 0
+
+    outcome, stats, _, _ = solve(expression, variables=("x", "y"),
+                                  max_local_work=4096, max_local_work_overflow=4096)
+    assert outcome.result.run_result.status == "solved"
+    assert stats.model_calls == 0
+    assert stats.local_work_overflow_grants >= 2
+    grants = [event for event in stats.events if event.get("event") == "local_work_overflow_granted"]
+    assert grants and sum(event["overflow_cost"] for event in grants) <= 4096
+    assert grants[-1]["overflow_spent"] <= 4096
+    assert_checked(expression, ("x", "y"), outcome)
+
+
 def test_reusing_learner_refreshes_task_budget_without_resetting_audit_totals():
     stats = AdaptiveStats()
     calls = []
@@ -409,6 +427,8 @@ def test_controller_eligibility_rejects_invalid_queries_without_mutation(state, 
     {"cost_aware_scheduling": 1}, {"cost_aware_scheduling": "true"},
     {"cost_aware_scheduling": None}, {"max_local_work": -1},
     {"max_local_work": True}, {"max_local_work": 1.5},
+    {"max_local_work_overflow": -1}, {"max_local_work_overflow": True},
+    {"max_local_work_overflow": 1.5},
     {"max_rule_previews": 0}, {"max_rule_previews": 17},
     {"max_rule_previews": True}, {"max_rule_previews": 2.5},
 ])

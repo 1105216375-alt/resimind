@@ -185,7 +185,7 @@ class _AdaptiveProposer:
         self.cost_aware_scheduling = cost_aware_scheduling
         self.max_local_work, self.max_rule_previews = max_local_work, max_rule_previews
         self.max_local_work_overflow = max_local_work_overflow
-        self.local_work_overflow_used = False
+        self.local_work_overflow_spent = 0
         self.goal_directed, self.max_progress_detours = goal_directed, max_progress_detours
         self.progress_detours_used = 0
         self.progress_feedback = None
@@ -362,10 +362,11 @@ class _AdaptiveProposer:
             entry["reason"] = "duplicate_or_cycle_candidate"
             return
         if entry["estimated_local_work"] > self.max_local_work:
-            hard_limit = self.max_local_work + self.max_local_work_overflow
-            if (self.max_local_work_overflow > 0 and not self.local_work_overflow_used
-                    and entry["estimated_local_work"] <= hard_limit):
+            overflow_cost = entry["estimated_local_work"] - self.max_local_work
+            remaining_overflow = self.max_local_work_overflow - self.local_work_overflow_spent
+            if self.max_local_work_overflow > 0 and overflow_cost <= remaining_overflow:
                 entry["overflow_candidate"] = True
+                entry["overflow_cost"] = overflow_cost
             else:
                 entry["reason"] = "estimated_local_work_exceeds_budget"
                 return
@@ -464,7 +465,8 @@ class _AdaptiveProposer:
             "selected_strategy": None, "selected_rule_id": None, "selection_reason": reason,
             "max_local_work": self.max_local_work, "model_enabled": model_enabled,
             "max_local_work_overflow": self.max_local_work_overflow,
-            "local_work_overflow_used": self.local_work_overflow_used,
+            "local_work_overflow_used": self.local_work_overflow_spent > 0,
+            "local_work_overflow_spent": self.local_work_overflow_spent,
             "preview_cache_hit": cache_hit, "preview_nodes": self.stats.scheduling_preview_nodes - previous_nodes,
             "preview_elapsed_seconds": elapsed,
         }
@@ -639,6 +641,7 @@ class _AdaptiveProposer:
         if selected_preview is not None:
             self.pending["estimated_local_work"] = selected_preview.get("estimated_local_work")
             self.pending["overflow_candidate"] = bool(selected_preview.get("overflow_candidate"))
+            self.pending["overflow_cost"] = selected_preview.get("overflow_cost", 0)
         if strategy is None:
             self.no_more_strategies = True
             self.pending["host_reasons"] = (self.lean_stop or "strategy_exhausted",)
@@ -884,10 +887,14 @@ class _AdaptiveProposer:
                                    revision=event.after.revision)
         if accepted:
             if pending.get("overflow_candidate"):
-                self.local_work_overflow_used = True
+                overflow_cost = int(pending.get("overflow_cost") or 0)
+                self.local_work_overflow_spent += overflow_cost
                 self.stats.local_work_overflow_grants += 1
                 self._audit({"event": "local_work_overflow_granted", "base_budget": self.max_local_work,
                              "overflow_budget": self.max_local_work_overflow,
+                             "overflow_cost": overflow_cost,
+                             "overflow_spent": self.local_work_overflow_spent,
+                             "overflow_remaining": self.max_local_work_overflow - self.local_work_overflow_spent,
                              "estimated_local_work": pending.get("estimated_local_work")})
             self.pending_proof = None
             self.lean_feedback = None
