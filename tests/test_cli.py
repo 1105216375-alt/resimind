@@ -81,7 +81,8 @@ def test_adaptive_recovery_and_reloaded_rule_reuse_from_installed_package(instal
     assert discovery["status"] == transfer["status"] == "solved"
     assert discovery["strategy_audit"]["whole_model_accepts"] == 0
     assert discovery["strategy_audit"]["local_model_accepts"] == 1
-    assert discovery["strategy_audit"]["primitive_accepts"] > 0
+    assert (discovery["strategy_audit"]["primitive_accepts"]
+            + discovery["strategy_audit"]["distribute_accepts"]) > 0
     assert discovery["strategy_audit"]["strategy_switches"] >= 2
     assert len(discovery["admitted_rules"]) == 1
     assert transfer["strategy_audit"]["model_calls"] == 0
@@ -96,6 +97,50 @@ def test_adaptive_text_labels_fixture_without_claiming_a_live_run(installed_layo
     assert "OFFLINE scripted adaptive recovery | NOT A LIVE LLM RUN" in result.stdout
     assert "whole_model: reject" in result.stdout and "local_model: accept" in result.stdout
     assert "transfer: solved; checked rule uses=1" in result.stdout
+
+
+def test_installed_growth_control_compares_the_same_task_and_reports_unfinished_arm(installed_layout):
+    result = invoke(installed_layout, "demo", "--domain", "growth-control", "--json")
+    assert result.returncode == 0, result.stderr
+    report = json.loads(result.stdout)
+    assert report["live_model"] is False
+    old, new = report["arms"]["primitive"], report["arms"]["bounded_growth"]
+    assert old["status"] != "solved" and old["output"] is None
+    assert new["status"] == "solved" and new["steps"] < old["steps"]
+    assert new["strategy_audit"]["peak_expression_nodes"] < old["strategy_audit"]["peak_expression_nodes"]
+    assert old["counts"]["proposal_calls"] == new["counts"]["proposal_calls"] == 0
+
+
+def test_installed_lean_demo_exposes_real_goals_before_commit(installed_layout):
+    from resimind.integrations.lean import LeanPolynomialBackend
+    backend = LeanPolynomialBackend()
+    if backend.lean_path is None or not Path(backend.lean_path).is_file():
+        pytest.skip("optional Lean 4.29.0 installation not available")
+    probe = backend.check("x", "x", ("x",), tactic="rfl")
+    if probe.status == "unavailable":
+        pytest.skip("optional pinned Lean toolchain not available")
+    assert probe.status == "verified"
+    result = invoke(installed_layout, "demo", "--domain", "lean", "--json")
+    assert result.returncode == 0, result.stderr
+    report = json.loads(result.stdout)
+    assert report["live_model"] is False and report["mode"] == "scripted-proposals-real-local-lean"
+    discovery = report["discovery"]
+    assert discovery["status"] == report["transfer"]["status"] == "solved"
+    assert report["proposal_inputs"][1]["proof_feedback"]["goals"]
+    assert discovery["strategy_audit"]["lean_unresolved"] == 1
+    assert discovery["result"]["run_result"]["trace"][0]["after"]["facts"] == []
+    assert report["transfer"]["strategy_audit"]["lean_verified"] == 1
+
+
+def test_missing_lean_cli_returns_failure_with_no_symbolic_success(monkeypatch, capsys, tmp_path):
+    from resimind import lean_demo
+    from resimind.integrations.lean import LeanPolynomialBackend
+    monkeypatch.setattr(lean_demo, "LeanPolynomialBackend", lambda: LeanPolynomialBackend(tmp_path / "missing"))
+    assert cli.main(["demo", "--domain", "lean", "--json"]) == 1
+    report = json.loads(capsys.readouterr().out)
+    assert report["discovery"]["status"] != "solved"
+    assert report["discovery"]["admitted_rules"] == []
+    assert report["transfer"]["status"] == "not_run"
 
 
 def test_knowledge_growth_json_reports_discovery_and_transfer_separately(installed_layout):

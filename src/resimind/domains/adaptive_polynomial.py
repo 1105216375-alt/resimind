@@ -1,8 +1,8 @@
 """Bounded strategy adaptation around the existing exact polynomial verifier.
 
-Models propose text only. Local edits, recalled rules, primitive AST rewrites,
-and append-only rollback transitions all pass the same Engine verification gate.
-No polynomial coefficient calculator is used to generate answers here.
+Models propose text only. Local edits, recalled rules, bounded distributive
+rewrites, compaction and rollback all pass the same Engine verification gate.
+Candidate generation never calls the independent identity checker for answers.
 """
 from __future__ import annotations
 
@@ -16,6 +16,10 @@ from ..agent import Agent, Task
 from ..core import Candidate, Decision, State, Verdict, content_digest
 from ..knowledge import KnowledgeLibrary
 from ..learning import LearningAgent
+from ..integrations.lean import (
+    ALLOWED_TACTICS, APPROVED_AXIOMS, SUPPORTED_LEAN_VERSION, LeanPolynomialBackend, LeanProofResult,
+    polynomial_binding_digest,
+)
 from ..strategy import FailureKind, StrategyController
 from .algebra import MAX_DERIVATION_STEPS, MAX_SOURCE_LENGTH, _tree as _bounded_tree
 from .polynomial_learning import (
@@ -24,8 +28,10 @@ from .polynomial_learning import (
     _match, _needs_expansion, _normalized_expression, _primitive, _state_fingerprint,
     _text, _tree, _unique_object, distill_expansion, is_expanded,
 )
+from .polynomial_simplification import bounded_distribute, compact_expression
 
-STRATEGIES = ("whole_model", "local_model", "verified_rule", "primitive", "rollback")
+STRATEGIES = ("whole_model", "local_model", "proof_model", "verified_rule", "simplify", "distribute", "primitive", "lean_retry", "rollback")
+MODEL_STRATEGIES = ("whole_model", "local_model", "proof_model")
 
 
 @dataclass
@@ -41,6 +47,8 @@ class AdaptiveStats:
     whole_model_accepts: int = 0
     local_model_attempts: int = 0
     local_model_accepts: int = 0
+    proof_model_attempts: int = 0
+    proof_model_accepts: int = 0
     model_failures: int = 0
     schema_failures: int = 0
     model_abstentions: int = 0
@@ -53,6 +61,22 @@ class AdaptiveStats:
     rule_accepts: int = 0
     primitive_attempts: int = 0
     primitive_accepts: int = 0
+    simplify_attempts: int = 0
+    simplify_accepts: int = 0
+    distribute_attempts: int = 0
+    distribute_accepts: int = 0
+    simplification_probes: int = 0
+    distribution_probes: int = 0
+    peak_expression_nodes: int = 0
+    peak_expression_length: int = 0
+    lean_checks: int = 0
+    lean_verified: int = 0
+    lean_unresolved: int = 0
+    lean_errors: int = 0
+    lean_retry_attempts: int = 0
+    lean_retry_accepts: int = 0
+    lean_feedback_prompts: int = 0
+    lean_budget_exhausted: bool = False
     action_attempts: int = 0
     failures: int = 0
     model_budget_exhausted: bool = False
@@ -109,6 +133,8 @@ def _replace_path(expression: str, path: tuple[str, ...], replacement: str) -> s
 
 def _diagnose(reasons: tuple[str, ...]) -> FailureKind:
     text = " ".join(reasons)
+    if "lean_proof_unresolved" in reasons:
+        return FailureKind.PROOF_INCOMPLETE
     if any(word in text for word in ("schema", "json", "state_mismatch", "evidence", "reference", "binding",
                                     "rewrite_before_mismatch")):
         return FailureKind.SCHEMA_BINDING
@@ -125,10 +151,18 @@ def _diagnose(reasons: tuple[str, ...]) -> FailureKind:
 
 class _AdaptiveProposer:
     def __init__(self, problem, library, records, complete, counts, stats, task_id,
-                 max_model_calls, max_steps, max_rollbacks):
+                 max_model_calls, max_steps, max_rollbacks, control_expression_growth,
+                 lean_backend, max_lean_checks):
         self.problem, self.library, self.records = problem, library, _expansion_rules(records)[:16]
         self.complete, self.counts, self.stats, self.task_id = complete, counts, stats, task_id
         self.max_model_calls, self.max_steps, self.max_rollbacks = max_model_calls, max_steps, max_rollbacks
+        self.control_expression_growth = control_expression_growth
+        self.growth_options = {}
+        self.lean_backend, self.max_lean_checks = lean_backend, max_lean_checks
+        self.lean_checks = 0
+        self.lean_feedback = None
+        self.pending_proof = None
+        self.lean_stop = None
         self.controller = StrategyController(STRATEGIES, max_attempts=max_steps,
                                              max_attempts_per_strategy=3, max_failures_per_strategy=2)
         self.model_calls = self.attempts = self.rollbacks = 0
@@ -148,6 +182,35 @@ class _AdaptiveProposer:
         self.pending = None
         self.metadata = {}
         self.no_more_strategies = False
+        self._track_size(problem.expression)
+
+    def _track_size(self, expression):
+        # Metrics must not impose a stricter algebra grammar than the verifier
+        # (for example, a high syntactic degree that disappears after zeroing).
+        nodes = sum(1 for _ in ast.walk(_bounded_tree(expression)))
+        length = len(expression)
+        self.stats.peak_expression_nodes = max(self.stats.peak_expression_nodes, nodes)
+        self.stats.peak_expression_length = max(self.stats.peak_expression_length, length)
+        return nodes, length
+
+    def _growth_candidates(self, expression, key):
+        if not self.control_expression_growth:
+            return None, None
+        if key not in self.growth_options:
+            self.stats.simplification_probes += 1
+            try:
+                compact = compact_expression(expression, self.problem.variables)
+            except ValueError:
+                compact = None
+            distributed = None
+            if compact is None:
+                self.stats.distribution_probes += 1
+                try:
+                    distributed = bounded_distribute(expression, self.problem.variables)
+                except ValueError:
+                    distributed = None
+            self.growth_options[key] = (compact, distributed)
+        return self.growth_options[key]
 
     def _audit(self, value):
         if len(self.stats.events) < 512:
@@ -179,6 +242,9 @@ class _AdaptiveProposer:
         return None
 
     def _available(self, state, current, key):
+        if self.lean_stop:
+            return (), None, None, None, None, None, None
+        compact, distributed = self._growth_candidates(current, key)
         paths = _paths(current)
         local = next((item for item in paths if (key, "local_model", item[0]) not in self.failed_paths), None)
         primitive = next((item for item in paths if (key, "primitive", item[0]) not in self.failed_paths), None)
@@ -194,12 +260,25 @@ class _AdaptiveProposer:
             "whole_model": model_available and (key, "whole_model") not in self.disabled,
             "local_model": model_available and local is not None and (key, "local_model") not in self.disabled,
             "verified_rule": rule is not None,
+            "simplify": compact is not None,
+            "distribute": distributed is not None,
             "primitive": primitive is not None,
             "rollback": rollback is not None,
+            "proof_model": (model_available and self.pending_proof is not None
+                            and self.pending_proof["state_key"] == key
+                            and not self.pending_proof.get("model_feedback_used", False)),
+            "lean_retry": (self.pending_proof is not None and self.pending_proof["state_key"] == key
+                           and self.pending_proof["tactic"] != "grind"),
         }
-        priority = (["rollback"] + [name for name in self.priority if name != "rollback"]
-                    if rollback is not None else self.priority)
-        return tuple(name for name in priority if choices[name]), local, primitive, rule, rollback
+        priority = list(self.priority)
+        if choices["lean_retry"] or choices["proof_model"]:
+            # Give the model one chance to use real proof feedback, then try
+            # the fixed stronger tactic within the same action/check budgets.
+            priority = ["proof_model", "lean_retry"] + [
+                name for name in priority if name not in ("proof_model", "lean_retry")]
+        if rollback is not None:
+            priority = ["rollback"] + [name for name in priority if name != "rollback"]
+        return tuple(name for name in priority if choices[name]), local, primitive, rule, rollback, compact, distributed
 
     def _model_after(self, state, current, strategy, selected):
         self.model_calls += 1
@@ -227,6 +306,18 @@ class _AdaptiveProposer:
                    if selected is not None else
                    "Propose an equivalent expansion or useful intermediate rewrite of the whole current_expression.")),
         }
+        if self.lean_backend is not None:
+            prompt["proof_tactics"] = list(ALLOWED_TACTICS)
+            prompt["response_schema"]["properties"]["tactic"] = {
+                "type": "string", "enum": list(ALLOWED_TACTICS)}
+            prompt["instruction"] += (
+                " You may additionally return tactic: rfl or grind; grind is the default. "
+                "Lean must prove each full-expression equality before it can commit. "
+                "When proof_feedback is present, inspect its actual goal and diagnostics; "
+                "you may retry its proposed_after with a different tactic or propose another rewrite.")
+            if self.lean_feedback is not None:
+                prompt["proof_feedback"] = deepcopy(self.lean_feedback)
+                self.stats.lean_feedback_prompts += 1
         try:
             text = self.complete(json.dumps(prompt, ensure_ascii=False, sort_keys=True))
         except Exception as exc:
@@ -241,8 +332,13 @@ class _AdaptiveProposer:
                 self.stats.model_abstentions += 1
                 self.pending["host_reasons"] = ("model_abstained",)
                 return None
-            if type(result) is not dict or set(result) != {"after"} or type(result["after"]) is not str:
+            fields = ({"after"}, {"after", "tactic"}) if self.lean_backend is not None else ({"after"},)
+            if type(result) is not dict or set(result) not in fields or type(result.get("after")) is not str:
                 raise ValueError("invalid local response schema")
+            tactic = result.get("tactic", "grind")
+            if type(tactic) is not str or tactic not in ALLOWED_TACTICS:
+                raise ValueError("invalid proof tactic")
+            self.pending["lean_tactic"] = tactic
             if len(result["after"]) > MAX_SOURCE_LENGTH:
                 self.pending["host_reasons"] = ("model_after_resource_limit",)
                 return None
@@ -259,13 +355,13 @@ class _AdaptiveProposer:
         key = _semantic(current)
         self.attempts += 1
         self.stats.action_attempts += 1
-        available, local, primitive, rule, rollback = self._available(state, current, key)
+        available, local, primitive, rule, rollback, compact, distributed = self._available(state, current, key)
         strategy = self.controller.select(key, available, checkpoint={"revision": state.revision, "state_key": key})
         self.pending = {"strategy": strategy, "state_key": key, "revision": state.revision,
-                        "candidate_key": None, "host_reasons": (), "path": None}
+                        "candidate_key": None, "host_reasons": (), "path": None, "lean_tactic": "grind"}
         if strategy is None:
             self.no_more_strategies = True
-            self.pending["host_reasons"] = ("strategy_exhausted",)
+            self.pending["host_reasons"] = (self.lean_stop or "strategy_exhausted",)
             candidate = Candidate(f"adaptive:{self.attempts}", "adaptive_stop", TARGET,
                                   "All available bounded strategies are exhausted.",
                                   (INPUT_ID,) + ((state.facts[-1].id,) if state.facts else ()))
@@ -280,7 +376,9 @@ class _AdaptiveProposer:
         claim = {"state_revision": state.revision,
                  "state_fingerprint": _state_fingerprint(self.problem, state, current)}
         try:
-            if strategy in ("whole_model", "local_model"):
+            if strategy in MODEL_STRATEGIES:
+                if strategy == "proof_model":
+                    self.pending_proof["model_feedback_used"] = True
                 selected = local if strategy == "local_model" else None
                 if selected is not None:
                     self.pending["path"] = selected[0]
@@ -302,6 +400,15 @@ class _AdaptiveProposer:
                     self.pending["host_reasons"] = ("no_primitive_rewrite",)
                 else:
                     after = _replace_path(current, primitive[0], rewritten)
+            elif strategy in ("simplify", "distribute"):
+                after = compact if strategy == "simplify" else distributed
+            elif strategy == "lean_retry":
+                after = self.pending_proof["after"]
+                action = self.pending_proof["action"]
+                claim = json.loads(self.pending_proof["claim"])
+                rule_id = claim["rule_id"]
+                self.pending["rule_id"] = rule_id
+                self.pending["candidate_key"] = "lean:grind:" + _semantic(after)
             else:
                 self.rollbacks += 1
                 after = rollback["expression"]
@@ -312,6 +419,8 @@ class _AdaptiveProposer:
                 after_key = _semantic(after)
                 self.pending["after_key"] = after_key
                 candidate_key = ("rollback:" if strategy == "rollback" else "rewrite:") + after_key
+                if self.lean_backend is not None:
+                    candidate_key += ":lean:" + self.pending["lean_tactic"]
                 self.pending["candidate_key"] = candidate_key
                 if strategy != "rollback" and (
                     self.controller.is_duplicate(key, candidate_key) or (key, after_key) in self.failed_edges
@@ -333,6 +442,82 @@ class _AdaptiveProposer:
         self.metadata[candidate.id] = dict(self.pending)
         return (candidate,)
 
+    def check_lean(self, candidate, state, before, after):
+        """Return a separate proof gate result; feedback is never an accepted fact."""
+        if self.lean_backend is None:
+            return None
+        metadata = self.metadata.get(candidate.id, {})
+        tactic = metadata.get("lean_tactic", "grind")
+        if self.lean_checks >= self.max_lean_checks:
+            self.stats.lean_budget_exhausted = True
+            self.lean_stop = "lean_check_budget_exhausted"
+            return ("lean_check_budget_exhausted",)
+        self.lean_checks += 1
+        self.stats.lean_checks += 1
+        try:
+            proof = self.lean_backend.check(before, after, self.problem.variables, tactic=tactic)
+        except Exception as exc:
+            self.stats.lean_errors += 1
+            return ("lean_backend_error", type(exc).__name__)
+        bound = polynomial_binding_digest(before, after, self.problem.variables)
+        if (type(proof) is not LeanProofResult or proof.binding_digest != bound or proof.tactic != tactic
+                or proof.status not in ("verified", "unresolved", "unavailable", "error")):
+            self.stats.lean_errors += 1
+            return ("lean_proof_binding_mismatch",)
+        def strings(value, limit):
+            return (type(value) is tuple and len(value) <= limit
+                    and all(type(item) is str and len(item) <= 1024 * 1024 for item in value))
+
+        def sha256(value):
+            return type(value) is str and len(value) == 64 and all(c in "0123456789abcdef" for c in value)
+
+        if (type(proof.target) is not str or type(proof.actual_target) is not str
+                or len(proof.actual_target) > 1024 * 1024
+                or not strings(proof.goals, 128) or not strings(proof.diagnostics, 128)
+                or not strings(proof.axioms, 16) or not sha256(proof.source_digest)
+                or proof.variable_mapping != tuple((name, f"v{i}") for i, name in enumerate(self.problem.variables))
+                or (proof.proof_digest is not None and not sha256(proof.proof_digest))
+                or (proof.lean_version is not None and type(proof.lean_version) is not str)):
+            self.stats.lean_errors += 1
+            return ("lean_proof_invalid_certificate",)
+        feedback = {
+            "status": proof.status, "tactic": tactic, "state_revision": state.revision,
+            "state_fingerprint": _state_fingerprint(self.problem, state, before),
+            "binding_digest": bound, "source_digest": proof.source_digest,
+            "proof_digest": proof.proof_digest, "lean_version": proof.lean_version,
+            "axioms": list(proof.axioms), "variable_mapping": list(proof.variable_mapping),
+            "actual_target": proof.actual_target[:4096],
+            "goals": [goal[:2048] for goal in proof.goals[:8]],
+            "diagnostics": [item[:1024] for item in proof.diagnostics[:4]],
+            "proposed_after": after,
+            "feedback_truncated": (len(proof.actual_target) > 4096 or len(proof.goals) > 8
+                                   or any(len(g) > 2048 for g in proof.goals)
+                                   or len(proof.diagnostics) > 4
+                                   or any(len(g) > 1024 for g in proof.diagnostics)),
+        }
+        self.pending["lean_proof"] = feedback
+        if (proof.status == "verified" and sha256(proof.proof_digest)
+                and proof.actual_target and not proof.goals and not proof.diagnostics
+                and proof.lean_version == SUPPORTED_LEAN_VERSION
+                and set(proof.axioms) <= APPROVED_AXIOMS):
+            self.stats.lean_verified += 1
+            return ()
+        self.lean_feedback = feedback
+        if proof.status == "unresolved":
+            self.stats.lean_unresolved += 1
+            self.pending_proof = {"state_key": _semantic(before), "after": after,
+                                  "action": candidate.action, "claim": candidate.claim, "tactic": tactic}
+        else:
+            self.stats.lean_errors += 1
+            self.pending_proof = None
+            if proof.status == "unavailable":
+                self.lean_stop = "lean_unavailable"
+        if self.lean_checks >= self.max_lean_checks:
+            self.stats.lean_budget_exhausted = True
+            self.lean_stop = "lean_check_budget_exhausted"
+        return ("lean_proof_" + (proof.status if proof.status != "verified" else "invalid_certificate"),
+                *(item[:256] for item in proof.diagnostics[:2]))
+
     def observe(self, event):
         pending = self.pending
         if pending is None:
@@ -349,6 +534,8 @@ class _AdaptiveProposer:
                                    progress=progress, reasons=tuple(reasons), failure_kind=kind,
                                    revision=event.after.revision)
         if accepted:
+            self.pending_proof = None
+            self.lean_feedback = None
             counter = "rule" if strategy == "verified_rule" else strategy
             setattr(self.stats, counter + "_accepts", getattr(self.stats, counter + "_accepts") + 1)
             if strategy == "rollback":
@@ -358,24 +545,24 @@ class _AdaptiveProposer:
                 edge = (target["key"], child["key"])
                 self.failed_edges.add(edge)
                 origin = self.edge_strategies.get(edge)
-                if origin in ("whole_model", "local_model"):
+                if origin in MODEL_STRATEGIES:
                     self.disabled.add((target["key"], origin))
                 self.ancestors = self.ancestors[:index + 1]
-                self.priority = ["verified_rule", "primitive", "local_model", "whole_model", "rollback"]
+                self.priority = ["verified_rule", "simplify", "distribute", "primitive", "local_model", "whole_model", "rollback"]
             else:
                 self.seen.add(after_key)
                 self.edge_strategies[(key, after_key)] = strategy
                 self.ancestors.append({"key": after_key, "expression": after, "revision": event.after.revision})
-                self.priority = (["primitive", "verified_rule", "local_model", "whole_model", "rollback"]
-                                 if strategy == "primitive" else
-                                 ["verified_rule", "local_model", "primitive", "whole_model", "rollback"])
+                self.priority = (["simplify", "distribute", "primitive", "verified_rule", "local_model", "whole_model", "rollback"]
+                                 if strategy in ("primitive", "simplify", "distribute") else
+                                 ["verified_rule", "local_model", "simplify", "distribute", "primitive", "whole_model", "rollback"])
         else:
             self.stats.failures += 1
-            if strategy in ("whole_model", "local_model"):
+            if strategy in MODEL_STRATEGIES:
                 self.stats.model_failures += 1
             self.stats.diagnostic_counts[kind.value] = self.stats.diagnostic_counts.get(kind.value, 0) + 1
             self.failures_at[key] = self.failures_at.get(key, 0) + 1
-            if strategy in ("primitive", "verified_rule") and (
+            if strategy in ("primitive", "verified_rule", "simplify", "distribute") and (
                     kind is FailureKind.RESOURCE or self.failures_at[key] >= 2):
                 self.rollback_requested.add(key)
             if pending.get("path") is not None:
@@ -383,17 +570,22 @@ class _AdaptiveProposer:
             if pending.get("rule_id"):
                 self.failed_rules.add((key, pending["rule_id"]))
             if kind is FailureKind.IDENTITY_MATH and strategy == "whole_model":
-                self.priority = ["local_model", "verified_rule", "primitive", "whole_model", "rollback"]
+                self.priority = ["local_model", "verified_rule", "simplify", "distribute", "primitive", "whole_model", "rollback"]
             elif kind in (FailureKind.SCHEMA_BINDING, FailureKind.UNKNOWN_ERROR, FailureKind.UNAVAILABLE_RULE):
-                self.priority = ["verified_rule", "primitive", "local_model", "whole_model", "rollback"]
+                self.priority = ["verified_rule", "simplify", "distribute", "primitive", "local_model", "whole_model", "rollback"]
             elif kind is FailureKind.RESOURCE:
-                self.priority = ["local_model", "rollback", "verified_rule", "primitive", "whole_model"]
+                self.priority = ["simplify", "local_model", "rollback", "verified_rule", "distribute", "primitive", "whole_model"]
             else:
-                self.priority = ["verified_rule", "primitive", "local_model", "whole_model", "rollback"]
+                self.priority = ["verified_rule", "simplify", "distribute", "primitive", "local_model", "whole_model", "rollback"]
             self.last_diagnostics.append({"kind": kind.value, "strategy": strategy,
                                           "reasons": [reason[:256] for reason in reasons[:3]]})
             self.last_diagnostics = self.last_diagnostics[-3:]
+            if reasons and reasons[0] == "lean_proof_unresolved":
+                self.priority = ["whole_model", "lean_retry", "local_model", "verified_rule",
+                                 "simplify", "distribute", "primitive", "rollback"]
+        nodes, length = self._track_size(after)
         self._audit({"step": event.step, "strategy": strategy, "decision": event.decision.value,
+                     "expression_nodes": nodes, "expression_length": length,
                      "state_key": key, "before_revision": event.before.revision,
                      "after_revision": event.after.revision, "candidate_key": pending["candidate_key"],
                      "failure_kind": None if kind is None else kind.value,
@@ -401,6 +593,7 @@ class _AdaptiveProposer:
                      "selected_path": None if pending.get("path") is None else "$" + "".join("." + s for s in pending["path"]),
                      "selected_expression": pending.get("selected_expression"),
                      "rollback_target": pending.get("rollback_target"),
+                     "lean_proof": pending.get("lean_proof"),
                      "next_strategy_order": list(self.priority), "model_calls_in_task": self.model_calls})
         self.pending = None
 
@@ -416,9 +609,9 @@ class _AdaptiveVerifier:
     def verify(self, candidate, state, residual, evidence):
         metadata = self.proposer.metadata.get(candidate.id, {})
         if (candidate.action == "adaptive_stop" and self.proposer.no_more_strategies
-                and metadata.get("host_reasons") == ("strategy_exhausted",)):
+                and metadata.get("host_reasons") == (self.proposer.lean_stop or "strategy_exhausted",)):
             return Verdict.for_candidate(candidate, state, Decision.INTERRUPT,
-                                         evidence=evidence, reasons=("strategy_exhausted",))
+                                         evidence=evidence, reasons=metadata["host_reasons"])
         verdict = self.verifier.verify(candidate, state, residual, evidence)
         if verdict.decision is not Decision.ACCEPT:
             return verdict
@@ -436,6 +629,24 @@ class _AdaptiveVerifier:
             reason = "adaptive_cycle_detected"
         if not allowed:
             return Verdict.for_candidate(candidate, state, Decision.REJECT, evidence=evidence, reasons=(reason,))
+        lean_reasons = self.proposer.check_lean(candidate, state, verdict.facts[0].value[0], after)
+        if lean_reasons:
+            return Verdict.for_candidate(candidate, state, Decision.DEFER, evidence=evidence, reasons=lean_reasons)
+        if lean_reasons == ():
+            # An external proof check creates a revocation window. Recheck
+            # the live rule immediately before authorizing its application.
+            rule_id = verdict.facts[0].value[2]
+            if rule_id:
+                initial = self.verifier.records.get(rule_id)
+                try:
+                    current = self.proposer.library.get(rule_id)
+                except KeyError:
+                    current = None
+                if current is None or current != initial or current.status != "verified":
+                    return Verdict.for_candidate(candidate, state, Decision.REJECT, evidence=evidence,
+                                                 reasons=("rule_unavailable_or_changed",))
+            return Verdict.for_candidate(candidate, state, Decision.ACCEPT, evidence=evidence,
+                                         reasons=verdict.reasons + ("lean_kernel_verified",), facts=verdict.facts)
         return verdict
 
 
@@ -447,7 +658,7 @@ class _AdaptiveAgent(Agent):
     def run(self, task):
         result = super().run(task)
         proposer, stats = self.adaptive_proposer, self.adaptive_proposer.stats
-        stats.stop_reason = ("strategy_exhausted" if proposer.no_more_strategies
+        stats.stop_reason = ((proposer.lean_stop or "strategy_exhausted") if proposer.no_more_strategies
                              else result.run_result.stop_reason)
         stats.action_budget_exhausted |= (result.run_result.status != "solved"
                                           and proposer.attempts >= proposer.max_steps)
@@ -463,6 +674,8 @@ def build_adaptive_learning_agent(
     complete: Callable[[str], str] | None = None, counts: WorkCounts | None = None,
     stats: AdaptiveStats | None = None, max_model_calls: int = 8, max_steps: int = 64,
     max_no_progress: int | None = None, max_rollbacks: int = 2,
+    control_expression_growth: bool = True,
+    lean_backend: LeanPolynomialBackend | None = None, max_lean_checks: int = 64,
 ) -> LearningAgent:
     """Build an opt-in adaptive learner; legacy adapters remain unchanged.
 
@@ -475,11 +688,23 @@ def build_adaptive_learning_agent(
     Every run has fresh strategy state and the stated per-task budgets; supplied
     counts/stats accumulate across runs. No branch or rollback resets a budget.
     The action cap cannot exceed the library's 64-step certificate limit.
+    Local compaction and bounded distributive batches are enabled by default;
+    disable ``control_expression_growth`` to retain the v0.8 primitive strategy.
+    With ``lean_backend``, every accepted rewrite also needs a real Lean proof.
+    Model replies may include ``tactic`` (``rfl`` or ``grind``); Lean goals and
+    diagnostics feed subsequent prompts and bounded proof retries. Failed or
+    unavailable Lean checks never silently fall back to exact-only acceptance.
     """
     if not isinstance(problem, PolynomialProblem) or not isinstance(library, KnowledgeLibrary):
         raise ValueError("expected PolynomialProblem and KnowledgeLibrary")
     if complete is not None and not callable(complete):
         raise ValueError("complete must be callable or None")
+    if type(control_expression_growth) is not bool:
+        raise ValueError("control_expression_growth must be a bool")
+    if lean_backend is not None and not isinstance(lean_backend, LeanPolynomialBackend):
+        raise ValueError("lean_backend must be a LeanPolynomialBackend or None")
+    if type(max_lean_checks) is not int or not 1 <= max_lean_checks <= MAX_DERIVATION_STEPS:
+        raise ValueError("max_lean_checks must be between 1 and 64")
     for name, value in (("max_model_calls", max_model_calls), ("max_rollbacks", max_rollbacks)):
         if type(value) is not int or value < 0 or value > MAX_DERIVATION_STEPS:
             raise ValueError(f"{name} must be an integer from 0 through {MAX_DERIVATION_STEPS}")
@@ -495,7 +720,8 @@ def build_adaptive_learning_agent(
 
     def factory(task, records):
         proposer = _AdaptiveProposer(problem, library, records, complete, counts, stats, task.id,
-                                     max_model_calls, max_steps, max_rollbacks)
+                                     max_model_calls, max_steps, max_rollbacks, control_expression_growth,
+                                     lean_backend, max_lean_checks)
         return _AdaptiveAgent(
             adaptive_proposer=proposer, domain_factory=lambda _: PolynomialDomain(problem, counts),
             verifier_factory=lambda _: _AdaptiveVerifier(proposer),

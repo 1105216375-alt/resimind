@@ -16,6 +16,7 @@ import json
 
 class FailureKind(str, Enum):
     IDENTITY_MATH = "identity_math"
+    PROOF_INCOMPLETE = "proof_incomplete"
     SCHEMA_BINDING = "schema_binding"
     UNAVAILABLE_RULE = "unavailable_rule"
     NO_PROGRESS = "no_progress"

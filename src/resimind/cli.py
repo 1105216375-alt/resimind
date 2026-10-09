@@ -70,7 +70,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="resimind", description="Evidence-bound Agent reasoning with independent verification.")
     commands = parser.add_subparsers(dest="command", required=True)
     demo = commands.add_parser("demo", help="run an OFFLINE deterministic fixture, without a model or API key")
-    demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support", "planning", "knowledge-growth", "adaptive"), default="optimization",
+    demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support", "planning", "knowledge-growth", "adaptive", "growth-control", "lean"), default="optimization",
                       help="demonstration domain (default: optimization)")
     demo.add_argument("--scenario", choices=("refund", "missing-delivery", "expired", "day-out", "rain", "missing-travel"),
                       help="customer-support: refund/missing-delivery/expired; planning: day-out/rain/missing-travel")
@@ -80,6 +80,45 @@ def main(argv: Sequence[str] | None = None) -> int:
                  "planning": ("day-out", "rain", "missing-travel")}
     if args.scenario is not None and args.scenario not in scenarios.get(args.domain, ()):
         parser.error("--scenario must match the selected customer-support or planning domain")
+    if args.domain == "growth-control":
+        from .growth_demo import run_demo
+        report = run_demo()
+        if args.json:
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+        else:
+            print("ResiMind | OFFLINE expression growth control | NO MODEL CALLS")
+            print("Expand:", report["expression"])
+            for name, arm in report["arms"].items():
+                print(f"  {name}: {arm['status']}; actions={arm['steps']}; "
+                      f"peak AST nodes={arm['strategy_audit']['peak_expression_nodes']}")
+                if arm["output"] is not None:
+                    print("  Verified expression:", arm["output"])
+            print(report["scope"])
+        return 0 if report["arms"]["bounded_growth"]["status"] == "solved" else 1
+    if args.domain == "lean":
+        from .lean_demo import run_demo
+        report = run_demo()
+        if args.json:
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+        else:
+            print("ResiMind | SCRIPTED proposals + REAL LOCAL LEAN | NOT A LIVE LLM RUN")
+            for event in report["discovery"]["strategy_audit"]["events"]:
+                if "strategy" not in event:
+                    continue
+                print(f"  {event['step']}. {event['strategy']}: {event['decision']} | {', '.join(event['reasons'])}")
+                proof = event.get("lean_proof")
+                if proof:
+                    print(f"     Lean {proof['lean_version']}, tactic={proof['tactic']}, status={proof['status']}")
+                    for goal in proof["goals"]:
+                        print("     Remaining goal:", goal)
+            for name in ("discovery", "transfer"):
+                arm = report[name]
+                print(f"{name}: {arm['status']}; Lean checks={arm['strategy_audit']['lean_checks']}; "
+                      f"verified={arm['strategy_audit']['lean_verified']}")
+            if report["discovery"]["status"] != "solved":
+                print("Proof remains incomplete. Install Lean 4.29.0 or inspect the proof diagnostics.")
+            print(report["scope"])
+        return 0 if report["discovery"]["status"] == report["transfer"]["status"] == "solved" else 1
     if args.domain == "adaptive":
         from .adaptive_demo import run_demo
         report = run_demo()

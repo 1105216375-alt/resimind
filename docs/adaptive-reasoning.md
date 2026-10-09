@@ -5,6 +5,11 @@ the Agent. A failed whole-expression attempt can lead to a smaller local task,
 a checked library rule, a symbolic rewrite, or a return to a verified checkpoint.
 Every resulting candidate still passes the ordinary state-bound verifier.
 
+The current adapter also compacts like terms, performs bounded local
+distributive batches, and optionally uses actual Lean proof feedback to guide
+the next proposal. See [expression growth and Lean](expression-growth-and-lean.md)
+for the new tools, the two runnable demos and their exact scope.
+
 This is an opt-in adapter. Existing `build_learning_agent` behavior and the
 reference runtime remain unchanged.
 
@@ -70,11 +75,17 @@ The polynomial adapter supplies the domain-specific operations:
   Check its current status and fingerprint, then check the resulting identity.
 * **Primitive rewrite:** use local distributivity and integer-power unfolding.
   The identity checker never supplies a generated answer to this strategy.
+* **Compaction and bounded distribution:** keep exact coefficients and like
+  terms compact, and expand one eligible local product with a finite term-pair
+  budget. Each generated full-expression result is independently checked.
+* **Proof feedback and retry:** when Lean is enabled, unfinished goals guide a
+  new model proposal or a bounded retry with the fixed `grind` tactic. An exact
+  identity alone cannot bypass the enabled formal proof gate.
 * **Checkpoint return:** append a newly checked equivalence to a previously
   verified expression. Keep the abandoned branch in the proof and audit, with
   its failed attempts still recorded. No committed fact is silently deleted.
 
-Error diagnosis distinguishes mathematical mismatch, malformed or stale state
+Error diagnosis distinguishes mathematical mismatch, incomplete formal proof, malformed or stale state
 binding, unavailable rules, lack of progress, resource limits, and unknown
 failures. Diagnosis guides the next eligible strategy; it is not proof that the
 next strategy will succeed. Strategy exhaustion remains an unfinished result.
@@ -117,7 +128,8 @@ and verifiers. The concrete decomposition and checkpoint adapter here supports
 bounded rational polynomial expansion. It does not add a universal theorem
 prover, engineering design solver, or automatic policy authoring system.
 
-The v5 evaluation runner compares the adaptive adapter with the previous
+The historical v5 evaluation runner disables the later expression-growth tools
+and Lean gate. It compares the original adaptive adapter with the previous
 executable-rule adapter, strong verification-and-retry, and a symbolic-only
 control using the same library. Its larger action budget and automatic tool
 access are disclosed: the comparison measures the complete implementation,

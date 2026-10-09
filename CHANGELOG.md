@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.0 — 2026-10-09
+
+- Control expression growth with exact local compaction and bounded distributive batches. Preserve the existing AST, depth, source-length and action limits; independently verify every candidate. The adaptive builder enables these tools by default, with an explicit switch preserving the original primitive path.
+- Add an optional real Lean 4.29.0 backend for the supported rational-polynomial grammar. Translate ASTs to fixed `Rat` equalities, allow only `rfl` and built-in `grind`, and require compiler success, actual target feedback, approved theorem axioms and a compiled proof artifact.
+- Feed incomplete Lean goals and diagnostics into a new `proof_model` proposal, or use a bounded host proof retry. Keep action, model and Lean-check budgets separate. An enabled Lean gate cannot silently fall back to exact-only acceptance; recheck rule revocation after external proof work.
+- Add offline `growth-control` and actual-local-Lean `lean` CLI demos. The Lean demo uses scripted proposal selection, real compiler checks and verified rule reuse; it makes no live-model performance claim.
+- Preserve the historical v5 evaluation treatment by explicitly disabling the new tools there. Private evaluation records remain local. See [the integration guide](docs/expression-growth-and-lean.md) and [release validation](docs/validation-v0.9.0.md).
+
 ## 0.8.0 — 2026-10-09
 
 - Add opt-in adaptive polynomial reasoning: failed checks can switch between whole-expression model proposals, local subexpression proposals, verified rules, primitive symbolic rewrites, and checked checkpoint returns. Preserve finite budgets across retries, strategy changes and recovery; unfinished runs remain unfinished.

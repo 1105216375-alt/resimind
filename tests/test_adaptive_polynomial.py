@@ -20,6 +20,9 @@ def store():
 def solve(expression, variables=("x",), *, library=None, stats=None, **kwargs):
     library = store() if library is None else library
     stats = AdaptiveStats() if stats is None else stats
+    # These regressions pin the original primitive/rollback controller path.
+    # Default growth control is exercised separately in test_adaptive_growth.py.
+    kwargs.setdefault("control_expression_growth", False)
     result = build_adaptive_learning_agent(PolynomialProblem(expression, variables), library,
                                             stats=stats, **kwargs).run(Task("source", "Expand", DOMAIN))
     return result, stats, library

@@ -12,7 +12,7 @@ The [adaptive math Agent](docs/adaptive-reasoning.md) can switch strategies afte
 
 The current adaptive and rule-learning demo supports **bounded rational polynomial expansion**. The same Agent core also runs planning, customer support, optimization and bridge examples with domain-specific checks.
 
-**Bring your own model · Python 3.10+ · Zero-dependency core · MIT · v0.8.0 / Experimental**
+**Bring your own model · Python 3.10+ · Zero-dependency core · MIT · v0.9.0 / Experimental**
 
 [中文](README.zh-CN.md) · [Quick start](#try-it-in-three-minutes) · [Knowledge growth](docs/knowledge-growth.md) · [Open-ended case](#open-ended-planning-many-answers-explicit-constraints) · [Evidence](#measure-the-agent-not-the-model) · [Architecture](#the-architecture)
 
@@ -36,9 +36,15 @@ Propose → check → diagnose what remains → change strategy → check again
 
 Try the offline recovery demo: a deliberately wrong expansion is rejected, a local edit passes, symbolic steps finish the proof, and its checked rule solves a new-variable task in one application. The fixture is scripted; the verification, state transitions, rule admission and reuse actually execute.
 
-**Current scope:** the adaptive adapter handles bounded rational polynomial expansion. Other domains share the Agent core and use their own checks. Lean integration is planned for a later version.
+**Current scope:** the adaptive adapter handles bounded rational polynomial expansion. Other domains share the Agent core and use their own checks. An optional Lean 4.29.0 backend checks generated equalities over `Rat` and feeds unfinished proof goals back into the next proposal.
 
-[**Run the adaptive Agent →**](docs/adaptive-reasoning.md) · [Release validation](docs/validation-v0.8.0.md) · [Changelog](CHANGELOG.md)
+[**Run the adaptive Agent →**](docs/adaptive-reasoning.md) · [Release validation](docs/validation-v0.9.0.md) · [Changelog](CHANGELOG.md)
+
+### New in v0.9: compact math, with Lean in the loop
+
+Keep intermediate expressions small with exact term collection and bounded local distribution. When Lean is enabled, each accepted step also needs a kernel-checked proof. An unfinished proof supplies the next proposal with its actual Lean goal and diagnostics; it can change tactic or rewrite, within finite budgets.
+
+[**Run the growth comparison and real Lean feedback demos →**](docs/expression-growth-and-lean.md)
 
 ## Try it in three minutes
 
@@ -57,10 +63,12 @@ On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. Installation 
 
 The first demo shows a rejected expansion, a checked local edit, symbolic recovery, and a new rule that is saved, reloaded and reused on a new-variable task. It labels its model responses as an offline script and prints the strategy audit.
 
-Choose a different challenge. All six commands run offline:
+Choose a different challenge. All eight commands run offline; the Lean example additionally requires an installed Lean 4.29.0 toolchain:
 
 | Try | What the example makes visible | Command |
 | --- | --- | --- |
+| [Expression growth](docs/expression-growth-and-lean.md) | Compare primitive expansion with bounded distribution and term collection on four quadratic factors | `python -m resimind demo --domain growth-control` |
+| [Lean proof feedback](docs/expression-growth-and-lean.md#let-lean-feedback-drive-the-next-proposal) | A real unfinished Lean goal drives a new tactic, then a checked rule is reused | `python -m resimind demo --domain lean` |
 | [Adaptive reasoning](docs/adaptive-reasoning.md) | Reject a wrong step, change strategy, finish a proof and reuse its checked rule | `python -m resimind demo --domain adaptive` |
 | [Knowledge growth](docs/knowledge-growth.md) | Derive a rule, verify and store it, then reuse and recheck it on a new task | `python -m resimind demo --domain knowledge-growth` |
 | [Open-ended planning](docs/open-planning.md) | Many valid answers; time, budget, and route constraints still apply | `python -m resimind demo --domain planning` |
@@ -364,7 +372,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-See [v0.8.0 release validation](docs/validation-v0.8.0.md) for current checks, and the [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier release record](docs/validation.md) for historical checks.
+See [v0.9.0 release validation](docs/validation-v0.9.0.md) for current checks, and the [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier release record](docs/validation.md) for historical checks.
 
 ## Measure the Agent, not the model
 
@@ -394,7 +402,7 @@ ResiMind was initiated and originally published by [@1105216375-alt](https://git
 
 If you use or discuss ResiMind, please cite the project and link to the original repository. Suggested citation:
 
-> 1105216375-alt. ResiMind (version 0.8.0), 2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind (version 0.9.0), 2026. https://github.com/1105216375-alt/resimind
 
 Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is appreciated, not an additional license condition. Commercial use is permitted under the [MIT License](LICENSE), which requires retaining its copyright and permission notices in copies or substantial portions of the software.
 
