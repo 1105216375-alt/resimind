@@ -10,7 +10,7 @@ from resimind.domains.polynomial_learning import (
     DOMAIN, INPUT_ID, SCOPE, TARGET, PolynomialDomain, PolynomialProblem,
     PolynomialTool, PolynomialVerifier, WorkCounts, build_learning_agent,
 )
-from resimind.knowledge import KnowledgeLibrary
+from resimind.knowledge import KnowledgeCandidate, KnowledgeLibrary
 
 
 def library():
@@ -135,3 +135,66 @@ def test_distiller_cannot_attribute_a_new_rule_to_another_task():
     assert result.result.run_result.status == "solved"
     assert result.learning_errors == ("distillation_task_binding_mismatch",)
     assert not store.lookup(domain=DOMAIN)
+
+
+def _square_record():
+    store = library()
+    return store.admit(KnowledgeCandidate(
+        "verified-square", DOMAIN, "polynomial_identity",
+        {"lhs": "(u+v)**2", "rhs": "u*u+2*u*v+v*v", "variables": ["u", "v"]},
+        derivation=({"lhs": "(u+v)**2", "rhs": "u*u+2*u*v+v*v"},),
+        source_task_id="square-discovery",
+    ))
+
+
+def _rule_verdict(problem, record, after, *, state=None, before=None, refs=None, rule_id=None):
+    state = State() if state is None else state
+    counts = WorkCounts()
+    residual = PolynomialDomain(problem, counts).rebuild(state)
+    candidate = Candidate("recall", "rewrite_polynomial", TARGET, json.dumps({
+        "before": problem.expression if before is None else before,
+        "after": after,
+        "rule_id": record.candidate.id if rule_id is None else rule_id,
+    }), (INPUT_ID,) if refs is None else refs)
+    evidence = PolynomialTool(problem).collect(Task("new-task", "Verify", DOMAIN))
+    return PolynomialVerifier(problem, (record,), counts).verify(candidate, state, residual, evidence)
+
+
+def test_recalled_rule_accepts_formatting_and_preserves_provenance():
+    problem = PolynomialProblem("(x+1)**2", ("x",))
+    record = _square_record()
+    # Same AST as the rule substitution, different spacing and parentheses.
+    after = " ((x*x) + ((2*x)*1)) + (1*1) "
+    verdict = _rule_verdict(problem, record, after)
+    assert verdict.decision is Decision.ACCEPT
+    assert verdict.facts[0].value == (problem.expression, after, record.candidate.id, record.fingerprint)
+
+
+def test_equivalent_nonmatching_rewrite_cannot_claim_rule_reuse():
+    problem = PolynomialProblem("(x+1)**2", ("x",))
+    record = _square_record()
+    # Collecting constants is an additional step beyond the cited substitution.
+    after = "x*x+2*x+1"
+    verdict = _rule_verdict(problem, record, after)
+    assert verdict.decision is Decision.REJECT
+    assert verdict.reasons == ("rule_not_applicable",)
+    assert verdict.facts == ()
+    own_derivation = _rule_verdict(problem, record, after, rule_id="")
+    assert own_derivation.decision is Decision.ACCEPT
+    assert own_derivation.facts[0].value[2:] == ("", "")
+
+
+@pytest.mark.parametrize("stale_field", ["before", "refs"])
+def test_formatted_rule_reuse_does_not_bypass_current_state_binding(stale_field):
+    problem = PolynomialProblem("(x+1)**2+(x+2)**2", ("x",))
+    record = _square_record()
+    first = "x*x+2*x*1+1*1+(x+2)**2"
+    first_verdict = _rule_verdict(problem, record, first)
+    assert first_verdict.decision is Decision.ACCEPT
+    state = State(1, first_verdict.facts)
+    before = problem.expression if stale_field == "before" else first
+    refs = (INPUT_ID,) if stale_field == "refs" else (INPUT_ID, first_verdict.facts[-1].id)
+    after = "(x*x+2*x*1+1*1)+(x*x+2*x*2+2*2)"
+    verdict = _rule_verdict(problem, record, after, state=state, before=before, refs=refs)
+    assert verdict.decision is Decision.REJECT
+    assert verdict.facts == ()

@@ -315,7 +315,8 @@ class PolynomialVerifier:
         fingerprint = ""
         if rule_id:
             record = self.records.get(rule_id)
-            if record is None or _macro(before, record, self.counts) != after:
+            recalled = None if record is None else _macro(before, record, self.counts)
+            if recalled is None or not _same(_tree(recalled), _tree(after)):
                 return reply(Decision.REJECT, "rule_not_applicable")
             fingerprint = record.fingerprint
         if _same(_tree(before), _tree(after)) and not is_expanded(after):
@@ -399,9 +400,19 @@ def build_learning_agent(
                 return (PolynomialProposer(problem, records, counts),)
             instruction = (
                 f"Expand {problem.expression} over rational variables {problem.variables}. "
-                "Use one algebraically equivalent rewrite per step. Candidate claim must be a JSON "
+                "Supported expression syntax: declared variables, integer literals, parentheses, "
+                "unary +/-, +, -, *, division by a nonzero integer literal, and integer powers "
+                "from 0 through 16. Write rational coefficients as division, not decimals. "
+                "Use one algebraically equivalent rewrite per step; a complete expansion in a "
+                "single step is allowed, with no restriction to primitive rewrites. "
+                "Candidate claim must be a JSON "
                 "string containing exactly before, after, rule_id. before is the latest expression "
-                "or original input. rule_id is empty for your own derivation. Cite polynomial:input "
+                "or original input. Using a supplied rule is optional: set rule_id to an empty "
+                "string for your own derivation. Only cite a supplied rule_id when after is exactly one structural "
+                "substitution of that identity at its first matching subexpression (search the "
+                "whole expression first, then its children left to right). Whitespace and redundant "
+                "parentheses may differ; additional simplification or multiple substitutions "
+                "require an empty rule_id. Cite polynomial:input "
                 "then the latest fact ID, if present. Do not claim solved until all products and powers "
                 "of sums are expanded. Available verified identities: "
                 + json.dumps([{"id": record.candidate.id, **record.candidate.statement}
