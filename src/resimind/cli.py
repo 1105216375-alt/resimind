@@ -70,7 +70,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="resimind", description="Evidence-bound Agent reasoning with independent verification.")
     commands = parser.add_subparsers(dest="command", required=True)
     demo = commands.add_parser("demo", help="run an OFFLINE deterministic fixture, without a model or API key")
-    demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support", "planning"), default="optimization",
+    demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support", "planning", "knowledge-growth"), default="optimization",
                       help="demonstration domain (default: optimization)")
     demo.add_argument("--scenario", choices=("refund", "missing-delivery", "expired", "day-out", "rain", "missing-travel"),
                       help="customer-support: refund/missing-delivery/expired; planning: day-out/rain/missing-travel")
@@ -80,6 +80,25 @@ def main(argv: Sequence[str] | None = None) -> int:
                  "planning": ("day-out", "rain", "missing-travel")}
     if args.scenario is not None and args.scenario not in scenarios.get(args.domain, ()):
         parser.error("--scenario must match the selected customer-support or planning domain")
+    if args.domain == "knowledge-growth":
+        from .domains.polynomial_learning import run_demo
+        report = run_demo()
+        if args.json:
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+        else:
+            print("ResiMind | OFFLINE deterministic knowledge growth | NOT A LIVE LLM RUN")
+            print("Derive a cubic identity -> verify -> persist -> reload/reverify -> transfer")
+            discovery = report["discovery"]
+            print(f"Discovery: {discovery['proposal_calls']} proposals; "
+                  f"{len(discovery['admitted_rules'])} verified rule(s)")
+            print(f"New task: expand {report['transfer_expression']}")
+            for name, arm in report["arms"].items():
+                print(f"  {name}: {arm['status']}; {arm['proposal_calls']} proposals; "
+                      f"{len(arm['rule_uses'])} committed cross-task rule use(s)")
+            print(report["scope"])
+        return 0 if (report["discovery"]["status"] == "solved"
+                     and report["discovery"]["admitted_rules"]
+                     and all(arm["status"] == "solved" for arm in report["arms"].values())) else 1
     if args.domain == "optimization":
         result = optimization.run_demo()
     elif args.domain == "bridge":

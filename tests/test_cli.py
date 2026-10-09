@@ -64,6 +64,27 @@ def test_bridge_reports_committed_envelope_and_scope(installed_layout):
     assert "Status: solved | remaining=0" in result.stdout
 
 
+def test_knowledge_growth_runs_from_installed_package_only(installed_layout):
+    result = invoke(installed_layout, "demo", "--domain", "knowledge-growth")
+    assert result.returncode == 0, result.stderr
+    assert "NOT A LIVE LLM RUN" in result.stdout
+    assert "persist -> reload/reverify -> transfer" in result.stdout
+    assert "1 committed cross-task rule use(s)" in result.stdout
+
+
+def test_knowledge_growth_json_reports_discovery_and_transfer_separately(installed_layout):
+    result = invoke(installed_layout, "demo", "--domain", "knowledge-growth", "--json")
+    assert result.returncode == 0, result.stderr
+    report = json.loads(result.stdout)
+    assert report["live_model"] is False
+    assert report["discovery"]["status"] == "solved"
+    assert len(report["discovery"]["admitted_rules"]) == 1
+    fixed, growing = report["arms"]["fixed"], report["arms"]["growing"]
+    assert fixed["status"] == growing["status"] == "solved"
+    assert growing["proposal_calls"] < fixed["proposal_calls"]
+    assert growing["rule_uses"][0]["id"] == report["discovery"]["admitted_rules"][0]
+
+
 def test_customer_support_reports_only_checked_amount(installed_layout):
     result = invoke(installed_layout, "demo", "--domain", "customer-support")
     assert result.returncode == 0, result.stderr

@@ -1,0 +1,1052 @@
+{
+  "admission_safety_probes": {
+    "probes": 6,
+    "results": [
+      {
+        "id": "wrong-coefficient",
+        "reason": "exact polynomial coefficients differ",
+        "status": "rejected"
+      },
+      {
+        "id": "broken-chain",
+        "reason": "derivation step 0 does not continue the chain",
+        "status": "rejected"
+      },
+      {
+        "id": "unproved-samples",
+        "reason": "a nonempty bounded derivation certificate is required",
+        "status": "rejected"
+      },
+      {
+        "id": "symbolic-division",
+        "reason": "a bounded integer literal is required",
+        "status": "unknown"
+      },
+      {
+        "id": "missing-nonzero",
+        "reason": "missing explicit assumption: a != 0",
+        "status": "rejected"
+      },
+      {
+        "id": "zero-factor",
+        "reason": "zero polynomial cannot be a cancellable factor",
+        "status": "rejected"
+      }
+    ],
+    "wrong_admissions": 0
+  },
+  "discovery": [
+    {
+      "accepted_steps": 4,
+      "admissions": [
+        {
+          "fingerprint": "726eab620c5a193a5d13f9486a3792097e5b294571bea0b1d8cfb41b6d8efb54",
+          "id": "expansion:a2221de6886c55498d070bec",
+          "status": "verified"
+        }
+      ],
+      "committed_rule_uses": [],
+      "expression": "(u+v)**2",
+      "group": "discovery",
+      "learning_errors": [],
+      "oracle": {
+        "degree_bounds": [
+          2,
+          2
+        ],
+        "expanded": true,
+        "points_checked": 9,
+        "reason": "exact_grid_identity",
+        "required_points": 9,
+        "status": "valid"
+      },
+      "output": "u * u + u * v + (v * u + v * v)",
+      "retrieved_rule_ids": [],
+      "status": "solved",
+      "stop_reason": "residual_empty",
+      "success": true,
+      "task_id": "discover-square",
+      "variables": [
+        "u",
+        "v"
+      ],
+      "work": {
+        "identity_checks": 20,
+        "pattern_attempts": 0,
+        "primitive_node_visits": 13,
+        "proposal_calls": 4
+      }
+    },
+    {
+      "accepted_steps": 9,
+      "admissions": [
+        {
+          "fingerprint": "4438242c5f3f7706d08650059fd156aeac988387be43dbcb3ef29b77e86c903a",
+          "id": "expansion:d1746fa88e50f8d8323834a6",
+          "status": "verified"
+        }
+      ],
+      "committed_rule_uses": [
+        {
+          "cross_task": true,
+          "fingerprint": "726eab620c5a193a5d13f9486a3792097e5b294571bea0b1d8cfb41b6d8efb54",
+          "rule_id": "expansion:a2221de6886c55498d070bec",
+          "source_task_id": "discover-square"
+        }
+      ],
+      "expression": "(u+v)**3",
+      "group": "discovery",
+      "learning_errors": [],
+      "oracle": {
+        "degree_bounds": [
+          3,
+          3
+        ],
+        "expanded": true,
+        "points_checked": 16,
+        "reason": "exact_grid_identity",
+        "required_points": 16,
+        "status": "valid"
+      },
+      "output": "u * u * u + u * u * v + (u * v * u + u * v * v) + (v * u * u + v * u * v + (v * v * u + v * v * v))",
+      "retrieved_rule_ids": [
+        "expansion:a2221de6886c55498d070bec"
+      ],
+      "status": "solved",
+      "stop_reason": "residual_empty",
+      "success": true,
+      "task_id": "discover-cube",
+      "variables": [
+        "u",
+        "v"
+      ],
+      "work": {
+        "identity_checks": 90,
+        "pattern_attempts": 226,
+        "primitive_node_visits": 109,
+        "proposal_calls": 9
+      }
+    }
+  ],
+  "discovery_totals": {
+    "accepted_steps": 13,
+    "committed_rule_uses": 1,
+    "cross_task_rule_uses": 1,
+    "learning_errors": 0,
+    "successes": 2,
+    "tasks": 2,
+    "tasks_with_cross_task_reuse": 1,
+    "technical_errors": 0,
+    "work": {
+      "identity_checks": 110,
+      "pattern_attempts": 226,
+      "primitive_node_visits": 122,
+      "proposal_calls": 13
+    }
+  },
+  "evaluation_kind": "deterministic_development_mechanism_study",
+  "knowledge_verifier_calls": {
+    "discovery_admission": 2,
+    "reload_reverification": 2,
+    "transfer_admission": 0
+  },
+  "library": {
+    "frozen_during_transfer": true,
+    "reload_reverified": true,
+    "rules": [
+      {
+        "fingerprint": "726eab620c5a193a5d13f9486a3792097e5b294571bea0b1d8cfb41b6d8efb54",
+        "id": "expansion:a2221de6886c55498d070bec",
+        "source_task_id": "discover-square",
+        "statement": {
+          "lhs": "(u+v)**2",
+          "rhs": "u * u + u * v + (v * u + v * v)",
+          "variables": [
+            "u",
+            "v"
+          ]
+        }
+      },
+      {
+        "fingerprint": "4438242c5f3f7706d08650059fd156aeac988387be43dbcb3ef29b77e86c903a",
+        "id": "expansion:d1746fa88e50f8d8323834a6",
+        "source_task_id": "discover-cube",
+        "statement": {
+          "lhs": "(u+v)**3",
+          "rhs": "u * u * u + u * u * v + (u * v * u + u * v * v) + (v * u * u + v * u * v + (v * v * u + v * v * v))",
+          "variables": [
+            "u",
+            "v"
+          ]
+        }
+      }
+    ],
+    "saved_file_sha256": "ba0e90669644b0da5e21d1037c4ffb67278ee69be3a74951819f5bea91555989",
+    "snapshot_sha256": "ba0e90669644b0da5e21d1037c4ffb67278ee69be3a74951819f5bea91555989",
+    "verified_rules": 2
+  },
+  "limitations": [
+    "Handmade development tasks; no randomized or held-out model evaluation.",
+    "Deterministic rewrite grammar; no neural discovery or SOTA claim.",
+    "Fewer proposal/check calls do not establish wall-time, token or monetary savings.",
+    "Discovery work is reported separately, not erased from lifetime cost.",
+    "Six adverse probes are a finite test, not a general soundness proof.",
+    "Goal is equivalent expanded syntax; collecting like terms is not required."
+  ],
+  "max_steps_per_task": 64,
+  "model_calls": 0,
+  "schema_version": 1,
+  "study": "verified-polynomial-knowledge-growth-v1",
+  "totals": {
+    "fixed": {
+      "accepted_steps": 84,
+      "committed_rule_uses": 0,
+      "cross_task_rule_uses": 0,
+      "learning_errors": 0,
+      "successes": 10,
+      "tasks": 10,
+      "tasks_with_cross_task_reuse": 0,
+      "technical_errors": 0,
+      "work": {
+        "identity_checks": 1182,
+        "pattern_attempts": 0,
+        "primitive_node_visits": 1686,
+        "proposal_calls": 84
+      }
+    },
+    "growing": {
+      "accepted_steps": 24,
+      "committed_rule_uses": 8,
+      "cross_task_rule_uses": 8,
+      "learning_errors": 0,
+      "successes": 10,
+      "tasks": 10,
+      "tasks_with_cross_task_reuse": 8,
+      "technical_errors": 0,
+      "work": {
+        "identity_checks": 210,
+        "pattern_attempts": 1296,
+        "primitive_node_visits": 383,
+        "proposal_calls": 24
+      }
+    }
+  },
+  "transfer": [
+    {
+      "fixed": {
+        "accepted_steps": 4,
+        "admissions": [],
+        "committed_rule_uses": [],
+        "expression": "(2*x+3*y)**2",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true,
+          "points_checked": 9,
+          "reason": "exact_grid_identity",
+          "required_points": 9,
+          "status": "valid"
+        },
+        "output": "2 * x * (2 * x) + 2 * x * (3 * y) + (3 * y * (2 * x) + 3 * y * (3 * y))",
+        "retrieved_rule_ids": [],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "square-coefficients",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 20,
+          "pattern_attempts": 0,
+          "primitive_node_visits": 21,
+          "proposal_calls": 4
+        }
+      },
+      "growing": {
+        "accepted_steps": 1,
+        "admissions": [],
+        "committed_rule_uses": [
+          {
+            "cross_task": true,
+            "fingerprint": "726eab620c5a193a5d13f9486a3792097e5b294571bea0b1d8cfb41b6d8efb54",
+            "rule_id": "expansion:a2221de6886c55498d070bec",
+            "source_task_id": "discover-square"
+          }
+        ],
+        "expression": "(2*x+3*y)**2",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true,
+          "points_checked": 9,
+          "reason": "exact_grid_identity",
+          "required_points": 9,
+          "status": "valid"
+        },
+        "output": "2 * x * (2 * x) + 2 * x * (3 * y) + (3 * y * (2 * x) + 3 * y * (3 * y))",
+        "retrieved_rule_ids": [
+          "expansion:a2221de6886c55498d070bec",
+          "expansion:d1746fa88e50f8d8323834a6"
+        ],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "square-coefficients",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 2,
+          "pattern_attempts": 2,
+          "primitive_node_visits": 0,
+          "proposal_calls": 1
+        }
+      },
+      "task_id": "square-coefficients"
+    },
+    {
+      "fixed": {
+        "accepted_steps": 4,
+        "admissions": [],
+        "committed_rule_uses": [],
+        "expression": "(-2*x+3*y)**2",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true,
+          "points_checked": 9,
+          "reason": "exact_grid_identity",
+          "required_points": 9,
+          "status": "valid"
+        },
+        "output": "-2 * x * (-2 * x) + -2 * x * (3 * y) + (3 * y * (-2 * x) + 3 * y * (3 * y))",
+        "retrieved_rule_ids": [],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "square-negative",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 20,
+          "pattern_attempts": 0,
+          "primitive_node_visits": 24,
+          "proposal_calls": 4
+        }
+      },
+      "growing": {
+        "accepted_steps": 1,
+        "admissions": [],
+        "committed_rule_uses": [
+          {
+            "cross_task": true,
+            "fingerprint": "726eab620c5a193a5d13f9486a3792097e5b294571bea0b1d8cfb41b6d8efb54",
+            "rule_id": "expansion:a2221de6886c55498d070bec",
+            "source_task_id": "discover-square"
+          }
+        ],
+        "expression": "(-2*x+3*y)**2",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true,
+          "points_checked": 9,
+          "reason": "exact_grid_identity",
+          "required_points": 9,
+          "status": "valid"
+        },
+        "output": "-2 * x * (-2 * x) + -2 * x * (3 * y) + (3 * y * (-2 * x) + 3 * y * (3 * y))",
+        "retrieved_rule_ids": [
+          "expansion:a2221de6886c55498d070bec",
+          "expansion:d1746fa88e50f8d8323834a6"
+        ],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "square-negative",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 2,
+          "pattern_attempts": 2,
+          "primitive_node_visits": 0,
+          "proposal_calls": 1
+        }
+      },
+      "task_id": "square-negative"
+    },
+    {
+      "fixed": {
+        "accepted_steps": 4,
+        "admissions": [],
+        "committed_rule_uses": [],
+        "expression": "(0*x+3*y)**2",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true,
+          "points_checked": 9,
+          "reason": "exact_grid_identity",
+          "required_points": 9,
+          "status": "valid"
+        },
+        "output": "0 * x * (0 * x) + 0 * x * (3 * y) + (3 * y * (0 * x) + 3 * y * (3 * y))",
+        "retrieved_rule_ids": [],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "square-zero",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 20,
+          "pattern_attempts": 0,
+          "primitive_node_visits": 21,
+          "proposal_calls": 4
+        }
+      },
+      "growing": {
+        "accepted_steps": 1,
+        "admissions": [],
+        "committed_rule_uses": [
+          {
+            "cross_task": true,
+            "fingerprint": "726eab620c5a193a5d13f9486a3792097e5b294571bea0b1d8cfb41b6d8efb54",
+            "rule_id": "expansion:a2221de6886c55498d070bec",
+            "source_task_id": "discover-square"
+          }
+        ],
+        "expression": "(0*x+3*y)**2",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true,
+          "points_checked": 9,
+          "reason": "exact_grid_identity",
+          "required_points": 9,
+          "status": "valid"
+        },
+        "output": "0 * x * (0 * x) + 0 * x * (3 * y) + (3 * y * (0 * x) + 3 * y * (3 * y))",
+        "retrieved_rule_ids": [
+          "expansion:a2221de6886c55498d070bec",
+          "expansion:d1746fa88e50f8d8323834a6"
+        ],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "square-zero",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 2,
+          "pattern_attempts": 2,
+          "primitive_node_visits": 0,
+          "proposal_calls": 1
+        }
+      },
+      "task_id": "square-zero"
+    },
+    {
+      "fixed": {
+        "accepted_steps": 4,
+        "admissions": [],
+        "committed_rule_uses": [],
+        "expression": "(x+2*x)**2",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2
+          ],
+          "expanded": true,
+          "points_checked": 3,
+          "reason": "exact_grid_identity",
+          "required_points": 3,
+          "status": "valid"
+        },
+        "output": "x * x + x * (2 * x) + (2 * x * x + 2 * x * (2 * x))",
+        "retrieved_rule_ids": [],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "square-repeated",
+        "variables": [
+          "x"
+        ],
+        "work": {
+          "identity_checks": 20,
+          "pattern_attempts": 0,
+          "primitive_node_visits": 15,
+          "proposal_calls": 4
+        }
+      },
+      "growing": {
+        "accepted_steps": 1,
+        "admissions": [],
+        "committed_rule_uses": [
+          {
+            "cross_task": true,
+            "fingerprint": "726eab620c5a193a5d13f9486a3792097e5b294571bea0b1d8cfb41b6d8efb54",
+            "rule_id": "expansion:a2221de6886c55498d070bec",
+            "source_task_id": "discover-square"
+          }
+        ],
+        "expression": "(x+2*x)**2",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2
+          ],
+          "expanded": true,
+          "points_checked": 3,
+          "reason": "exact_grid_identity",
+          "required_points": 3,
+          "status": "valid"
+        },
+        "output": "x * x + x * (2 * x) + (2 * x * x + 2 * x * (2 * x))",
+        "retrieved_rule_ids": [
+          "expansion:a2221de6886c55498d070bec",
+          "expansion:d1746fa88e50f8d8323834a6"
+        ],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "square-repeated",
+        "variables": [
+          "x"
+        ],
+        "work": {
+          "identity_checks": 2,
+          "pattern_attempts": 2,
+          "primitive_node_visits": 0,
+          "proposal_calls": 1
+        }
+      },
+      "task_id": "square-repeated"
+    },
+    {
+      "fixed": {
+        "accepted_steps": 16,
+        "admissions": [],
+        "committed_rule_uses": [],
+        "expression": "((x+y)+(z+w))**2",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "expanded": true,
+          "points_checked": 81,
+          "reason": "exact_grid_identity",
+          "required_points": 81,
+          "status": "valid"
+        },
+        "output": "x * x + x * y + (x * z + x * w) + (y * x + y * y + (y * z + y * w)) + (z * x + z * y + (z * z + z * w) + (w * x + w * y + (w * z + w * w)))",
+        "retrieved_rule_ids": [],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "square-nested",
+        "variables": [
+          "x",
+          "y",
+          "z",
+          "w"
+        ],
+        "work": {
+          "identity_checks": 272,
+          "pattern_attempts": 0,
+          "primitive_node_visits": 385,
+          "proposal_calls": 16
+        }
+      },
+      "growing": {
+        "accepted_steps": 13,
+        "admissions": [],
+        "committed_rule_uses": [
+          {
+            "cross_task": true,
+            "fingerprint": "726eab620c5a193a5d13f9486a3792097e5b294571bea0b1d8cfb41b6d8efb54",
+            "rule_id": "expansion:a2221de6886c55498d070bec",
+            "source_task_id": "discover-square"
+          }
+        ],
+        "expression": "((x+y)+(z+w))**2",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "expanded": true,
+          "points_checked": 81,
+          "reason": "exact_grid_identity",
+          "required_points": 81,
+          "status": "valid"
+        },
+        "output": "x * x + x * y + (y * x + y * y) + (x * z + x * w + (y * z + y * w)) + (z * x + z * y + (w * x + w * y) + (z * z + z * w + (w * z + w * w)))",
+        "retrieved_rule_ids": [
+          "expansion:a2221de6886c55498d070bec",
+          "expansion:d1746fa88e50f8d8323834a6"
+        ],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "square-nested",
+        "variables": [
+          "x",
+          "y",
+          "z",
+          "w"
+        ],
+        "work": {
+          "identity_checks": 182,
+          "pattern_attempts": 1114,
+          "primitive_node_visits": 348,
+          "proposal_calls": 13
+        }
+      },
+      "task_id": "square-nested"
+    },
+    {
+      "fixed": {
+        "accepted_steps": 16,
+        "admissions": [],
+        "committed_rule_uses": [],
+        "expression": "(2*x+3*y)**3",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            3,
+            3
+          ],
+          "expanded": true,
+          "points_checked": 16,
+          "reason": "exact_grid_identity",
+          "required_points": 16,
+          "status": "valid"
+        },
+        "output": "2 * x * (2 * x) * (2 * x) + 2 * x * (3 * y) * (2 * x) + (3 * y * (2 * x) * (2 * x) + 3 * y * (3 * y) * (2 * x)) + (2 * x * (2 * x) * (3 * y) + 2 * x * (3 * y) * (3 * y) + (3 * y * (2 * x) * (3 * y) + 3 * y * (3 * y) * (3 * y)))",
+        "retrieved_rule_ids": [],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "cube-coefficients",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 272,
+          "pattern_attempts": 0,
+          "primitive_node_visits": 467,
+          "proposal_calls": 16
+        }
+      },
+      "growing": {
+        "accepted_steps": 1,
+        "admissions": [],
+        "committed_rule_uses": [
+          {
+            "cross_task": true,
+            "fingerprint": "4438242c5f3f7706d08650059fd156aeac988387be43dbcb3ef29b77e86c903a",
+            "rule_id": "expansion:d1746fa88e50f8d8323834a6",
+            "source_task_id": "discover-cube"
+          }
+        ],
+        "expression": "(2*x+3*y)**3",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            3,
+            3
+          ],
+          "expanded": true,
+          "points_checked": 16,
+          "reason": "exact_grid_identity",
+          "required_points": 16,
+          "status": "valid"
+        },
+        "output": "2 * x * (2 * x) * (2 * x) + 2 * x * (2 * x) * (3 * y) + (2 * x * (3 * y) * (2 * x) + 2 * x * (3 * y) * (3 * y)) + (3 * y * (2 * x) * (2 * x) + 3 * y * (2 * x) * (3 * y) + (3 * y * (3 * y) * (2 * x) + 3 * y * (3 * y) * (3 * y)))",
+        "retrieved_rule_ids": [
+          "expansion:a2221de6886c55498d070bec",
+          "expansion:d1746fa88e50f8d8323834a6"
+        ],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "cube-coefficients",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 2,
+          "pattern_attempts": 11,
+          "primitive_node_visits": 0,
+          "proposal_calls": 1
+        }
+      },
+      "task_id": "cube-coefficients"
+    },
+    {
+      "fixed": {
+        "accepted_steps": 16,
+        "admissions": [],
+        "committed_rule_uses": [],
+        "expression": "(-x+2*y)**3",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            3,
+            3
+          ],
+          "expanded": true,
+          "points_checked": 16,
+          "reason": "exact_grid_identity",
+          "required_points": 16,
+          "status": "valid"
+        },
+        "output": "-x * -x * -x + -x * (2 * y) * -x + (2 * y * -x * -x + 2 * y * (2 * y) * -x) + (-x * -x * (2 * y) + -x * (2 * y) * (2 * y) + (2 * y * -x * (2 * y) + 2 * y * (2 * y) * (2 * y)))",
+        "retrieved_rule_ids": [],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "cube-negative",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 272,
+          "pattern_attempts": 0,
+          "primitive_node_visits": 395,
+          "proposal_calls": 16
+        }
+      },
+      "growing": {
+        "accepted_steps": 1,
+        "admissions": [],
+        "committed_rule_uses": [
+          {
+            "cross_task": true,
+            "fingerprint": "4438242c5f3f7706d08650059fd156aeac988387be43dbcb3ef29b77e86c903a",
+            "rule_id": "expansion:d1746fa88e50f8d8323834a6",
+            "source_task_id": "discover-cube"
+          }
+        ],
+        "expression": "(-x+2*y)**3",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            3,
+            3
+          ],
+          "expanded": true,
+          "points_checked": 16,
+          "reason": "exact_grid_identity",
+          "required_points": 16,
+          "status": "valid"
+        },
+        "output": "-x * -x * -x + -x * -x * (2 * y) + (-x * (2 * y) * -x + -x * (2 * y) * (2 * y)) + (2 * y * -x * -x + 2 * y * -x * (2 * y) + (2 * y * (2 * y) * -x + 2 * y * (2 * y) * (2 * y)))",
+        "retrieved_rule_ids": [
+          "expansion:a2221de6886c55498d070bec",
+          "expansion:d1746fa88e50f8d8323834a6"
+        ],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "cube-negative",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 2,
+          "pattern_attempts": 10,
+          "primitive_node_visits": 0,
+          "proposal_calls": 1
+        }
+      },
+      "task_id": "cube-negative"
+    },
+    {
+      "fixed": {
+        "accepted_steps": 16,
+        "admissions": [],
+        "committed_rule_uses": [],
+        "expression": "(x+2*x)**3",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            3
+          ],
+          "expanded": true,
+          "points_checked": 4,
+          "reason": "exact_grid_identity",
+          "required_points": 4,
+          "status": "valid"
+        },
+        "output": "x * x * x + x * (2 * x) * x + (2 * x * x * x + 2 * x * (2 * x) * x) + (x * x * (2 * x) + x * (2 * x) * (2 * x) + (2 * x * x * (2 * x) + 2 * x * (2 * x) * (2 * x)))",
+        "retrieved_rule_ids": [],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "cube-repeated",
+        "variables": [
+          "x"
+        ],
+        "work": {
+          "identity_checks": 272,
+          "pattern_attempts": 0,
+          "primitive_node_visits": 323,
+          "proposal_calls": 16
+        }
+      },
+      "growing": {
+        "accepted_steps": 1,
+        "admissions": [],
+        "committed_rule_uses": [
+          {
+            "cross_task": true,
+            "fingerprint": "4438242c5f3f7706d08650059fd156aeac988387be43dbcb3ef29b77e86c903a",
+            "rule_id": "expansion:d1746fa88e50f8d8323834a6",
+            "source_task_id": "discover-cube"
+          }
+        ],
+        "expression": "(x+2*x)**3",
+        "group": "matching",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            3
+          ],
+          "expanded": true,
+          "points_checked": 4,
+          "reason": "exact_grid_identity",
+          "required_points": 4,
+          "status": "valid"
+        },
+        "output": "x * x * x + x * x * (2 * x) + (x * (2 * x) * x + x * (2 * x) * (2 * x)) + (2 * x * x * x + 2 * x * x * (2 * x) + (2 * x * (2 * x) * x + 2 * x * (2 * x) * (2 * x)))",
+        "retrieved_rule_ids": [
+          "expansion:a2221de6886c55498d070bec",
+          "expansion:d1746fa88e50f8d8323834a6"
+        ],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "cube-repeated",
+        "variables": [
+          "x"
+        ],
+        "work": {
+          "identity_checks": 2,
+          "pattern_attempts": 9,
+          "primitive_node_visits": 0,
+          "proposal_calls": 1
+        }
+      },
+      "task_id": "cube-repeated"
+    },
+    {
+      "fixed": {
+        "accepted_steps": 3,
+        "admissions": [],
+        "committed_rule_uses": [],
+        "expression": "(2*x+3*y)*(x-4*y)",
+        "group": "unmatched-control",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true,
+          "points_checked": 9,
+          "reason": "exact_grid_identity",
+          "required_points": 9,
+          "status": "valid"
+        },
+        "output": "2 * x * x - 2 * x * (4 * y) + (3 * y * x - 3 * y * (4 * y))",
+        "retrieved_rule_ids": [],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "unmatched-product",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 12,
+          "pattern_attempts": 0,
+          "primitive_node_visits": 18,
+          "proposal_calls": 3
+        }
+      },
+      "growing": {
+        "accepted_steps": 3,
+        "admissions": [],
+        "committed_rule_uses": [],
+        "expression": "(2*x+3*y)*(x-4*y)",
+        "group": "unmatched-control",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true,
+          "points_checked": 9,
+          "reason": "exact_grid_identity",
+          "required_points": 9,
+          "status": "valid"
+        },
+        "output": "2 * x * x - 2 * x * (4 * y) + (3 * y * x - 3 * y * (4 * y))",
+        "retrieved_rule_ids": [
+          "expansion:a2221de6886c55498d070bec",
+          "expansion:d1746fa88e50f8d8323834a6"
+        ],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "unmatched-product",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 12,
+          "pattern_attempts": 110,
+          "primitive_node_visits": 18,
+          "proposal_calls": 3
+        }
+      },
+      "task_id": "unmatched-product"
+    },
+    {
+      "fixed": {
+        "accepted_steps": 1,
+        "admissions": [],
+        "committed_rule_uses": [],
+        "expression": "3*x*x-2*x*y+5*y*y",
+        "group": "expanded-control",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true,
+          "points_checked": 9,
+          "reason": "exact_grid_identity",
+          "required_points": 9,
+          "status": "valid"
+        },
+        "output": "3*x*x-2*x*y+5*y*y",
+        "retrieved_rule_ids": [],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "already-expanded",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 2,
+          "pattern_attempts": 0,
+          "primitive_node_visits": 17,
+          "proposal_calls": 1
+        }
+      },
+      "growing": {
+        "accepted_steps": 1,
+        "admissions": [],
+        "committed_rule_uses": [],
+        "expression": "3*x*x-2*x*y+5*y*y",
+        "group": "expanded-control",
+        "learning_errors": [],
+        "oracle": {
+          "degree_bounds": [
+            2,
+            2
+          ],
+          "expanded": true,
+          "points_checked": 9,
+          "reason": "exact_grid_identity",
+          "required_points": 9,
+          "status": "valid"
+        },
+        "output": "3*x*x-2*x*y+5*y*y",
+        "retrieved_rule_ids": [
+          "expansion:a2221de6886c55498d070bec",
+          "expansion:d1746fa88e50f8d8323834a6"
+        ],
+        "status": "solved",
+        "stop_reason": "residual_empty",
+        "success": true,
+        "task_id": "already-expanded",
+        "variables": [
+          "x",
+          "y"
+        ],
+        "work": {
+          "identity_checks": 2,
+          "pattern_attempts": 34,
+          "primitive_node_visits": 17,
+          "proposal_calls": 1
+        }
+      },
+      "task_id": "already-expanded"
+    }
+  ]
+}

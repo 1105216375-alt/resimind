@@ -22,6 +22,8 @@ Plan a day with many possible answers. Check a refund against a merchant policy.
 
 **Project creator and original publisher: [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
 
+**New: turn a checked derivation into a reusable rule.** Derive a symbolic polynomial identity, independently verify its proof chain, save it, and reuse it on a new task. Each reuse is checked again. Run `python -m resimind demo --domain knowledge-growth`. [Knowledge growth, controlled comparison, and supported proof scope →](docs/knowledge-growth.md) · [994-test development validation](docs/validation-knowledge-growth.md)
+
 ## Open-ended planning: many answers, explicit constraints
 
 **The request:** “Plan a relaxed day with art and a meal. I like quiet places and coffee.”
@@ -138,6 +140,8 @@ These are offline demonstrations using fictional merchant rules and synthetic or
 [Read the customer-support adapter and live example →](docs/customer-support.md) · [Actual DeepSeek run: 5 calls, 2 rejected proposals, verified recommendation](docs/evidence/customer-support/README.md)
 
 ## Mathematics: a solution is not yet a proof
+
+**Learn a reusable step from a completed proof:** the new [knowledge-growth Agent](docs/knowledge-growth.md) adds a second loop: verified derivation → candidate rule → independent admission → persistent library → future proposals. Its polynomial demo uses a deterministic rewrite grammar; a model callback can supply proposals through the same gate. Recorded results measure offline rule reuse, not neural mathematical discovery.
 
 ![Actual offline optimization trace: reject, correct, certify](docs/assets/verification-demo.gif)
 

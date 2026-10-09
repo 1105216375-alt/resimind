@@ -2,6 +2,10 @@
 
 ## Unreleased — 2026-10-09
 
+- Add verified knowledge growth: completed Agent proof chains become candidate rules, independently verified before admission, persisted with conditions/provenance, rechecked on reload, and reverified on use in new tasks. Unknown or rejected checks never authorize promotion.
+- Add a bounded, exact rational-polynomial certificate kernel and a learning Agent with primitive AST derivations, learned-rule matching, and optional model proposals. Keep nonzero preconditions explicit for cancellation; unsupported symbolic division and numerical samples cannot prove a universal rule.
+- Add `resimind demo --domain knowledge-growth` and a frozen-library comparison with an independent exact degree-grid scorer. Publish compact development results; distinguish proposal-count savings from compute savings or model superiority.
+
 - Add zero-dependency `resimind.search`: bounded alternatives, temporary draft regressions, full verification before acceptance, callback integrity checks and finite traces.
 - Add an oracle-blind ChinaTravel schedule constructor, restaurant alternatives and narrow AST checks for contradictory self-translations. Preserve default refusal for ambiguous zero-room visits; explicitly annotated replay completes one seen task, while the default remains 0/2. Publish a compact summary; retain new raw records locally.
 - Correct hotel allocation checks: the dataset's bed count cannot prove guest capacity. Keep positive room/bed quantities and exact room-type binding; disclose the unavailable capacity check.

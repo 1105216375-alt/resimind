@@ -22,6 +22,8 @@ ResiMind 是一套**独立运行的神经符号 Agent 架构**：模型探索方
 
 **项目发起者与原始发布者：[@1105216375-alt](https://github.com/1105216375-alt)。** [原始仓库](https://github.com/1105216375-alt/resimind) · [引用信息](CITATION.cff)
 
+**新增知识增长：推导一次，验明之后，下一题接着用。** Agent 从实际完成的符号推导中提炼候选规则，经独立证明检查后入库，保存重载后用于新任务；每次复用仍重新验算。运行 `python -m resimind demo --domain knowledge-growth`。[查看完整闭环、量化对比与支持范围 →](docs/knowledge-growth.zh-CN.md) · [994 项开发回归通过](docs/validation-knowledge-growth.md)
+
 ## 开放式规划：答案可以多样，约束必须满足
 
 **原始需求：**“帮我安排轻松的一天，想看艺术、吃顿饭，偏好安静和咖啡。”
