@@ -5,7 +5,7 @@ a statement of total compute savings, or a ranking against other frameworks.
 
 | Check | Result |
 | --- | --- |
-| Complete source regression suite, including installed integrations and actual Lean checks | 1,600 passed |
+| Complete source regression suite, including installed integrations and actual Lean checks | 1,603 passed |
 | Runnable source examples | All 11 passed |
 | Fresh Python 3.12 venv, wheel installed without Python dependencies | Version 0.10.0; imports came from the installed wheel |
 | Installed console command outside the repository, 9 domains in text and JSON | 18/18 passed |
@@ -27,6 +27,10 @@ model fallback, finite budgets, independent task state and bounded observation
 logs. Read-only controller eligibility checks are exercised against global,
 per-state and branch limits. A spent local strategy cannot hide an available
 model fallback.
+
+Three additional expression-protocol regressions check explicit power and
+multiplication instructions, rejection of `^` followed by a corrected proposal,
+and rejection of implicit multiplication without automatic answer rewriting.
 
 ## Reproduce
 

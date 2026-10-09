@@ -63,6 +63,10 @@ instructions for the currently selected strategy; it returns JSON, never code.
 The application owns provider credentials, network timeouts, token limits, and
 any external cancellation policy.
 
+Polynomial strings use explicit multiplication (`2*x`, `x*y`) and Python-style
+powers (`x**2`, never `x^2`). Prompts and rejection feedback state this grammar.
+Unsupported notation is rejected without silently rewriting the model's answer.
+
 ## What changes after failure
 
 The reusable `resimind.strategy.StrategyController` manages a finite set of

@@ -27,6 +27,11 @@ SCOPE = "rational-polynomial-expansion-v1"
 INPUT_ID = "polynomial:input"
 ACTIONS = ("rewrite_polynomial", "certify_expansion")
 RULE_ACTION = "apply_verified_rule"
+POLYNOMIAL_SYNTAX_GUIDANCE = (
+    "Use Python-style powers '**' (x**2), never '^', and explicit multiplication '*' "
+    "(2*x, x*y). Use only declared variables, integers, parentheses, +, -, *, ** with "
+    "exponents 0 through 16, and division by nonzero integer literals; use fractions, not decimals."
+)
 
 
 def _tree(expression: str) -> ast.expr:
@@ -393,9 +398,7 @@ class PolynomialVerifier:
             validate_expression(after, self.problem.variables)
         except (ValueError, TypeError, RecursionError):
             return reply(Decision.REJECT, "malformed_or_unsupported_rewrite", diagnostic=(
-                "rewrite_after_unsupported: after must be a bounded supported polynomial expression "
-                "using declared variables, integer literals, +, -, *, powers 0 through 16, and division "
-                "by a nonzero integer literal. Use rational fractions rather than decimals; submit a smaller step if needed."))
+                "rewrite_after_unsupported: " + POLYNOMIAL_SYNTAX_GUIDANCE + " Submit a smaller step if needed."))
         self.counts.identity_checks += 1
         identity = verify_identity(before, after, self.problem.variables)
         if identity.status != "verified":
@@ -490,8 +493,7 @@ class _StateBoundPolynomialVerifier:
             validate_expression(after, self.problem.variables)
         except (ValueError, TypeError, RecursionError):
             return reply(Decision.REJECT, "malformed_or_unsupported_rewrite", diagnostic=(
-                "rewrite_after_unsupported: use a bounded supported polynomial expression; "
-                "rational fractions instead of decimals, powers 0 through 16, and only declared variables."))
+                "rewrite_after_unsupported: " + POLYNOMIAL_SYNTAX_GUIDANCE + " Submit a smaller step if needed."))
         self.counts.identity_checks += 1
         identity = verify_identity(current, after, self.problem.variables)
         if identity.status != "verified":

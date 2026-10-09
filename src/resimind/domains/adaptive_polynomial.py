@@ -24,7 +24,7 @@ from ..integrations.lean import (
 from ..strategy import FailureKind, StrategyController
 from .algebra import MAX_DERIVATION_STEPS, MAX_SOURCE_LENGTH, _tree as _bounded_tree
 from .polynomial_learning import (
-    DOMAIN, INPUT_ID, TARGET, RULE_ACTION, PolynomialDomain, PolynomialProblem,
+    DOMAIN, INPUT_ID, TARGET, RULE_ACTION, POLYNOMIAL_SYNTAX_GUIDANCE, PolynomialDomain, PolynomialProblem,
     PolynomialTool, WorkCounts, _StateBoundPolynomialVerifier, _expansion_rules,
     _bounded_macro, _match, _needs_expansion, _normalized_expression, _primitive, _state_fingerprint,
     _text, _tree, _unique_object, distill_expansion, is_expanded,
@@ -514,7 +514,7 @@ class _AdaptiveProposer:
             "recent_diagnostics": self.last_diagnostics[-3:],
             "instruction": (
                 "Return exactly one JSON object {\"after\": \"your polynomial expression\"}, or null. "
-                "Use declared variables, integers, +, -, *, powers 0 through 16, and division by nonzero integer literals. "
+                f"{POLYNOMIAL_SYNTAX_GUIDANCE} "
                 "Do not return a path, rule, code, or self-verification. A separate verifier checks the identity. "
                 "Apply coefficient feedback only to the named monomial. "
                 + ("Expand only selected_subexpression. Your after replaces exactly that selected AST path; "
