@@ -1,16 +1,16 @@
-![ResiMind — 让推理留下可复用的知识](docs/assets/knowledge-growth.svg)
+![ResiMind — 会纠错、能积累已验证知识的 Agent](docs/assets/adaptive-memory.svg)
 
-# ResiMind
+# ResiMind：会纠错、能积累知识的 AI Agent
 
-**验出错误，就换一种解法。做对的推导，成为下一题的能力。**
+**发现错步，换条路走。验证过的解法，留给下一题。**
 
-ResiMind 是一套**独立运行的神经符号 Agent 架构**。沿用你的模型，由模型提出步骤，独立代码核验；**残差**记录还差什么，推动下一步。完成并通过验证的推导，还能提炼成规则，留给后续任务复用。
+ResiMind 是一套独立运行的开源**神经符号 Agent 架构**，把验证驱动的自我纠错和可复用规则记忆接进推理循环。沿用你的模型，由模型提出步骤，独立代码核验；**残差**记录还差什么，指导下一次尝试。
 
-**题内：提议 → 验证 → 解决剩余问题。跨题：推导 → 验证 → 入库 → 复用并重验。**
+**自我纠错 × 可验证记忆 × 无需重训的知识增长**
 
-当前知识增长适配器支持有界、精确的多项式恒等式证明。同一套 Agent 核心还可运行开放式规划、日常客服、约束优化与桥梁计算，每个领域都有明确的检查条件。
+当前[自适应数学 Agent](docs/adaptive-reasoning.md)会在验证失败后切换策略，还能把完成并验证过的推导变成后续任务可用的规则。这里的**可验证记忆**是持久化规则库：入库前验证、重载时复核、每次应用再验。知识积累在模型之外，模型权重保持不变。
 
-可选的[自适应推理适配器](docs/adaptive-reasoning.md)把失败反馈接到实际策略切换：拆解局部任务、调用已验证规则、执行符号变换，或回到先前已验证的检查点。每一步仍须通过验证才能成为事实。[离线恢复示例](examples/adaptive_reasoning.py)展示错误之后如何继续求解。
+当前自适应推理与规则学习示例支持**有界有理多项式展开**。同一套 Agent 核心还提供规划、客服、约束优化与桥梁示例，各自使用明确的检查条件。
 
 **沿用你的模型 · Python 3.10+ · 核心零依赖 · MIT · v0.8.0 / 实验阶段**
 
@@ -18,9 +18,15 @@ ResiMind 是一套**独立运行的神经符号 Agent 架构**。沿用你的模
 
 **项目发起者与原始发布者：[@1105216375-alt](https://github.com/1105216375-alt)。** [原始仓库](https://github.com/1105216375-alt/resimind) · [引用信息](CITATION.cff)
 
-## v0.8：验出错误之后，Agent 有下一招
+## 这一题会换解法，下一题能用上积累
 
-整题提议失败，自适应数学 Agent 可以拆成局部任务、调用已验证规则、继续符号变换，或回到已验证的检查点。每个新候选都要通过检查才能成为事实；换策略不会重置重试次数和行动预算。
+| 能力 | 实际发生什么 |
+| --- | --- |
+| **自我纠错** | 验证失败后，可以拆局部任务、调用已验证规则、执行符号变换，或回到已验证检查点。 |
+| **可验证记忆** | 完成的证明可以成为带条件和来源的持久化规则，入库与重载分别核验。 |
+| **无需重训的学习** | 新题检索并执行规则，每次应用再次验证；模型权重保持不变。 |
+
+每个新候选都要通过检查才能成为事实；换策略不会重置重试次数和行动预算。
 
 ```text
 提议 → 检查 → 诊断剩余问题 → 切换策略 → 再次检查
@@ -33,6 +39,36 @@ ResiMind 是一套**独立运行的神经符号 Agent 架构**。沿用你的模
 **当前范围：**自适应适配器支持有界有理多项式展开。其他领域共用 Agent 核心，使用各自的检查条件。Lean 接入留到后续版本。
 
 [**运行自适应 Agent →**](docs/adaptive-reasoning.md) · [版本验证](docs/validation-v0.8.0.md) · [更新记录](CHANGELOG.md)
+
+## 三分钟跑起来
+
+准备好 Python，然后执行：
+
+```bash
+git clone https://github.com/1105216375-alt/resimind.git
+cd resimind
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install .
+python -m resimind demo --domain adaptive
+```
+
+Windows PowerShell 的激活命令为 `.venv\Scripts\Activate.ps1`。安装时可能需要下载构建工具。示例**离线运行，无需 API 密钥**；安装后，`python -m resimind` 与 `resimind` 命令均可在仓库目录外使用。
+
+首个示例会展示错误展开被拒绝、局部修改通过、符号步骤完成证明，以及新规则保存重载后用于新变量的任务。终端会明确标注离线脚本，并列出策略审计记录。
+
+选一个你关心的场景，下面六条命令都能离线运行：
+
+| 场景 | 能看出什么 | 运行命令 |
+| --- | --- | --- |
+| [自适应推理](docs/adaptive-reasoning.md) | 拒绝错误步骤、切换解法、完成证明，再复用已验证规则 | `python -m resimind demo --domain adaptive` |
+| [知识增长](docs/knowledge-growth.zh-CN.md) | 推导出规则，验证入库，下一题检索复用并重验 | `python -m resimind demo --domain knowledge-growth` |
+| [开放式规划](docs/open-planning.md) | 答案可以多样，预算、时间和路线必须满足约束 | `python -m resimind demo --domain planning` |
+| [日常客服](docs/customer-support.md) | 提议退 259 元，配置规则只允许计算出 249 元，金额被拦下 | `python -m resimind demo --domain customer-support` |
+| [数学证明](docs/constrained-optimization.md) | 目标函数更低也可能不可行；最后检查精确最优性证书 | `python -m resimind demo` |
+| [桥梁工程](docs/continuous-bridge.md) | 力的平衡过了，中墩两侧的转角仍可能对不上 | `python -m resimind demo --domain bridge` |
+
+追加 `--json` 查看审计记录；[接入 DeepSeek](docs/open-planning.md#let-deepseek-choose-the-plan)，让模型自行组合行程。
 
 ## 推导一次，验明入库，下一题接着用
 
@@ -77,36 +113,6 @@ Agent 从基础步骤推导平方、立方恒等式，提交完整推导链，�
 三种强制验证组本次仍无错误交付。增长组另有 3 次学习调用，实际跨题规则应用仍为 3 次：**完成数与验证后重试持平，调用更多**。本次反馈改进没有提高残差组或增长组的完成数。这是看过结果后的旧题开发重跑，不是新的盲测；原始 v1 完整保留。
 
 [**查看协议、逐题结果、token 与适用范围 →**](docs/algebra-live-evaluation.zh-CN.md) · [冻结 v1 摘要](docs/evidence/algebra-live-v1/summary.json) · [开发 v2 摘要](docs/evidence/algebra-feedback-v2/summary.json)
-
-## 三分钟跑起来
-
-准备好 Python，然后执行：
-
-```bash
-git clone https://github.com/1105216375-alt/resimind.git
-cd resimind
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install .
-python -m resimind demo --domain adaptive
-```
-
-Windows PowerShell 的激活命令为 `.venv\Scripts\Activate.ps1`。安装时可能需要下载构建工具。示例**离线运行，无需 API 密钥**；安装后，`python -m resimind` 与 `resimind` 命令均可在仓库目录外使用。
-
-首个示例会展示错误展开被拒绝、局部修改通过、符号步骤完成证明，以及新规则保存重载后用于新变量的任务。终端会明确标注离线脚本，并列出策略审计记录。
-
-选一个你关心的场景，下面六条命令都能离线运行：
-
-| 场景 | 能看出什么 | 运行命令 |
-| --- | --- | --- |
-| [自适应推理](docs/adaptive-reasoning.md) | 拒绝错误步骤、切换解法、完成证明，再复用已验证规则 | `python -m resimind demo --domain adaptive` |
-| [知识增长](docs/knowledge-growth.zh-CN.md) | 推导出规则，验证入库，下一题检索复用并重验 | `python -m resimind demo --domain knowledge-growth` |
-| [开放式规划](docs/open-planning.md) | 答案可以多样，预算、时间和路线必须满足约束 | `python -m resimind demo --domain planning` |
-| [日常客服](docs/customer-support.md) | 提议退 259 元，配置规则只允许计算出 249 元，金额被拦下 | `python -m resimind demo --domain customer-support` |
-| [数学证明](docs/constrained-optimization.md) | 目标函数更低也可能不可行；最后检查精确最优性证书 | `python -m resimind demo` |
-| [桥梁工程](docs/continuous-bridge.md) | 力的平衡过了，中墩两侧的转角仍可能对不上 | `python -m resimind demo --domain bridge` |
-
-追加 `--json` 查看审计记录；[接入 DeepSeek](docs/open-planning.md#let-deepseek-choose-the-plan)，让模型自行组合行程。
 
 ## 开放式规划：答案可以多样，约束必须满足
 

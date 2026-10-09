@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-labelledby="title desc">
+  <title id="title">ResiMind — Self-correcting agents with verified memory</title>
+  <desc id="desc">A neuro-symbolic Agent that changes strategy after failed checks, verifies completed derivations before storing rules, and rechecks rule applications on new tasks. Knowledge grows outside the model without retraining. The current adaptive and rule-learning demo supports bounded rational polynomial expansion.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#13233c"/><stop offset="1" stop-color="#07131f"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#62e8cc"/><stop offset="1" stop-color="#88bfff"/></linearGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#a7c9e4" stroke-opacity=".045"/></pattern>
+  </defs>
+  <rect width="1280" height="560" rx="22" fill="url(#bg)"/>
+  <rect width="1280" height="560" rx="22" fill="url(#grid)"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif">
+    <text x="54" y="77" font-size="44" font-weight="750" letter-spacing="-1.6" fill="#f3f7ff">Resi<tspan fill="#79e9d5">Mind</tspan></text>
+    <text x="1224" y="67" text-anchor="end" font-size="14" letter-spacing="2" font-weight="600" fill="#a9c2d7">v0.8 · OPEN SOURCE · EXPERIMENTAL</text>
+
+    <text x="54" y="151" font-size="52" font-weight="750" letter-spacing="-1.4" fill="#f3f7ff">Self-correcting agents.</text>
+    <text x="54" y="210" font-size="52" font-weight="750" letter-spacing="-1.4" fill="#79e9d5">Verified memory.</text>
+    <text x="56" y="250" font-size="22" fill="#b8ccdf">Learn reusable rules without retraining your model.</text>
+
+    <g fill="#12283c" stroke="#36556d">
+      <rect x="56" y="292" width="374" height="134" rx="15"/>
+      <rect x="454" y="292" width="374" height="134" rx="15"/>
+      <rect x="852" y="292" width="374" height="134" rx="15"/>
+    </g>
+    <g font-size="13" letter-spacing="1.5" font-weight="700" fill="#79e9d5">
+      <text x="78" y="320">01 / RECOVER</text>
+      <text x="476" y="320">02 / REMEMBER</text>
+      <text x="874" y="320">03 / REUSE</text>
+    </g>
+    <g font-size="23" font-weight="650" fill="#f3f7ff">
+      <text x="78" y="354">A failed check. A new route.</text>
+      <text x="476" y="354">A proof. A checked rule.</text>
+      <text x="874" y="354">A new task. Recheck &amp; apply.</text>
+    </g>
+    <g font-size="17" fill="#adc4d8">
+      <text x="78" y="386">Local edits · Rules · Symbolic steps</text>
+      <text x="78" y="409">Verified checkpoints · Finite budgets</text>
+      <text x="476" y="386">Verify before admission</text>
+      <text x="476" y="409">Save · Reload · Verify again</text>
+      <text x="874" y="386">Retrieve a verified identity</text>
+      <text x="874" y="409">Independently check this application</text>
+    </g>
+    <path d="M56 459H1224" stroke="#33516a"/>
+    <text x="56" y="493" font-size="17" font-weight="600" fill="#79e9d5">NEURO-SYMBOLIC · BRING YOUR OWN MODEL · MIT</text>
+    <text x="56" y="528" font-size="16" fill="#9eb6ca">Current adaptive + rule-learning demo: bounded rational polynomial expansion.</text>
+  </g>
+  <path d="M22 559H1258" stroke="url(#accent)" stroke-opacity=".8"/>
+</svg>

@@ -1,16 +1,16 @@
-![ResiMind — reasoning that carries forward](docs/assets/knowledge-growth.svg)
+![ResiMind — self-correcting agents with verified memory](docs/assets/adaptive-memory.svg)
 
-# ResiMind
+# ResiMind — Self-Correcting Agents with Verified Memory
 
-**When a check fails, change strategy. Build on what you prove.**
+**Catch a bad step. Try another route. Remember a verified solution.**
 
-ResiMind is a **standalone neuro-symbolic Agent architecture**. Your model proposes a step. Independent code checks it. The **residual** tracks what remains to be solved. Completed, verified derivations can become reusable rules for the next task.
+ResiMind is a standalone, open-source **neuro-symbolic Agent architecture** for verification-guided self-correction and reusable rule memory. Your model proposes a step. Independent code checks it. The **residual** tracks what remains to be solved and guides the next attempt.
 
-**Propose → verify → resolve what remains. Derive → verify → store → reuse and recheck.**
+**Self-correction · Verified agent memory · Knowledge growth without model retraining**
 
-The knowledge-growth adapter currently proves bounded, exact polynomial identities. The same Agent core also runs open-ended planning, customer support, constrained optimization, and bridge calculations, with explicit checks for each domain.
+The [adaptive math Agent](docs/adaptive-reasoning.md) can switch strategies after a failed check and turn completed, verified derivations into rules for future tasks. Here, **verified memory** means a persistent rule library: verify before admission, recheck on reload, and verify each new application. Knowledge grows outside the model; its weights stay unchanged.
 
-The optional [adaptive reasoning adapter](docs/adaptive-reasoning.md) turns a failed check into a strategy change: decompose a local task, try a verified rule, use a symbolic rewrite, or return to a verified checkpoint. Every new step is checked before it becomes a fact. Run the [offline recovery example](examples/adaptive_reasoning.py) to inspect the transitions.
+The current adaptive and rule-learning demo supports **bounded rational polynomial expansion**. The same Agent core also runs planning, customer support, optimization and bridge examples with domain-specific checks.
 
 **Bring your own model · Python 3.10+ · Zero-dependency core · MIT · v0.8.0 / Experimental**
 
@@ -18,9 +18,15 @@ The optional [adaptive reasoning adapter](docs/adaptive-reasoning.md) turns a fa
 
 **Created and originally published by [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
 
-## New in v0.8: a failed check becomes the next move
+## Watch it recover. Then watch it reuse what worked.
 
-The adaptive math Agent can turn a failed whole-expression proposal into a smaller local task, apply a checked rule, continue with symbolic rewrites, or return to a verified checkpoint. Each new candidate is checked before becoming a fact; retry and action budgets remain bounded across strategy changes.
+| Capability | What actually happens |
+| --- | --- |
+| **Self-correction** | A failed check can trigger a smaller local task, a verified rule, a symbolic rewrite, or a checked checkpoint return. |
+| **Verified memory** | A completed proof can become a stored rule, with conditions and provenance, independently checked on admission and reload. |
+| **Learning without retraining** | A new task can retrieve and execute the rule, checking its application again. Model weights stay unchanged. |
+
+Each new candidate is checked before becoming a fact; retry and action budgets remain bounded across strategy changes.
 
 ```text
 Propose → check → diagnose what remains → change strategy → check again
@@ -33,6 +39,36 @@ Try the offline recovery demo: a deliberately wrong expansion is rejected, a loc
 **Current scope:** the adaptive adapter handles bounded rational polynomial expansion. Other domains share the Agent core and use their own checks. Lean integration is planned for a later version.
 
 [**Run the adaptive Agent →**](docs/adaptive-reasoning.md) · [Release validation](docs/validation-v0.8.0.md) · [Changelog](CHANGELOG.md)
+
+## Try it in three minutes
+
+With Python installed:
+
+```bash
+git clone https://github.com/1105216375-alt/resimind.git
+cd resimind
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install .
+python -m resimind demo --domain adaptive
+```
+
+On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. Installation may download build tools. The demo runs **offline, without an API key**; both `python -m resimind` and the installed `resimind` command work outside the checkout.
+
+The first demo shows a rejected expansion, a checked local edit, symbolic recovery, and a new rule that is saved, reloaded and reused on a new-variable task. It labels its model responses as an offline script and prints the strategy audit.
+
+Choose a different challenge. All six commands run offline:
+
+| Try | What the example makes visible | Command |
+| --- | --- | --- |
+| [Adaptive reasoning](docs/adaptive-reasoning.md) | Reject a wrong step, change strategy, finish a proof and reuse its checked rule | `python -m resimind demo --domain adaptive` |
+| [Knowledge growth](docs/knowledge-growth.md) | Derive a rule, verify and store it, then reuse and recheck it on a new task | `python -m resimind demo --domain knowledge-growth` |
+| [Open-ended planning](docs/open-planning.md) | Many valid answers; time, budget, and route constraints still apply | `python -m resimind demo --domain planning` |
+| [Customer support](docs/customer-support.md) | A ¥259 refund proposal fails the configured ¥249 calculation | `python -m resimind demo --domain customer-support` |
+| [Mathematics](docs/constrained-optimization.md) | A lower objective is useless if the candidate violates a constraint; check an exact optimality certificate | `python -m resimind demo` |
+| [Bridge engineering](docs/continuous-bridge.md) | Balanced forces can still hide incompatible rotations at a shared pier | `python -m resimind demo --domain bridge` |
+
+Add `--json` to inspect the audit. [Connect DeepSeek](docs/open-planning.md#let-deepseek-choose-the-plan) when you want the model to compose its own plan.
 
 ## Derive once. Reuse on a new task.
 
@@ -77,36 +113,6 @@ This is a single, handcrafted pilot. The ReAct-style implementation offered an o
 All three gated arms again deliver no invalid answer. Growth still needs 3 discovery calls and records 3 cross-task rule applications: **it ties verify-and-retry on completion and uses more calls**. The updated feedback did not improve residual or growth completion in this rerun. This is post-result development on seen cases, not a fresh held-out result; v1 remains available unchanged.
 
 [**Protocol, per-task results, tokens, and limitations →**](docs/algebra-live-evaluation.md) · [v1 JSON](docs/evidence/algebra-live-v1/summary.json) · [Development v2 JSON](docs/evidence/algebra-feedback-v2/summary.json)
-
-## Try it in three minutes
-
-With Python installed:
-
-```bash
-git clone https://github.com/1105216375-alt/resimind.git
-cd resimind
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install .
-python -m resimind demo --domain adaptive
-```
-
-On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. Installation may download build tools. The demo runs **offline, without an API key**; both `python -m resimind` and the installed `resimind` command work outside the checkout.
-
-The first demo shows a rejected expansion, a checked local edit, symbolic recovery, and a new rule that is saved, reloaded and reused on a new-variable task. It labels its model responses as an offline script and prints the strategy audit.
-
-Choose a different challenge. All six commands run offline:
-
-| Try | What the example makes visible | Command |
-| --- | --- | --- |
-| [Adaptive reasoning](docs/adaptive-reasoning.md) | Reject a wrong step, change strategy, finish a proof and reuse its checked rule | `python -m resimind demo --domain adaptive` |
-| [Knowledge growth](docs/knowledge-growth.md) | Derive a rule, verify and store it, then reuse and recheck it on a new task | `python -m resimind demo --domain knowledge-growth` |
-| [Open-ended planning](docs/open-planning.md) | Many valid answers; time, budget, and route constraints still apply | `python -m resimind demo --domain planning` |
-| [Customer support](docs/customer-support.md) | A ¥259 refund proposal fails the configured ¥249 calculation | `python -m resimind demo --domain customer-support` |
-| [Mathematics](docs/constrained-optimization.md) | A lower objective is useless if the candidate violates a constraint; check an exact optimality certificate | `python -m resimind demo` |
-| [Bridge engineering](docs/continuous-bridge.md) | Balanced forces can still hide incompatible rotations at a shared pier | `python -m resimind demo --domain bridge` |
-
-Add `--json` to inspect the audit. [Connect DeepSeek](docs/open-planning.md#let-deepseek-choose-the-plan) when you want the model to compose its own plan.
 
 ## Open-ended planning: many answers, explicit constraints
 
