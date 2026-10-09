@@ -15,6 +15,11 @@ callback configured but should never invoke it. A separate case deliberately
 sets the local-work budget to zero and invokes one scripted callback. It makes
 no live-model performance claim and requires no API key.
 
+For a single unusually large but still bounded symbolic step, pass
+`max_local_work_overflow` to allow one retry above `max_local_work`; its hard
+ceiling is the sum and all identity, goal, and Lean gates remain active. The
+default is `0`.
+
 ## How selection works
 
 For the current verified state, the adapter previews bounded rule substitutions,

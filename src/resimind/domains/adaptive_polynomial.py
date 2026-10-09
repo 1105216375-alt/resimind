@@ -103,6 +103,8 @@ class AdaptiveStats:
     progress_detour_rejections: int = 0
     progress_events: list[dict] = field(default_factory=list)
     progress_events_omitted: int = 0
+    local_work_overflow_grants: int = 0
+    local_work_overflow_denials: int = 0
     stop_reason: str = "not_started"
 
 
@@ -175,13 +177,15 @@ class _AdaptiveProposer:
                  max_model_calls, max_steps, max_rollbacks, control_expression_growth,
                  lean_backend, max_lean_checks, cost_aware_scheduling=True,
                  max_local_work=4096, max_rule_previews=16, goal_directed=True,
-                 max_progress_detours=1):
+                 max_progress_detours=1, max_local_work_overflow=0):
         self.problem, self.library, self.records = problem, library, _expansion_rules(records)[:16]
         self.complete, self.counts, self.stats, self.task_id = complete, counts, stats, task_id
         self.max_model_calls, self.max_steps, self.max_rollbacks = max_model_calls, max_steps, max_rollbacks
         self.control_expression_growth = control_expression_growth
         self.cost_aware_scheduling = cost_aware_scheduling
         self.max_local_work, self.max_rule_previews = max_local_work, max_rule_previews
+        self.max_local_work_overflow = max_local_work_overflow
+        self.local_work_overflow_used = False
         self.goal_directed, self.max_progress_detours = goal_directed, max_progress_detours
         self.progress_detours_used = 0
         self.progress_feedback = None
@@ -358,8 +362,13 @@ class _AdaptiveProposer:
             entry["reason"] = "duplicate_or_cycle_candidate"
             return
         if entry["estimated_local_work"] > self.max_local_work:
-            entry["reason"] = "estimated_local_work_exceeds_budget"
-            return
+            hard_limit = self.max_local_work + self.max_local_work_overflow
+            if (self.max_local_work_overflow > 0 and not self.local_work_overflow_used
+                    and entry["estimated_local_work"] <= hard_limit):
+                entry["overflow_candidate"] = True
+            else:
+                entry["reason"] = "estimated_local_work_exceeds_budget"
+                return
         if not cheap_progress(before, entry["after"]) and strategy != "primitive":
             entry["reason"] = "no_estimated_progress"
             return
@@ -454,6 +463,8 @@ class _AdaptiveProposer:
                                                for entry in entries],
             "selected_strategy": None, "selected_rule_id": None, "selection_reason": reason,
             "max_local_work": self.max_local_work, "model_enabled": model_enabled,
+            "max_local_work_overflow": self.max_local_work_overflow,
+            "local_work_overflow_used": self.local_work_overflow_used,
             "preview_cache_hit": cache_hit, "preview_nodes": self.stats.scheduling_preview_nodes - previous_nodes,
             "preview_elapsed_seconds": elapsed,
         }
@@ -623,6 +634,11 @@ class _AdaptiveProposer:
                         "controller_strategy": controller_strategy, "started": started,
                         "scheduling_decision": decision,
                         "candidate_key": None, "host_reasons": (), "path": None, "lean_tactic": "grind"}
+        selected_preview = next((item for item in self.scheduling_decision.get("candidates", [])
+                                 if item.get("strategy") == strategy and item.get("eligible")), None)
+        if selected_preview is not None:
+            self.pending["estimated_local_work"] = selected_preview.get("estimated_local_work")
+            self.pending["overflow_candidate"] = bool(selected_preview.get("overflow_candidate"))
         if strategy is None:
             self.no_more_strategies = True
             self.pending["host_reasons"] = (self.lean_stop or "strategy_exhausted",)
@@ -867,6 +883,12 @@ class _AdaptiveProposer:
                                    progress=progress, reasons=tuple(reasons), failure_kind=kind,
                                    revision=event.after.revision)
         if accepted:
+            if pending.get("overflow_candidate"):
+                self.local_work_overflow_used = True
+                self.stats.local_work_overflow_grants += 1
+                self._audit({"event": "local_work_overflow_granted", "base_budget": self.max_local_work,
+                             "overflow_budget": self.max_local_work_overflow,
+                             "estimated_local_work": pending.get("estimated_local_work")})
             self.pending_proof = None
             self.lean_feedback = None
             self.progress_feedback = None
@@ -1065,6 +1087,7 @@ def build_adaptive_learning_agent(
     cost_aware_scheduling: bool = True, max_local_work: int = 4096,
     max_rule_previews: int = 16,
     goal_directed: bool = True, max_progress_detours: int = 1,
+    max_local_work_overflow: int = 0,
 ) -> LearningAgent:
     """Build an opt-in adaptive learner; legacy adapters remain unchanged.
 
@@ -1109,6 +1132,8 @@ def build_adaptive_learning_agent(
         raise ValueError("max_progress_detours must be an integer from 0 through 64")
     if type(max_local_work) is not int or not 0 <= max_local_work <= 100_000:
         raise ValueError("max_local_work must be an integer from 0 through 100000")
+    if type(max_local_work_overflow) is not int or not 0 <= max_local_work_overflow <= 100_000:
+        raise ValueError("max_local_work_overflow must be an integer from 0 through 100000")
     if type(max_rule_previews) is not int or not 1 <= max_rule_previews <= 16:
         raise ValueError("max_rule_previews must be an integer from 1 through 16")
     if lean_backend is not None and not isinstance(lean_backend, LeanPolynomialBackend):
@@ -1132,7 +1157,8 @@ def build_adaptive_learning_agent(
         proposer = _AdaptiveProposer(problem, library, records, complete, counts, stats, task.id,
                                      max_model_calls, max_steps, max_rollbacks, control_expression_growth,
                                      lean_backend, max_lean_checks, cost_aware_scheduling,
-                                     max_local_work, max_rule_previews, goal_directed, max_progress_detours)
+                                     max_local_work, max_rule_previews, goal_directed, max_progress_detours,
+                                     max_local_work_overflow)
         return _AdaptiveAgent(
             adaptive_proposer=proposer, domain_factory=lambda _: PolynomialDomain(problem, counts),
             verifier_factory=lambda _: _AdaptiveVerifier(proposer),

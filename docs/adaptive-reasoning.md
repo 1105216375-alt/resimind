@@ -150,3 +150,6 @@ control using the same library. Its larger action budget and automatic tool
 access are disclosed: the comparison measures the complete implementation,
 not strategy scheduling in isolation. Test results and private model traces
 are kept outside the public source tree.
+### Controlled local-work overflow
+
+`build_adaptive_learning_agent` keeps `max_local_work=4096` as the normal per-candidate bound. Set `max_local_work_overflow` to a non-negative integer to permit one bounded retry for a candidate whose estimate is above the base bound; the hard ceiling is their sum. The candidate still passes exact identity, goal-progress, and (when configured) Lean verification. Overflow is granted only after acceptance and is never refunded by rollback; the default `0` preserves prior behavior.
