@@ -398,6 +398,7 @@ python -m pytest -q
 
 | 实验 | 已测到什么 | 记录 |
 | --- | --- | --- |
+| 离线统一开发题（无模型） | 150/150 通过独立评分；规则复用使数学平均步骤减少 33.1%；复杂表达式额外预算对照：2/8 → 5/8 | [协议、局限与复跑方法](docs/unified-benchmark-v1.md) |
 | 同模型代数：冻结 v1 与旧题开发 v2 | v1：5/8、6/8、6/8、7/8；v2：5/8、7/8、6/8、7/8，增长组与重试持平且调用更多 | [四组协议与结果](docs/algebra-live-evaluation.zh-CN.md) |
 | 知识增长：10 道离线迁移题 | 两组均 10/10；提案 84→24，学习另计 13 次，实际跨题复用 8 次 | [方法与结果](docs/knowledge-growth.zh-CN.md) |
 | ChinaTravel：12 道官方题，同一 DeepSeek | 官方 ReAct 0/12、官方 NeSy 5/12、ReAct + ResiMind 1/12；ResiMind 无错误交付，11 题未完成 | [完整评价](docs/chinatravel-evaluation.zh-CN.md) |

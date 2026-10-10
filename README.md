@@ -402,6 +402,7 @@ Keep the model, tasks, and resource ceilings fixed; measure completion, invalid 
 
 | Study | Measured result | Evidence |
 | --- | --- | --- |
+| Offline unified development fixtures (no model) | 150/150 independently scored completions; rule reuse reduces mean math steps by 33.1%; hard-expression reserve ablation: 2/8 → 5/8 | [Protocol, limitations and reproduction](docs/unified-benchmark-v1.md) |
 | Same-model algebra: frozen v1 + seen-case development v2 | v1: 5/8, 6/8, 6/8, 7/8. v2: 5/8, 7/8, 6/8, 7/8; growth ties retry with more calls | [Four-arm protocol and results](docs/algebra-live-evaluation.md) |
 | Knowledge growth: 10 offline transfer tasks | Both arms 10/10; proposals 84→24, plus 13 learning proposals; 8 committed cross-task applications | [Method and results](docs/knowledge-growth.md) |
 | ChinaTravel: 12 official tasks, same DeepSeek | Official ReAct 0/12, official NeSy 5/12, ReAct + ResiMind 1/12; ResiMind delivered no invalid plan and left 11 tasks unfinished | [Full evaluation](docs/evidence/chinatravel-pilot-v1/README.md) |

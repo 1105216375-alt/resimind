@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Add a reproducible offline verification benchmark for 150 synthetic mathematics, bridge and customer-support cases, independent scorers, positive-control mutation checks and missing-evidence checks.
+- Measure frozen-library reuse and a paired complex-expression overflow ablation. Publish a compact summary with all unfinished stress cases; no live-model or external-framework ranking is claimed. Runtime APIs and defaults remain at v0.12.1.
+
 ## 0.12.1 — 2026-10-10
 
 - Fix overflow accounting when several verified rules match the same state: the reserve is now bound to the rule actually selected, not the first previewed rule.
