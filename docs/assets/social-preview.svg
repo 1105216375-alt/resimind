@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">ResiMind — Reason. Verify. Remember.</title>
+  <desc id="desc">A neuro-symbolic Agent with verified memory. Propose, verify, use residual feedback to retry, and store checked rules for reuse.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#12283d"/><stop offset="1" stop-color="#06121e"/></linearGradient>
+    <linearGradient id="accent"><stop stop-color="#74f3ce"/><stop offset="1" stop-color="#7cbcff"/></linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#b1d7ea" stroke-opacity=".045"/></pattern>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L7 4L0 8" fill="none" stroke="#79c9cc" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#grid)"/>
+  <rect width="1280" height="5" fill="url(#accent)"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <g transform="translate(58 48)" fill="none" stroke="#79e9d5" stroke-width="2.5">
+      <path d="M0 10L18 0L36 10V31L18 42L0 31Z"/><path d="M9 22L16 29L28 14" stroke-width="3"/>
+    </g>
+    <text x="110" y="80" font-size="39" font-weight="700" letter-spacing="-1.5" fill="#f4f8fc">Resi<tspan fill="#79e9d5">Mind</tspan></text>
+    <rect x="1009" y="48" width="211" height="36" rx="18" fill="#14322f" stroke="#2d6256"/>
+    <circle cx="1030" cy="66" r="4" fill="#79e9d5"/>
+    <text x="1044" y="71" font-size="12" letter-spacing="1.4" font-weight="700" fill="#a6e9d8">OPEN SOURCE / MIT</text>
+    <text x="58" y="154" font-size="14" font-weight="700" letter-spacing="2.6" fill="#91aebf">NEURO-SYMBOLIC AGENT ARCHITECTURE</text>
+    <g font-size="76" font-weight="700" letter-spacing="-3">
+      <text x="54" y="246" fill="#f4f8fc">Reason.</text>
+      <text x="54" y="330" fill="#f4f8fc">Verify.</text>
+      <text x="54" y="414" fill="#79e9d5">Remember.</text>
+    </g>
+    <text x="58" y="460" font-size="23" fill="#bfd0de">Self-correcting agents with verified memory.</text>
+    <text x="58" y="494" font-size="18" fill="#93adbf">Reuse checked rules. Call your model when needed.</text>
+    <rect x="728" y="156" width="492" height="343" rx="22" fill="#102538" stroke="#2b455b"/>
+    <text x="753" y="189" font-size="12" letter-spacing="2" font-weight="700" fill="#93adbf">THE VERIFIED REASONING LOOP</text>
+    <rect x="753" y="216" width="177" height="74" rx="12" fill="#182f46" stroke="#365775"/>
+    <rect x="1018" y="216" width="177" height="74" rx="12" fill="#163b39" stroke="#397d6f"/>
+    <g font-size="23" font-weight="700" text-anchor="middle" fill="#eff6fc">
+      <text x="841" y="248">Propose</text><text x="1106" y="248">Verify</text>
+    </g>
+    <g font-size="13" text-anchor="middle" fill="#a9c5d5">
+      <text x="841" y="272">Model · Rules · Tools</text><text x="1106" y="272">Independent checks</text>
+    </g>
+    <path d="M940 253H1003" stroke="#79c9cc" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <path d="M1106 299V326H841V302" stroke="#79c9cc" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <text x="974" y="351" text-anchor="middle" font-size="14" fill="#b6cedd">Residual feedback → retry / change strategy</text>
+    <path d="M1106 363V389" stroke="#79c9cc" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    <rect x="753" y="404" width="442" height="68" rx="12" fill="#0c1c2c" stroke="#35516a"/>
+    <text x="775" y="433" font-size="20" font-weight="700" fill="#79e9d5">Verified memory</text>
+    <text x="775" y="454" font-size="13" fill="#a9c5d5">Admit checked rules · Retrieve · Recheck &amp; apply</text>
+  </g>
+  <path d="M58 541H1220" stroke="#294257"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="58" y="580" font-size="14" font-weight="700" letter-spacing="1.4" fill="#adc5d5">MATH / ENGINEERING / PLANNING</text>
+    <text x="1220" y="580" text-anchor="end" font-size="17" fill="#79e9d5">github.com/1105216375-alt/resimind</text>
+    <text x="58" y="610" font-size="12" fill="#829bad">Experimental · Domain-specific verification · Optional Lean proof checks</text>
+  </g>
+</svg>

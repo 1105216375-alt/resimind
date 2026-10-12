@@ -1,4 +1,4 @@
-![ResiMind — 会纠错、能积累已验证知识的 Agent](docs/assets/adaptive-memory.svg)
+![ResiMind — 推理、验证、记忆](docs/assets/social-preview.png)
 
 # ResiMind：会纠错、能积累知识的 AI Agent
 

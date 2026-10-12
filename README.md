@@ -1,4 +1,4 @@
-![ResiMind — self-correcting agents with verified memory](docs/assets/adaptive-memory.svg)
+![ResiMind — Reason. Verify. Remember.](docs/assets/social-preview.png)
 
 # ResiMind — Self-Correcting Agents with Verified Memory
 
