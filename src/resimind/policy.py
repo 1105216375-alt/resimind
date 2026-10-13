@@ -37,7 +37,7 @@ class StrategyPolicy:
     def __init__(self, observations: Iterable[StrategyObservation] = (), *, min_evidence: int = 2):
         if type(min_evidence) is not int or min_evidence < 1 or min_evidence > 1000:
             raise ValueError("min_evidence must be in 1..1000")
-        self.min_evidence = min_evidence
+        self._min_evidence = min_evidence
         self._records = tuple(observations)
         if any(type(item) is not StrategyObservation for item in self._records):
             raise ValueError("observations must contain StrategyObservation values")
@@ -58,6 +58,10 @@ class StrategyPolicy:
             row = table.setdefault(key, [0.0, 0.0, 0.0])
             row[0] += 1; row[1] += int(record.success); row[2] += float(record.cost)
         self._table = {key: (int(row[0]), int(row[1]), row[2] / row[0]) for key, row in table.items()}
+
+    @property
+    def min_evidence(self) -> int:
+        return self._min_evidence
 
     @property
     def frozen(self) -> bool:
@@ -98,10 +102,17 @@ class StrategyPolicy:
 
     @classmethod
     def from_json(cls, text: str) -> "StrategyPolicy":
-        if type(text) is not str: raise ValueError("policy JSON must be text")
-        try: payload = json.loads(text)
+        if type(text) is not str or len(text) > 4 * 1024 * 1024: raise ValueError("policy JSON must be bounded text")
+        def unique(pairs):
+            result = {}
+            for key, value in pairs:
+                if key in result: raise ValueError("duplicate policy field")
+                result[key] = value
+            return result
+        try: payload = json.loads(text, object_pairs_hook=unique)
         except (ValueError, TypeError) as exc: raise ValueError("invalid policy JSON") from exc
-        if type(payload) is not dict or payload.get("version") != cls.VERSION or type(payload.get("observations")) is not list:
+        if (type(payload) is not dict or set(payload) != {"version", "min_evidence", "observations", "frozen"}
+                or payload.get("version") != cls.VERSION or type(payload.get("observations")) is not list):
             raise ValueError("unsupported policy snapshot")
         records = []
         for row in payload["observations"]:

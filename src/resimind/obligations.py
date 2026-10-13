@@ -71,6 +71,8 @@ class ObligationGraph:
             raise ValueError("obligations must be a tuple")
         if any(type(item) is not Obligation for item in obligations):
             raise ValueError("obligations must contain Obligation values")
+        if len(obligations) > 512:
+            raise ValueError("at most 512 obligations are supported")
         _text(evidence_revision, "evidence_revision")
         self._items = MappingProxyType({item.id: item for item in obligations})
         if len(self._items) != len(obligations):
@@ -98,6 +100,9 @@ class ObligationGraph:
             for dep in items[node].depends_on: visit(dep)
             visiting.remove(node); visited.add(node)
         for node in items: visit(node)
+        for item in items.values():
+            if item.status == "verified" and any(items[dep].status != "verified" for dep in item.depends_on):
+                raise ValueError("verified obligation has unverified dependencies")
 
     def snapshot(self) -> tuple[Obligation, ...]:
         return tuple(self._items[key] for key in sorted(self._items))
@@ -111,13 +116,14 @@ class ObligationGraph:
         """Return pending obligations whose dependencies are verified."""
         result = []
         for item in self._items.values():
-            if item.status == "pending" and all(self._items[d].status == "verified" for d in item.depends_on):
+            if item.status in ("pending", "invalidated", "unknown") and all(self._items[d].status == "verified" for d in item.depends_on):
                 result.append(item)
         return tuple(sorted(result, key=lambda value: value.id))
 
     def blocked(self) -> tuple[Obligation, ...]:
+        ready_ids = {item.id for item in self.ready()}
         return tuple(sorted((item for item in self._items.values()
-                             if item.status == "pending" and item not in self.ready()), key=lambda x: x.id))
+                             if item.status != "verified" and item.id not in ready_ids), key=lambda x: x.id))
 
     def pending(self) -> tuple[Obligation, ...]:
         return tuple(sorted((item for item in self._items.values()
@@ -131,9 +137,25 @@ class ObligationGraph:
         if update.status not in ("pending", "verified", "rejected", "unknown", "invalidated"):
             raise ValueError("invalid update status")
         old = self._items[update.id]
+        if update.evidence_revision is not None and update.evidence_revision != self.evidence_revision:
+            raise ValueError("change evidence through invalidate_evidence before updating")
+        if update.status == "verified" and any(self._items[dep].status != "verified" for dep in old.depends_on):
+            raise ValueError("cannot verify an obligation with unverified dependencies")
         items = dict(self._items)
         items[update.id] = Obligation(old.id, old.goal, old.depends_on, old.evidence,
                                       update.status, update.detail)
+        if old != items[update.id]:
+            affected = {old.id}
+            for _ in range(len(items)):
+                more = {item.id for item in items.values() if set(item.depends_on) & affected}
+                if more <= affected:
+                    break
+                affected |= more
+            for ident in affected - {old.id}:
+                child = items[ident]
+                if child.status == "verified":
+                    items[ident] = Obligation(child.id, child.goal, child.depends_on, child.evidence,
+                                             "invalidated", "dependency_changed")
         self._validate_graph(items)
         return ObligationGraph(tuple(items.values()), evidence_revision=update.evidence_revision or self.evidence_revision)
 

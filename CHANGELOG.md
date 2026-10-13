@@ -1,9 +1,19 @@
 # Changelog
 
-## Unreleased
+## 0.13.0 — 2026-10-13
+
+- Add an opt-in compact polynomial tool with shared DAG nodes, bounded sparse certificates and an independent exact coefficient gate. It resolves the two previously unfinished long-expression stress cases without enlarging the input AST limit.
+- Add structural rule indexing, cross-episode learning, detached frozen memory, digest-bound persistence, training-history revalidation and a `lifelong` CLI demo.
+- Cache per-run search state analysis and classify observed failure feedback conservatively. A required Lean proof cannot fall back to exact-only compact computation.
+- Run a frozen-baseline, 240-task generated development comparison with compact-only, memory and learned-routing ablations. Report the strong-tool contribution and the absence of a memory completion-rate gain explicitly; see [results](docs/lifelong-math.md).
+
+- Connect residual obligations, bounded alternative-action search, frozen empirical strategy learning and universally checked polynomial schema extraction in an opt-in adapter and `search-learning` CLI demo.
+- Add incremental bridge case verification, transitive invalidation after changed evidence or results, and exact comparison against an independent stiffness oracle.
+- Preserve replayable Lean source in accepted search proofs; feed actionable tactic, expression and duplicate-state failures back into bounded retries.
+- Add a frozen-baseline, ablation and SymPy comparison with honest budget accounting and raw records kept outside the public repository. See [results and limitations](docs/search-learning.md).
 
 - Add a reproducible offline verification benchmark for 150 synthetic mathematics, bridge and customer-support cases, independent scorers, positive-control mutation checks and missing-evidence checks.
-- Measure frozen-library reuse and a paired complex-expression overflow ablation. Publish a compact summary with all unfinished stress cases; no live-model or external-framework ranking is claimed. Runtime APIs and defaults remain at v0.12.1.
+- Measure frozen-library reuse and a paired complex-expression overflow ablation. Publish a compact summary with all unfinished stress cases; no live-model or external-framework ranking is claimed. Existing adaptive defaults remain unchanged.
 - Add provider-neutral architecture extensions: dependency-aware residual obligations, frozen empirical strategy ranking, and exact-checked structural rule abstraction. These helpers remain advisory and cannot authorize facts without the domain verifier.
 - Add an executable Python 3.10–3.13 test/build workflow and document the extension boundaries in [the general architecture guide](docs/general-architecture.md).
 

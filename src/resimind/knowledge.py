@@ -256,6 +256,11 @@ class KnowledgeLibrary:
         _text(id, "id")
         return _detach(self._records[id])
 
+    @property
+    def record_count(self) -> int:
+        """All retained records, including rejected and revoked identities."""
+        return len(self._records)
+
     def lookup(
         self, domain: str, kind: str | None = None, assumptions: tuple[str, ...] = (),
     ) -> tuple[KnowledgeRecord, ...]:

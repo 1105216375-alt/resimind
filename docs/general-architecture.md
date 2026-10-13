@@ -1,5 +1,9 @@
 # General architecture extensions
 
+The [integrated search and incremental verification adapters](search-learning.md)
+now exercise these helpers in polynomial and bridge workflows, with a runnable
+CLI example and component ablations.
+
 ResiMind's core loop stays deliberately small:
 
 ```text

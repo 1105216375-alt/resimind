@@ -70,7 +70,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="resimind", description="Evidence-bound Agent reasoning with independent verification.")
     commands = parser.add_subparsers(dest="command", required=True)
     demo = commands.add_parser("demo", help="run an OFFLINE deterministic fixture, without a model or API key")
-    demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support", "planning", "knowledge-growth", "adaptive", "growth-control", "lean", "scheduling", "progress"), default="optimization",
+    demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support", "planning", "knowledge-growth", "adaptive", "growth-control", "lean", "scheduling", "progress", "search-learning", "lifelong"), default="optimization",
                       help="demonstration domain (default: optimization)")
     demo.add_argument("--scenario", choices=("refund", "missing-delivery", "expired", "day-out", "rain", "missing-travel"),
                       help="customer-support: refund/missing-delivery/expired; planning: day-out/rain/missing-travel")
@@ -80,6 +80,32 @@ def main(argv: Sequence[str] | None = None) -> int:
                  "planning": ("day-out", "rain", "missing-travel")}
     if args.scenario is not None and args.scenario not in scenarios.get(args.domain, ()):
         parser.error("--scenario must match the selected customer-support or planning domain")
+    if args.domain == "lifelong":
+        from .lifelong_demo import run_demo
+        report = run_demo()
+        if args.json:
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+        else:
+            print("ResiMind | OFFLINE learn, freeze, recall and compact expansion")
+            print("Verified rules:", report['verified_rules'])
+            print("Rule transfer:", report['recall']['status'], "actions:", report['recall']['search_actions'])
+            print("Large expression:", report['large_expression']['status'], "route:", report['large_expression']['route'])
+            print("Frozen memory unchanged:", report['frozen_unchanged'])
+            print(report['scope'])
+        return 0 if (report['frozen_unchanged'] and report['recall']['status']=='solved'
+                     and report['large_expression']['status']=='solved') else 1
+    if args.domain == "search-learning":
+        from .search_learning_demo import run_demo
+        report = run_demo()
+        if args.json:
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+        else:
+            print("ResiMind | OFFLINE residual search and verified schema learning")
+            for name, row in report['math'].items():
+                print(f"{name}: {row['status']}; actions={row['actions']}; model calls={row['model_calls']}")
+            print("Bridge:", report['bridge'])
+            print(report['scope'])
+        return 0 if all(row['status'] == 'solved' for row in report['math'].values()) and report['bridge']['status'] == 'verified' else 1
     if args.domain == "progress":
         from .progress_demo import run_demo
         report = run_demo()

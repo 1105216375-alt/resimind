@@ -1,18 +1,28 @@
 ![ResiMind — Reason. Verify. Remember.](docs/assets/social-preview.png)
 
-# ResiMind — Self-Correcting Agents with Verified Memory
+# ResiMind — Agents That Verify, Remember, and Reuse
 
-**Catch a bad step. Try another route. Remember a verified solution.**
+**Turn checked solutions into reusable rules. Call the model when needed.**
 
 ResiMind is a standalone, open-source **neuro-symbolic Agent architecture** for verification-guided self-correction and reusable rule memory. Rules, symbolic tools and your model can propose steps. Independent code checks them. The **residual** tracks what remains to be solved and guides the next attempt.
 
-**Self-correction · Verified agent memory · Knowledge growth without model retraining**
+**Verified memory · Residual-guided recovery · Learning without model retraining**
 
 The [adaptive math Agent](docs/adaptive-reasoning.md) can switch strategies after a failed check and turn completed, verified derivations into rules for future tasks. Here, **verified memory** means a persistent rule library: verify before admission, recheck on reload, and verify each new application. Knowledge grows outside the model; its weights stay unchanged.
 
 The current adaptive and rule-learning demo supports **bounded rational polynomial expansion**. The same Agent core also runs planning, customer support, optimization and bridge examples with domain-specific checks.
 
-**Bring your own model · Python 3.10+ · Zero-dependency core · MIT · v0.12.1 / Experimental**
+**Bring your own model · Python 3.10+ · Zero-dependency core · MIT · v0.13.0 / Experimental**
+
+**New in v0.13:** learn a checked rule, save it, reload it, and use it on a new
+problem. A compact exact tool handles long polynomial expansions; a learned
+route preference can choose computation when it costs less than recall.
+
+**240/240 generated polynomial tasks, zero model calls**, compared with
+220/240 for the previous frozen search implementation. Compact-only also
+solves 240/240; memory demonstrates transfer on 48 tasks with recall-first
+routing, without adding a completion-rate gain here.
+[Protocol, ablations and limits →](docs/lifelong-math.md#development-results-2026-10-13)
 
 [中文](README.zh-CN.md) · [Quick start](#try-it-in-three-minutes) · [Knowledge growth](docs/knowledge-growth.md) · [Open-ended case](#open-ended-planning-many-answers-explicit-constraints) · [Evidence](#measure-the-agent-not-the-model) · [Architecture](#the-architecture)
 
@@ -38,7 +48,20 @@ Try the offline recovery demo: a deliberately wrong expansion is rejected, a loc
 
 **Current scope:** the adaptive adapter handles bounded rational polynomial expansion. Other domains share the Agent core and use their own checks. An optional Lean 4.29.0 backend checks generated equalities over `Rat` and feeds unfinished proof goals back into the next proposal.
 
-[**Run the adaptive Agent →**](docs/adaptive-reasoning.md) · [Release validation](docs/validation-v0.12.1.md) · [Changelog](CHANGELOG.md)
+[**Run the learning-and-reuse demo →**](docs/lifelong-math.md) · [Release validation](docs/validation-v0.13.0.md) · [Changelog](CHANGELOG.md)
+
+### v0.13: verified memory meets compact computation
+
+The [lifelong math adapter](docs/lifelong-math.md) adds shared expression DAGs,
+verified sparse output, applicable-rule retrieval, and explicit train/freeze
+memory. Try `python -m resimind demo --domain lifelong`. A 240-task development
+comparison includes compact-only, memory and policy ablations; it does not
+claim frontier theorem-proving performance.
+
+An opt-in search adapter now connects dependency-ready work, alternative routes,
+checked rule abstraction and frozen strategy learning. A bridge adapter reuses
+unaffected checked cases after inputs change. [Run the workflow and read the
+measured gains, costs and remaining failures](docs/search-learning.md).
 
 ### New in v0.12: let hard cases spend a bounded reserve
 
@@ -76,17 +99,22 @@ cd resimind
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install .
-python -m resimind demo --domain scheduling
+python -m resimind demo --domain lifelong
 ```
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`. Installation may download build tools. The demo runs **offline, without an API key**; both `python -m resimind` and the installed `resimind` command work outside the checkout.
 
-The first demo saves and reloads checked rules, then compares empty and learned libraries with a callback configured. The normal tasks should finish without invoking that callback. A separate case with a deliberately zero local-work budget invokes one scripted proposal to show fallback. No API calls are made.
+The first demo solves two training problems, extracts a checked rule, saves and
+reloads frozen memory, and transfers that rule to new coefficients. It then
+solves a long expansion using a sparse certificate. The frozen memory stays
+unchanged throughout evaluation. No API calls are made.
 
-Choose a different challenge. All ten commands run offline; the Lean example additionally requires an installed Lean 4.29.0 toolchain:
+Choose a different challenge. These commands run offline; the Lean example additionally requires an installed Lean 4.29.0 toolchain:
 
 | Try | What the example makes visible | Command |
 | --- | --- | --- |
+| [Learning across episodes](docs/lifelong-math.md) | Save and reload frozen memory, transfer a checked rule, and verify a long sparse expansion | `python -m resimind demo --domain lifelong` |
+| [Search and learning](docs/search-learning.md) | Fit strategy preferences, extract checked schemas, and recheck only affected bridge cases | `python -m resimind demo --domain search-learning` |
 | [Goal progress](docs/goal-progress.md) | Skip a cosmetic rewrite, act on remaining expansion goals, and allow a useful step with a larger expression | `python -m resimind demo --domain progress` |
 | [Local scheduling](docs/cost-aware-scheduling.md) | Reuse a useful rule, simplify before an expensive substitution, and skip model callbacks when local work suffices | `python -m resimind demo --domain scheduling` |
 | [Expression growth](docs/expression-growth-and-lean.md) | Compare primitive expansion with bounded distribution and term collection on four quadratic factors | `python -m resimind demo --domain growth-control` |
@@ -397,7 +425,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-See [v0.12.1 release validation](docs/validation-v0.12.1.md) for current checks, and the [v0.12.0 record](docs/validation-v0.12.0.md), [v0.11.0 record](docs/validation-v0.11.0.md), [v0.10.0 record](docs/validation-v0.10.0.md), [v0.9.0 record](docs/validation-v0.9.0.md), [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier version record](docs/validation.md) for historical checks.
+See [v0.13.0 release validation](docs/validation-v0.13.0.md) for current checks, and the [v0.12.1 record](docs/validation-v0.12.1.md), [v0.12.0 record](docs/validation-v0.12.0.md), [v0.11.0 record](docs/validation-v0.11.0.md), [v0.10.0 record](docs/validation-v0.10.0.md), [v0.9.0 record](docs/validation-v0.9.0.md), [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier version record](docs/validation.md) for historical checks.
 
 ## Measure the Agent, not the model
 
@@ -428,7 +456,7 @@ ResiMind was initiated and originally published by [@1105216375-alt](https://git
 
 If you use or discuss ResiMind, please cite the project and link to the original repository. Suggested citation:
 
-> 1105216375-alt. ResiMind (version 0.12.1), 2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind (version 0.13.0), 2026. https://github.com/1105216375-alt/resimind
 
 Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is appreciated, not an additional license condition. Commercial use is permitted under the [MIT License](LICENSE), which requires retaining its copyright and permission notices in copies or substantial portions of the software.
 

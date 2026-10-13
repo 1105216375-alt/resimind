@@ -1,6 +1,57 @@
-# ResiMind 发布文案
+# ResiMind v0.13 发布文案
 
-以下文案对应 main 分支已公开的知识增长实现。离线复用实验与真实模型实验分别报告；发布时保留对应结果链接。
+以下为 v0.13 当前版本文案，可用于项目介绍与技术社区。历史文案保留在后半部分，
+其中旧实验不代表新版成绩。仓库发布不代表已经代发到其他社交平台。
+
+## 当前短版
+
+**让 Agent 把做对的解法，变成下一题的能力。**
+
+ResiMind v0.13 开源了。一套**会验证、能积累规则、按需调用模型的神经符号 Agent 架构**：
+解题 → 核验 → 抽取规则 → 保存重载 → 新题复用，每次应用再检查。
+知识保存在模型之外，无需重训模型。
+
+这版加入紧凑多项式计算、适用规则检索、跨题学习与冻结记忆，以及根据实际代价选择路线的经验策略。
+复杂展开式可以保留为稀疏结果，再由独立精确检查器核验。
+
+**240 道生成多项式题全部通过，零模型调用；旧搜索实现为 220/240。**
+提升来自新的精确计算工具；记忆优先组在 48 道题上直接复用了规则，本组没有额外提升完成率。
+这是有界多项式开发测试，完整消融和限制一并公开。
+
+数学之外，同一核心还有开放式规划、客服退款和桥梁工况示例。
+**Python 3.10+，核心零依赖，MIT。离线跑一遍，无需 API Key。**
+
+[项目与快速上手](https://github.com/1105216375-alt/resimind/blob/main/README.zh-CN.md) ·
+[新版能力与实测](https://github.com/1105216375-alt/resimind/blob/main/docs/lifelong-math.md)
+
+## 当前英文版
+
+**ResiMind v0.13 — Agents That Verify, Remember, and Reuse.**
+
+Turn checked solutions into reusable rules. ResiMind is an open-source
+neuro-symbolic Agent architecture with independent verification, residual-guided
+recovery and persistent rule memory. Learn from solved tasks, verify before
+admission, reload frozen memory and recheck each new application. Model weights
+stay unchanged.
+
+This release adds compact exact polynomial computation, structural rule
+retrieval and empirical route selection. In a 240-task generated polynomial
+development comparison, the new adapter completes **240/240 with zero model
+calls**, versus **220/240** for the frozen search baseline. Compact-only also
+completes 240/240. Recall-first memory transfers rules directly on 48 tasks;
+it adds no completion-rate gain on this set. Ablations make the tool and
+memory contributions explicit.
+
+Try the offline learning → save → reload → reuse demo. The shared core also
+includes planning, customer-support and bridge examples with domain-specific
+checks. Python 3.10+, zero-dependency core, MIT.
+
+[Repository](https://github.com/1105216375-alt/resimind) ·
+[Method and results](https://github.com/1105216375-alt/resimind/blob/main/docs/lifelong-math.md)
+
+## 历史文案：早期知识增长版本
+
+以下内容保留早期实验背景；当前发布使用上方 v0.13 文案。
 
 ## 短版：朋友圈、群聊、动态
 
