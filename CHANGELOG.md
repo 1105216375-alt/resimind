@@ -4,6 +4,8 @@
 
 - Add a reproducible offline verification benchmark for 150 synthetic mathematics, bridge and customer-support cases, independent scorers, positive-control mutation checks and missing-evidence checks.
 - Measure frozen-library reuse and a paired complex-expression overflow ablation. Publish a compact summary with all unfinished stress cases; no live-model or external-framework ranking is claimed. Runtime APIs and defaults remain at v0.12.1.
+- Add provider-neutral architecture extensions: dependency-aware residual obligations, frozen empirical strategy ranking, and exact-checked structural rule abstraction. These helpers remain advisory and cannot authorize facts without the domain verifier.
+- Add an executable Python 3.10–3.13 test/build workflow and document the extension boundaries in [the general architecture guide](docs/general-architecture.md).
 
 ## 0.12.1 — 2026-10-10
 

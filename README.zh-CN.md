@@ -91,6 +91,7 @@ Windows PowerShell 的激活命令为 `.venv\Scripts\Activate.ps1`。安装时�
 | [Lean 证明反馈](docs/expression-growth-and-lean.md#let-lean-feedback-drive-the-next-proposal) | 真实未完成目标推动更换 tactic，通过后入库并重验复用 | `python -m resimind demo --domain lean` |
 | [自适应推理](docs/adaptive-reasoning.md) | 拒绝错误步骤、切换解法、完成证明，再复用已验证规则 | `python -m resimind demo --domain adaptive` |
 | [知识增长](docs/knowledge-growth.zh-CN.md) | 推导出规则，验证入库，下一题检索复用并重验 | `python -m resimind demo --domain knowledge-growth` |
+| [通用架构扩展](docs/general-architecture.md) | 管理有依赖的残差义务、冻结策略排序，并对可复用规则模式做精确核验 | `python -m examples.general_architecture` |
 | [开放式规划](docs/open-planning.md) | 答案可以多样，预算、时间和路线必须满足约束 | `python -m resimind demo --domain planning` |
 | [日常客服](docs/customer-support.md) | 提议退 259 元，配置规则只允许计算出 249 元，金额被拦下 | `python -m resimind demo --domain customer-support` |
 | [数学证明](docs/constrained-optimization.md) | 目标函数更低也可能不可行；最后检查精确最优性证书 | `python -m resimind demo` |
@@ -310,6 +311,8 @@ python -m examples.continuous_bridge --json
 **残差反馈层。** 残差是仍未完成的目标、未知项和硬约束集合，根据正式事实重建。候选被拒绝时保留原状态，将真实拒绝原因反馈给提议器；缺少条件时保留未完成义务。
 
 **知识增长层。** `LearningAgent` 从完成任务的推导中提炼候选知识，`KnowledgeLibrary` 调用领域验证器决定能否入库。库支持保存、重载重验与撤销；检索到的规则只能作为新候选的依据，不能绕过当前任务验证。
+
+**可复用架构扩展。** [`ObligationGraph`](docs/general-architecture.md) 管理带依赖的残差义务和证据失效；[`StrategyPolicy`](docs/general-architecture.md) 根据冻结的经验记录为已注册策略排序；结构规则提取器则只在精确核验后提出受限规则模式。这些辅助模块不会直接授权事实，也不会替代领域验证器。
 
 模型通过回调接入，项目贡献集中在 **Agent 的推理、验证与知识准入机制**。当前代数证明有明确的表达式与资源范围。详见[知识增长接口](docs/knowledge-growth.zh-CN.md)与[神经符号实现位置](docs/neuro-symbolic.md)。
 

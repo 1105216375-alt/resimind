@@ -73,7 +73,7 @@ The [recorded live planning revision](evidence/open-planning/README.md) illustra
 | Provider-neutral callback for neural proposals | Trained weights or a neural training pipeline |
 | Independent exact/rule-based reference verifiers | General natural-language proof or a universal theorem prover |
 | Real decision feedback and residual reconstruction | An LLM success-rate, speed, token-saving, or reliability benchmark |
-| Reviewed, revocable in-memory action routes | Learned weights, automatic knowledge distillation, or persistent memory |
+| Reviewed, revocable routes plus bounded verified knowledge growth | Trained weights, open-ended automatic distillation, or an unverified memory that bypasses current checks |
 | Interfaces for domain-specific verification | Ready-made CAS, SMT, proof-assistant, or simulation connectors |
 
 The reference adapters cover return recommendations under a configured merchant policy, rational linear equations, small strictly convex quadratic programs, declared uniform axial bars, and a two-span continuous beam under uniform load patterns. See the [customer-support contract](customer-support.md), [optimization certificate](constrained-optimization.md), and [bridge model](continuous-bridge.md) for supported scopes. Engineering verifiers check declared assumptions; they cannot establish whether a real component satisfies them. A completed task may conclude that an equation has no solution, a supplied limit is exceeded, or a support request needs human review.

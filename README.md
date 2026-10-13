@@ -93,6 +93,7 @@ Choose a different challenge. All ten commands run offline; the Lean example add
 | [Lean proof feedback](docs/expression-growth-and-lean.md#let-lean-feedback-drive-the-next-proposal) | A real unfinished Lean goal drives a new tactic, then a checked rule is reused | `python -m resimind demo --domain lean` |
 | [Adaptive reasoning](docs/adaptive-reasoning.md) | Reject a wrong step, change strategy, finish a proof and reuse its checked rule | `python -m resimind demo --domain adaptive` |
 | [Knowledge growth](docs/knowledge-growth.md) | Derive a rule, verify and store it, then reuse and recheck it on a new task | `python -m resimind demo --domain knowledge-growth` |
+| [General architecture extensions](docs/general-architecture.md) | Track dependent residual work, rank frozen strategies, and exact-check a reusable rule schema | `python -m examples.general_architecture` |
 | [Open-ended planning](docs/open-planning.md) | Many valid answers; time, budget, and route constraints still apply | `python -m resimind demo --domain planning` |
 | [Customer support](docs/customer-support.md) | A ¥259 refund proposal fails the configured ¥249 calculation | `python -m resimind demo --domain customer-support` |
 | [Mathematics](docs/constrained-optimization.md) | A lower objective is useless if the candidate violates a constraint; check an exact optimality certificate | `python -m resimind demo` |
@@ -314,6 +315,8 @@ python -m examples.continuous_bridge --json
 **Residual feedback.** A residual is the set of outstanding goals, unknowns, and hard constraints. It is rebuilt from committed facts. A rejection preserves state and returns its reason to the proposer; a missing prerequisite keeps the task open.
 
 **Knowledge growth.** `LearningAgent` extracts candidate knowledge from completed derivations. `KnowledgeLibrary` delegates admission to the registered domain verifier, supports save/reload with re-verification and revocation, and retrieves rules as proposal guidance. Current-task verification still applies.
+
+**Reusable architecture extensions.** [`ObligationGraph`](docs/general-architecture.md) tracks dependency-aware residual work and evidence invalidation; [`StrategyPolicy`](docs/general-architecture.md) ranks already registered strategies from frozen observations; and the structural rule extractor proposes narrow schemas only after exact verification. These helpers never authorize facts or replace the domain verifier.
 
 Models connect through callbacks; the project develops **Agent reasoning, verification, and knowledge admission**. The algebra proof checker has explicit expression and resource limits. See [knowledge growth](docs/knowledge-growth.md) and the [neuro-symbolic implementation map](docs/neuro-symbolic.md).
 

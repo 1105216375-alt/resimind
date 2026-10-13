@@ -8,8 +8,7 @@ version = "0.12.1"
 description = "A neuro-symbolic Agent architecture for verified reasoning and reusable knowledge"
 readme = "README.md"
 requires-python = ">=3.10"
-license = "MIT"
-license-files = ["LICENSE"]
+license = {file = "LICENSE"}
 authors = [{name = "1105216375-alt"}, {name = "ResiMind contributors"}]
 keywords = ["neuro-symbolic", "reasoning", "verification", "residual", "agents", "mathematics", "engineering"]
 classifiers = [
