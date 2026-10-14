@@ -1,4 +1,4 @@
-![ResiMind：发现错误，留下方法。错误展开被拦截、修正、核验，已准入规则可用于后续任务。](docs/assets/social-preview.zh-CN.png)
+![ResiMind 抽象视觉：有机神经连接与精密几何结构交织，回流轨迹和逐渐减少的碎片表现残差驱动推理。](docs/assets/neuro-symbolic-hero.png)
 
 # ResiMind：让 Agent 把解题经验，变成可验证的能力
 

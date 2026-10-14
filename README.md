@@ -1,4 +1,4 @@
-![ResiMind: Catch the error. Keep the insight. A wrong algebra step is rejected, repaired and checked; admitted rules can be reused.](docs/assets/social-preview.png)
+![Abstract ResiMind artwork: organic neural connections intertwine with precise geometric lattices; returning paths and diminishing fragments evoke residual-guided reasoning.](docs/assets/neuro-symbolic-hero.png)
 
 # ResiMind — Verified Memory for AI Agents
 

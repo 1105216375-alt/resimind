@@ -1,0 +1,14 @@
+Asset: neuro-symbolic-hero.png
+Created with the built-in imagegen tool, 2026-10-14.
+Conceptual promotional artwork; not a measured reasoning trace.
+
+Final generation prompt:
+Use case: ads-marketing.
+Asset type: a striking abstract hero banner for the open-source ResiMind neuro-symbolic Agent architecture, wide landscape 2:1 composition.
+Primary request: visualize neuro-symbolic reasoning and residual-guided iterative correction entirely through abstract form, with absolutely no text.
+Scene: deep midnight navy negative space, cinematic premium scientific art.
+Subject: one sculptural continuous intelligence structure where delicate organic neural filaments and luminous synaptic nodes interweave with precise crystalline geometric lattices. Soft irregular neural connections progressively resolve into ordered translucent geometric cells. Several elegant nested returning arcs bend back through the structure, with small luminous residual fragments along successive trajectories visibly diminishing as the paths converge into a single clean coherent mint-white structure. Neural exploration, symbolic rigor and iterative convergence should feel like different aspects of one object.
+Style: sophisticated restrained 3D generative art, fine fiber optics, smoked glass, meticulous metal-thin edges, soft volumetric illumination, rich depth, sharp selective detail. Visually memorable at GitHub README banner scale.
+Palette: dark navy and near-black, luminous mint and turquoise with subtle violet accents, sparse warm coral residual particles.
+Composition: horizontally balanced sweeping form across the central band, generous breathing room at edges, no panels, nothing clipped. Conceptual and beautiful rather than a literal diagram.
+Constraints: NO letters, NO words, NO numbers, NO equations, NO typography, NO logos, NO watermarks, NO UI, NO diagram boxes, NO arrows with arrowheads. Avoid literal anatomical brains, robots, human faces, globes, stock circuit-board patterns and generic exploding starfields. Do not add captions. Opaque dark background.
