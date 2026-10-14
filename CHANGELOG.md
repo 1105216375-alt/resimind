@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.0 — 2026-10-14
+
+- Expose five model-free exact-math and verified-memory tools over an optional official MCP SDK v2 stdio server (Python 3.11+) and a dependency-free JSON-lines CLI (Python 3.10+).
+- Distinguish verified, rejected, unresolved and malformed requests; return coefficient feedback and exact sparse certificates with lossless decimal-string coefficients. Keep learning explicit and memory isolated to each process.
+- Add real MCP subprocess tests, an optional-integration CI matrix, task-oriented discovery links and an agent contributor guide.
+- Include the experimental typed Lean formal-memory pilot with a reproducible benchmark and its negative result: growing recall coverage did not improve success rate or cost over the strong fixed tactic on this small suite. See [pilot report](docs/formal-memory-pilot.zh-CN.md). This pilot is not exposed by the MCP tools.
+- GitHub distribution is available; official MCP Registry listing and PyPI publication are not claimed.
+
 ## 0.13.0 — 2026-10-13
 
 - Add an opt-in compact polynomial tool with shared DAG nodes, bounded sparse certificates and an independent exact coefficient gate. It resolves the two previously unfinished long-expression stress cases without enlarging the input AST limit.

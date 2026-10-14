@@ -25,6 +25,21 @@ jobs:
       - name: Run tests
         run: python -m pytest -q
 
+  mcp:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install optional MCP SDK
+        run: python -m pip install -e '.[dev,mcp]'
+      - name: Test JSON API and real MCP stdio transport
+        run: python -m pytest -q tests/test_tool_api.py tests/test_mcp.py
+
   build:
     runs-on: ubuntu-latest
     steps:

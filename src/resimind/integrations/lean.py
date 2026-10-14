@@ -214,6 +214,13 @@ class LeanPolynomialBackend:
         except (ValueError, TypeError, KeyError, RecursionError) as exc:
             return LeanProofResult("error", str(tactic)[:64], "", "", (),
                                    (f"Invalid Lean polynomial request: {exc}",), binding, "")
+        return self._check_generated(source, target, mapping, tactic, binding)
+
+    def _check_generated(self, source, target, mapping, tactic, binding):
+        """Internal compiler gate for source emitted by trusted typed renderers.
+
+        This is not an API for accepting arbitrary model-written Lean source.
+        """
         source_digest = hashlib.sha256(source.encode("utf-8")).hexdigest()
 
         def result(status, diagnostics, *, actual_target="", goals=(), axioms=(),

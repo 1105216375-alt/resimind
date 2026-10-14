@@ -69,6 +69,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     """Return an exit code for console scripts and ``python -m resimind``."""
     parser = argparse.ArgumentParser(prog="resimind", description="Evidence-bound Agent reasoning with independent verification.")
     commands = parser.add_subparsers(dest="command", required=True)
+    api = commands.add_parser("api", help="model-free JSON-lines tools on stdin/stdout; process-local memory")
+    api.add_argument("--list-tools", action="store_true", help="print the tool catalog and exit")
+    commands.add_parser("mcp", help="run the optional MCP stdio server (Python 3.11+; install .[mcp])")
     demo = commands.add_parser("demo", help="run an OFFLINE deterministic fixture, without a model or API key")
     demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support", "planning", "knowledge-growth", "adaptive", "growth-control", "lean", "scheduling", "progress", "search-learning", "lifelong"), default="optimization",
                       help="demonstration domain (default: optimization)")
@@ -76,6 +79,16 @@ def main(argv: Sequence[str] | None = None) -> int:
                       help="customer-support: refund/missing-delivery/expired; planning: day-out/rain/missing-travel")
     demo.add_argument("--json", action="store_true", help="write only the complete JSON evidence/decision audit")
     args = parser.parse_args(argv)
+    if args.command == "mcp":
+        from .integrations.mcp import main as mcp_main
+        return mcp_main()
+    if args.command == "api":
+        import sys
+        from .tool_api import run_json_lines, tool_catalog
+        if args.list_tools:
+            print(json.dumps(tool_catalog(), indent=2))
+            return 0
+        return run_json_lines(sys.stdin, sys.stdout)
     scenarios = {"customer-support": ("refund", "missing-delivery", "expired"),
                  "planning": ("day-out", "rain", "missing-travel")}
     if args.scenario is not None and args.scenario not in scenarios.get(args.domain, ()):

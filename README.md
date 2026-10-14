@@ -2,7 +2,7 @@
 
 # ResiMind — Agents That Verify, Remember, and Reuse
 
-**Turn checked solutions into reusable rules. Call the model when needed.**
+**Give your agent a checked answer—and a rule it can reuse.**
 
 ResiMind is a standalone, open-source **neuro-symbolic Agent architecture** for verification-guided self-correction and reusable rule memory. Rules, symbolic tools and your model can propose steps. Independent code checks them. The **residual** tracks what remains to be solved and guides the next attempt.
 
@@ -12,7 +12,18 @@ The [adaptive math Agent](docs/adaptive-reasoning.md) can switch strategies afte
 
 The current adaptive and rule-learning demo supports **bounded rational polynomial expansion**. The same Agent core also runs planning, customer support, optimization and bridge examples with domain-specific checks.
 
-**Bring your own model · Python 3.10+ · Zero-dependency core · MIT · v0.13.0 / Experimental**
+**Bring your own model · Python 3.10+ core · Optional MCP (3.11+) · MIT · v0.14.0 / Experimental**
+
+**New: let another Agent use ResiMind as a tool.** Check a model's polynomial
+identity, return exact sparse expansions, explicitly learn checked rules, and
+recall them on a new expression. Five local tools, structured evidence, zero
+model calls. [**Connect over MCP or try the JSON CLI →**](docs/agent-tools.md)
+
+| Looking for… | Start here |
+| --- | --- |
+| An MCP math server to check an LLM's algebra | [Verify / expand tools](docs/agent-tools.md#choose-a-tool-by-task) |
+| Agent memory that checks a rule before reuse | [Learn → recall, runnable example](docs/agent-tools.md#try-the-same-tools-without-mcp) |
+| An Agent architecture for engineering and constrained decisions | [Bridge](#bridge-engineering-continuity-changes-the-answer) · [Domain examples](#try-it-in-three-minutes) |
 
 **New in v0.13:** learn a checked rule, save it, reload it, and use it on a new
 problem. A compact exact tool handles long polynomial expansions; a learned
@@ -48,7 +59,7 @@ Try the offline recovery demo: a deliberately wrong expansion is rejected, a loc
 
 **Current scope:** the adaptive adapter handles bounded rational polynomial expansion. Other domains share the Agent core and use their own checks. An optional Lean 4.29.0 backend checks generated equalities over `Rat` and feeds unfinished proof goals back into the next proposal.
 
-[**Run the learning-and-reuse demo →**](docs/lifelong-math.md) · [Release validation](docs/validation-v0.13.0.md) · [Changelog](CHANGELOG.md)
+[**Run the learning-and-reuse demo →**](docs/lifelong-math.md) · [Release validation](docs/validation-v0.14.0.md) · [Changelog](CHANGELOG.md)
 
 ### v0.13: verified memory meets compact computation
 
@@ -425,7 +436,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-See [v0.13.0 release validation](docs/validation-v0.13.0.md) for current checks, and the [v0.12.1 record](docs/validation-v0.12.1.md), [v0.12.0 record](docs/validation-v0.12.0.md), [v0.11.0 record](docs/validation-v0.11.0.md), [v0.10.0 record](docs/validation-v0.10.0.md), [v0.9.0 record](docs/validation-v0.9.0.md), [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier version record](docs/validation.md) for historical checks.
+See [v0.14.0 release validation](docs/validation-v0.14.0.md) for current checks, and the [v0.13.0 record](docs/validation-v0.13.0.md), [v0.12.1 record](docs/validation-v0.12.1.md), [v0.12.0 record](docs/validation-v0.12.0.md), [v0.11.0 record](docs/validation-v0.11.0.md), [v0.10.0 record](docs/validation-v0.10.0.md), [v0.9.0 record](docs/validation-v0.9.0.md), [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier version record](docs/validation.md) for historical checks.
 
 ## Measure the Agent, not the model
 
@@ -456,7 +467,7 @@ ResiMind was initiated and originally published by [@1105216375-alt](https://git
 
 If you use or discuss ResiMind, please cite the project and link to the original repository. Suggested citation:
 
-> 1105216375-alt. ResiMind (version 0.13.0), 2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind (version 0.14.0), 2026. https://github.com/1105216375-alt/resimind
 
 Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is appreciated, not an additional license condition. Commercial use is permitted under the [MIT License](LICENSE), which requires retaining its copyright and permission notices in copies or substantial portions of the software.
 
