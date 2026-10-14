@@ -1,114 +1,31 @@
-![ResiMind — Reason. Verify. Remember.](docs/assets/social-preview.png)
+![ResiMind: Catch the error. Keep the insight. A wrong algebra step is rejected, repaired and checked; admitted rules can be reused.](docs/assets/social-preview.png)
 
-# ResiMind — Agents That Verify, Remember, and Reuse
+# ResiMind — Verified Memory for AI Agents
 
-**Give your agent a checked answer—and a rule it can reuse.**
+**Catch the error. Keep the insight. Give the next task a checked head start.**
 
-ResiMind is a standalone, open-source **neuro-symbolic Agent architecture** for verification-guided self-correction and reusable rule memory. Rules, symbolic tools and your model can propose steps. Independent code checks them. The **residual** tracks what remains to be solved and guides the next attempt.
+[![Release v0.15.0](https://img.shields.io/badge/release-v0.15.0-8275D6)](https://github.com/1105216375-alt/resimind/releases/tag/v0.15.0)
+[![MIT License](https://img.shields.io/badge/license-MIT-88DDBB)](LICENSE)
+[![Python core 3.10+](https://img.shields.io/badge/Python_core-3.10%2B-A9BEED)](pyproject.toml)
+[![MCP Registry listed](https://img.shields.io/badge/MCP_Registry-listed-88DDBB)](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.1105216375-alt%2Fresimind/versions/0.15.0)
+[![Status experimental](https://img.shields.io/badge/status-experimental-E1BA7D)](#current-scope)
 
-**Verified memory · Residual-guided recovery · Learning without model retraining**
+[**Run the demo**](#try-it-in-three-minutes) · [**Connect MCP**](docs/agent-tools.md) · [**Install the Skill**](docs/discovery-and-distribution.md#install-the-repair-skill) · [**Take the challenge**](docs/catch-the-wrong-step.md) · [中文](README.zh-CN.md)
 
-The [adaptive math Agent](docs/adaptive-reasoning.md) can switch strategies after a failed check and turn completed, verified derivations into rules for future tasks. Here, **verified memory** means a persistent rule library: verify before admission, recheck on reload, and verify each new application. Knowledge grows outside the model; its weights stay unchanged.
+ResiMind is an open-source **neuro-symbolic Agent architecture** that connects independent verification, residual-guided self-correction and reusable rule memory. Your model, rules or symbolic tools propose a step; domain checks decide what becomes a fact. Failed checks tell the next attempt what still needs fixing.
 
-The current adaptive and rule-learning demo supports **bounded rational polynomial expansion**. The same Agent core also runs planning, customer support, optimization and bridge examples with domain-specific checks.
+**A checked solution can become a checked rule.** Explicit learning extracts candidate rules from completed derivations, independently verifies admission, and rechecks each future application. Knowledge grows outside the model, without changing its weights. When local rules or tools suffice, the supported math routes run with **zero model calls**.
 
-**Bring your own model · Python 3.10+ core · Optional MCP (3.11+) · MIT · v0.15.0 / Experimental**
+The core also runs **bridge engineering, constrained optimization, customer support and open-ended planning** with their own verifiers. Adaptive algebra, rule learning and the five MCP tools currently cover **bounded rational polynomials**. Core: Python 3.10+, no runtime dependencies. Optional MCP: Python 3.11+.
 
-**Can your Agent catch the wrong step?** Find an incorrect polynomial step,
-repair it, and check the result with an independent scorer.
-[**Take the 28-task challenge →**](docs/catch-the-wrong-step.md) ·
-[**Install the repair Skill →**](docs/discovery-and-distribution.md#install-the-repair-skill) ·
-[**MCP bundle & discovery →**](docs/discovery-and-distribution.md)
-
-[**Listed in the official MCP Registry**](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.1105216375-alt%2Fresimind/versions/0.15.0)
-as `io.github.1105216375-alt/resimind` · Active v0.15.0 ·
-[Download the MCPB bundle](https://github.com/1105216375-alt/resimind/releases/download/v0.15.0/resimind-0.15.0.mcpb)
-
-**New: let another Agent use ResiMind as a tool.** Check a model's polynomial
-identity, return exact sparse expansions, explicitly learn checked rules, and
-recall them on a new expression. Five local tools, structured evidence, zero
-model calls. [**Connect over MCP or try the JSON CLI →**](docs/agent-tools.md)
-
-| Looking for… | Start here |
+| What you want to do | Your entry point |
 | --- | --- |
-| An MCP math server to check an LLM's algebra | [Verify / expand tools](docs/agent-tools.md#choose-a-tool-by-task) |
-| Agent memory that checks a rule before reuse | [Learn → recall, runnable example](docs/agent-tools.md#try-the-same-tools-without-mcp) |
-| An Agent architecture for engineering and constrained decisions | [Bridge](#bridge-engineering-continuity-changes-the-answer) · [Domain examples](#try-it-in-three-minutes) |
+| Give an existing Agent exact algebra tools | [MCP setup](docs/agent-tools.md) · [Download MCPB](https://github.com/1105216375-alt/resimind/releases/download/v0.15.0/resimind-0.15.0.mcpb) |
+| Teach an Agent a bounded verify-and-repair workflow | [Repair Skill](skills/verify-and-repair-algebra/SKILL.md) · [Install guide](docs/discovery-and-distribution.md#install-the-repair-skill) |
+| Build an Agent with your own checks | [Architecture](#the-architecture) · [Adapter contract](docs/domain-contract.md) |
+| Inspect what has actually been measured | [Evidence](#measure-the-agent-not-the-model) · [Release validation](docs/validation-v0.15.0.md) |
 
-**New in v0.13:** learn a checked rule, save it, reload it, and use it on a new
-problem. A compact exact tool handles long polynomial expansions; a learned
-route preference can choose computation when it costs less than recall.
-
-**240/240 generated polynomial tasks, zero model calls**, compared with
-220/240 for the previous frozen search implementation. Compact-only also
-solves 240/240; memory demonstrates transfer on 48 tasks with recall-first
-routing, without adding a completion-rate gain here.
-[Protocol, ablations and limits →](docs/lifelong-math.md#development-results-2026-10-13)
-
-[中文](README.zh-CN.md) · [Quick start](#try-it-in-three-minutes) · [Knowledge growth](docs/knowledge-growth.md) · [Open-ended case](#open-ended-planning-many-answers-explicit-constraints) · [Evidence](#measure-the-agent-not-the-model) · [Architecture](#the-architecture)
-
-**Created and originally published by [@1105216375-alt](https://github.com/1105216375-alt).** [Original repository](https://github.com/1105216375-alt/resimind) · [Citation](CITATION.cff)
-
-## Watch it recover. Then watch it reuse what worked.
-
-| Capability | What actually happens |
-| --- | --- |
-| **Self-correction** | A failed check can trigger a smaller local task, a verified rule, a symbolic rewrite, or a checked checkpoint return. |
-| **Verified memory** | A completed proof can become a stored rule, with conditions and provenance, independently checked on admission and reload. |
-| **Learning without retraining** | A new task can retrieve and execute the rule, checking its application again. Model weights stay unchanged. |
-
-Each new candidate is checked before becoming a fact; retry and action budgets remain bounded across strategy changes.
-
-```text
-Propose → check → diagnose what remains → change strategy → check again
-                                                     ↓
-                                  completed proof → admit rule → reuse and recheck
-```
-
-Try the offline recovery demo: a deliberately wrong expansion is rejected, a local edit passes, symbolic steps finish the proof, and its checked rule solves a new-variable task in one application. The fixture is scripted; the verification, state transitions, rule admission and reuse actually execute.
-
-**Current scope:** the adaptive adapter handles bounded rational polynomial expansion. Other domains share the Agent core and use their own checks. An optional Lean 4.29.0 backend checks generated equalities over `Rat` and feeds unfinished proof goals back into the next proposal.
-
-[**Run the learning-and-reuse demo →**](docs/lifelong-math.md) · [Release validation](docs/validation-v0.15.0.md) · [Changelog](CHANGELOG.md)
-
-### v0.13: verified memory meets compact computation
-
-The [lifelong math adapter](docs/lifelong-math.md) adds shared expression DAGs,
-verified sparse output, applicable-rule retrieval, and explicit train/freeze
-memory. Try `python -m resimind demo --domain lifelong`. A 240-task development
-comparison includes compact-only, memory and policy ablations; it does not
-claim frontier theorem-proving performance.
-
-An opt-in search adapter now connects dependency-ready work, alternative routes,
-checked rule abstraction and frozen strategy learning. A bridge adapter reuses
-unaffected checked cases after inputs change. [Run the workflow and read the
-measured gains, costs and remaining failures](docs/search-learning.md).
-
-### New in v0.12: let hard cases spend a bounded reserve
-
-The adaptive math Agent keeps its normal local-work budget, then can spend an
-explicit cumulative overflow reserve on unusually large symbolic steps. Each
-accepted step pays only its estimated excess; exact identity, goal progress and
-optional Lean gates still decide whether it commits. The default reserve is
-zero, so existing callers keep the previous budget behavior.
-
-### New in v0.11: keep reasoning aimed at the goal
-
-A correct equality can leave the original problem unfinished. The math Agent now inspects goal progress before spending a Lean proof check: cosmetic rewrites receive concrete feedback, useful decomposition can grow the expression, and uncertain intermediate steps have a finite exploration allowance. Every committed step still needs exact verification and Lean when enabled.
-
-[**Run cosmetic recovery and useful decomposition →**](docs/goal-progress.md)
-
-### New in v0.10: use what you know; call the model when needed
-
-The math adapter now compares bounded previews of verified rules, compaction and local expansion before requesting a model. A rule that closes the task can win even if its expression is larger; a matching rule can be skipped when simpler local work looks cheaper. Every selected step still needs independent verification, including Lean when enabled.
-
-[**Try local selection, zero-callback reuse and explicit fallback →**](docs/cost-aware-scheduling.md)
-
-### New in v0.9: compact math, with Lean in the loop
-
-Keep intermediate expressions small with exact term collection and bounded local distribution. When Lean is enabled, each accepted step also needs a kernel-checked proof. An unfinished proof supplies the next proposal with its actual Lean goal and diagnostics; it can change tactic or rewrite, within finite budgets.
-
-[**Run the growth comparison and real Lean feedback demos →**](docs/expression-growth-and-lean.md)
+Created and originally published by [@1105216375-alt](https://github.com/1105216375-alt). [Citation](CITATION.cff) · [Changelog](CHANGELOG.md)
 
 ## Try it in three minutes
 
@@ -130,6 +47,9 @@ reloads frozen memory, and transfers that rule to new coefficients. It then
 solves a long expansion using a sparse certificate. The frozen memory stays
 unchanged throughout evaluation. No API calls are made.
 
+<details>
+<summary>All demo commands: math, bridges, planning, support and Lean</summary>
+
 Choose a different challenge. These commands run offline; the Lean example additionally requires an installed Lean 4.29.0 toolchain:
 
 | Try | What the example makes visible | Command |
@@ -150,49 +70,50 @@ Choose a different challenge. These commands run offline; the Lean example addit
 
 Add `--json` to inspect the audit. [Connect DeepSeek](docs/open-planning.md#let-deepseek-choose-the-plan) when you want the model to compose its own plan.
 
-## Derive once. Reuse on a new task.
+</details>
 
-An Agent derives the square and cube identities, submits their proof chains for independent admission, saves its library, and reloads it with verification. New tasks can retrieve those rules; each application must still pass the current task's checks.
+## Watch it recover. Then watch it reuse what worked.
 
-| Ten-task offline comparison | Fixed library | Growing library |
-| --- | ---: | ---: |
-| Independently valid completed tasks | 10/10 | 10/10 |
-| Transfer proposals | 84 | **24** |
-| Committed cross-task rule applications | 0 | **8** |
+![Two loops: proposals pass independent checks; failures return residual feedback. Completed derivations may yield independently admitted rules, retrieved and rechecked on future tasks.](docs/assets/reasoning-loop.png)
 
-**71.4% fewer transfer proposals**, with **13 additional proposals to learn the rules**. Both arms use the same deterministic proposer and budget. This measures reuse on published development tasks; it does not measure a model accuracy gain or total compute savings.
+| Capability | What actually executes |
+| --- | --- |
+| **Residual-guided recovery** | A failed check can trigger a smaller local task, a verified rule, a symbolic rewrite, or a checked checkpoint return. Work budgets stay bounded. |
+| **Verified memory** | Independently admit candidate rules, persist and freeze the Python library, recheck on reload, and verify each new application. MCP memory is process-local. |
+| **Compact exact computation** | Shared expressions and sparse rational certificates handle long expansions within explicit resource limits. |
+| **Optional proof feedback** | Lean 4.29.0 checks generated `Rat` equalities; unfinished goals can guide the next proposal. Lean is separate from the MCP tools. |
 
-[**How rules are proved, admitted, stored, revoked, and reused →**](docs/knowledge-growth.md) · [Reproduce the comparison](benchmarks/knowledge_growth.py) · [Validation](docs/validation-knowledge-growth.md)
+The [adaptive demo](docs/adaptive-reasoning.md) deliberately proposes a wrong expansion, rejects it, changes approach, completes a proof, and reuses its checked rule on a new-variable task. Its proposals are scripted; the verification, state transitions, admission and reuse really execute.
 
-## Earlier published pilot: same DeepSeek, four Agent strategies
+### See a rule cross the task boundary
 
-These v1/v2 records describe earlier implementations; they are not a benchmark of the v0.8 adaptive adapter.
+Run these in one process after installing the core (Bash/Zsh; see the [JSON-lines guide](docs/agent-tools.md#try-the-same-tools-without-mcp) for the request format):
 
-The original frozen, eight-task algebra pilot (v1) uses **`deepseek-flash`**, identical model settings, and an **eight-call ceiling per task**. A separate exact oracle scores final outputs.
+```bash
+python -m resimind api <<'JSONL'
+{"tool":"verify_identity","arguments":{"lhs":"(x+1)**2","rhs":"x**2+1","variables":["x"]}}
+{"tool":"learn_polynomial","arguments":{"expression":"(a+b)**3","variables":["a","b"]}}
+{"tool":"learn_polynomial","arguments":{"expression":"(u+v)**3","variables":["u","v"]}}
+{"tool":"recall_polynomial","arguments":{"expression":"(2*x+3*y)**3","variables":["x","y"]}}
+JSONL
+```
 
-| Agent strategy | Valid completed tasks | Invalid answers delivered | Transfer model calls |
-| --- | ---: | ---: | ---: |
-| ReAct-style baseline | 5/8 | 3 | 8 |
-| Verify and retry | 6/8 | 0 | 22 |
-| Residual reasoning | 6/8 | 0 | 22 |
-| **Residual + verified knowledge growth** | **7/8** | **0** | **20** |
+**What to look for:** the false identity is rejected; the first learning example adds no rule; the second compatible example produces an independently checked cubic schema. Recall uses it on new coefficients in **one rule action, zero model calls**, followed by exact verification. This is a reproducible example, not a general performance claim. [Response fields, bounds and persistent Python memory →](docs/agent-tools.md#try-the-same-tools-without-mcp)
 
-The growth arm records **3 actual cross-task rule applications**, all on tasks the other arms also solve. Its extra completed task has no committed rule application, so the 7/8 result does not isolate a causal benefit from reuse. Learning its three rules costs **3 additional calls**, bringing learning plus transfer to **23 calls**. This run does not establish overall cost savings.
+### Can your Agent catch the wrong step?
 
-This is a single, handcrafted pilot. The ReAct-style implementation offered an optional check tool, but the model chose no tool calls. The study measures these four implementations under the published protocol; it is not a ranking against optimized ReAct systems or evidence of general superiority.
+Give it **28 public polynomial tasks**: 12 correct chains, 12 mutated chains and 4 unsupported controls. Ask it to locate the first wrong step, repair it, and respect the supported scope. An independent SymPy scorer checks the submissions.
 
-**Earlier development rerun: more informative feedback, same eight cases.** After inspecting v1, we added exact coefficient-discrepancy feedback and reran the seen tasks:
+[**Try the challenge →**](docs/catch-the-wrong-step.md) · [**Install the verify-and-repair Skill →**](docs/discovery-and-distribution.md#install-the-repair-skill) · [**Searchable task examples →**](docs/algebra-repair-cases.md)
 
-| Agent strategy | Correct in development v2 | Transfer calls |
-| --- | ---: | ---: |
-| ReAct-style baseline | 5/8 | 8 |
-| Verify and retry | **7/8** | **17** |
-| Residual reasoning | 6/8 | 22 |
-| Residual + verified knowledge growth | **7/8** | 20 |
+## Pick a problem you can inspect
 
-All three gated arms again deliver no invalid answer. Growth still needs 3 discovery calls and records 3 cross-task rule applications: **it ties verify-and-retry on completion and uses more calls**. The updated feedback did not improve residual or growth completion in this rerun. This is post-result development on seen cases, not a fresh held-out result; v1 remains available unchanged.
-
-[**Protocol, per-task results, tokens, and limitations →**](docs/algebra-live-evaluation.md) · [v1 JSON](docs/evidence/algebra-live-v1/summary.json) · [Development v2 JSON](docs/evidence/algebra-feedback-v2/summary.json)
+| Domain | The failure worth catching | See it run |
+| --- | --- | --- |
+| **Mathematics** | A lower objective at an infeasible point | [Exact optimality certificates](#mathematics-a-solution-is-not-yet-a-proof) |
+| **Bridge engineering** | Forces balance, but pier rotations do not agree | [Two spans, eight load cases](#bridge-engineering-continuity-changes-the-answer) |
+| **Open-ended planning** | A plausible itinerary breaks a hard constraint | [Multiple answers, checked feasibility](#open-ended-planning-many-answers-explicit-constraints) |
+| **Customer support** | A refund proposal contradicts the configured policy | [Evidence and exact arithmetic](#customer-support-check-a-refund-before-promising-one) |
 
 ## Open-ended planning: many answers, explicit constraints
 
@@ -448,12 +369,29 @@ python -m pytest -q
 
 See [v0.15.0 release validation](docs/validation-v0.15.0.md) for current checks, and the [v0.14.0 record](docs/validation-v0.14.0.md), [v0.13.0 record](docs/validation-v0.13.0.md), [v0.12.1 record](docs/validation-v0.12.1.md), [v0.12.0 record](docs/validation-v0.12.0.md), [v0.11.0 record](docs/validation-v0.11.0.md), [v0.10.0 record](docs/validation-v0.10.0.md), [v0.9.0 record](docs/validation-v0.9.0.md), [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier version record](docs/validation.md) for historical checks.
 
+## Derive once. Reuse on a new task.
+
+An Agent derives the square and cube identities, submits their proof chains for independent admission, saves its library, and reloads it with verification. New tasks can retrieve those rules; each application must still pass the current task's checks.
+
+| Ten-task offline comparison | Fixed library | Growing library |
+| --- | ---: | ---: |
+| Independently valid completed tasks | 10/10 | 10/10 |
+| Transfer proposals | 84 | **24** |
+| Committed cross-task rule applications | 0 | **8** |
+
+**71.4% fewer transfer proposals**, with **13 additional proposals to learn the rules**. Both arms use the same deterministic proposer and budget. This measures reuse on published development tasks; it does not measure a model accuracy gain or total compute savings.
+
+[**How rules are proved, admitted, stored, revoked, and reused →**](docs/knowledge-growth.md) · [Reproduce the comparison](benchmarks/knowledge_growth.py) · [Validation](docs/validation-knowledge-growth.md)
+
 ## Measure the Agent, not the model
 
 Keep the model, tasks, and resource ceilings fixed; measure completion, invalid deliveries, calls, and cross-task reuse. These studies use different tasks and budgets, so their results are reported separately:
 
 | Study | Measured result | Evidence |
 | --- | --- | --- |
+| Public algebra repair challenge: 28 tasks | Deterministic tool baseline: 28/28 statuses, 12/12 error locations and repairs, 0/16 false acceptances. Public fixtures, not an Agent leaderboard | [Challenge and independent scorer](docs/catch-the-wrong-step.md) |
+| Compact computation and memory: 240 generated polynomial tasks | New compact-only and memory arms both 240/240; previous frozen search 220/240. Recall-first memory directly completes 48 tasks, without a completion-rate gain | [Protocol and ablations](docs/lifelong-math.md#development-results-2026-10-13) |
+| Typed Lean goals and theorem memory: 24 repeated probes, four rounds | Every arm 24/24 each round; growing-memory direct reuse rises 6→24. No completion gain or stable time saving demonstrated | [Formal memory pilot (中文)](docs/formal-memory-pilot.zh-CN.md) |
 | Offline unified development fixtures (no model) | 150/150 independently scored completions; rule reuse reduces mean math steps by 33.1%; hard-expression reserve ablation: 2/8 → 5/8 | [Protocol, limitations and reproduction](docs/unified-benchmark-v1.md) |
 | Same-model algebra: frozen v1 + seen-case development v2 | v1: 5/8, 6/8, 6/8, 7/8. v2: 5/8, 7/8, 6/8, 7/8; growth ties retry with more calls | [Four-arm protocol and results](docs/algebra-live-evaluation.md) |
 | Knowledge growth: 10 offline transfer tasks | Both arms 10/10; proposals 84→24, plus 13 learning proposals; 8 committed cross-task applications | [Method and results](docs/knowledge-growth.md) |
@@ -462,6 +400,85 @@ Keep the model, tasks, and resource ceilings fixed; measure completion, invalid 
 | Open-ended planning: a real requirement change | Making coffee mandatory rejects the old plan; one new DeepSeek call produces a checked revision | [Proposals and audit](docs/evidence/open-planning/README.md) |
 
 [Related systems (中文)](docs/public-systems-comparison.zh-CN.md) compares the project with orchestration frameworks, verifier-driven reasoning, and knowledge-accumulating agents.
+
+<details>
+<summary>Earlier same-model pilot: protocol, costs and negative results</summary>
+
+## Earlier published pilot: same DeepSeek, four Agent strategies
+
+These v1/v2 records describe earlier implementations; they are not a benchmark of the v0.8 adaptive adapter.
+
+The original frozen, eight-task algebra pilot (v1) uses **`deepseek-flash`**, identical model settings, and an **eight-call ceiling per task**. A separate exact oracle scores final outputs.
+
+| Agent strategy | Valid completed tasks | Invalid answers delivered | Transfer model calls |
+| --- | ---: | ---: | ---: |
+| ReAct-style baseline | 5/8 | 3 | 8 |
+| Verify and retry | 6/8 | 0 | 22 |
+| Residual reasoning | 6/8 | 0 | 22 |
+| **Residual + verified knowledge growth** | **7/8** | **0** | **20** |
+
+The growth arm records **3 actual cross-task rule applications**, all on tasks the other arms also solve. Its extra completed task has no committed rule application, so the 7/8 result does not isolate a causal benefit from reuse. Learning its three rules costs **3 additional calls**, bringing learning plus transfer to **23 calls**. This run does not establish overall cost savings.
+
+This is a single, handcrafted pilot. The ReAct-style implementation offered an optional check tool, but the model chose no tool calls. The study measures these four implementations under the published protocol; it is not a ranking against optimized ReAct systems or evidence of general superiority.
+
+**Earlier development rerun: more informative feedback, same eight cases.** After inspecting v1, we added exact coefficient-discrepancy feedback and reran the seen tasks:
+
+| Agent strategy | Correct in development v2 | Transfer calls |
+| --- | ---: | ---: |
+| ReAct-style baseline | 5/8 | 8 |
+| Verify and retry | **7/8** | **17** |
+| Residual reasoning | 6/8 | 22 |
+| Residual + verified knowledge growth | **7/8** | 20 |
+
+All three gated arms again deliver no invalid answer. Growth still needs 3 discovery calls and records 3 cross-task rule applications: **it ties verify-and-retry on completion and uses more calls**. The updated feedback did not improve residual or growth completion in this rerun. This is post-result development on seen cases, not a fresh held-out result; v1 remains available unchanged.
+
+[**Protocol, per-task results, tokens, and limitations →**](docs/algebra-live-evaluation.md) · [v1 JSON](docs/evidence/algebra-live-v1/summary.json) · [Development v2 JSON](docs/evidence/algebra-feedback-v2/summary.json)
+
+</details>
+
+<details>
+<summary>Implementation history: v0.9–v0.13</summary>
+
+### v0.13: verified memory meets compact computation
+
+The [lifelong math adapter](docs/lifelong-math.md) adds shared expression DAGs,
+verified sparse output, applicable-rule retrieval, and explicit train/freeze
+memory. Try `python -m resimind demo --domain lifelong`. A 240-task development
+comparison includes compact-only, memory and policy ablations; it does not
+claim frontier theorem-proving performance.
+
+An opt-in search adapter now connects dependency-ready work, alternative routes,
+checked rule abstraction and frozen strategy learning. A bridge adapter reuses
+unaffected checked cases after inputs change. [Run the workflow and read the
+measured gains, costs and remaining failures](docs/search-learning.md).
+
+### New in v0.12: let hard cases spend a bounded reserve
+
+The adaptive math Agent keeps its normal local-work budget, then can spend an
+explicit cumulative overflow reserve on unusually large symbolic steps. Each
+accepted step pays only its estimated excess; exact identity, goal progress and
+optional Lean gates still decide whether it commits. The default reserve is
+zero, so existing callers keep the previous budget behavior.
+
+### New in v0.11: keep reasoning aimed at the goal
+
+A correct equality can leave the original problem unfinished. The math Agent now inspects goal progress before spending a Lean proof check: cosmetic rewrites receive concrete feedback, useful decomposition can grow the expression, and uncertain intermediate steps have a finite exploration allowance. Every committed step still needs exact verification and Lean when enabled.
+
+[**Run cosmetic recovery and useful decomposition →**](docs/goal-progress.md)
+
+### New in v0.10: use what you know; call the model when needed
+
+The math adapter now compares bounded previews of verified rules, compaction and local expansion before requesting a model. A rule that closes the task can win even if its expression is larger; a matching rule can be skipped when simpler local work looks cheaper. Every selected step still needs independent verification, including Lean when enabled.
+
+[**Try local selection, zero-callback reuse and explicit fallback →**](docs/cost-aware-scheduling.md)
+
+### New in v0.9: compact math, with Lean in the loop
+
+Keep intermediate expressions small with exact term collection and bounded local distribution. When Lean is enabled, each accepted step also needs a kernel-checked proof. An unfinished proof supplies the next proposal with its actual Lean goal and diagnostics; it can change tactic or rewrite, within finite budgets.
+
+[**Run the growth comparison and real Lean feedback demos →**](docs/expression-growth-and-lean.md)
+
+</details>
 
 ## Current scope
 

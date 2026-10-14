@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+<title id="title">ResiMind — 可验证记忆，让推理积累</title><desc id="desc">Explanatory illustration: reject a wrong square expansion, check a repaired equality, and reuse independently admitted rules. Bounded polynomial algebra; not a benchmark.</desc>
+<defs>
+ <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#151A34"/><stop offset="1" stop-color="#080E1B"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#7560D8" stop-opacity=".20"/><stop offset="1" stop-color="#7560D8" stop-opacity="0"/></radialGradient>
+ <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#91A5CC" opacity=".12"/></pattern>
+ <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L7 4L0 8" fill="none" stroke="#93A8C7" stroke-width="1.4"/></marker>
+</defs>
+<rect width="1280" height="720" rx="24" fill="url(#bg)"/>
+<rect width="1280" height="720" rx="24" fill="url(#grid)"/>
+<ellipse cx="880" cy="180" rx="550" ry="440" fill="url(#glow)"/>
+<g font-family="Arial, Helvetica, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+<rect x="48" y="42" width="46" height="46" rx="12" fill="#182F32" stroke="#46766A"/>
+<path d="M60 65L68 73L83 55" fill="none" stroke="#88F4CB" stroke-width="2"/>
+<text x="110" y="77" font-size="37" font-weight="700" fill="#F1F5FD" letter-spacing="-1">ResiMind</text>
+<text x="880" y="70" font-size="17" font-weight="700" fill="#88F4CB" letter-spacing="1">OPEN SOURCE  /  MIT  /  v0.15</text>
+<text x="48" y="142" font-size="16" font-weight="700" fill="#B9AAFF" letter-spacing="1">神经符号 AGENT · 可验证记忆</text>
+<text x="46" y="246" font-size="76" font-weight="700" fill="#F1F5FD">发现错误。</text>
+<text x="46" y="338" font-size="76" font-weight="700" fill="#88F4CB">留下方法。</text>
+<text x="50" y="399" font-size="24" font-weight="400" fill="#F1F5FD">让这一次的推导，成为下一题的能力。</text>
+<text x="50" y="444" font-size="22" font-weight="400" fill="#A6B4CC">残差驱动纠错 · 已验证规则复用</text>
+<text x="50" y="481" font-size="22" font-weight="400" fill="#A6B4CC">知识在模型之外增长，无需重训。</text>
+<rect x="50" y="525" width="143" height="39" rx="19" fill="#1A243D" stroke="#3C4969"/>
+<text x="66" y="550" font-size="15" font-weight="700" fill="#F1F5FD">MCP TOOLS</text>
+<rect x="207" y="525" width="130" height="39" rx="19" fill="#1A243D" stroke="#3C4969"/>
+<text x="223" y="550" font-size="15" font-weight="700" fill="#F1F5FD">AGENT SKILL</text>
+<rect x="351" y="525" width="177" height="39" rx="19" fill="#1A243D" stroke="#3C4969"/>
+<text x="367" y="550" font-size="15" font-weight="700" fill="#F1F5FD">PYTHON CORE</text>
+<rect x="663" y="170" width="567" height="401" rx="20" fill="#0D1526" stroke="#495277"/>
+<text x="688" y="204" font-size="15" font-weight="700" fill="#A6B4CC" letter-spacing="0.5">一个错误，如何变成下一步的线索</text>
+<path d="M688 223H1205" fill="none" stroke="#2E3A54" stroke-width="2"/>
+<text x="688" y="256" font-size="16" font-weight="700" fill="#FF99A8">01  拦住错误</text>
+<text x="688" y="296" font-size="29" font-weight="700" fill="#F1F5FD">(x + 1)² = x² + 1</text>
+<text x="688" y="326" font-size="19" font-weight="400" fill="#FF99A8">x 项系数不一致：2 ≠ 0</text>
+<path d="M1190 297V363" fill="none" stroke="#93A8C7" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="688" y="380" font-size="16" font-weight="700" fill="#88F4CB">02  核验修正</text>
+<text x="688" y="420" font-size="29" font-weight="700" fill="#F1F5FD">(x + 1)² = x² + 2x + 1</text>
+<text x="688" y="450" font-size="19" font-weight="400" fill="#88F4CB">精确系数核验通过</text>
+<rect x="684" y="478" width="525" height="70" rx="10" fill="#142E30" stroke="#345B53"/>
+<text x="704" y="505" font-size="17" font-weight="700" fill="#88F4CB">下一题：检索 → 复用 → 再验</text>
+<text x="704" y="531" font-size="17" font-weight="400" fill="#A6B4CC">规则须先经过独立准入核验</text>
+<path d="M48 608H1232" fill="none" stroke="#303C57" stroke-width="2"/>
+<text x="48" y="648" font-size="17" font-weight="700" fill="#F1F5FD">数学 / 桥梁 / 客服 / 约束规划</text>
+<text x="48" y="683" font-size="16" font-weight="400" fill="#A6B4CC">实验性架构 · 各领域独立验证 · MCP 与规则学习目前限于有界多项式</text>
+<text x="974" y="648" font-size="18" font-weight="400" fill="#88F4CB">1105216375-alt/resimind</text>
+</g></svg>

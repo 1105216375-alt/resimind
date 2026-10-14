@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="660" viewBox="0 0 1280 660" role="img" aria-labelledby="title desc">
+<title id="title">ResiMind 的两层循环</title><desc id="desc">Within a task, propose, independently verify, and use residual feedback to retry. Across tasks, extract candidate rules, independently admit them, store them, and recheck each application.</desc>
+<defs>
+ <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#151A34"/><stop offset="1" stop-color="#080E1B"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#7560D8" stop-opacity=".20"/><stop offset="1" stop-color="#7560D8" stop-opacity="0"/></radialGradient>
+ <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#91A5CC" opacity=".12"/></pattern>
+ <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L7 4L0 8" fill="none" stroke="#93A8C7" stroke-width="1.4"/></marker>
+</defs>
+<rect width="1280" height="660" rx="24" fill="url(#bg)"/>
+<rect width="1280" height="660" rx="24" fill="url(#grid)"/>
+<ellipse cx="880" cy="180" rx="550" ry="440" fill="url(#glow)"/>
+<g font-family="Arial, Helvetica, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+<text x="44" y="53" font-size="16" font-weight="700" fill="#B9AAFF" letter-spacing="1">RESIMIND / INSIDE THE AGENT</text>
+<text x="44" y="104" font-size="37" font-weight="700" fill="#F1F5FD" letter-spacing="-0.5">这一题，改对；下一题，用上。</text>
+<text x="44" y="140" font-size="21" font-weight="400" fill="#A6B4CC">神经提议探索解法，符号核验决定事实；未完成的目标继续留在残差里。</text>
+<rect x="44" y="187" width="360" height="128" rx="14" fill="#152239" stroke="#394C70"/>
+<text x="64" y="218" font-size="15" font-weight="700" fill="#B9AAFF" letter-spacing="1">01 / PROPOSE</text>
+<text x="64" y="258" font-size="27" font-weight="700" fill="#F1F5FD">提出步骤</text>
+<text x="64" y="291" font-size="18" font-weight="400" fill="#A6B4CC">模型 · 规则 · 符号工具</text>
+<rect x="460" y="187" width="360" height="128" rx="14" fill="#152239" stroke="#394C70"/>
+<text x="480" y="218" font-size="15" font-weight="700" fill="#88F4CB" letter-spacing="1">02 / VERIFY</text>
+<text x="480" y="258" font-size="27" font-weight="700" fill="#F1F5FD">独立核验</text>
+<text x="480" y="291" font-size="18" font-weight="400" fill="#A6B4CC">领域检查 · 可选 Lean 证明</text>
+<rect x="876" y="187" width="360" height="128" rx="14" fill="#152239" stroke="#394C70"/>
+<text x="896" y="218" font-size="15" font-weight="700" fill="#88F4CB" letter-spacing="1">03 / COMMIT</text>
+<text x="896" y="258" font-size="27" font-weight="700" fill="#F1F5FD">提交已验证事实</text>
+<text x="896" y="291" font-size="18" font-weight="400" fill="#A6B4CC">重建目标、未知项与硬约束</text>
+<path d="M409 251H451" fill="none" stroke="#93A8C7" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M825 251H867" fill="none" stroke="#93A8C7" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M637 320V354H224V322" fill="none" stroke="#93A8C7" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="257" y="383" font-size="20" font-weight="400" fill="#FF99A8">未通过 → 残差反馈 → 换策略 / 拆解 / 重试</text>
+<path d="M1056 320V350" fill="none" stroke="#93A8C7" stroke-width="2"/>
+<path d="M1056 398V432" fill="none" stroke="#93A8C7" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="878" y="382" font-size="18" font-weight="400" fill="#88F4CB">任务完成后，显式学习</text>
+<rect x="44" y="443" width="1192" height="146" rx="14" fill="#102C2E" stroke="#345D54"/>
+<text x="68" y="475" font-size="15" font-weight="700" fill="#88F4CB" letter-spacing="1">ACROSS TASKS / VERIFIED MEMORY</text>
+<text x="68" y="520" font-size="28" font-weight="700" fill="#F1F5FD">抽取候选规则 → 独立准入核验 → 规则库 → 检索、应用、再验</text>
+<text x="68" y="560" font-size="20" font-weight="400" fill="#A6B4CC">Python 库支持持久化、冻结与重载复核；MCP 记忆仅在当前进程内保留。</text>
+<path d="M44 500H24V250H36" fill="none" stroke="#88F4CB" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="44" y="630" font-size="19" font-weight="400" fill="#A6B4CC">所有策略切换受预算约束。规则和路线偏好都不能绕过核验。</text>
+</g></svg>
