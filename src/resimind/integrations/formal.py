@@ -9,6 +9,7 @@ not a general Mathlib/miniF2F adapter or process sandbox.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 import time
@@ -118,6 +119,77 @@ class Recipe:
 class Lemma:
     goal: Goal
     recipe: Recipe
+    metadata: "LemmaMetadata" = None
+
+    def __post_init__(self):
+        if self.metadata is None:
+            object.__setattr__(self, "metadata", LemmaMetadata())
+        if type(self.metadata) is not LemmaMetadata:
+            raise ValueError("lemma metadata must be LemmaMetadata")
+
+
+@dataclass(frozen=True, slots=True)
+class LemmaMetadata:
+    """Auditable, advisory metadata attached to a kernel-checked lemma.
+
+    Metadata never approves a theorem: the Lean backend still checks the goal
+    and recipe at admission and on reload.  ``applicability`` is a set of
+    caller-supplied tags used for retrieval/audit, while ``expires_at`` is a
+    conservative wall-clock cutoff for reuse.  ISO-8601 timestamps must carry
+    a timezone so that evaluation runs are reproducible across hosts.
+    """
+
+    source_task_id: str = ""
+    evidence_refs: tuple[str, ...] = ()
+    applicability: tuple[str, ...] = ()
+    created_at: str = ""
+    expires_at: str = ""
+    verifier_id: str = ""
+
+    def __post_init__(self):
+        for name in ("source_task_id", "created_at", "expires_at", "verifier_id"):
+            value = getattr(self, name)
+            if type(value) is not str or value != value.strip():
+                raise ValueError(f"{name} must be a trimmed string")
+        for name in ("evidence_refs", "applicability"):
+            value = getattr(self, name)
+            if type(value) is not tuple or any(
+                type(item) is not str or not item or item != item.strip() for item in value
+            ):
+                raise ValueError(f"{name} must be a tuple of trimmed strings")
+        for name in ("created_at", "expires_at"):
+            value = getattr(self, name)
+            if value:
+                _parse_metadata_time(value, name)
+        if self.created_at and self.expires_at and _parse_metadata_time(self.expires_at, "expires_at") <= _parse_metadata_time(self.created_at, "created_at"):
+            raise ValueError("expires_at must be later than created_at")
+
+    def active(self, at: str | datetime | None = None) -> bool:
+        """Return whether this metadata permits reuse at ``at``.
+
+        Missing expiry means no automatic expiry.  This is intentionally an
+        eligibility check only; applicability tags still need a task-specific
+        verifier to establish that their assumptions hold.
+        """
+        if not self.expires_at:
+            return True
+        current = _parse_metadata_time(at, "at") if at is not None else datetime.now(timezone.utc)
+        return current < _parse_metadata_time(self.expires_at, "expires_at")
+
+
+def _parse_metadata_time(value: str | datetime, name: str) -> datetime:
+    if isinstance(value, datetime):
+        parsed = value
+    elif type(value) is str:
+        try:
+            parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError(f"{name} must be an ISO-8601 timestamp") from exc
+    else:
+        raise TypeError(f"{name} must be a timestamp")
+    if parsed.tzinfo is None or parsed.utcoffset() is None:
+        raise ValueError(f"{name} must include a timezone")
+    return parsed.astimezone(timezone.utc)
 
 
 @dataclass(frozen=True, slots=True)
@@ -455,23 +527,88 @@ class TheoremMemory:
         if type(self.lemmas) is not tuple or len(self.lemmas) > 32:
             raise ValueError("memory limit exceeded")
         for lemma in self.lemmas:
-            if type(lemma) is not Lemma or type(lemma.goal) is not Goal or type(lemma.recipe) is not Recipe:
+            if (type(lemma) is not Lemma or type(lemma.goal) is not Goal
+                    or type(lemma.recipe) is not Recipe
+                    or type(lemma.metadata) is not LemmaMetadata):
                 raise ValueError("invalid memory entry")
             lemma.goal.render()
             lemma.recipe.render(lemma.goal)
 
-    def admit(self, goal, recipe, backend):
+    def admit(self, goal, recipe, backend, *, metadata=None):
         result = backend.check_goal(goal, recipe)
         if result.status != "verified":
             raise ValueError("lemma admission requires a checked proof")
-        lemma = Lemma(goal, recipe)
+        if metadata is None:
+            metadata = LemmaMetadata(verifier_id="lean-kernel")
+        if type(metadata) is not LemmaMetadata:
+            raise ValueError("metadata must be LemmaMetadata")
+        lemma = Lemma(goal, recipe, metadata)
         if lemma in self.lemmas:
             return self, result
         return TheoremMemory(self.lemmas + (lemma,)), result
 
+    def active_lemmas(self, at=None, *, applicability=()):
+        """Return non-expired lemmas whose advisory tags fit a query.
+
+        An empty query does not impose tags.  A non-empty query requires every
+        lemma tag to be present, mirroring the existing verified knowledge
+        lookup contract.  This method is retrieval metadata only; Lean still
+        rechecks every selected proof.
+        """
+        if type(applicability) is not tuple:
+            raise ValueError("applicability must be a tuple")
+        if any(type(tag) is not str or not tag.strip() or tag != tag.strip() for tag in applicability):
+            raise ValueError("applicability must contain trimmed strings")
+        available = set(applicability)
+        return tuple(lemma for lemma in self.lemmas
+                     if lemma.metadata.active(at)
+                     and (not applicability
+                          or set(lemma.metadata.applicability).issubset(available)))
+
+    def audit(self, at=None):
+        """Summarize expiry and provenance coverage without trusting metadata."""
+        active = self.active_lemmas(at)
+        expired = tuple(lemma for lemma in self.lemmas if lemma not in active)
+        with_source = tuple(lemma for lemma in self.lemmas if lemma.metadata.source_task_id)
+        return {
+            "total": len(self.lemmas),
+            "active": len(active),
+            "expired": len(expired),
+            "with_provenance": len(with_source),
+            "cross_task_sources": len({lemma.metadata.source_task_id for lemma in with_source}),
+        }
+
+    def transfer_report(self, uses):
+        """Compute paired cross-task transfer counts from an evaluation trace.
+
+        ``uses`` is an iterable of mappings with ``task_id``, ``solved`` and
+        optional ``recalled`` (a lemma metadata source task ID).  The helper
+        reports only counts; it does not infer causality from a recall alone.
+        """
+        rows = tuple(uses)
+        if any(type(row) is not dict or "task_id" not in row or "solved" not in row for row in rows):
+            raise ValueError("uses must contain task_id and solved")
+        tasks = {row["task_id"] for row in rows}
+        if any(type(task) is not str or not task for task in tasks):
+            raise ValueError("task_id must be a nonempty string")
+        transferred = [row for row in rows if row.get("recalled")]
+        solved = [row for row in rows if row["solved"] is True]
+        transfer_solved = [row for row in transferred if row["solved"] is True]
+        return {
+            "tasks": len(rows),
+            "solved": len(solved),
+            "recalled": len(transferred),
+            "recalled_and_solved": len(transfer_solved),
+            "transfer_solve_rate": (len(transfer_solved) / len(transferred)
+                                     if transferred else None),
+            "cross_task_recall": sum(
+                1 for row in transferred if row.get("recalled") != row["task_id"]
+            ),
+        }
+
     def save(self, path):
         from dataclasses import asdict
-        Path(path).write_text(json.dumps({"format": 1, "lemmas": [asdict(l) for l in self.lemmas]}))
+        Path(path).write_text(json.dumps({"format": 2, "lemmas": [asdict(l) for l in self.lemmas]}))
 
     @classmethod
     def load(cls, path, backend):
@@ -495,19 +632,34 @@ class TheoremMemory:
 
         data = json.loads(path.read_text(), object_pairs_hook=unique)
         if (type(data) is not dict or set(data) != {"format", "lemmas"}
-                or type(data["format"]) is not int or data["format"] != 1
+                or type(data["format"]) is not int or data["format"] not in (1, 2)
                 or type(data["lemmas"]) is not list or len(data["lemmas"]) > 32):
             raise ValueError("invalid memory format")
         memory = cls()
         for item in data["lemmas"]:
-            if (type(item) is not dict or set(item) != {"goal", "recipe"}
+            required = {"goal", "recipe"} if data["format"] == 1 else {"goal", "recipe", "metadata"}
+            if (type(item) is not dict or set(item) != required
                     or type(item["goal"]) is not dict or set(item["goal"]) != {"bindings", "statement"}
                     or type(item["recipe"]) is not dict or set(item["recipe"]) != {"tactic", "induction_variable"}
                     or type(item["goal"]["bindings"]) is not list
                     or any(type(b) is not list for b in item["goal"]["bindings"])):
                 raise ValueError("invalid serialized lemma")
             goal = Goal(tuple(tuple(b) for b in item["goal"]["bindings"]), node(item["goal"]["statement"]))
-            memory, _ = memory.admit(goal, Recipe(**item["recipe"]), backend)
+            metadata = LemmaMetadata(verifier_id="lean-kernel")
+            if data["format"] == 2:
+                raw = item["metadata"]
+                if (type(raw) is not dict or set(raw) != {
+                    "source_task_id", "evidence_refs", "applicability", "created_at", "expires_at", "verifier_id"
+                } or any(type(raw[key]) is not list for key in ("evidence_refs", "applicability"))):
+                    raise ValueError("invalid serialized lemma metadata")
+                metadata = LemmaMetadata(
+                    source_task_id=raw["source_task_id"],
+                    evidence_refs=tuple(raw["evidence_refs"]),
+                    applicability=tuple(raw["applicability"]),
+                    created_at=raw["created_at"], expires_at=raw["expires_at"],
+                    verifier_id=raw["verifier_id"],
+                )
+            memory, _ = memory.admit(goal, Recipe(**item["recipe"]), backend, metadata=metadata)
         return memory
 
 
@@ -555,19 +707,23 @@ def solve(goal, backend, *, memory=TheoremMemory(), max_checks=6,
         recipe.render(goal)
     start = time.perf_counter()
     digest = content_digest(memory)
-    recalls = [(i, None) for i, lemma in enumerate(memory.lemmas) if applicable(lemma, goal)]
+    # Expired or inapplicable metadata is a retrieval filter only.  The
+    # selected lemmas are still rendered and kernel-checked below.  Keep the
+    # original indexes out of the proof tree by passing a compact active view.
+    usable = memory.active_lemmas()
+    recalls = [(i, None) for i, lemma in enumerate(usable) if applicable(lemma, goal)]
     fixed = [(None, recipe) for recipe in recipes]
     attempts = []
     checks_left = max_checks
 
     # Composition is intentionally a separate candidate from exact recall and
     # direct recipes, making the ablation explicit in attempt logs.
-    if composition_depth and memory.lemmas and checks_left and not (recall_first and recalls):
-        plan = _search_plan(goal, memory.lemmas, recipes, depth=composition_depth,
+    if composition_depth and usable and checks_left and not (recall_first and recalls):
+        plan = _search_plan(goal, usable, recipes, depth=composition_depth,
                             allow_recipe=False, budget=composition_budget)
         if plan is not None:
             began = time.perf_counter()
-            result = backend.check_plan(goal, plan, memory=memory.lemmas)
+            result = backend.check_plan(goal, plan, memory=usable)
             attempts.append(Attempt("compose", result.status,
                                     time.perf_counter() - began, result.goals,
                                     result.source_digest, result.proof_digest))
@@ -580,7 +736,7 @@ def solve(goal, backend, *, memory=TheoremMemory(), max_checks=6,
     candidates = (recalls + fixed) if recall_first else (fixed + recalls)
     for index, recipe in candidates[:checks_left]:
         began = time.perf_counter()
-        result = backend.check_goal(goal, recipe, memory=memory.lemmas if index is not None else (), recall=index)
+        result = backend.check_goal(goal, recipe, memory=usable if index is not None else (), recall=index)
         attempts.append(Attempt(f"recall:{index}" if index is not None else recipe.tactic,
                                 result.status, time.perf_counter() - began, result.goals,
                                 result.source_digest, result.proof_digest))

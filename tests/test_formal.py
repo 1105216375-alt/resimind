@@ -5,7 +5,8 @@ from pathlib import Path
 import pytest
 
 from resimind.integrations.formal import (
-    FormalBackend, Goal, Lemma, Recipe, TheoremMemory, Term, applicable, nat, solve, term, var,
+    FormalBackend, Goal, Lemma, LemmaMetadata, Recipe, TheoremMemory, Term, applicable, nat,
+    solve, term, var,
 )
 
 
@@ -82,6 +83,44 @@ def test_real_logic_and_composed_recall_are_kernel_checked(backend, tmp_path):
     assert result.attempts[0].proof_digest
     with pytest.raises(FrozenInstanceError):
         memory.lemmas = ()
+
+
+def test_verified_memory_metadata_is_auditable_and_expiry_is_fail_closed(backend, tmp_path):
+    metadata = LemmaMetadata(
+        source_task_id="task:commutativity",
+        evidence_refs=("lean:proof.olean",),
+        applicability=("prop:commutative",),
+        created_at="2026-01-01T00:00:00+00:00",
+        expires_at="2026-02-01T00:00:00+00:00",
+        verifier_id="lean-4.29.0",
+    )
+    memory, _ = TheoremMemory().admit(conjunction(), Recipe("grind"), backend,
+                                      metadata=metadata)
+    assert memory.audit("2026-01-15T00:00:00+00:00") == {
+        "total": 1, "active": 1, "expired": 0, "with_provenance": 1,
+        "cross_task_sources": 1,
+    }
+    assert memory.audit("2026-03-01T00:00:00+00:00")["expired"] == 1
+    assert memory.active_lemmas("2026-03-01T00:00:00+00:00") == ()
+    path = tmp_path / "metadata-memory.json"
+    memory.save(path)
+    restored = TheoremMemory.load(path, backend)
+    assert restored.lemmas[0].metadata == metadata
+    # Expiry changes retrieval, never the underlying kernel-checked record.
+    assert backend.check_goal(conjunction(), Recipe("grind")).status == "verified"
+
+
+def test_transfer_report_does_not_claim_causality_from_recall_alone(backend):
+    memory = TheoremMemory()
+    report = memory.transfer_report((
+        {"task_id": "task-a", "solved": True},
+        {"task_id": "task-b", "solved": True, "recalled": "task-a"},
+        {"task_id": "task-c", "solved": False, "recalled": "task-a"},
+    ))
+    assert report == {
+        "tasks": 3, "solved": 2, "recalled": 2, "recalled_and_solved": 1,
+        "transfer_solve_rate": 0.5, "cross_task_recall": 2,
+    }
 
 
 def test_real_false_goal_and_poisoned_memory_fail(backend, tmp_path):

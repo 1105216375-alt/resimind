@@ -276,6 +276,59 @@ class KnowledgeLibrary:
             and set(record.candidate.assumptions).issubset(available)
         )
 
+    def conflicts(self, candidate: KnowledgeCandidate) -> tuple[KnowledgeRecord, ...]:
+        """Find verified records that overlap but assert a different statement.
+
+        Conflict detection is deliberately advisory: domains define statement
+        semantics, so admission still delegates correctness to the registered
+        verifier.  Callers can use this hook to quarantine competing rules or
+        require an explicit supersession review instead of silently picking one.
+        """
+        probe = _clone(candidate)
+        return tuple(
+            _detach(record) for record in self._records.values()
+            if record.status == "verified"
+            and record.candidate.domain == probe.domain
+            and record.candidate.kind == probe.kind
+            and record.candidate.assumptions == probe.assumptions
+            and record.candidate.statement != probe.statement
+        )
+
+    def audit(self) -> dict[str, int]:
+        """Return provenance/revocation counts for a reproducible memory audit."""
+        records = tuple(self._records.values())
+        return {
+            "total": len(records),
+            "verified": sum(record.status == "verified" for record in records),
+            "rejected": sum(record.status == "rejected" for record in records),
+            "unknown": sum(record.status == "unknown" for record in records),
+            "revoked": sum(record.status == "revoked" for record in records),
+            "with_provenance": sum(bool(record.candidate.source_task_id) for record in records),
+            "source_tasks": len({record.candidate.source_task_id for record in records
+                                 if record.candidate.source_task_id}),
+        }
+
+    @staticmethod
+    def transfer_report(uses: Any) -> dict[str, Any]:
+        """Summarize cross-task reuse without treating retrieval as causation."""
+        rows = tuple(uses)
+        if any(type(row) is not dict or "task_id" not in row or "solved" not in row for row in rows):
+            raise ValueError("uses must contain task_id and solved")
+        if any(type(row["task_id"]) is not str or not row["task_id"] for row in rows):
+            raise ValueError("task_id must be a nonempty string")
+        recalled = [row for row in rows if row.get("recalled")]
+        solved = [row for row in rows if row["solved"] is True]
+        transfer_solved = [row for row in recalled if row["solved"] is True]
+        return {
+            "tasks": len(rows),
+            "solved": len(solved),
+            "recalled": len(recalled),
+            "recalled_and_solved": len(transfer_solved),
+            "transfer_solve_rate": (len(transfer_solved) / len(recalled) if recalled else None),
+            "cross_task_recall": sum(1 for row in recalled
+                                      if row.get("recalled") != row["task_id"]),
+        }
+
     def revoke(self, id: str, reason: str) -> KnowledgeRecord:
         """Retire any recorded outcome; its ID cannot be admitted again."""
         _text(reason, "reason")

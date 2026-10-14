@@ -103,6 +103,22 @@ class KnowledgeLibraryTests(unittest.TestCase):
         self.assertEqual(self.library.lookup("arithmetic", "algorithm", query), ())
         self.assertEqual(self.library.lookup("arithmetic", assumptions=("a!=0", "a is real")), ())
 
+    def test_audit_and_conflict_hook_are_advisory(self):
+        self.library.admit(claim())
+        competing = claim("competing", statement={"left": 2, "right": 3, "sum": 6})
+        # Conflict detection is advisory and runs before the candidate's own
+        # verdict is considered; callers may quarantine this competing claim.
+        self.library.admit(competing)
+        assert tuple(record.candidate.id for record in self.library.conflicts(competing)) == ("sum-v1",)
+        assert self.library.audit() == {
+            "total": 2, "verified": 1, "rejected": 1, "unknown": 0,
+            "revoked": 0, "with_provenance": 2, "source_tasks": 1,
+        }
+        assert KnowledgeLibrary.transfer_report((
+            {"task_id": "a", "solved": True},
+            {"task_id": "b", "solved": True, "recalled": "a"},
+        ))["transfer_solve_rate"] == 1.0
+
     def test_every_mutable_boundary_is_detached(self):
         statement = {"left": 2, "right": 3, "sum": 5}
         step = {"inputs": [2, 3]}
