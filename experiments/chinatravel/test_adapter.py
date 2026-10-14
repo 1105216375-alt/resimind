@@ -82,3 +82,37 @@ class AdapterTests(unittest.TestCase):
                 assert result.run_result.stop_reason == ("proposer_error" if where == "proposer" else "verifier_error")
                 assert result.accepted_plan is None and result.run_result.state.facts == ()
                 assert "private failure detail" not in json.dumps(result.to_dict())
+
+    def test_feedback_is_bounded_but_full_check_audit_is_retained(self):
+        received = []
+
+        def propose(feedback):
+            received.append(feedback)
+            return {"draft": len(received), "payload": "x" * 1000}
+
+        def check(plan):
+            return CheckResult(plan["draft"] == 2, ("revise",),
+                               {"verbose": "y" * 1000})
+
+        result = run_resimind(QUERY, "fixed", propose, check,
+                              max_feedback_bytes=256)
+        assert result.accepted_plan["draft"] == 2
+        assert received[1]["previous_plan"]["_truncated"] is True
+        assert received[1]["diagnostics"]["_truncated"] is True
+        # The durable audit is not the prompt-sized projection.
+        assert result.checks[0]["diagnostics"] == {"verbose": "y" * 1000}
+
+    def test_oversized_candidate_is_rejected_without_calling_checker(self):
+        checked = []
+
+        def check(plan):
+            checked.append(plan)
+            return CheckResult(True)
+
+        result = run_resimind(
+            QUERY, "fixed", lambda _: {"payload": "x" * 300}, check,
+            max_proposals=1, max_plan_bytes=256,
+        )
+        assert result.accepted_plan is None
+        assert checked == []
+        assert result.checks[0]["reasons"] == ["candidate_size_limit"]

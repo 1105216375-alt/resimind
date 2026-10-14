@@ -80,6 +80,26 @@ def test_official_react_keeps_native_request_parameters(tmp_path, upstream):
     assert broker.result["details"]["worker_usage"]["prompt_tokens"] == 21
 
 
+def test_decode_plan_accepts_only_complete_json_fence():
+    assert module._decode_plan('```json\n{"days": 1}\n```') == {"days": 1}
+    # Commentary containing a JSON fragment is still an invalid delivered
+    # artifact; the decoder must not search arbitrary text for braces.
+    assert module._decode_plan('draft: {"days": 1}') == {"plan": 'draft: {"days": 1}'}
+
+
+def test_react_continuation_abstains_at_native_step_limit(tmp_path):
+    class Agent:
+        cur_step = 4
+        max_steps = 4
+        plan_prompt = ""
+
+    proposer = module._ReActProposals(Agent(), QUERY, tmp_path)
+    proposer.attempt = 1
+    assert proposer({"reasons": ["retry"]}) is None
+    saved = json.loads((tmp_path / "candidate_02.json").read_text())
+    assert saved["budget_stop"] == "native_step_limit"
+
+
 def test_nesy_budget_stop_cannot_be_swallowed_or_delivered(tmp_path, upstream):
     broker, output = execute(tmp_path, upstream, "official_nesy", [{"status": "budget_exhausted"}])
     assert broker.result["status"] == "budget_exhausted"

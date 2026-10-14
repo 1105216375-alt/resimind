@@ -155,6 +155,8 @@ do not imply equal realized spend; report actual usage for every arm.
 | Provider SDK retries | `0`; no automatic transport retry or case restart |
 | NeSy native search setting | `TIME_CUT = 300` seconds |
 | ResiMind whole-plan proposal limit | `3`, including the initial proposal |
+| ResiMind revision feedback cap | `24,000` UTF-8 bytes; oversized prompt feedback is replaced by a digest and preview |
+| ResiMind candidate cap | `512,000` UTF-8 bytes; oversized candidates are rejected before the checker |
 | Worker CPU limit | `420` CPU seconds |
 | Maximum individual worker file size | `67,108,864` bytes |
 | Concurrent supervised jobs | `3` |
@@ -165,6 +167,10 @@ wall deadline. Prompt bytes are the length of the UTF-8 encoding of
 `json.dumps(messages, ensure_ascii=False, sort_keys=True, separators=(',', ':'))`.
 Every model request counts, including translation, reflection, search guidance,
 plan formatting, and revision. Retried requests cannot be hidden in SDK defaults.
+ResiMind never promotes a rejected or partially generated plan as a fallback: if
+the native step budget is exhausted, it records an explicit abstention. Feedback
+caps affect only the next model prompt; complete candidate and gate diagnostics
+remain in the audit trace.
 Preserve provider-reported token usage and explicit missing-usage/error states;
 do not report missing usage as zero cost. Reserve remaining output allowance
 before dispatch so a request cannot silently exceed the cumulative cap.

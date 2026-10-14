@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass, replace
+import hashlib
 import json
 
 from resimind.core import (Candidate, Decision, Evidence, Fact, Residual, RunResult,
@@ -57,6 +58,33 @@ _GOAL = "plan_passes_local_contract"
 _REFS = ("input_query", "sandbox_fingerprint")
 
 
+def _bounded_feedback(value, *, max_bytes: int = 24_000):
+    """Keep model feedback bounded without changing the checked candidate.
+
+    Gate diagnostics can contain large tables and a rejected itinerary can
+    contain many repeated activity objects.  Passing both verbatim into the
+    next model request makes the revision budget depend on the size of a
+    failure.  The complete values remain in ``checks``/the trace; only the
+    untrusted prompt feedback is reduced.  A digest makes truncation auditable.
+    """
+    if type(max_bytes) is not int or max_bytes < 256:
+        raise ValueError("max_feedback_bytes must be an integer >= 256")
+    encoded = canonical_json(value).encode("utf-8")
+    if len(encoded) <= max_bytes:
+        return json.loads(encoded.decode("utf-8"))
+    digest = hashlib.sha256(encoded).hexdigest()
+    # A short UTF-8-safe prefix is useful to a reviser while the digest and
+    # original byte count make clear that this is not a complete plan.
+    budget = max(0, max_bytes - 180)
+    preview = encoded[:budget].decode("utf-8", errors="ignore")
+    return {
+        "_truncated": True,
+        "sha256": digest,
+        "original_bytes": len(encoded),
+        "preview": preview,
+    }
+
+
 class _PlanDomain:
     def rebuild(self, state: State) -> Residual:
         if any(fact.id == "accepted_plan" for fact in state.facts):
@@ -65,8 +93,11 @@ class _PlanDomain:
 
 
 class _PlanProposer:
-    def __init__(self, callback: Callable[[dict | None], dict | None]):
+    def __init__(self, callback: Callable[[dict | None], dict | None], *,
+                 max_attempts: int, max_feedback_bytes: int):
         self.callback = callback
+        self.max_attempts = max_attempts
+        self.max_feedback_bytes = max_feedback_bytes
         self.feedback: dict | None = None
         self.attempts = 0
         self.empty = False
@@ -86,21 +117,46 @@ class _PlanProposer:
 
     def observe(self, event: TraceEvent) -> None:
         self.feedback = {
-            "previous_plan": json.loads(event.candidate.claim) if event.candidate else None,
+            "previous_plan": (_bounded_feedback(
+                json.loads(event.candidate.claim), max_bytes=self.max_feedback_bytes
+            ) if event.candidate else None),
             "decision": event.decision.value,
             "reasons": list(event.reasons),
-            "diagnostics": self.diagnostics,
+            "diagnostics": _bounded_feedback(
+                self.diagnostics, max_bytes=self.max_feedback_bytes
+            ),
+            "budget": {
+                "attempt": self.attempts,
+                "max_attempts": self.max_attempts,
+                "remaining_proposals": max(0, self.max_attempts - self.attempts),
+            },
         }
 
 
 class _PlanVerifier:
-    def __init__(self, callback: Callable[[dict], CheckResult], proposer: _PlanProposer):
+    def __init__(self, callback: Callable[[dict], CheckResult], proposer: _PlanProposer,
+                 *, max_plan_bytes: int):
         self.callback = callback
         self.proposer = proposer
+        self.max_plan_bytes = max_plan_bytes
         self.checks: list[dict] = []
 
     def verify(self, candidate: Candidate, state: State, residual: Residual,
                evidence: tuple[Evidence, ...]) -> Verdict:
+        if len(candidate.claim.encode("utf-8")) > self.max_plan_bytes:
+            checked = CheckResult(
+                False,
+                ("candidate_size_limit",),
+                {"max_plan_bytes": self.max_plan_bytes,
+                 "candidate_bytes": len(candidate.claim.encode("utf-8"))},
+                deferred=False,
+            )
+            self.proposer.diagnostics = checked.diagnostics
+            self.checks.append({"candidate_id": candidate.id, "accepted": False,
+                                "deferred": False, "reasons": list(checked.reasons),
+                                "diagnostics": checked.diagnostics})
+            return Verdict.for_candidate(candidate, state, Decision.REJECT,
+                                         evidence=evidence, reasons=checked.reasons)
         plan = json.loads(candidate.claim)
         checked = self.callback(plan)
         if type(checked) is not CheckResult:
@@ -123,7 +179,9 @@ class _PlanVerifier:
 
 def run_resimind(query: dict, sandbox_digest: str,
                  propose: Callable[[dict | None], dict | None],
-                 check: Callable[[dict], CheckResult], max_proposals: int = 3) -> AdapterResult:
+                 check: Callable[[dict], CheckResult], max_proposals: int = 3,
+                 *, max_feedback_bytes: int = 24_000,
+                 max_plan_bytes: int = 512_000) -> AdapterResult:
     """Run one task, committing an entire plan only after local acceptance.
 
     ``propose(None)`` starts the run. Subsequent calls receive ``previous_plan``,
@@ -138,6 +196,10 @@ def run_resimind(query: dict, sandbox_digest: str,
         raise ValueError("sandbox_digest must be a fixed nonempty fingerprint")
     if type(max_proposals) is not int or max_proposals < 1:
         raise ValueError("max_proposals must be a positive integer")
+    if type(max_feedback_bytes) is not int or max_feedback_bytes < 256:
+        raise ValueError("max_feedback_bytes must be an integer >= 256")
+    if type(max_plan_bytes) is not int or max_plan_bytes < 256:
+        raise ValueError("max_plan_bytes must be an integer >= 256")
     if not callable(propose) or not callable(check):
         raise TypeError("propose and check must be callable")
     evidence = (
@@ -146,8 +208,9 @@ def run_resimind(query: dict, sandbox_digest: str,
         Evidence(_REFS[1], "chinatravel_sandbox", "fingerprint", sandbox_digest,
                  "", "caller_supplied_sandbox_fingerprint"),
     )
-    proposer = _PlanProposer(propose)
-    verifier = _PlanVerifier(check, proposer)
+    proposer = _PlanProposer(propose, max_attempts=max_proposals,
+                             max_feedback_bytes=max_feedback_bytes)
+    verifier = _PlanVerifier(check, proposer, max_plan_bytes=max_plan_bytes)
     engine = Engine(_PlanDomain(), verifier, (proposer,), evidence=evidence,
                     max_steps=1, max_no_progress=2)
     state, trace = State(), []

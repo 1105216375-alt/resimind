@@ -212,10 +212,18 @@ def _public_query(path: Path) -> dict:
 
 def _decode_plan(raw):
     if isinstance(raw, str):
-        if not raw.strip():
+        text = raw.strip()
+        if not text:
             return None
+        # Official ReAct occasionally wraps an otherwise valid JSON plan in a
+        # Markdown fence.  Remove only a complete outer fence; do not search
+        # arbitrary text for braces, which could turn commentary into output.
+        if text.startswith("```") and text.endswith("```"):
+            lines = text.splitlines()
+            if len(lines) >= 3 and lines[0].lstrip().startswith("```"):
+                text = "\n".join(lines[1:-1]).strip()
         try:
-            decoded = json.loads(raw)
+            decoded = json.loads(text)
         except (ValueError, TypeError):
             # Match run_exp's treatment of a non-JSON answer: retain it so the
             # separate evaluator can mark an invalid delivered artifact.
@@ -306,11 +314,38 @@ class _ReActProposals:
         else:
             if type(feedback) is not dict:
                 raise ValueError("continuation_feedback_missing")
+            # A continuation may use only native steps left in the same
+            # notebook.  Returning no candidate is an explicit abstention;
+            # it never promotes a partial answer to a delivered plan.
+            used = getattr(self.agent, "cur_step", None)
+            maximum = getattr(self.agent, "max_steps", None)
+            if type(used) is int and type(maximum) is int and used >= maximum:
+                _save(self.output_dir / f"candidate_{self.attempt:02d}.json", {
+                    "attempt": self.attempt, "react_step": used,
+                    "finished": False, "raw_answer": None, "plan": None,
+                    "budget_stop": "native_step_limit",
+                })
+                return None
             _save(self.output_dir / f"feedback_{self.attempt:02d}.json", feedback)
+            # ``run_resimind`` bounds the structured feedback.  Bound the
+            # serialized instruction as a second line of defence for custom
+            # adapters that call this proposer directly.
+            feedback_text = json.dumps(feedback, ensure_ascii=False,
+                                       sort_keys=True, separators=(",", ":"))
+            max_feedback_bytes = 24_000
+            encoded = feedback_text.encode("utf-8")
+            if len(encoded) > max_feedback_bytes:
+                digest = hashlib.sha256(encoded).hexdigest()
+                feedback_text = json.dumps({
+                    "_truncated": True, "sha256": digest,
+                    "original_bytes": len(encoded),
+                    "preview": encoded[:max_feedback_bytes - 160].decode(
+                        "utf-8", errors="ignore"),
+                }, ensure_ascii=False, separators=(",", ":"))
             instructions = (
                 "\n验收反馈：下面是上一完整计划及本地检查结果。请基于已有笔记和查询结果修正计划，"
                 "必要时补充查询，然后使用 plan(...) 提交完整计划。不要把检查结果当作已满足约束。\n"
-                + json.dumps(feedback, ensure_ascii=False)
+                + feedback_text
             )
             self.agent.json_scratchpad.append({"role": "user", "content": instructions})
             self.agent._log.append({f"AcceptanceFeedback[{self.attempt}]": feedback})
@@ -527,6 +562,8 @@ def worker(connection, upstream_root: str, public_query_path: str, output_dir: s
                         adapted = run_resimind(
                             query, sandbox_digest, propose, gate,
                             max_proposals=settings.get("max_proposals", 3),
+                            max_feedback_bytes=settings.get("max_feedback_bytes", 24_000),
+                            max_plan_bytes=settings.get("max_plan_bytes", 512_000),
                         )
                         _save(output / "resimind_trace.json", adapted.to_dict())
                         result["details"]["resimind_status"] = adapted.run_result.status
