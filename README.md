@@ -27,6 +27,9 @@ The core also runs **bridge engineering, constrained optimization, customer supp
 
 Created and originally published by [@1105216375-alt](https://github.com/1105216375-alt). [Citation](CITATION.cff) · [Changelog](CHANGELOG.md)
 
+**Evaluating tools for your Agent? Make this one catch a wrong answer first.**
+[Run the nine-call integration probe](docs/algebra-repair-cases.md#before-you-integrate-make-it-reject-a-convincing-wrong-answer): reject → repair → learn → recall, including an unsupported-scope control. No model key. [Machine-readable cases](examples/agent_probe_cases.json) · [Documentation index](llms.txt)
+
 ## Try it in three minutes
 
 With Python installed:

@@ -1,5 +1,18 @@
 # Find, install and evaluate ResiMind
 
+## Start with a concrete task
+
+For repository readers and tool-selection Agents, [llms.txt](../llms.txt)
+indexes capabilities, installation paths and evidence. It is a convenience
+file, not a discovery protocol or a promise that any service indexes it.
+
+The [nine-call integration probe](algebra-repair-cases.md#before-you-integrate-make-it-reject-a-convincing-wrong-answer)
+is a short path from repository inspection to observed tool behavior.
+Its [ordered JSON cases](../examples/agent_probe_cases.json) include explicit
+learning, a cold recall, reuse, and unsupported mathematics. Requests can be
+replayed over the existing JSON-lines interface; the live tool catalog remains
+the authority for input schemas. No model credentials are required.
+
 ## Install the repair Skill
 
 The repository contains one task-specific skill, `verify-and-repair-algebra`:
@@ -65,3 +78,17 @@ project name, a clean Agent context and a recorded search/tool budget. Record
 whether it finds ResiMind, selects it, installs it and completes a first verified
 call. Compare the same protocol across revisions. Mark those visits as tests;
 do not present them as natural users or directory traffic.
+
+Example brand-free prompts for a future discovery test:
+
+- "Find a local tool that checks conflicting polynomial expansions and returns
+  exact coefficient differences. It must not need a model API key."
+- "Find an Agent tool that can explicitly learn a checked polynomial rule,
+  reuse it on new coefficients, and verify the new application. Explain its
+  memory lifetime and supported scope."
+- "Find a runnable public challenge for identifying the first incorrect
+  equality in an algebra derivation, with an independent scorer."
+
+These prompts describe capabilities, not instructions to favor ResiMind.
+Record competing tools, failed searches and non-selection as well as success.
+Adding the index and probe is not itself a measured increase in discovery.

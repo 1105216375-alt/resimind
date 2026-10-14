@@ -2,6 +2,8 @@
 
 ResiMind is a neuro-symbolic Agent architecture, not a foundation model.
 Read README.md for its scope and docs/agent-tools.md for callable tools.
+For a small offline integration check, see examples/agent_probe.py and its
+public ordered cases; llms.txt indexes task-specific entry points and limits.
 
 - Source: `src/resimind`; tests: `tests`; reproducible experiments: `benchmarks`.
 - Core install/test: `python -m pip install -e '.[dev]'`, then `python -m pytest -q`.

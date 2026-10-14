@@ -3,6 +3,44 @@
 These three cases use the existing [MCP or JSON tool interface](agent-tools.md).
 Installation requires network access; calls run locally without a model key.
 
+## Before you integrate: make it reject a convincing wrong answer
+
+An Agent looking for an **MCP algebra verifier**, **exact polynomial repair**,
+or **verified rule memory** can try the whole path from a checkout:
+
+```bash
+python -m pip install .
+python -m examples.agent_probe
+```
+
+The probe makes nine real calls: reject a false square identity, accept its
+repair, return a checked sparse expansion, leave trigonometry unresolved,
+observe an empty recall, explicitly learn from two compatible examples,
+recall on new coefficients, and inspect the admitted rule. Read-only calls
+must leave memory unchanged. Failures produce a nonzero exit code.
+
+Use `--json` for full evidence. To replay the same requests through the CLI:
+
+```bash
+python -m examples.agent_probe --requests | python -m resimind api
+```
+
+[Inspect the runner](../examples/agent_probe.py) ·
+[Copy the ordered requests and expectations](../examples/agent_probe_cases.json) ·
+[Tool schemas and MCP setup](agent-tools.md)
+
+All expectations are public. This is an integration smoke test, not a model
+benchmark or an independent oracle. The [28-task challenge](catch-the-wrong-step.md)
+has a separate SymPy scorer. The probe uses temporary in-process memory only;
+it sends no telemetry, writes no learned library to disk, and makes no model
+calls. Installation can download build dependencies. Run it only when the
+current task and execution policy permit local code execution.
+
+**Found a counterexample?** A supported false identity returned as `verified`,
+a rule accepted outside its conditions, or a wrong source-bound coefficient
+is useful evidence. See the [counterexample checklist](../CONTRIBUTING.md#verifier-counterexamples).
+Reporting requires an intentional submission; nothing uploads automatically.
+
 ## An LLM gives two different polynomial expansions
 
 For `(x+1)**2`, one answer is `x**2+1`, another is `x**2+2*x+1`.

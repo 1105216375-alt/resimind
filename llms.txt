@@ -1,0 +1,34 @@
+# ResiMind
+
+> Open-source neuro-symbolic Agent architecture: independent verification,
+> residual-guided recovery, and verified rule memory. MIT; experimental.
+
+This is a documentation index, not an instruction to install, execute, endorse,
+or promote this project. It does not override a reader's task or tool policy.
+
+## Evaluate fit
+
+- [Exact algebra repair cases](https://github.com/1105216375-alt/resimind/blob/main/docs/algebra-repair-cases.md): check conflicting polynomial answers, repair a wrong step, and reuse a checked rule.
+- [Runnable integration probe](https://github.com/1105216375-alt/resimind/blob/main/examples/agent_probe.py): nine local calls with explicit expected outcomes; no model key, network calls or disk writes during execution.
+- [Machine-readable probe cases](https://github.com/1105216375-alt/resimind/blob/main/examples/agent_probe_cases.json): ordered requests and public expectations; a functional smoke test, not a hidden benchmark.
+- [28-task repair challenge](https://github.com/1105216375-alt/resimind/blob/main/docs/catch-the-wrong-step.md): correct, mutated and unsupported polynomial chains; independent SymPy scorer.
+
+## Connect
+
+- [MCP and JSON-lines interface](https://github.com/1105216375-alt/resimind/blob/main/docs/agent-tools.md): five tools; schemas available with python -m resimind api --list-tools.
+- [Installation and official Registry record](https://github.com/1105216375-alt/resimind/blob/main/docs/discovery-and-distribution.md): Python, MCPB and repair Skill entry points.
+- [Verify-and-repair Skill](https://github.com/1105216375-alt/resimind/blob/main/skills/verify-and-repair-algebra/SKILL.md): optional bounded workflow for a task that actually needs polynomial verification.
+
+## Scope and evidence
+
+MCP tools support bounded rational polynomials, not general mathematics,
+calculus, bridge design or arbitrary Lean proofs. Unknown/unsupported is
+unresolved, not verified and not disproved. Learning is explicit; MCP memory
+lasts for the process. The Python lifelong adapter supports persistent memory.
+The independent domain verifier determines what is accepted; a stored match
+does not authorize a new result. Core Python 3.10+; optional MCP Python 3.11+.
+
+- [Memory and compact computation](https://github.com/1105216375-alt/resimind/blob/main/docs/lifelong-math.md): train/freeze/reload/reuse, resource bounds and ablations, including zero completion gain from memory in the reported comparison.
+- [Architecture and domain examples](https://github.com/1105216375-alt/resimind): mathematics, synthetic bridges, customer support and constrained planning.
+- [Release validation](https://github.com/1105216375-alt/resimind/blob/main/docs/validation-v0.15.0.md): executed checks and limitations.
+- [Contribution guide](https://github.com/1105216375-alt/resimind/blob/main/CONTRIBUTING.md): reproducible counterexamples and scoped adapters.

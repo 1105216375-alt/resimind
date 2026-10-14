@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "purpose": "Public functional integration probe, not an external Agent benchmark",
+  "session": "Run these ordered requests in one fresh process-local ToolSession",
+  "cases": [
+    {"id":"catch-wrong-square","request":{"tool":"verify_identity","arguments":{"lhs":"(x+1)**2","rhs":"x**2+1","variables":["x"]}},"expected":{"status":"rejected"}},
+    {"id":"check-repair","request":{"tool":"verify_identity","arguments":{"lhs":"(x+1)**2","rhs":"x**2+2*x+1","variables":["x"]}},"expected":{"status":"verified"}},
+    {"id":"sparse-long-expansion","request":{"tool":"expand_polynomial","arguments":{"expression":"(x+y+1)**6*(2*x-y+1)**6","variables":["x","y"]}},"expected":{"status":"verified","certificate_required":true}},
+    {"id":"respect-unsupported-scope","request":{"tool":"verify_identity","arguments":{"lhs":"sin(x)**2+cos(x)**2","rhs":"1","variables":["x"]}},"expected":{"status":"unresolved"}},
+    {"id":"cold-recall-has-no-rule","request":{"tool":"recall_polynomial","arguments":{"expression":"(2*x+3*y)**3","variables":["x","y"]}},"expected":{"status":"unresolved"}},
+    {"id":"first-explicit-learning-example","request":{"tool":"learn_polynomial","arguments":{"expression":"(a+b)**3","variables":["a","b"]}},"expected":{"status":"verified","new_rule_count":0}},
+    {"id":"second-example-admits-schema","request":{"tool":"learn_polynomial","arguments":{"expression":"(u+v)**3","variables":["u","v"]}},"expected":{"status":"verified","new_rule_count":1}},
+    {"id":"recall-on-new-coefficients","request":{"tool":"recall_polynomial","arguments":{"expression":"(2*x+3*y)**3","variables":["x","y"]}},"expected":{"status":"verified","route":"recall","search_actions":1}},
+    {"id":"inspect-admitted-rule","request":{"tool":"list_rules","arguments":{}},"expected":{"status":"ok","rule_count":1}}
+  ]
+}

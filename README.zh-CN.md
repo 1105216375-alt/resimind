@@ -27,6 +27,9 @@ ResiMind 是一套开源**神经符号 Agent 架构**，把独立核验、残差
 
 项目发起者与原始发布者：[@1105216375-alt](https://github.com/1105216375-alt)。[引用信息](CITATION.cff) · [更新记录](CHANGELOG.md)
 
+**给 Agent 选工具？先让它抓住一个看似合理的错误。**
+[运行九次调用的接入验收](docs/algebra-repair-cases.md#before-you-integrate-make-it-reject-a-convincing-wrong-answer)：拒绝错误 → 核验修复 → 学习 → 新题召回，还包括超出范围的对照题。无需模型密钥。[机器可读案例](examples/agent_probe_cases.json) · [文档索引](llms.txt)
+
 ## 三分钟跑起来
 
 准备好 Python，然后执行：
