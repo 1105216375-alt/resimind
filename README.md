@@ -7,7 +7,7 @@
 [![Release v0.16.0](https://img.shields.io/badge/release-v0.16.0-8275D6)](https://github.com/1105216375-alt/resimind/releases/tag/v0.16.0)
 [![MIT License](https://img.shields.io/badge/license-MIT-88DDBB)](LICENSE)
 [![Python core 3.10+](https://img.shields.io/badge/Python_core-3.10%2B-A9BEED)](pyproject.toml)
-[![MCP Registry listed](https://img.shields.io/badge/MCP_Registry-listed-88DDBB)](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.1105216375-alt%2Fresimind/versions/0.15.0)
+[![MCP Registry listed](https://img.shields.io/badge/MCP_Registry-listed-88DDBB)](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.1105216375-alt%2Fresimind/versions/0.16.0)
 [![Status experimental](https://img.shields.io/badge/status-experimental-E1BA7D)](#current-scope)
 
 [**Run the demo**](#try-it-in-three-minutes) · [**Connect MCP**](docs/agent-tools.md) · [**Install the Skill**](docs/discovery-and-distribution.md#install-the-repair-skill) · [**Take the challenge**](docs/catch-the-wrong-step.md) · [中文](README.zh-CN.md)
