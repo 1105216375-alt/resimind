@@ -297,18 +297,38 @@ def _ipc_llm(connection, settings: dict, output_dir: Path):
 
 
 class _ReActProposals:
-    """Continue the same official agent without reset, requery, or step credit."""
+    """Continue one agent with an explicit, finite revision allocation.
 
-    def __init__(self, agent, query: dict, output_dir: Path):
+    The upstream ReAct agent normally spends its whole native step budget on
+    the first search. A residual adapter therefore reserves part of the same
+    total budget for post-check revision; it does not silently increase the
+    global call or time budget.
+    """
+
+    def __init__(self, agent, query: dict, output_dir: Path, *,
+                 initial_step_limit: int | None = None,
+                 total_step_limit: int | None = None):
         self.agent = agent
         self.query = query
         self.output_dir = output_dir
         self.attempt = 0
         self.original_plan_prompt = agent.plan_prompt
+        native_limit = getattr(agent, "max_steps", None)
+        self.initial_step_limit = (native_limit if initial_step_limit is None
+                                   else initial_step_limit)
+        self.total_step_limit = (native_limit if total_step_limit is None
+                                 else total_step_limit)
+        if (type(self.initial_step_limit) is not int or self.initial_step_limit < 1
+                or type(self.total_step_limit) is not int
+                or self.total_step_limit < self.initial_step_limit):
+            raise ValueError("invalid ReAct step allocation")
 
     def __call__(self, feedback: dict | None):
         self.attempt += 1
         if self.attempt == 1:
+            # Keep a finite reserve for residual-driven revision. The agent's
+            # own counter remains authoritative for the total native budget.
+            self.agent.max_steps = self.initial_step_limit
             result = self.agent(self.query["nature_language"])
             raw = result["ans"]
         else:
@@ -317,6 +337,7 @@ class _ReActProposals:
             # A continuation may use only native steps left in the same
             # notebook.  Returning no candidate is an explicit abstention;
             # it never promotes a partial answer to a delivered plan.
+            self.agent.max_steps = self.total_step_limit
             used = getattr(self.agent, "cur_step", None)
             maximum = getattr(self.agent, "max_steps", None)
             if type(used) is int and type(maximum) is int and used >= maximum:
@@ -544,6 +565,11 @@ def worker(connection, upstream_root: str, public_query_path: str, output_dir: s
                 )
                 agent = runtime.agent
                 agent.debug = False
+                native_limit = settings.get("native_max_steps")
+                if native_limit is not None:
+                    if type(native_limit) is not int or native_limit < 1:
+                        raise ValueError("native_step_configuration")
+                    agent.max_steps = native_limit
                 if arm == "official_nesy":
                     agent.TIME_CUT = settings["search_seconds"]
                     success, plan = agent.run(deepcopy(query), load_cache=False,
@@ -552,7 +578,18 @@ def worker(connection, upstream_root: str, public_query_path: str, output_dir: s
                     result["details"]["native_success"] = bool(success)
                     _save(output / "candidate_01.json", {"plan": result["plan"]})
                 else:
-                    propose = _ReActProposals(agent, query, output)
+                    total_limit = getattr(agent, "max_steps", None)
+                    initial_limit = total_limit
+                    if arm == "resimind_react":
+                        initial_limit = settings.get("resimind_initial_steps", total_limit)
+                        if (type(initial_limit) is not int or type(total_limit) is not int
+                                or not 1 <= initial_limit <= total_limit):
+                            raise ValueError("residual_step_allocation")
+                    propose = _ReActProposals(
+                        agent, query, output,
+                        initial_step_limit=initial_limit,
+                        total_step_limit=total_limit,
+                    )
                     if arm == "official_react":
                         result["plan"] = propose(None)
                     else:

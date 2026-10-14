@@ -32,7 +32,8 @@ SETTINGS = dict(
     max_calls=128, max_request_prompt_bytes=320000, max_total_prompt_bytes=16000000,
     max_total_output_tokens=65536, request_timeout_seconds=90, wall_seconds=600,
     search_seconds=300, max_proposals=3, max_feedback_bytes=24000,
-    max_plan_bytes=512000, workers=3, sdk_retries=0,
+    max_plan_bytes=512000, native_max_steps=60, resimind_initial_steps=40,
+    workers=3, sdk_retries=0,
     cpu_seconds=420, max_file_bytes=67108864,
 )
 

@@ -100,6 +100,36 @@ def test_react_continuation_abstains_at_native_step_limit(tmp_path):
     assert saved["budget_stop"] == "native_step_limit"
 
 
+def test_react_revision_uses_reserved_budget_without_increasing_total(tmp_path):
+    class Agent:
+        plan_prompt = "prompt"
+        max_steps = 4
+        cur_step = 0
+        finished = False
+        json_scratchpad = []
+        _log = []
+        _ans = ""
+
+        def __call__(self, _query):
+            self.cur_step = self.max_steps
+            self.finished = True
+            return {"ans": '{"draft": 1}'}
+
+        def step(self):
+            self.cur_step += 1
+            self.finished = True
+            self._ans = '{"draft": 2}'
+
+    agent = Agent()
+    proposer = module._ReActProposals(
+        agent, QUERY, tmp_path, initial_step_limit=2, total_step_limit=4,
+    )
+    assert proposer(None) == {"draft": 1}
+    assert agent.max_steps == 2 and agent.cur_step == 2
+    assert proposer({"reasons": ["retry"]}) == {"draft": 2}
+    assert agent.max_steps == 4 and agent.cur_step == 3
+
+
 def test_nesy_budget_stop_cannot_be_swallowed_or_delivered(tmp_path, upstream):
     broker, output = execute(tmp_path, upstream, "official_nesy", [{"status": "budget_exhausted"}])
     assert broker.result["status"] == "budget_exhausted"

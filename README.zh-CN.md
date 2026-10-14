@@ -12,6 +12,8 @@
 
 [**运行示例**](#三分钟跑起来) · [**接入 MCP**](docs/agent-tools.md) · [**安装 Skill**](docs/discovery-and-distribution.md#install-the-repair-skill) · [**挑战找错**](docs/catch-the-wrong-step.md) · [English](README.md)
 
+[**前沿版路线与证据**](docs/frontier-program.zh-CN.md) · [**外部定理评测边界**](docs/external-benchmark-preflight.zh-CN.md)
+
 ResiMind 是一套开源**神经符号 Agent 架构**，把独立核验、残差驱动纠错和可复用规则记忆接成一个推理循环。你的模型、规则或符号工具提出步骤，由领域检查决定什么可以成为事实；验证失败后，反馈指出还差什么，指导下一次尝试。
 
 **做对一道题，可以积累一种经过验证的方法。** 显式学习从完成的推导里提取候选规则，独立核验后入库，每次复用再验。知识在模型之外增长，无需更新模型权重。在已支持的数学路径里，本地规则或工具足够时，**模型调用可以为零**。

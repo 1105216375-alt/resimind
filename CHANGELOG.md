@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased — frontier reliability pass
+
+- Reserve a shared native ReAct revision budget for the ChinaTravel ResiMind arm instead
+  of letting the first search consume every step; the counter stays continuous and all
+  arms keep the same total request, token and wall-clock ceilings.
+- Add a pinned MiniF2F/LeanDojo manifest boundary that compiles proof-hole candidates with
+  an installed Lean toolchain, records hashes and refuses `sorryAx`; missing datasets remain
+  `blocked`, never a fabricated score.
+- Add auditable verified-memory provenance, applicability and expiry metadata, conflict and
+  transfer reports, with Lean rechecking on admission and reload.
+- Record the development rerun and its negative result; the new control path produces
+  revisions but does not claim external benchmark leadership.
+
 ## 0.16.0 — 2026-10-15
 
 - Add a bounded typed residual-proof planner for conditional Lean lemmas. It can introduce
