@@ -18,7 +18,7 @@ core and JSON-lines interface still support Python 3.10+.
 ```bash
 git clone https://github.com/1105216375-alt/resimind.git
 cd resimind
-git checkout v0.14.0
+git checkout v0.15.0
 python3.11 -m venv .venv
 .venv/bin/python -m pip install '.[mcp]'
 ```
@@ -123,18 +123,17 @@ rejection or uncertainty is returned as data, not a process error.
 
 ## Discovery and registry status
 
-This release provides GitHub source, installable release artifacts, searchable
-task descriptions, a tool catalog and a working MCP server. It is **not yet
-listed in the official MCP Registry**. A repository file alone does not create
-a listing or cause agents to visit automatically.
+This release provides GitHub source, installable release artifacts, a locked
+MCPB 0.4 UV bundle, a repair Skill, task descriptions, a tool catalog and a
+working MCP server. See [distribution and current Registry status](discovery-and-distribution.md).
+A repository file alone does not create a listing or cause agents to visit automatically.
 
 The [official publishing guide](https://github.com/modelcontextprotocol/registry/blob/main/docs/modelcontextprotocol-io/quickstart.mdx)
 requires a supported published artifact or a public remote endpoint, a server
 manifest and namespace-authenticated publication. Python packages can use
 PyPI; [MCPB release bundles](https://github.com/modelcontextprotocol/registry/blob/main/docs/modelcontextprotocol-io/package-types.mdx)
-are another supported route. The current wheel/source release is not an MCPB
-bundle or a PyPI publication. Registry submission should follow a separately
-validated distribution path; no unverified listing badge is displayed here.
+are another supported route. ResiMind uses the tested MCPB path and a GitHub
+OIDC publication workflow. PyPI publication is not claimed.
 
 `AGENTS.md` helps coding agents after they enter this repository. It is not a
 discovery protocol or an instruction to promote the project.

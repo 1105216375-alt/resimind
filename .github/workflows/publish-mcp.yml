@@ -1,0 +1,52 @@
+name: Publish MCP Registry
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install validation tools
+        run: python -m pip install 'mcp==2.3.0' 'uv==0.13.0'
+      - name: Rebuild deterministic artifact and check committed metadata
+        run: |
+          python tools/build_mcp_bundle.py --output dist/mcp
+          cmp server.json dist/mcp/server.json
+          python -c "import json; print('RELEASE_TAG=v' + json.load(open('server.json'))['version'])" >> "$GITHUB_ENV"
+      - name: Download published artifact and verify byte identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download "$RELEASE_TAG" --pattern '*.mcpb' --dir published
+          cmp dist/mcp/*.mcpb published/*.mcpb
+          python -m zipfile -e published/*.mcpb extracted
+      - name: Validate bundle and test its actual startup command
+        env:
+          UV_PYTHON: "3.12"
+        run: |
+          npx --yes @anthropic-ai/mcpb@2.1.2 validate extracted/manifest.json
+          python tools/smoke_mcp_bundle.py extracted
+      - name: Download and verify official publisher v1.8.1
+        run: |
+          curl --fail --location --retry 3 https://github.com/modelcontextprotocol/registry/releases/download/v1.8.1/mcp-publisher_linux_amd64.tar.gz --output publisher.tar.gz
+          python -c "import hashlib; assert hashlib.sha256(open('publisher.tar.gz','rb').read()).hexdigest() == 'a06c9096dcb9727c13555b6be26c7effa707b01f06a4c561ba7a3635443cf2cc'"
+          tar xzf publisher.tar.gz mcp-publisher
+      - name: Authenticate repository namespace and publish
+        run: |
+          ./mcp-publisher login github-oidc
+          ./mcp-publisher publish server.json

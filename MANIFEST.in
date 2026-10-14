@@ -1,0 +1,6 @@
+include README.zh-CN.md CITATION.cff AGENTS.md server.json
+recursive-include docs *.md *.png *.svg
+recursive-include skills *.md *.yaml
+recursive-include tools *.py
+recursive-include distribution/mcpb pyproject.toml uv.lock server.py
+recursive-include benchmarks *.py *.json

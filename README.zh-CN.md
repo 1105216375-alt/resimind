@@ -12,7 +12,13 @@ ResiMind 是一套独立运行的开源**神经符号 Agent 架构**，把验证
 
 当前自适应推理与规则学习示例支持**有界有理多项式展开**。同一套 Agent 核心还提供规划、客服、约束优化与桥梁示例，各自使用明确的检查条件。
 
-**沿用你的模型 · Python 3.10+ 核心 · 可选 MCP（3.11+）· MIT · v0.14.0 / 实验阶段**
+**沿用你的模型 · Python 3.10+ 核心 · 可选 MCP（3.11+）· MIT · v0.15.0 / 实验阶段**
+
+**你的 Agent 能找出哪一步错了吗？** 找出多项式推导的第一个错误，给出修复，
+再交给独立评分器核验。
+[**挑战 28 道题 →**](docs/catch-the-wrong-step.md) ·
+[**安装代数修复 Skill →**](docs/discovery-and-distribution.md#install-the-repair-skill) ·
+[**MCP 分发包与发现入口 →**](docs/discovery-and-distribution.md)
 
 **新入口：让其他 Agent 直接调用 ResiMind。** 检查模型写出的多项式等式、
 返回精确稀疏展开、主动学习已验证规则，再在新表达式上复用。
@@ -57,7 +63,7 @@ ResiMind 是一套独立运行的开源**神经符号 Agent 架构**，把验证
 
 **当前范围：**自适应适配器支持有界有理多项式展开。其他领域共用 Agent 核心，使用各自的检查条件。可选 Lean 4.29.0 后端检查生成的 `Rat` 等式，并把未完成证明的真实目标反馈给下一次提议。
 
-[**运行学习与复用示例 →**](docs/lifelong-math.md) · [版本验证](docs/validation-v0.14.0.md) · [更新记录](CHANGELOG.md)
+[**运行学习与复用示例 →**](docs/lifelong-math.md) · [版本验证](docs/validation-v0.15.0.md) · [更新记录](CHANGELOG.md)
 
 ### v0.13：把跨题记忆、紧凑计算和经验选择接起来
 
@@ -420,7 +426,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-当前检查见 [v0.14.0 版本验证](docs/validation-v0.14.0.md)；历史检查保留在 [v0.13.0 记录](docs/validation-v0.13.0.md)、[v0.12.1 记录](docs/validation-v0.12.1.md)、[v0.12.0 记录](docs/validation-v0.12.0.md)、[v0.11.0 记录](docs/validation-v0.11.0.md)、[v0.10.0 记录](docs/validation-v0.10.0.md)、[v0.9.0 记录](docs/validation-v0.9.0.md)、[v0.8.0 记录](docs/validation-v0.8.0.md)、[知识增长开发记录](docs/validation-knowledge-growth.md)与[早期版本记录](docs/validation.md)中。
+当前检查见 [v0.15.0 版本验证](docs/validation-v0.15.0.md)；历史检查保留在 [v0.14.0 记录](docs/validation-v0.14.0.md)、[v0.13.0 记录](docs/validation-v0.13.0.md)、[v0.12.1 记录](docs/validation-v0.12.1.md)、[v0.12.0 记录](docs/validation-v0.12.0.md)、[v0.11.0 记录](docs/validation-v0.11.0.md)、[v0.10.0 记录](docs/validation-v0.10.0.md)、[v0.9.0 记录](docs/validation-v0.9.0.md)、[v0.8.0 记录](docs/validation-v0.8.0.md)、[知识增长开发记录](docs/validation-knowledge-growth.md)与[早期版本记录](docs/validation.md)中。
 
 ## 衡量 Agent 架构带来了什么
 
@@ -451,7 +457,7 @@ ResiMind 由 [@1105216375-alt](https://github.com/1105216375-alt) 发起并首�
 
 使用或介绍 ResiMind 时，欢迎注明项目来源并链接原始仓库。建议引用：
 
-> 1105216375-alt. ResiMind（版本 0.14.0），2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind（版本 0.15.0），2026. https://github.com/1105216375-alt/resimind
 
 [CITATION.cff](CITATION.cff) 提供机器可读的引用信息。引用属于倡议，不是新增的许可条件。项目采用 [MIT License](LICENSE)，允许商用；软件副本或实质部分须保留版权和许可声明。
 

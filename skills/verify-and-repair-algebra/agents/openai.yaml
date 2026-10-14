@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify & Repair Algebra"
+  short_description: "Check polynomial steps and repair coefficient errors"
+  default_prompt: "Use $verify-and-repair-algebra to locate the first incorrect step in this polynomial derivation and verify a repair."

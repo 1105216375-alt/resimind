@@ -69,6 +69,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     """Return an exit code for console scripts and ``python -m resimind``."""
     parser = argparse.ArgumentParser(prog="resimind", description="Evidence-bound Agent reasoning with independent verification.")
     commands = parser.add_subparsers(dest="command", required=True)
+    challenge = commands.add_parser("challenge", help="public catch-the-wrong-step development challenge")
+    challenge_commands = challenge.add_subparsers(dest="challenge_command", required=True)
+    challenge_commands.add_parser("export", help="print the 28 public tasks as JSON")
+    challenge_commands.add_parser("baseline", help="run the deterministic ResiMind tool baseline")
+    scoring = challenge_commands.add_parser("score", help="score an answer JSON file with independent SymPy checks")
+    scoring.add_argument("answers")
     api = commands.add_parser("api", help="model-free JSON-lines tools on stdin/stdout; process-local memory")
     api.add_argument("--list-tools", action="store_true", help="print the tool catalog and exit")
     commands.add_parser("mcp", help="run the optional MCP stdio server (Python 3.11+; install .[mcp])")
@@ -79,6 +85,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                       help="customer-support: refund/missing-delivery/expired; planning: day-out/rain/missing-travel")
     demo.add_argument("--json", action="store_true", help="write only the complete JSON evidence/decision audit")
     args = parser.parse_args(argv)
+    if args.command == "challenge":
+        from .challenge import main as challenge_main
+        return challenge_main(args)
     if args.command == "mcp":
         from .integrations.mcp import main as mcp_main
         return mcp_main()

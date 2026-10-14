@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.15.0 — 2026-10-14
+
+- Add the installable `verify-and-repair-algebra` Skill with a precise trigger, bounded repair workflow, exact evidence interpretation and explicit learning boundaries.
+- Add a public 28-task "Catch the Wrong Step" challenge: export tasks, run a model-free tool baseline and score external JSON answers with an independent bounded AST-to-SymPy oracle. Test false-acceptance, localization and repair failure controls.
+- Add a deterministic MCPB 0.4 UV bundle with locked dependencies, published artifact hashes, actual manifest-command smoke tests and a manual GitHub OIDC Registry publication workflow.
+- Add practical task pages and discovery instructions. No new model benchmark, frontier ranking, natural traffic or automatic directory adoption is claimed.
+
 ## 0.14.0 — 2026-10-14
 
 - Expose five model-free exact-math and verified-memory tools over an optional official MCP SDK v2 stdio server (Python 3.11+) and a dependency-free JSON-lines CLI (Python 3.10+).

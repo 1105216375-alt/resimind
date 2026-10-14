@@ -36,9 +36,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install optional MCP SDK
-        run: python -m pip install -e '.[dev,mcp]'
+        run: python -m pip install -e '.[dev,mcp,challenge]'
       - name: Test JSON API and real MCP stdio transport
-        run: python -m pytest -q tests/test_tool_api.py tests/test_mcp.py
+        run: python -m pytest -q tests/test_tool_api.py tests/test_mcp.py tests/test_challenge.py tests/test_mcp_bundle.py
 
   build:
     runs-on: ubuntu-latest

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.1105216375-alt/resimind",
+  "title": "ResiMind",
+  "description": "Exact polynomial checks, sparse expansion and verified rule memory. Local MCP tools, no model key.",
+  "repository": {
+    "url": "https://github.com/1105216375-alt/resimind",
+    "source": "github"
+  },
+  "version": "0.15.0",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/1105216375-alt/resimind/releases/download/v0.15.0/resimind-0.15.0.mcpb",
+      "fileSha256": "8dec8a870497c12916f83c399ac003bb9859e004317db53ef84f961ede23e493",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

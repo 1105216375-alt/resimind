@@ -12,7 +12,13 @@ The [adaptive math Agent](docs/adaptive-reasoning.md) can switch strategies afte
 
 The current adaptive and rule-learning demo supports **bounded rational polynomial expansion**. The same Agent core also runs planning, customer support, optimization and bridge examples with domain-specific checks.
 
-**Bring your own model · Python 3.10+ core · Optional MCP (3.11+) · MIT · v0.14.0 / Experimental**
+**Bring your own model · Python 3.10+ core · Optional MCP (3.11+) · MIT · v0.15.0 / Experimental**
+
+**Can your Agent catch the wrong step?** Find an incorrect polynomial step,
+repair it, and check the result with an independent scorer.
+[**Take the 28-task challenge →**](docs/catch-the-wrong-step.md) ·
+[**Install the repair Skill →**](docs/discovery-and-distribution.md#install-the-repair-skill) ·
+[**MCP bundle & discovery →**](docs/discovery-and-distribution.md)
 
 **New: let another Agent use ResiMind as a tool.** Check a model's polynomial
 identity, return exact sparse expansions, explicitly learn checked rules, and
@@ -59,7 +65,7 @@ Try the offline recovery demo: a deliberately wrong expansion is rejected, a loc
 
 **Current scope:** the adaptive adapter handles bounded rational polynomial expansion. Other domains share the Agent core and use their own checks. An optional Lean 4.29.0 backend checks generated equalities over `Rat` and feeds unfinished proof goals back into the next proposal.
 
-[**Run the learning-and-reuse demo →**](docs/lifelong-math.md) · [Release validation](docs/validation-v0.14.0.md) · [Changelog](CHANGELOG.md)
+[**Run the learning-and-reuse demo →**](docs/lifelong-math.md) · [Release validation](docs/validation-v0.15.0.md) · [Changelog](CHANGELOG.md)
 
 ### v0.13: verified memory meets compact computation
 
@@ -436,7 +442,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-See [v0.14.0 release validation](docs/validation-v0.14.0.md) for current checks, and the [v0.13.0 record](docs/validation-v0.13.0.md), [v0.12.1 record](docs/validation-v0.12.1.md), [v0.12.0 record](docs/validation-v0.12.0.md), [v0.11.0 record](docs/validation-v0.11.0.md), [v0.10.0 record](docs/validation-v0.10.0.md), [v0.9.0 record](docs/validation-v0.9.0.md), [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier version record](docs/validation.md) for historical checks.
+See [v0.15.0 release validation](docs/validation-v0.15.0.md) for current checks, and the [v0.14.0 record](docs/validation-v0.14.0.md), [v0.13.0 record](docs/validation-v0.13.0.md), [v0.12.1 record](docs/validation-v0.12.1.md), [v0.12.0 record](docs/validation-v0.12.0.md), [v0.11.0 record](docs/validation-v0.11.0.md), [v0.10.0 record](docs/validation-v0.10.0.md), [v0.9.0 record](docs/validation-v0.9.0.md), [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier version record](docs/validation.md) for historical checks.
 
 ## Measure the Agent, not the model
 
@@ -467,7 +473,7 @@ ResiMind was initiated and originally published by [@1105216375-alt](https://git
 
 If you use or discuss ResiMind, please cite the project and link to the original repository. Suggested citation:
 
-> 1105216375-alt. ResiMind (version 0.14.0), 2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind (version 0.15.0), 2026. https://github.com/1105216375-alt/resimind
 
 Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is appreciated, not an additional license condition. Commercial use is permitted under the [MIT License](LICENSE), which requires retaining its copyright and permission notices in copies or substantial portions of the software.
 
