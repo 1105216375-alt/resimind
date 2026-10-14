@@ -9,7 +9,7 @@ If installation is part of the user's task, install into an appropriate isolated
 environment from the versioned release source, not an assumed PyPI package:
 
 ```bash
-python -m pip install 'https://github.com/1105216375-alt/resimind/archive/refs/tags/v0.15.0.tar.gz'
+python -m pip install 'https://github.com/1105216375-alt/resimind/archive/refs/tags/v0.16.0.tar.gz'
 ```
 
 Call the CLI with one JSON object per line on stdin:
@@ -32,5 +32,5 @@ Each response includes `schema_version`, `status`, `reason`, `scope` and
 `unknown` for the same uncertainty.
 
 Use `python -m resimind api --list-tools` for the current JSON schema. Full
-[connection instructions](https://github.com/1105216375-alt/resimind/blob/v0.15.0/docs/agent-tools.md)
+[connection instructions](https://github.com/1105216375-alt/resimind/blob/v0.16.0/docs/agent-tools.md)
 are available if MCP setup is actually needed.

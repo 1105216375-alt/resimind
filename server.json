@@ -7,12 +7,12 @@
     "url": "https://github.com/1105216375-alt/resimind",
     "source": "github"
   },
-  "version": "0.15.0",
+  "version": "0.16.0",
   "packages": [
     {
       "registryType": "mcpb",
-      "identifier": "https://github.com/1105216375-alt/resimind/releases/download/v0.15.0/resimind-0.15.0.mcpb",
-      "fileSha256": "8dec8a870497c12916f83c399ac003bb9859e004317db53ef84f961ede23e493",
+      "identifier": "https://github.com/1105216375-alt/resimind/releases/download/v0.16.0/resimind-0.16.0.mcpb",
+      "fileSha256": "5270994576b4a12467ce826cd7d678d4865c700df856e9b955b66f771979814d",
       "transport": {
         "type": "stdio"
       }

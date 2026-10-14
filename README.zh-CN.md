@@ -4,7 +4,7 @@
 
 **发现错误。留下方法。让这一次的推导，成为下一题的起点。**
 
-[![Release v0.15.0](https://img.shields.io/badge/release-v0.15.0-8275D6)](https://github.com/1105216375-alt/resimind/releases/tag/v0.15.0)
+[![Release v0.16.0](https://img.shields.io/badge/release-v0.16.0-8275D6)](https://github.com/1105216375-alt/resimind/releases/tag/v0.16.0)
 [![MIT License](https://img.shields.io/badge/license-MIT-88DDBB)](LICENSE)
 [![Python core 3.10+](https://img.shields.io/badge/Python_core-3.10%2B-A9BEED)](pyproject.toml)
 [![MCP Registry listed](https://img.shields.io/badge/MCP_Registry-listed-88DDBB)](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.1105216375-alt%2Fresimind/versions/0.15.0)
@@ -18,12 +18,17 @@ ResiMind 是一套开源**神经符号 Agent 架构**，把独立核验、残差
 
 同一套核心还提供**桥梁工程、约束优化、日常客服和开放式规划**，各自使用明确的验证器。自适应代数、规则学习与五个 MCP 工具目前支持**有界有理多项式**。核心 Python 3.10+、无运行时依赖；可选 MCP 需要 Python 3.11+。
 
+**形式记忆现在可以组合带条件的规则。** 有界 Lean 规划器会先引入条件，再应用
+已核验的条件引理，把残差子目标交给另一条已核验引理或局部假设；整棵类型化证明
+树最后由 Lean 再编译一次。结构匹配只能提出候选，不能冒充证明。这是可复现的
+组合原语，尚未宣称在 MiniF2F 或一般定理证明榜单上领先。
+
 | 你想做什么 | 从这里开始 |
 | --- | --- |
-| 给现有 Agent 配上精确代数工具 | [接入 MCP](docs/agent-tools.md) · [下载 MCPB](https://github.com/1105216375-alt/resimind/releases/download/v0.15.0/resimind-0.15.0.mcpb) |
+| 给现有 Agent 配上精确代数工具 | [接入 MCP](docs/agent-tools.md) · [下载 MCPB](https://github.com/1105216375-alt/resimind/releases/download/v0.16.0/resimind-0.16.0.mcpb) |
 | 给 Agent 装一个有界的验证与修复流程 | [代数修复 Skill](skills/verify-and-repair-algebra/SKILL.md) · [安装说明](docs/discovery-and-distribution.md#install-the-repair-skill) |
 | 用自己的检查器构建 Agent | [架构](#agent-架构) · [领域适配契约](docs/domain-contract.md) |
-| 看实际测到了什么 | [量化证据](#衡量-agent-架构带来了什么) · [版本验证](docs/validation-v0.15.0.md) |
+| 看实际测到了什么 | [量化证据](#衡量-agent-架构带来了什么) · [版本验证](docs/validation-v0.16.0.md) |
 
 项目发起者与原始发布者：[@1105216375-alt](https://github.com/1105216375-alt)。[引用信息](CITATION.cff) · [更新记录](CHANGELOG.md)
 
@@ -82,6 +87,7 @@ Windows PowerShell 的激活命令为 `.venv\Scripts\Activate.ps1`。安装时�
 | **可验证记忆** | 候选规则独立核验后入库；Python 库支持保存、冻结、重载复核与应用再验。MCP 记忆仅保留在当前进程。 |
 | **紧凑精确计算** | 共享表达式与稀疏有理数证书，在明确的资源限制内处理长展开式。 |
 | **可选证明反馈** | Lean 4.29.0 检查生成的 `Rat` 等式，未完成目标可指导下一次提议；MCP 工具不包含 Lean。 |
+| **残差证明组合** | 在固定深度和节点预算内执行 `intro → apply → exact`，组合条件引理并把完整计划交给 Lean 内核核验。 |
 
 [自适应示例](docs/adaptive-reasoning.md)故意提出一个错误展开式：拦住错误、改变解法、完成证明，再把经过核验的规则用于新变量的题。提议由脚本提供，验证、状态变化、准入和复用都真实执行。
 
@@ -365,7 +371,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-当前检查见 [v0.15.0 版本验证](docs/validation-v0.15.0.md)；历史检查保留在 [v0.14.0 记录](docs/validation-v0.14.0.md)、[v0.13.0 记录](docs/validation-v0.13.0.md)、[v0.12.1 记录](docs/validation-v0.12.1.md)、[v0.12.0 记录](docs/validation-v0.12.0.md)、[v0.11.0 记录](docs/validation-v0.11.0.md)、[v0.10.0 记录](docs/validation-v0.10.0.md)、[v0.9.0 记录](docs/validation-v0.9.0.md)、[v0.8.0 记录](docs/validation-v0.8.0.md)、[知识增长开发记录](docs/validation-knowledge-growth.md)与[早期版本记录](docs/validation.md)中。
+当前检查见 [v0.16.0 版本验证](docs/validation-v0.16.0.md)；历史检查保留在 [v0.14.0 记录](docs/validation-v0.14.0.md)、[v0.13.0 记录](docs/validation-v0.13.0.md)、[v0.12.1 记录](docs/validation-v0.12.1.md)、[v0.12.0 记录](docs/validation-v0.12.0.md)、[v0.11.0 记录](docs/validation-v0.11.0.md)、[v0.10.0 记录](docs/validation-v0.10.0.md)、[v0.9.0 记录](docs/validation-v0.9.0.md)、[v0.8.0 记录](docs/validation-v0.8.0.md)、[知识增长开发记录](docs/validation-knowledge-growth.md)与[早期版本记录](docs/validation.md)中。
 
 ## 推导一次，验明入库，下一题接着用
 
@@ -390,6 +396,7 @@ Agent 从基础步骤推导平方、立方恒等式，提交完整推导链，�
 | 28 道公开代数修复题 | 确定性工具基线：状态 28/28，找错与修复各 12/12，误接收 0/16；公开开发题，不是 Agent 排行榜 | [挑战与独立评分器](docs/catch-the-wrong-step.md) |
 | 240 道生成多项式题：紧凑计算与记忆对照 | 新工具单独运行与记忆组均为 240/240，旧冻结搜索为 220/240；记忆优先组直接复用 48 题，没有额外完成率增益 | [协议与消融](docs/lifelong-math.md#development-results-2026-10-13) |
 | 带类型 Lean 目标与定理记忆：24 道重复探针、四轮 | 各组每轮均 24/24；增长记忆直接复用从 6 增至 24，没有完成率增益或稳定省时证据 | [形式记忆试验](docs/formal-memory-pilot.zh-CN.md) |
+| 条件 Lean 引理组合：有界开发链 | 完整 `intro → apply → exact` 计划经过 Lean 内核核验；弱 `simp` 对照需要这条链，强 `grind` 仍必须单独比较 | [组合试验](docs/formal-composition-pilot.zh-CN.md) |
 | 离线统一开发题（无模型） | 150/150 通过独立评分；规则复用使数学平均步骤减少 33.1%；复杂表达式额外预算对照：2/8 → 5/8 | [协议、局限与复跑方法](docs/unified-benchmark-v1.md) |
 | 同模型代数：冻结 v1 与旧题开发 v2 | v1：5/8、6/8、6/8、7/8；v2：5/8、7/8、6/8、7/8，增长组与重试持平且调用更多 | [四组协议与结果](docs/algebra-live-evaluation.zh-CN.md) |
 | 知识增长：10 道离线迁移题 | 两组均 10/10；提案 84→24，学习另计 13 次，实际跨题复用 8 次 | [方法与结果](docs/knowledge-growth.zh-CN.md) |
@@ -483,7 +490,7 @@ ResiMind 由 [@1105216375-alt](https://github.com/1105216375-alt) 发起并首�
 
 使用或介绍 ResiMind 时，欢迎注明项目来源并链接原始仓库。建议引用：
 
-> 1105216375-alt. ResiMind（版本 0.15.0），2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind（版本 0.16.0），2026. https://github.com/1105216375-alt/resimind
 
 [CITATION.cff](CITATION.cff) 提供机器可读的引用信息。引用属于倡议，不是新增的许可条件。项目采用 [MIT License](LICENSE)，允许商用；软件副本或实质部分须保留版权和许可声明。
 

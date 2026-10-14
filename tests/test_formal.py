@@ -117,6 +117,46 @@ def test_feedback_records_failed_attempt_before_retry(backend):
     assert limited.status == "unresolved"
 
 
+def test_residual_composition_replays_a_conditional_lemma_chain(backend):
+    """A residual subgoal can consume two checked lemmas before Lean accepts."""
+    p, q = var("p"), var("q")
+    bindings = (("p", "Prop"), ("q", "Prop"))
+    lift = Lemma(Goal(bindings, term("imp", p, term("or", p, q))), Recipe("grind"))
+    swap = Lemma(Goal(bindings,
+                      term("imp", term("or", p, q), term("or", q, p))),
+                 Recipe("grind"))
+    memory = TheoremMemory((lift, swap))
+    target = Goal(bindings, term("imp", p, term("or", q, p)))
+
+    # ``simp`` alone is the intentionally weak ablation. The composition
+    # planner must introduce the implication, apply swap, apply lift, and use
+    # the local assumption; the complete tree is then kernel-checked.
+    baseline = solve(target, backend, memory=memory, recipes=(Recipe("simp"),),
+                     composition_depth=0)
+    assert baseline.status == "unresolved"
+    result = solve(target, backend, memory=memory, recipes=(Recipe("simp"),),
+                   composition_depth=3)
+    assert result.status == "verified"
+    assert result.attempts[0].action == "compose"
+    assert result.attempts[0].proof_digest
+
+
+def test_residual_composition_is_bounded_and_needs_the_missing_lemma(backend):
+    p, q = var("p"), var("q")
+    bindings = (("p", "Prop"), ("q", "Prop"))
+    swap = Lemma(Goal(bindings,
+                      term("imp", term("or", p, q), term("or", q, p))),
+                 Recipe("grind"))
+    target = Goal(bindings, term("imp", p, term("or", q, p)))
+
+    missing = solve(target, backend, memory=TheoremMemory((swap,)),
+                    recipes=(Recipe("simp"),), composition_depth=3)
+    assert missing.status == "unresolved"
+    shallow = solve(target, backend, memory=TheoremMemory((swap,)),
+                    recipes=(Recipe("simp"),), composition_depth=1)
+    assert shallow.status == "unresolved"
+
+
 @pytest.mark.parametrize("text", ['{"format":1,"format":1,"lemmas":[]}',
                                   '{"format":true,"lemmas":[]}',
                                   '{"format":1,"lemmas":[],"verified":true}'])

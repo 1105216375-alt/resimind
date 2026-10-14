@@ -39,7 +39,7 @@ installation by browsing Agents.
 
 ## Install the MCPB release bundle
 
-The `resimind-0.15.0.mcpb` release artifact packages the Python source, license,
+The `resimind-0.16.0.mcpb` release artifact packages the Python source, license,
 entry point, MCPB manifest and a UV dependency lock. Import it into a host
 supporting **MCPB 0.4 with UV runtime**. First setup downloads the runtime or
 dependencies; tool execution then needs no model key or external API.
@@ -62,8 +62,8 @@ is copied into repository secrets.
 **Publication status: active, confirmed on 2026-10-14.** The
 [publication workflow](https://github.com/1105216375-alt/resimind/actions/runs/38508081266)
 passed, including Linux execution of the bundle's real startup command. The
-[official public version record](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.1105216375-alt%2Fresimind/versions/0.15.0)
-returns version `0.15.0`, status `active`, the GitHub bundle URL and the expected
+[official public version record](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.1105216375-alt%2Fresimind/versions/0.16.0)
+returns version `0.16.0`, status `active`, the GitHub bundle URL and the expected
 SHA-256 `8dec8a870497c12916f83c399ac003bb9859e004317db53ef84f961ede23e493`.
 Search results or downstream catalogs can lag publication; listing does not
 mean automatic installation, endorsement or measured organic usage.

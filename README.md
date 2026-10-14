@@ -4,7 +4,7 @@
 
 **Catch the error. Keep the insight. Give the next task a checked head start.**
 
-[![Release v0.15.0](https://img.shields.io/badge/release-v0.15.0-8275D6)](https://github.com/1105216375-alt/resimind/releases/tag/v0.15.0)
+[![Release v0.16.0](https://img.shields.io/badge/release-v0.16.0-8275D6)](https://github.com/1105216375-alt/resimind/releases/tag/v0.16.0)
 [![MIT License](https://img.shields.io/badge/license-MIT-88DDBB)](LICENSE)
 [![Python core 3.10+](https://img.shields.io/badge/Python_core-3.10%2B-A9BEED)](pyproject.toml)
 [![MCP Registry listed](https://img.shields.io/badge/MCP_Registry-listed-88DDBB)](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.1105216375-alt%2Fresimind/versions/0.15.0)
@@ -16,14 +16,20 @@ ResiMind is an open-source **neuro-symbolic Agent architecture** that connects i
 
 **A checked solution can become a checked rule.** Explicit learning extracts candidate rules from completed derivations, independently verifies admission, and rechecks each future application. Knowledge grows outside the model, without changing its weights. When local rules or tools suffice, the supported math routes run with **zero model calls**.
 
+**Formal memory can now compose checked conditions.** The bounded Lean planner introduces
+an implication, applies a verified conditional lemma, and sends the resulting residual
+subgoal to another verified lemma or a local assumption. The whole typed plan is compiled
+again by Lean; structural matching never counts as proof. This is an experimental
+composition primitive, not a claim of MiniF2F or general theorem-proving leadership.
+
 The core also runs **bridge engineering, constrained optimization, customer support and open-ended planning** with their own verifiers. Adaptive algebra, rule learning and the five MCP tools currently cover **bounded rational polynomials**. Core: Python 3.10+, no runtime dependencies. Optional MCP: Python 3.11+.
 
 | What you want to do | Your entry point |
 | --- | --- |
-| Give an existing Agent exact algebra tools | [MCP setup](docs/agent-tools.md) · [Download MCPB](https://github.com/1105216375-alt/resimind/releases/download/v0.15.0/resimind-0.15.0.mcpb) |
+| Give an existing Agent exact algebra tools | [MCP setup](docs/agent-tools.md) · [Download MCPB](https://github.com/1105216375-alt/resimind/releases/download/v0.16.0/resimind-0.16.0.mcpb) |
 | Teach an Agent a bounded verify-and-repair workflow | [Repair Skill](skills/verify-and-repair-algebra/SKILL.md) · [Install guide](docs/discovery-and-distribution.md#install-the-repair-skill) |
 | Build an Agent with your own checks | [Architecture](#the-architecture) · [Adapter contract](docs/domain-contract.md) |
-| Inspect what has actually been measured | [Evidence](#measure-the-agent-not-the-model) · [Release validation](docs/validation-v0.15.0.md) |
+| Inspect what has actually been measured | [Evidence](#measure-the-agent-not-the-model) · [Release validation](docs/validation-v0.16.0.md) |
 
 Created and originally published by [@1105216375-alt](https://github.com/1105216375-alt). [Citation](CITATION.cff) · [Changelog](CHANGELOG.md)
 
@@ -85,6 +91,7 @@ Add `--json` to inspect the audit. [Connect DeepSeek](docs/open-planning.md#let-
 | **Verified memory** | Independently admit candidate rules, persist and freeze the Python library, recheck on reload, and verify each new application. MCP memory is process-local. |
 | **Compact exact computation** | Shared expressions and sparse rational certificates handle long expansions within explicit resource limits. |
 | **Optional proof feedback** | Lean 4.29.0 checks generated `Rat` equalities; unfinished goals can guide the next proposal. Lean is separate from the MCP tools. |
+| **Residual proof composition** | A bounded typed plan introduces conditions, applies verified conditional lemmas, solves residual subgoals, and is compiled as one Lean proof. |
 
 The [adaptive demo](docs/adaptive-reasoning.md) deliberately proposes a wrong expansion, rejects it, changes approach, completes a proof, and reuses its checked rule on a new-variable task. Its proposals are scripted; the verification, state transitions, admission and reuse really execute.
 
@@ -289,6 +296,12 @@ python -m examples.continuous_bridge --json
 
 **Knowledge growth.** `LearningAgent` extracts candidate knowledge from completed derivations. `KnowledgeLibrary` delegates admission to the registered domain verifier, supports save/reload with re-verification and revocation, and retrieves rules as proposal guidance. Current-task verification still applies.
 
+**Formal residual composition.** `resimind.integrations.formal.solve` can search a bounded
+chain of implication lemmas and local assumptions. It records the residual plan, then
+recompiles the complete `intro`/`apply`/`exact` tree through Lean. The planner is a new
+composition primitive; the repository does not claim an external theorem-proving
+leaderboard result until a frozen miniF2F/LeanDojo evaluation exists.
+
 **Reusable architecture extensions.** [`ObligationGraph`](docs/general-architecture.md) tracks dependency-aware residual work and evidence invalidation; [`StrategyPolicy`](docs/general-architecture.md) ranks already registered strategies from frozen observations; and the structural rule extractor proposes narrow schemas only after exact verification. These helpers never authorize facts or replace the domain verifier.
 
 Models connect through callbacks; the project develops **Agent reasoning, verification, and knowledge admission**. The algebra proof checker has explicit expression and resource limits. See [knowledge growth](docs/knowledge-growth.md) and the [neuro-symbolic implementation map](docs/neuro-symbolic.md).
@@ -370,7 +383,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-See [v0.15.0 release validation](docs/validation-v0.15.0.md) for current checks, and the [v0.14.0 record](docs/validation-v0.14.0.md), [v0.13.0 record](docs/validation-v0.13.0.md), [v0.12.1 record](docs/validation-v0.12.1.md), [v0.12.0 record](docs/validation-v0.12.0.md), [v0.11.0 record](docs/validation-v0.11.0.md), [v0.10.0 record](docs/validation-v0.10.0.md), [v0.9.0 record](docs/validation-v0.9.0.md), [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier version record](docs/validation.md) for historical checks.
+See [v0.16.0 release validation](docs/validation-v0.16.0.md) for current checks, and the [v0.14.0 record](docs/validation-v0.14.0.md), [v0.13.0 record](docs/validation-v0.13.0.md), [v0.12.1 record](docs/validation-v0.12.1.md), [v0.12.0 record](docs/validation-v0.12.0.md), [v0.11.0 record](docs/validation-v0.11.0.md), [v0.10.0 record](docs/validation-v0.10.0.md), [v0.9.0 record](docs/validation-v0.9.0.md), [v0.8.0 record](docs/validation-v0.8.0.md), [knowledge-growth development record](docs/validation-knowledge-growth.md) and [earlier version record](docs/validation.md) for historical checks.
 
 ## Derive once. Reuse on a new task.
 
@@ -395,6 +408,7 @@ Keep the model, tasks, and resource ceilings fixed; measure completion, invalid 
 | Public algebra repair challenge: 28 tasks | Deterministic tool baseline: 28/28 statuses, 12/12 error locations and repairs, 0/16 false acceptances. Public fixtures, not an Agent leaderboard | [Challenge and independent scorer](docs/catch-the-wrong-step.md) |
 | Compact computation and memory: 240 generated polynomial tasks | New compact-only and memory arms both 240/240; previous frozen search 220/240. Recall-first memory directly completes 48 tasks, without a completion-rate gain | [Protocol and ablations](docs/lifelong-math.md#development-results-2026-10-13) |
 | Typed Lean goals and theorem memory: 24 repeated probes, four rounds | Every arm 24/24 each round; growing-memory direct reuse rises 6→24. No completion gain or stable time saving demonstrated | [Formal memory pilot (中文)](docs/formal-memory-pilot.zh-CN.md) |
+| Conditional Lean lemma composition: bounded development chain | The complete `intro → apply → exact` plan is kernel-checked; weak `simp` ablation needs the chain, while strong `grind` remains a required comparison | [Composition pilot (中文)](docs/formal-composition-pilot.zh-CN.md) |
 | Offline unified development fixtures (no model) | 150/150 independently scored completions; rule reuse reduces mean math steps by 33.1%; hard-expression reserve ablation: 2/8 → 5/8 | [Protocol, limitations and reproduction](docs/unified-benchmark-v1.md) |
 | Same-model algebra: frozen v1 + seen-case development v2 | v1: 5/8, 6/8, 6/8, 7/8. v2: 5/8, 7/8, 6/8, 7/8; growth ties retry with more calls | [Four-arm protocol and results](docs/algebra-live-evaluation.md) |
 | Knowledge growth: 10 offline transfer tasks | Both arms 10/10; proposals 84→24, plus 13 learning proposals; 8 committed cross-task applications | [Method and results](docs/knowledge-growth.md) |
@@ -497,7 +511,7 @@ ResiMind was initiated and originally published by [@1105216375-alt](https://git
 
 If you use or discuss ResiMind, please cite the project and link to the original repository. Suggested citation:
 
-> 1105216375-alt. ResiMind (version 0.15.0), 2026. https://github.com/1105216375-alt/resimind
+> 1105216375-alt. ResiMind (version 0.16.0), 2026. https://github.com/1105216375-alt/resimind
 
 Machine-readable citation metadata is provided in [CITATION.cff](CITATION.cff). Citation is appreciated, not an additional license condition. Commercial use is permitted under the [MIT License](LICENSE), which requires retaining its copyright and permission notices in copies or substantial portions of the software.
 

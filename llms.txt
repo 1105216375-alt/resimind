@@ -30,5 +30,5 @@ does not authorize a new result. Core Python 3.10+; optional MCP Python 3.11+.
 
 - [Memory and compact computation](https://github.com/1105216375-alt/resimind/blob/main/docs/lifelong-math.md): train/freeze/reload/reuse, resource bounds and ablations, including zero completion gain from memory in the reported comparison.
 - [Architecture and domain examples](https://github.com/1105216375-alt/resimind): mathematics, synthetic bridges, customer support and constrained planning.
-- [Release validation](https://github.com/1105216375-alt/resimind/blob/main/docs/validation-v0.15.0.md): executed checks and limitations.
+- [Release validation](https://github.com/1105216375-alt/resimind/blob/main/docs/validation-v0.16.0.md): executed checks and limitations.
 - [Contribution guide](https://github.com/1105216375-alt/resimind/blob/main/CONTRIBUTING.md): reproducible counterexamples and scoped adapters.

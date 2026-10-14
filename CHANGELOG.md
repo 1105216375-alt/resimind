@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.16.0 — 2026-10-15
+
+- Add a bounded typed residual-proof planner for conditional Lean lemmas. It can introduce
+  a premise, compose verified lemmas through residual subgoals, and close local assumptions;
+  the complete generated plan is independently recompiled by Lean before acceptance.
+- Add depth/node budgets, negative controls, a composition pilot report, and explicit strong
+  `grind` comparison guidance. This is a new formal-composition primitive, not an external
+  theorem-proving leaderboard claim.
+
 ## 0.15.0 — 2026-10-14
 
 - Add the installable `verify-and-repair-algebra` Skill with a precise trigger, bounded repair workflow, exact evidence interpretation and explicit learning boundaries.

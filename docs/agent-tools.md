@@ -18,7 +18,7 @@ core and JSON-lines interface still support Python 3.10+.
 ```bash
 git clone https://github.com/1105216375-alt/resimind.git
 cd resimind
-git checkout v0.15.0
+git checkout v0.16.0
 python3.11 -m venv .venv
 .venv/bin/python -m pip install '.[mcp]'
 ```
