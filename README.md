@@ -20,6 +20,10 @@ repair it, and check the result with an independent scorer.
 [**Install the repair Skill →**](docs/discovery-and-distribution.md#install-the-repair-skill) ·
 [**MCP bundle & discovery →**](docs/discovery-and-distribution.md)
 
+[**Listed in the official MCP Registry**](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.1105216375-alt%2Fresimind/versions/0.15.0)
+as `io.github.1105216375-alt/resimind` · Active v0.15.0 ·
+[Download the MCPB bundle](https://github.com/1105216375-alt/resimind/releases/download/v0.15.0/resimind-0.15.0.mcpb)
+
 **New: let another Agent use ResiMind as a tool.** Check a model's polynomial
 identity, return exact sparse expansions, explicitly learn checked rules, and
 recall them on a new expression. Five local tools, structured evidence, zero

@@ -46,8 +46,14 @@ real stdio smoke test, then authenticates through GitHub OIDC and publishes.
 The publisher binary is pinned by release and SHA-256; no personal access token
 is copied into repository secrets.
 
-**Publication status:** pending the first successful workflow and public API
-read-back. A checked-in manifest alone is not a Registry listing.
+**Publication status: active, confirmed on 2026-10-14.** The
+[publication workflow](https://github.com/1105216375-alt/resimind/actions/runs/38508081266)
+passed, including Linux execution of the bundle's real startup command. The
+[official public version record](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.1105216375-alt%2Fresimind/versions/0.15.0)
+returns version `0.15.0`, status `active`, the GitHub bundle URL and the expected
+SHA-256 `8dec8a870497c12916f83c399ac003bb9859e004317db53ef84f961ede23e493`.
+Search results or downstream catalogs can lag publication; listing does not
+mean automatic installation, endorsement or measured organic usage.
 
 ## Measure discovery separately from correctness
 

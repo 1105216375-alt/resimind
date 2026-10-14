@@ -12,6 +12,9 @@
 | MCPB manifest validation, official CLI 2.1.2 | Passed |
 | Extracted bundle's actual UV manifest command | Real MCP discovery, verification, learning and recall passed on macOS arm64 |
 | Registry server.json against official JSON Schema | Passed |
+| GitHub core/integration/build checks | All 7 jobs passed on release commit c276eef |
+| Registry publication workflow, including Linux bundle startup | Passed; run 38508081266 |
+| Public Registry version record | Active v0.15.0; package URL and SHA-256 matched |
 
 The scorer uses SymPy 1.14.0 through a bounded AST adapter, separately from the
 ResiMind verifier. Positive controls show that all-verified answers falsely

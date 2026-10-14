@@ -20,6 +20,10 @@ ResiMind 是一套独立运行的开源**神经符号 Agent 架构**，把验证
 [**安装代数修复 Skill →**](docs/discovery-and-distribution.md#install-the-repair-skill) ·
 [**MCP 分发包与发现入口 →**](docs/discovery-and-distribution.md)
 
+[**已被官方 MCP Registry 收录**](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.1105216375-alt%2Fresimind/versions/0.15.0)：
+`io.github.1105216375-alt/resimind` · v0.15.0 / active ·
+[下载 MCPB 分发包](https://github.com/1105216375-alt/resimind/releases/download/v0.15.0/resimind-0.15.0.mcpb)
+
 **新入口：让其他 Agent 直接调用 ResiMind。** 检查模型写出的多项式等式、
 返回精确稀疏展开、主动学习已验证规则，再在新表达式上复用。
 五个本地工具、结构化证据、零模型调用。
