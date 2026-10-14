@@ -23,14 +23,50 @@ PYTHONPATH=src:. python -m benchmarks.external_benchmark_preflight \
   --output /tmp/resimind-external-preflight.json
 ```
 
-当前仓库有 ChinaTravel 的官方适配器和评分器，但完整 154 题运行仍需要固定版本的数据、官方 sandbox、macOS `sandbox-exec`、本机 `DEEPSEEK_API_KEY`，以及 154 题 × 3 条件的 live 预算。MiniF2F 和 LeanDojo 尚没有通用 Mathlib/LeanDojo 适配器，也没有把任意 Lean 题目接入当前受限 AST 后端的路径。因此当前合法结论是 `not_run/blocked`，不是 0 分。
+当前仓库有 ChinaTravel 的官方适配器和评分器，但完整 154 题运行仍需要固定版本的数据、官方 sandbox、macOS `sandbox-exec`、本机 `DEEPSEEK_API_KEY`，以及 154 题 × 3 条件的 live 预算。MiniF2F 和 LeanDojo 现在有一个**边界清晰的 manifest/编译适配器**（`benchmarks.external_theorem_adapter`）：它要求外部数据先被固定到带有唯一 `RESIMIND_PROOF_HOLE` 的 `.lean` 文件，校验数据文件哈希，再用已安装的指定 Lean 编译候选证明。它不下载数据、不解析任意 Lean 声明，也不把当前受限 AST 的通过率冒充外部成绩。没有固定数据和 Mathlib/LeanDojo 项目时，当前合法结论仍是 `not_run/blocked`，不是 0 分。
+
+准备好一个固定 checkout 后，可用以下方式做无模型预检（示例只说明接口，不包含外部数据）：
+
+```python
+from benchmarks.external_theorem_adapter import ExternalLeanCompiler, TheoremManifest
+
+manifest = TheoremManifest.load("/path/to/manifest.json")
+report = manifest.preflight("/path/to/pinned/checkout", lean="/path/to/lean")
+assert report["status"] == "ready"
+result = ExternalLeanCompiler(lean="/path/to/lean").compile(
+    manifest.theorems[0], "/path/to/pinned/checkout", "by ...",
+    project_root="/path/to/pinned/checkout",
+)
+```
+
+只有 `status == "verified"` 的编译结果才可计入证明通过；缺文件、版本不匹配、哈希不匹配和 `sorryAx` 都单独记录为阻塞或未解决，不折算成题目失败。
+
+manifest 的最小条目如下（`source` 文件必须只出现一次 `RESIMIND_PROOF_HOLE`）：
+
+```json
+{
+  "schema": "resimind.external-theorem-manifest.v1",
+  "dataset": "minif2f",
+  "dataset_commit": "<frozen commit>",
+  "lean_version": "4.29.0",
+  "mathlib_commit": "<frozen commit>",
+  "theorems": [{
+    "id": "test/example",
+    "split": "test",
+    "source": "prepared/test/example.lean",
+    "theorem": "example",
+    "statement": "True",
+    "source_sha256": "<64 lowercase hex chars>"
+  }]
+}
+```
 
 现有 12 题 ChinaTravel 结果仍只能叫受控小样本：官方 ReAct `0/12`、官方 NeSy `5/12`、ResiMind-ReAct `1/12`。它说明当前集成还没有显示出外部求解优势，不能外推到完整 154 题。此前的本地数学 fixture 和 Lean 组合测试证明的是验证层可靠性，不是 MiniF2F/LeanDojo 排名。
 
 ## 解锁条件
 
-- **MiniF2F**：固定题集和 Lean/Mathlib commit；加入 goal-state、证明候选、完整编译和错误记录适配器；先跑 50 题开发集，冻结后跑 test。
-- **LeanDojo**：固定 LeanDojo 环境、定理语料和检索 API；禁止测试定理/证明污染记忆；同时报告检索命中率和最终 kernel success。
+- **MiniF2F**：固定题集和 Lean/Mathlib commit；用 manifest 适配器准备 goal-state、证明候选、完整编译和错误记录；先跑 50 题开发集，冻结后跑 test。
+- **LeanDojo**：固定 LeanDojo 环境、定理语料和检索 API；将检索到的定理转换成带 proof hole 的固定源文件，禁止测试定理/证明污染记忆；同时报告检索命中率和最终 kernel success。
 - **ChinaTravel**：沿用官方 scorer，先冻结完整 154-query manifest，再按同一 DeepSeek 配置跑三个条件。全量最坏是 462 个任务运行，每题 600 秒和 128 请求上限，必须记录实际成本并保留失败题位。
 
 公开系统的论文数字不能当作同模型对照：例如 ReProver 在 MiniF2F-test 报告 26.5%，DeepSeek-Prover-V2 报告 88.9%，它们的模型、训练数据、搜索和预算都不同。公平结论应写成“architecture gain over a frozen base model”，而不是“超过这些模型”。

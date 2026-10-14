@@ -29,6 +29,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MODEL = "deepseek-flash"
+MANIFEST_ADAPTER = "benchmarks.external_theorem_adapter"
 
 
 def _exists(path: Path | None) -> bool:
@@ -108,7 +109,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
         },
         "miniF2F": {
             "status": "ready" if model_key and _exists(minif2f) and _exists(mathlib) and lean else "blocked",
-            "adapter": "missing",
+            "adapter": MANIFEST_ADAPTER,
             "data": _resource("miniF2F", minif2f, required="MiniF2F"),
             "mathlib": _resource("mathlib", mathlib, required="MiniF2F"),
             "lean": {"binary": lean, "version": _lean_version(lean)},
@@ -116,7 +117,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
         },
         "LeanDojo": {
             "status": "ready" if model_key and _exists(leandojo) and _exists(mathlib) and lean else "blocked",
-            "adapter": "missing",
+            "adapter": MANIFEST_ADAPTER,
             "data": _resource("LeanDojo", leandojo, required="LeanDojo"),
             "mathlib": _resource("mathlib", mathlib, required="LeanDojo"),
             "lean": {"binary": lean, "version": _lean_version(lean)},
@@ -134,10 +135,11 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
     for name in ("miniF2F", "LeanDojo"):
         check = checks[name]
         reasons = check["blocking_reasons"]
-        if check["adapter"] == "missing":
-            reasons.append("repository has no general Mathlib/LeanDojo adapter")
+        # The manifest adapter is intentionally narrower than a general
+        # theorem prover: data must be pre-pinned and prepared with one proof
+        # hole.  Keep this boundary explicit rather than calling it missing.
         if not check["data"]["present"]:
-            reasons.append("pinned dataset path was not supplied or is missing")
+            reasons.append("pinned dataset path/manifest was not supplied")
         if not check["mathlib"]["present"]:
             reasons.append("pinned Mathlib checkout was not supplied or is missing")
         if not check["lean"]["binary"]:
