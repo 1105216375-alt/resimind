@@ -142,10 +142,17 @@ def verify(folder, data, upstream, *, check_source=True):
 
 def clean_environment(output):
     # A whitelist, not a best-effort secret-name blacklist.
+    pythonpath = [str(ROOT), str(ROOT / "src")]
+    # A supervised run may use a system interpreter while its pinned third-party
+    # packages live in an isolated venv.  The parent opts into that exact path;
+    # no ambient environment variables or credentials cross the worker boundary.
+    extra_pythonpath = os.environ.get("CHINATRAVEL_WORKER_PYTHONPATH")
+    if extra_pythonpath:
+        pythonpath.extend(part for part in extra_pythonpath.split(os.pathsep) if part)
     return dict(PATH="/usr/bin:/bin:/usr/sbin:/sbin", HOME=str(output), TMPDIR=str(output),
                 LANG="en_US.UTF-8", LC_ALL="en_US.UTF-8", PYTHONHASHSEED="0",
                 PYTHONDONTWRITEBYTECODE="1", PYTHONUNBUFFERED="1",
-                PYTHONPATH=os.pathsep.join([str(ROOT), str(ROOT / "src")]),
+                PYTHONPATH=os.pathsep.join(pythonpath),
                 CHINATRAVEL_OPENAI_RAISE_ERRORS="1", OMP_NUM_THREADS="1",
                 OPENBLAS_NUM_THREADS="1", VECLIB_MAXIMUM_THREADS="1")
 

@@ -7,6 +7,7 @@ There is deliberately no unsandboxed fallback when sandbox-exec is unavailable.
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -54,6 +55,11 @@ def profile_for_worker(python: str | Path, upstream_root: str | Path,
     runtime = json.loads(details.stdout)
     base = _path(runtime["base"])
     venv = _path(invocation.parent.parent)
+    extra_pythonpath = os.environ.get("CHINATRAVEL_WORKER_PYTHONPATH", "")
+    extra_python_trees = set()
+    for raw in extra_pythonpath.split(os.pathsep):
+        if raw:
+            extra_python_trees.add(_path(raw))
     # Base lib supplies stdlib/native libraries; framework Python also loads
     # its versioned Python binary. Do not grant the base prefix indiscriminately.
     trees = {_path(upstream / "chinatravel"), _path(repo / "src"),
@@ -62,6 +68,7 @@ def profile_for_worker(python: str | Path, upstream_root: str | Path,
              Path("/usr/share/zoneinfo"), Path("/private/var/db/timezone"),
              Path("/System/Volumes/Preboot/Cryptexes/OS/usr/lib"),
              Path("/System/Volumes/Preboot/Cryptexes/OS/System/Library")}
+    trees.update(extra_python_trees)
     literals = {Path("/"), invocation, executable, venv, base, repo, upstream, query,
                 venv / "pyvenv.cfg", venv / "bin", base / "Python",
                 Path("/dev/null"), Path("/dev/random"), Path("/dev/urandom")}
