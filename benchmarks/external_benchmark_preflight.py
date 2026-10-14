@@ -2,10 +2,10 @@
 
 This command deliberately does not call a model, download data, or turn a
 missing resource into a score of zero.  It records the exact reason an
-external run is ready, blocked, or only partially supported.  The runner is
-shared by the MiniF2F, LeanDojo, and ChinaTravel adapters that will be added
-later; until then it is the auditable boundary between local development
-fixtures and real benchmark results.
+external run is ready, blocked, or only partially supported.  It is the
+auditable boundary between the pinned MiniF2F/LeanDojo manifest compiler,
+the ChinaTravel runner, and local development fixtures; it never claims a
+benchmark score by itself.
 
 Examples::
 
@@ -172,7 +172,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
         "interpretation": {
             "missing_is_not_zero": True,
             "architecture_vs_model": "ResiMind is evaluated as a vertical-domain Agent runtime around a frozen base model; it is not a foundation-model leaderboard score.",
-            "miniF2F_and_leandojo": "not_run_until_adapter_and_pinned_mathlib_are supplied",
+            "miniF2F_and_leandojo": "not_run_until_pinned manifests, Mathlib, Lean and model credentials are supplied",
             "chinatravel": "full 154-query run requires the pinned official data, macOS sandbox supervisor, and live model credentials",
         },
     }
