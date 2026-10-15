@@ -5,9 +5,10 @@
 - Reserve a shared native ReAct revision budget for the ChinaTravel ResiMind arm instead
   of letting the first search consume every step; the counter stays continuous and all
   arms keep the same total request, token and wall-clock ceilings.
-- Add a pinned MiniF2F/LeanDojo manifest boundary that compiles proof-hole candidates with
-  an installed Lean toolchain, records hashes and refuses `sorryAx`; missing datasets remain
-  `blocked`, never a fabricated score.
+- Add an experimental external-theorem manifest boundary for prepared MiniF2F/LeanDojo
+  templates. It compiles proof-hole candidates with an installed Lean toolchain, checks
+  supplied source hashes and refuses `sorryAx`; dataset and Mathlib revision declarations
+  still require independent verification. No external theorem benchmark score is claimed.
 - Add auditable verified-memory provenance, applicability and expiry metadata, conflict and
   transfer reports, with Lean rechecking on admission and reload.
 - Record the development rerun and its negative result; the new control path produces

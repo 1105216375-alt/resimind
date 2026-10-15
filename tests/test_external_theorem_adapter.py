@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pytest
 
+from benchmarks import external_theorem_adapter
 from benchmarks.external_theorem_adapter import (
     PROOF_HOLE,
     SCHEMA,
@@ -12,6 +13,28 @@ from benchmarks.external_theorem_adapter import (
     TheoremRecord,
     prepare_source,
 )
+
+
+@pytest.fixture
+def ready_lean_probe(monkeypatch):
+    """Manifest structure checks do not require a locally installed Lean."""
+    def probe(lean, required_version):
+        return {
+            "binary": "/offline-test/lean",
+            "version": required_version,
+            "status": "ready",
+            "blocking_reasons": [],
+        }
+
+    monkeypatch.setattr(external_theorem_adapter, "_lean_probe", probe)
+
+
+@pytest.fixture
+def pinned_lean_compiler():
+    probe = external_theorem_adapter._lean_probe(None, "4.29.0")
+    if probe["status"] != "ready":
+        pytest.skip("Pinned Lean unavailable: " + "; ".join(probe["blocking_reasons"]))
+    return ExternalLeanCompiler(lean=probe["binary"])
 
 
 def _manifest(path: Path, *, source: str = "foo.lean", entry_overrides=None):
@@ -39,7 +62,7 @@ def _manifest(path: Path, *, source: str = "foo.lean", entry_overrides=None):
     return manifest
 
 
-def test_manifest_preflight_is_pinned_and_ready(tmp_path):
+def test_manifest_preflight_is_pinned_and_ready(tmp_path, ready_lean_probe):
     manifest = TheoremManifest.load(_manifest(tmp_path))
     report = manifest.preflight(tmp_path)
     assert report["status"] == "ready"
@@ -47,7 +70,7 @@ def test_manifest_preflight_is_pinned_and_ready(tmp_path):
     assert report["entries"][0]["proof_hole_count"] == 1
 
 
-def test_manifest_missing_source_is_blocked_not_zero(tmp_path):
+def test_manifest_missing_source_is_blocked_not_zero(tmp_path, ready_lean_probe):
     manifest_path = _manifest(tmp_path)
     manifest_path.unlink()
     manifest_path.write_text(json.dumps({
@@ -59,6 +82,30 @@ def test_manifest_missing_source_is_blocked_not_zero(tmp_path):
     report = TheoremManifest.load(manifest_path).preflight(tmp_path)
     assert report["status"] == "blocked"
     assert "source file is missing" in report["blocking_reasons"]
+
+
+def test_missing_pinned_toolchain_blocks_without_running_elan(tmp_path, monkeypatch):
+    shim = tmp_path / ".elan" / "bin" / "lean"
+    shim.parent.mkdir(parents=True)
+    shim.write_text("unused elan shim", encoding="utf-8")
+    monkeypatch.setattr(external_theorem_adapter.shutil, "which", lambda name: str(shim))
+
+    def forbid_subprocess(*args, **kwargs):
+        pytest.fail("An absent pinned toolchain must not execute the elan shim")
+
+    monkeypatch.setattr(external_theorem_adapter.subprocess, "run", forbid_subprocess)
+    manifest = TheoremManifest.load(_manifest(tmp_path / "dataset"))
+    report = manifest.preflight(tmp_path / "dataset")
+    assert report["entries"][0]["status"] == "ready"
+    assert report["status"] == "blocked"
+    assert report["blocking_reasons"] == ["Lean 4.29.0 toolchain is not installed"]
+
+    result = ExternalLeanCompiler().compile(
+        manifest.theorems[0], tmp_path / "dataset", "by trivial"
+    )
+    assert result.status == "unavailable"
+    assert result.diagnostics == ("Lean 4.29.0 toolchain is not installed",)
+    assert result.proof_digest is None
 
 
 @pytest.mark.parametrize("proof", ["by sorry", "by admit", "by\n  run_tac exact 1", "by\n  set_option pp.all true in trivial"])
@@ -76,17 +123,14 @@ def test_hash_and_marker_are_checked_before_compile(tmp_path):
         prepare_source(manifest, tmp_path, "by trivial")
 
 
-def test_external_compiler_kernel_checks_candidate(tmp_path):
+def test_external_compiler_kernel_checks_candidate(tmp_path, pinned_lean_compiler):
     record = TheoremManifest.load(_manifest(tmp_path)).theorems[0]
-    compiler = ExternalLeanCompiler()
-    if not compiler.lean or not Path(compiler.lean).is_file():
-        pytest.skip("Lean unavailable")
-    result = compiler.compile(record, tmp_path, "by trivial")
+    result = pinned_lean_compiler.compile(record, tmp_path, "by trivial")
     assert result.status == "verified"
     assert result.proof_digest
 
 
-def test_external_compiler_rejects_false_candidate(tmp_path):
+def test_external_compiler_rejects_false_candidate(tmp_path, pinned_lean_compiler):
     source = tmp_path / "foo.lean"
     source.write_text("import Lean\ntheorem foo : False := RESIMIND_PROOF_HOLE\n", encoding="utf-8")
     manifest_path = tmp_path / "manifest.json"
@@ -96,8 +140,5 @@ def test_external_compiler_rejects_false_candidate(tmp_path):
         "dataset_commit": "x", "lean_version": "4.29.0", "mathlib_commit": "y",
         "theorems": [entry]}), encoding="utf-8")
     record = TheoremManifest.load(manifest_path).theorems[0]
-    compiler = ExternalLeanCompiler()
-    if not compiler.lean or not Path(compiler.lean).is_file():
-        pytest.skip("Lean unavailable")
-    result = compiler.compile(record, tmp_path, "by trivial")
+    result = pinned_lean_compiler.compile(record, tmp_path, "by trivial")
     assert result.status in {"unresolved", "error"}

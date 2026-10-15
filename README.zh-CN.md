@@ -14,6 +14,8 @@
 
 [**前沿版路线与证据**](docs/frontier-program.zh-CN.md) · [**外部定理评测边界**](docs/external-benchmark-preflight.zh-CN.md)
 
+**`main` 最新进展（v0.16.0 之后）：**新增[记忆来源、过期管理与迁移审计](docs/verified-memory-lifecycle.zh-CN.md)，为 ChinaTravel 集成预留残差修订步数，并加入实验性外部 Lean 模板编译器。[最新同模型规划结果](docs/evidence/chinatravel-same-model-bridge-doctor-v1.zh-CN.md)与[开发复跑](docs/evidence/chinatravel-development-frontier-v2.zh-CN.md)保留全部失败结论，目前尚未证明规划成功率增益；MiniF2F、LeanDojo 成绩仍待实测。
+
 ResiMind 是一套开源**神经符号 Agent 架构**，把独立核验、残差驱动纠错和可复用规则记忆接成一个推理循环。你的模型、规则或符号工具提出步骤，由领域检查决定什么可以成为事实；验证失败后，反馈指出还差什么，指导下一次尝试。
 
 **做对一道题，可以积累一种经过验证的方法。** 显式学习从完成的推导里提取候选规则，独立核验后入库，每次复用再验。知识在模型之外增长，无需更新模型权重。在已支持的数学路径里，本地规则或工具足够时，**模型调用可以为零**。

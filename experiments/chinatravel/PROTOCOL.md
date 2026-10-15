@@ -1,7 +1,7 @@
 # ChinaTravel comparison protocol
 
-Status: **formal protocol, finalized after two development rounds**. Before the
-first formal model request, freeze this protocol, the actual runner settings,
+Status: **amended protocol; historical cohorts retain their frozen settings**.
+Before each new formal cohort's first model request, freeze this protocol, the actual runner settings,
 the selected UIDs, and all generation/scoring source hashes in the run manifest.
 This document records an experiment design, not completed benchmark results.
 
@@ -15,12 +15,8 @@ cumulative input ceiling stopped both ReAct-based arms before their first plan
 on both development tasks. One NeSy run reached the 64-call ceiling. For v2,
 all arms receive 128 calls, 320 KB per request and 16 MB cumulative input;
 other model, search and wall-time settings remain fixed. These ceilings allow
-the native 60-step ReAct loop (two calls per step plus plan/translation calls)
-more room without changing prompts or search logic. The ResiMind arm reserves
-the first 40 native steps for initial search and keeps the remaining 20 for
-residual-driven revision; its counter is continuous and the total native step
-ceiling is still 60. The official ReAct arm receives the same 60-step ceiling.
-An IPC serialization fix
+the native 50-step ReAct loop (two calls per step plus plan/translation calls)
+more room without changing prompts or search logic. An IPC serialization fix
 converts native NumPy scalars to ordinary JSON numbers before sending results.
 One v1 parent-save failure was recovered from the worker's already saved JSON,
 without rerunning a model request. Both development cohorts and the v1 frozen
@@ -34,9 +30,11 @@ to 1 MiB and all result files up to 16 MiB, content-addressed result files, and
 explicit omitted-event counters.
 Logging truncation does not stop or change tool execution. The two development
 rounds retain their original outcomes, including this recording failure and one
-8192-token model-response truncation. The formal generator settings remain the
-development-v2 values; there is no third development model run or selective
-rerun. Test-fixture portability and reporting field names were also clarified.
+8192-token model-response truncation. At that freeze, the formal generator
+settings remained the development-v2 values, with no third development model
+run or selective rerun. Later experiments, including the post-formal 60/40/20
+development run, are reported separately. Test-fixture portability and reporting
+field names were also clarified.
 
 ## Question and scope
 

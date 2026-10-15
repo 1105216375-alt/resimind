@@ -23,7 +23,9 @@ PYTHONPATH=src:. python -m benchmarks.external_benchmark_preflight \
   --output /tmp/resimind-external-preflight.json
 ```
 
-当前仓库有 ChinaTravel 的官方适配器和评分器，但完整 154 题运行仍需要固定版本的数据、官方 sandbox、macOS `sandbox-exec`、本机 `DEEPSEEK_API_KEY`，以及 154 题 × 3 条件的 live 预算。MiniF2F 和 LeanDojo 现在有一个**边界清晰的 manifest/编译适配器**（`benchmarks.external_theorem_adapter`）：它要求外部数据先被固定到带有唯一 `RESIMIND_PROOF_HOLE` 的 `.lean` 文件，校验数据文件哈希，再用已安装的指定 Lean 编译候选证明。它不下载数据、不解析任意 Lean 声明，也不把当前受限 AST 的通过率冒充外部成绩。没有固定数据和 Mathlib/LeanDojo 项目时，当前合法结论仍是 `not_run/blocked`，不是 0 分。
+当前仓库有 ChinaTravel 的官方适配器和评分器，但完整 154 题运行仍需要固定版本的数据、官方 sandbox、macOS `sandbox-exec`、本机 `DEEPSEEK_API_KEY`，以及 154 题 × 3 条件的 live 预算。MiniF2F 和 LeanDojo 现在有一个**实验性 manifest/编译适配器**（`benchmarks.external_theorem_adapter`）：调用方先准备带有唯一 `RESIMIND_PROOF_HOLE` 的可信 `.lean` 模板，再用已安装的指定 Lean 编译候选证明。API 在提供 `source_sha256` 时校验文件哈希；当前该字段可省略，`dataset_commit` 和 `mathlib_commit` 也只是调用方提供的版本声明，尚未与 checkout 的实际 Git revision 比对。正式评测协议要求逐文件哈希和实际版本核对，不能仅凭这些声明视为已经完成。
+
+顶层命令的 `ready` 仅表示资源路径、可执行文件和密钥存在，不验证 manifest、实际数据集版本或 Mathlib 导入环境。`TheoremManifest.preflight()` 进一步检查模板、已提供的哈希和 Lean 版本，其 `ready` 仍不代表完整外部评测环境已经验收。适配器不下载数据、不解析任意 Lean 声明，也不提供不可信 Lean 源码的安全沙箱。没有经过独立核对的数据和项目环境时，评测结论仍是 `not_run/blocked`，不是 0 分。
 
 准备好一个固定 checkout 后，可用以下方式做无模型预检（示例只说明接口，不包含外部数据）：
 
@@ -33,6 +35,8 @@ from benchmarks.external_theorem_adapter import ExternalLeanCompiler, TheoremMan
 manifest = TheoremManifest.load("/path/to/manifest.json")
 report = manifest.preflight("/path/to/pinned/checkout", lean="/path/to/lean")
 assert report["status"] == "ready"
+# This checks the adapter's narrow preflight only. Independently verify the
+# checkout revisions, every source hash, and the project's import environment.
 result = ExternalLeanCompiler(lean="/path/to/lean").compile(
     manifest.theorems[0], "/path/to/pinned/checkout", "by ...",
     project_root="/path/to/pinned/checkout",
@@ -61,7 +65,7 @@ manifest 的最小条目如下（`source` 文件必须只出现一次 `RESIMIND_
 }
 ```
 
-现有 12 题 ChinaTravel 结果仍只能叫受控小样本：官方 ReAct `0/12`、官方 NeSy `5/12`、ResiMind-ReAct `1/12`。它说明当前集成还没有显示出外部求解优势，不能外推到完整 154 题。此前的本地数学 fixture 和 Lean 组合测试证明的是验证层可靠性，不是 MiniF2F/LeanDojo 排名。
+最新公开的 [Bridge Doctor 配置正式 12 题结果](evidence/chinatravel-same-model-bridge-doctor-v1.zh-CN.md) 为：官方 ReAct `0/12`、官方 NeSy `3/12`、ResiMind-ReAct `0/12`。它说明当前集成还没有显示出外部求解优势，不能外推到完整 154 题。其他记录中的 `5/12`、`1/12` 属于此前另一轮实验，不能与本轮合并。此前的本地数学 fixture 和 Lean 组合测试证明的是验证层可靠性，不是 MiniF2F/LeanDojo 排名。
 
 ## 解锁条件
 

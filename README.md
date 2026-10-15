@@ -14,6 +14,8 @@
 
 [**Frontier roadmap and evidence**](docs/frontier-program.zh-CN.md) · [**External theorem benchmark boundary**](docs/external-benchmark-preflight.zh-CN.md)
 
+**Latest on `main` (after v0.16.0):** [memory provenance, expiry and transfer auditing](docs/verified-memory-lifecycle.zh-CN.md), reserved revision steps in the ChinaTravel integration, and an experimental external Lean template compiler. [The latest same-model planning result](docs/evidence/chinatravel-same-model-bridge-doctor-v1.zh-CN.md) and [development rerun](docs/evidence/chinatravel-development-frontier-v2.zh-CN.md) are published with their failures; neither establishes a planning success-rate gain. MiniF2F and LeanDojo scores are still pending.
+
 ResiMind is an open-source **neuro-symbolic Agent architecture** that connects independent verification, residual-guided self-correction and reusable rule memory. Your model, rules or symbolic tools propose a step; domain checks decide what becomes a fact. Failed checks tell the next attempt what still needs fixing.
 
 **A checked solution can become a checked rule.** Explicit learning extracts candidate rules from completed derivations, independently verifies admission, and rechecks each future application. Knowledge grows outside the model, without changing its weights. When local rules or tools suffice, the supported math routes run with **zero model calls**.
