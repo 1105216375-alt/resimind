@@ -92,7 +92,7 @@ Add `--json` to inspect the audit. [Connect DeepSeek](docs/open-planning.md#let-
 | Capability | What actually executes |
 | --- | --- |
 | **Residual-guided recovery** | A failed check can trigger a smaller local task, a verified rule, a symbolic rewrite, or a checked checkpoint return. Work budgets stay bounded. |
-| **Verified memory** | Independently admit candidate rules, persist and freeze the Python library, recheck on reload, and verify each new application. MCP memory is process-local. |
+| **Verified memory** | Independently admit candidate rules, persist and freeze the Python library, recheck on reload, and verify each new application. MCP and JSON-lines tools persist learning with optional `--memory-dir`. |
 | **Compact exact computation** | Shared expressions and sparse rational certificates handle long expansions within explicit resource limits. |
 | **Optional proof feedback** | Lean 4.29.0 checks generated `Rat` equalities; unfinished goals can guide the next proposal. Lean is separate from the MCP tools. |
 | **Residual proof composition** | A bounded typed plan introduces conditions, applies verified conditional lemmas, solves residual subgoals, and is compiled as one Lean proof. |

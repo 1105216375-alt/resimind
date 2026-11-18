@@ -1,23 +1,36 @@
 """Optional MCP SDK v2 stdio adapter. No dependency import in core paths."""
 from typing import Annotated, Any
+from contextlib import asynccontextmanager
 
 from ..tool_api import DESCRIPTIONS, ToolSession
 
 
-def create_server():
+def create_server(memory_dir=None):
     from mcp.server import MCPServer
     from mcp.types import ToolAnnotations
     from pydantic import Field
     from .. import __version__
 
-    session = ToolSession()
+    session = ToolSession(memory_dir)
+
+    @asynccontextmanager
+    async def lifespan(server):
+        try:
+            yield {}
+        finally:
+            session.close()
+
+    memory_note = ("Learning explicitly saves verified rule memory in the configured directory. "
+        "Reloaded rules and examples are revalidated. " if memory_dir is not None else
+        "Learning explicitly changes process-local memory, lost on restart. ")
     Expression = Annotated[str, Field(min_length=1, max_length=8192, strict=True)]
     Name = Annotated[str, Field(min_length=1, max_length=64, pattern=r"^[A-Za-z][A-Za-z0-9_]*$", strict=True)]
     Variables = Annotated[list[Name], Field(max_length=16, strict=True)]
     server = MCPServer("ResiMind", version=__version__,
         website_url="https://github.com/1105216375-alt/resimind",
+        lifespan=lifespan,
         instructions="Bounded exact rational polynomial tools. Only status=verified certifies the returned claim. "
-        "unresolved is not false. Learning explicitly changes process-local memory, lost on restart. "
+        "unresolved is not false. " + memory_note +
         "These tools make no model calls and do not produce Lean proofs.")
 
     def register(name):
@@ -48,12 +61,19 @@ def create_server():
     return server
 
 
-def main() -> int:
+def main(argv=None) -> int:
+    import argparse
     import sys
+    parser = argparse.ArgumentParser(prog="resimind-mcp")
+    parser.add_argument("--memory-dir", help="persist verified rules and examples in this directory")
+    args = parser.parse_args(argv)
     try:
-        server = create_server()
+        server = create_server(args.memory_dir)
     except ImportError:
         print("MCP requires Python 3.11+ and the optional dependency: pip install '.[mcp]' from the checkout", file=sys.stderr)
+        return 2
+    except (OSError, ValueError) as exc:
+        print(f"Cannot open tool memory: {exc}", file=sys.stderr)
         return 2
     server.run(transport="stdio")
     return 0

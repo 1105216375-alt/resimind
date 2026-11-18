@@ -49,7 +49,7 @@ It does not start a public HTTP service or modify your host configuration.
 | --- | --- | --- |
 | Check an LLM's polynomial identity and get mismatch feedback | `verify_identity(lhs, rhs, variables)` | No |
 | Expand a long polynomial into exact sparse terms | `expand_polynomial(expression, variables)` | No |
-| Solve an example and attempt checked rule extraction | `learn_polynomial(expression, variables)` | Yes, process-local |
+| Solve an example and attempt checked rule extraction | `learn_polynomial(expression, variables)` | Yes; persisted with `--memory-dir` |
 | Apply an existing rule without a model or fallback solver | `recall_polynomial(expression, variables)` | No |
 | Inspect verified rules and their fingerprints | `list_rules()` | No |
 
@@ -84,9 +84,36 @@ Expected observations:
 
 This is an executable example, not a general learning benchmark. The supplied
 examples yield a schema because their structures align; arbitrary pairs need
-not produce a rule. A fresh process starts with empty memory. Keep one process
-alive for learning followed by recall. For explicit persistent memory in Python,
-use the [lifelong adapter's save/load API](lifelong-math.md).
+not produce a rule. By default a fresh process starts with empty memory.
+
+### Keep verified learning across restarts
+
+Pass an explicit directory to either transport:
+
+```bash
+python -m resimind api --memory-dir ./verified-memory
+python -m resimind mcp --memory-dir ./verified-memory
+```
+
+For an MCP host, add `"--memory-dir", "/absolute/path/to/verified-memory"` to
+its server arguments. `resimind-mcp --memory-dir ...` accepts the same option.
+The directory is configured by the host, never by a tool argument.
+
+Each verified learning call saves both admitted rules and bounded training
+examples. Teach `(a+b)**3`, restart, teach `(u+v)**3`, restart again: recall of
+`(2*x+3*y)**3` can then reuse the checked cubic schema. Verification, expansion,
+recall and listing do not save. Responses identify `memory_scope: "directory"`;
+the default remains `"process"` and creates no storage.
+
+This reuses the [lifelong adapter's save/load API](lifelong-math.md): rules and
+examples are independently revalidated on startup, and every recalled application
+is checked again. Invalid or incomplete snapshots fail startup rather than
+silently creating empty memory. Frozen snapshots allow recall but refuse learning.
+An OS lock permits one running tool process per directory, including on Windows;
+closing or terminating it releases the lock. Give concurrent agents separate
+directories. A failed save returns an error and stops further calls in that
+session; check the snapshot before restarting. The existing snapshot digest
+detects interrupted writes between its two files.
 
 ## Interpret results correctly
 
@@ -99,7 +126,7 @@ and `memory_scope`. Tool-specific evidence appears in `verification`,
 | `verified` | The returned equality or expansion passed exact coefficient checks. It does not mean a new rule was learned. |
 | `rejected` | Two supported polynomials have different coefficients; the claimed identity is false. |
 | `unresolved` | Unsupported mathematics, exhausted limits, or no usable recall rule. This is not a disproof. |
-| `error` | Invalid request/tool/argument shape. |
+| `error` | Invalid request/tool/argument shape, or unavailable learning storage. |
 | `ok` | A non-proof operation, currently listing rules, completed. |
 
 The nested verifier retains its native `unknown` status when the public status

@@ -2,6 +2,9 @@
 
 ## Unreleased — frontier reliability pass
 
+- Add opt-in `--memory-dir` to MCP and JSON-lines tools. Verified rules and
+  training examples survive restarts through the existing revalidating snapshot
+  API; concurrent sessions on one directory are refused.
 - Reserve a shared native ReAct revision budget for the ChinaTravel ResiMind arm instead
   of letting the first search consume every step; the counter stays continuous and all
   arms keep the same total request, token and wall-clock ceilings.

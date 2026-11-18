@@ -9,19 +9,20 @@ from .domains.algebra import MAX_SOURCE_LENGTH, PolynomialError, verify_identity
 from .domains.compact_algebra import run_compact
 from .domains.lifelong_math import LifelongMathAgent
 from .domains.polynomial_learning import PolynomialProblem
+from .tool_memory import ToolMemory
 
 SCOPE = "bounded rational polynomial algebra; exact coefficient checks, not Lean proofs"
 MAX_REQUEST = 32768
 DESCRIPTIONS = {
     "verify_identity": "Check whether two bounded rational polynomials are identically equal; return a coefficient mismatch when false.",
     "expand_polynomial": "Expand a bounded rational polynomial into independently checked sparse terms without calling a model.",
-    "learn_polynomial": "Solve an expansion and explicitly update process-local rule memory; compatible examples may yield a universally checked schema.",
-    "recall_polynomial": "Try only verified rules in process-local memory, rechecking the application; no fallback computation or model call.",
-    "list_rules": "List process-local verified rule statements and fingerprints; listing is not proof of any new task.",
+    "learn_polynomial": "Solve an expansion and explicitly update rule memory; compatible examples may yield a universally checked schema.",
+    "recall_polynomial": "Try only verified rules in memory, rechecking the application; no fallback computation or model call.",
+    "list_rules": "List verified rule statements and fingerprints; listing is not proof of any new task.",
 }
 
 
-def tool_catalog() -> dict:
+def tool_catalog(memory_scope: str = "process") -> dict:
     expression = {"type": "string", "minLength": 1, "maxLength": MAX_SOURCE_LENGTH}
     variables = {"type": "array", "maxItems": 16, "uniqueItems": True,
                  "items": {"type": "string", "maxLength": 64, "pattern": "^[A-Za-z][A-Za-z0-9_]*$"}}
@@ -33,7 +34,7 @@ def tool_catalog() -> dict:
             "inputSchema": {"type": "object", "properties": fields,
                 "required": list(fields), "additionalProperties": False},
             "readOnly": name != "learn_polynomial"})
-    return {"schema_version": 1, "scope": SCOPE, "memory_scope": "process", "tools": tools}
+    return {"schema_version": 1, "scope": SCOPE, "memory_scope": memory_scope, "tools": tools}
 
 
 def _response(status, reason, **data):
@@ -56,13 +57,38 @@ def _certificate(certificate):
 
 
 class ToolSession:
-    """One isolated memory per process/session; no files, network or arbitrary code."""
+    """Isolated memory by default; an explicit directory persists verified learning."""
 
-    def __init__(self):
-        self.agent = LifelongMathAgent()
+    def __init__(self, memory_dir=None):
         self._lock = Lock()
+        self._memory = ToolMemory(memory_dir) if memory_dir is not None else None
+        try:
+            self.agent = self._memory.load() if self._memory else LifelongMathAgent()
+        except BaseException:
+            self.close()
+            raise
+        self._save_failed = False
+        self._closed = False
+
+    def close(self):
+        """Release the optional memory directory for the next process."""
+        with self._lock:
+            if self._memory is not None:
+                self._memory.close()
+            self._closed = True
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        self.close()
 
     def call(self, name, arguments):
+        response = self._dispatch(name, arguments)
+        response['memory_scope'] = 'directory' if self._memory else 'process'
+        return response
+
+    def _dispatch(self, name, arguments):
         if type(name) is not str or name not in DESCRIPTIONS:
             return _response("error", "unknown tool")
         fields = set() if name == "list_rules" else (
@@ -81,8 +107,21 @@ class ToolSession:
             if check.status != "verified":
                 return _response("error", check.reason)
         with self._lock:
+            if self._closed:
+                return _response("error", "tool session is closed")
+            if self._save_failed:
+                return _response("error", "memory save failed; restart after checking the snapshot directory")
+            if name == "learn_polynomial" and self.agent.frozen:
+                return _response("error", "memory snapshot is frozen; learning is disabled")
             try:
-                return self._call(name, arguments)
+                response = self._call(name, arguments)
+                if self._memory and name == "learn_polynomial" and response['status'] == 'verified':
+                    try:
+                        self._memory.save(self.agent)
+                    except (OSError, ValueError) as exc:
+                        self._save_failed = True
+                        return _response("error", "memory save failed: " + str(exc)[:512])
+                return response
             except (PolynomialError, ValueError, RecursionError) as exc:
                 return _response("unresolved", str(exc)[:512] or type(exc).__name__)
 
@@ -133,9 +172,13 @@ def _unique(pairs):
     return value
 
 
-def run_json_lines(source, destination) -> int:
-    """One request/response per line. Session memory lasts until EOF. Not JSON-RPC."""
-    session = ToolSession()
+def run_json_lines(source, destination, *, memory_dir=None) -> int:
+    """One request/response per line, with optional persistent memory. Not JSON-RPC."""
+    with ToolSession(memory_dir) as session:
+        return _run_json_lines(source, destination, session)
+
+
+def _run_json_lines(source, destination, session) -> int:
     errors = False
     while True:
         line = source.readline(MAX_REQUEST + 1)
@@ -156,6 +199,7 @@ def run_json_lines(source, destination) -> int:
             except (ValueError, RecursionError):
                 response = _response("error", "invalid JSON request or fields")
         errors = errors or response["status"] == "error"
+        response['memory_scope'] = 'directory' if session._memory else 'process'
         destination.write(json.dumps(response, ensure_ascii=True, allow_nan=False) + "\n")
         destination.flush()
     return 2 if errors else 0

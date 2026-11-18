@@ -75,9 +75,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     challenge_commands.add_parser("baseline", help="run the deterministic ResiMind tool baseline")
     scoring = challenge_commands.add_parser("score", help="score an answer JSON file with independent SymPy checks")
     scoring.add_argument("answers")
-    api = commands.add_parser("api", help="model-free JSON-lines tools on stdin/stdout; process-local memory")
+    api = commands.add_parser("api", help="model-free JSON-lines tools on stdin/stdout")
     api.add_argument("--list-tools", action="store_true", help="print the tool catalog and exit")
-    commands.add_parser("mcp", help="run the optional MCP stdio server (Python 3.11+; install .[mcp])")
+    api.add_argument("--memory-dir", help="persist verified rules and examples in this directory")
+    mcp = commands.add_parser("mcp", help="run the optional MCP stdio server (Python 3.11+; install .[mcp])")
+    mcp.add_argument("--memory-dir", help="persist verified rules and examples in this directory")
     demo = commands.add_parser("demo", help="run an OFFLINE deterministic fixture, without a model or API key")
     demo.add_argument("--domain", choices=("optimization", "bridge", "customer-support", "planning", "knowledge-growth", "adaptive", "growth-control", "lean", "scheduling", "progress", "search-learning", "lifelong"), default="optimization",
                       help="demonstration domain (default: optimization)")
@@ -90,14 +92,18 @@ def main(argv: Sequence[str] | None = None) -> int:
         return challenge_main(args)
     if args.command == "mcp":
         from .integrations.mcp import main as mcp_main
-        return mcp_main()
+        return mcp_main(["--memory-dir", args.memory_dir] if args.memory_dir else [])
     if args.command == "api":
         import sys
         from .tool_api import run_json_lines, tool_catalog
         if args.list_tools:
-            print(json.dumps(tool_catalog(), indent=2))
+            print(json.dumps(tool_catalog("directory" if args.memory_dir else "process"), indent=2))
             return 0
-        return run_json_lines(sys.stdin, sys.stdout)
+        try:
+            return run_json_lines(sys.stdin, sys.stdout, memory_dir=args.memory_dir)
+        except (OSError, ValueError) as exc:
+            print(f"Cannot open tool memory: {exc}", file=sys.stderr)
+            return 2
     scenarios = {"customer-support": ("refund", "missing-delivery", "expired"),
                  "planning": ("day-out", "rain", "missing-travel")}
     if args.scenario is not None and args.scenario not in scenarios.get(args.domain, ()):

@@ -54,3 +54,26 @@ def test_fresh_server_has_no_shared_memory():
             result = await client.call_tool("list_rules", {})
             assert result.structured_content["rules"] == []
     anyio.run(exercise)
+
+
+def test_stdio_memory_survives_restart(tmp_path):
+    import anyio
+    import os
+    from mcp import Client, StdioServerParameters
+
+    async def exercise():
+        process = StdioServerParameters(command=sys.executable,
+            args=["-m", "resimind", "mcp", "--memory-dir", str(tmp_path)],
+            env={**os.environ, "PYTHONPATH": str(Path(__file__).resolve().parents[1] / "src")})
+        with anyio.fail_after(45):
+            for expression, variables in [("(a+b)**3", ["a", "b"]), ("(u+v)**3", ["u", "v"])]:
+                async with Client(process) as client:
+                    result = await client.call_tool("learn_polynomial", {"expression": expression, "variables": variables})
+                    assert result.structured_content["status"] == "verified"
+                    assert result.structured_content["memory_scope"] == "directory"
+            async with Client(process) as client:
+                result = await client.call_tool("recall_polynomial", {
+                    "expression": "(2*x+3*y)**3", "variables": ["x", "y"]})
+                assert result.structured_content["status"] == "verified"
+                assert result.structured_content["route"] == "recall"
+    anyio.run(exercise)
